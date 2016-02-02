@@ -8,5 +8,11 @@
     <artifactId>CraftyFox2</artifactId>
     <version>1.0-DEV</version>
 
-    
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.1.1.RELEASE</version>
+        </dependency>
+    </dependencies>
 </project>
