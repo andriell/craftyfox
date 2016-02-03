@@ -5,17 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.andriell</groupId>
-    <artifactId>CraftyFox2</artifactId>
+    <artifactId>CraftyFox</artifactId>
     <version>1.0-DEV</version>
 
     <repositories>
         <repository>
-            <!-- DO NOT set id to "local" because it is reserved by Maven -->
             <id>lib</id>
             <url>file://${project.basedir}/lib</url>
         </repository>
+        <repository>
+            <id>oracleReleases</id>
+            <name>Oracle Released Java Packages</name>
+            <url>http://download.oracle.com/maven</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -23,12 +27,11 @@
             <version>4.1.1.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>iBoxDB</groupId>
-            <artifactId>iBoxDBv231</artifactId>
-            <version>2.3.1</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/lib/iBoxDBv231.jar</systemPath>
+            <groupId>com.sleepycat</groupId>
+            <artifactId>je</artifactId>
+            <version>6.4.25</version>
         </dependency>
+
     </dependencies>
 
     <build>
