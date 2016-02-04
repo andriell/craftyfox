@@ -29,12 +29,15 @@ public class Manager implements ManagerInterface {
     private class Starter implements Runnable {
         public void run() {
             while (true) {
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                boolean isRunen = true;
+                while (isRunen) {
+                    try {
+                        isRunen = runNew();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+                RunnableLimiter.sleep(1000);
             }
         }
     }
