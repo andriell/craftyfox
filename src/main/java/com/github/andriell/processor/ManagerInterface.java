@@ -5,5 +5,6 @@ package com.github.andriell.processor;
  */
 public interface ManagerInterface<T extends TaskInterface, P extends ProcessInterface<T>> {
     public void addTask(T task);
-    public void onProcessComplete();
+    public T pullTask();
+    protected void onProcessComplete();
 }

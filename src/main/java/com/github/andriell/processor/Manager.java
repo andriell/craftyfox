@@ -22,14 +22,14 @@ public class Manager<T extends TaskInterface, P extends ProcessInterface<T>> imp
 
     }
 
+    public T pullTask() {
+        return null;
+    }
+
     private class Starter implements Runnable {
         public void run() {
             while (true) {
-                while(runProcess <= runProcessMax) {
-                    if (!runNew()) {
-                        break;
-                    }
-                }
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -48,15 +48,10 @@ public class Manager<T extends TaskInterface, P extends ProcessInterface<T>> imp
         if (task == null) {
             return false;
         }
-        boolean isStart = false;
-        try {
-            isStart = runnableLimiter.start(processFactory.newProcess(task));
-        } finally {
-            if (!isStart) {
-                this.task.add(task);
-            }
+        boolean isStart = runnableLimiter.start(processFactory.newProcess(task));
+        if (!isStart) {
+            this.task.add(task);
         }
-
         return isStart;
     }
 }

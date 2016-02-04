@@ -4,8 +4,7 @@ package com.github.andriell.processor;
  * Created by Андрей on 04.02.2016.
  */
 public abstract class ProcessAbstract<T extends TaskInterface> implements ProcessInterface<T> {
-    private T task;
-    private ManagerInterface processor;
+    private ManagerInterface<T, super<T>> manager;
 
     protected abstract void doJob();
 
@@ -15,18 +14,16 @@ public abstract class ProcessAbstract<T extends TaskInterface> implements Proces
     }
 
     public T getTask() {
-        return task;
+        return manager.pullTask();
     }
 
-    public void setTask(T task) {
-        this.task = task;
-    }
+
 
     public ManagerInterface getManager() {
-        return processor;
+        return manager;
     }
 
-    public void setManager(ManagerInterface processor) {
-        this.processor = processor;
+    public void setManager(ManagerInterface manager) {
+        this.manager = manager;
     }
 }
