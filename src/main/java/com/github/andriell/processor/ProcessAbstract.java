@@ -3,22 +3,23 @@ package com.github.andriell.processor;
 /**
  * Created by Андрей on 04.02.2016.
  */
-public abstract class ProcessAbstract implements ProcessInterface {
-    private TaskInterface taskInterface;
+public abstract class ProcessAbstract<T extends TaskInterface> implements ProcessInterface<T> {
+    private T task;
     private ManagerInterface processor;
 
-    abstract void doJob();
+    protected abstract void doJob();
 
     public void run() {
         doJob();
+        getManager().onProcessComplete();
     }
 
-    public TaskInterface getTask() {
-        return taskInterface;
+    public T getTask() {
+        return task;
     }
 
-    public void setTask(TaskInterface taskInterface) {
-        this.taskInterface = taskInterface;
+    public void setTask(T task) {
+        this.task = task;
     }
 
     public ManagerInterface getManager() {
