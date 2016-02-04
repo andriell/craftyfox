@@ -44,14 +44,6 @@ public class Manager implements ManagerInterface {
     }
 
     protected boolean runNew() {
-
-        if (task == null) {
-            return false;
-        }
-        boolean isStart = runnableLimiter.start(processFactory.newProcess(this));
-        if (!isStart) {
-            this.task.add(task);
-        }
-        return isStart;
+        return runnableLimiter.start(processFactory.newProcess(this));
     }
 }
