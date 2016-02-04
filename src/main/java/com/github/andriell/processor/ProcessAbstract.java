@@ -5,7 +5,7 @@ package com.github.andriell.processor;
  */
 public abstract class ProcessAbstract implements Process {
     private Task task;
-    private ProcessorInterface processor;
+    private ManagerInterface processor;
 
     abstract void doJob();
 
@@ -21,11 +21,11 @@ public abstract class ProcessAbstract implements Process {
         this.task = task;
     }
 
-    public ProcessorInterface getProcessor() {
+    public ManagerInterface getProcessor() {
         return processor;
     }
 
-    public void setProcessor(ProcessorInterface processor) {
+    public void setProcessor(ManagerInterface processor) {
         this.processor = processor;
     }
 }
