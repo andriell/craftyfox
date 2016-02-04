@@ -3,8 +3,8 @@ package com.github.andriell.processor;
 /**
  * Created by Андрей on 04.02.2016.
  */
-public abstract class ProcessAbstract implements Process {
-    private Task task;
+public abstract class ProcessAbstract implements ProcessInterface {
+    private TaskInterface taskInterface;
     private ManagerInterface processor;
 
     abstract void doJob();
@@ -13,19 +13,19 @@ public abstract class ProcessAbstract implements Process {
         doJob();
     }
 
-    public Task getTask() {
-        return task;
+    public TaskInterface getTask() {
+        return taskInterface;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setTask(TaskInterface taskInterface) {
+        this.taskInterface = taskInterface;
     }
 
-    public ManagerInterface getProcessor() {
+    public ManagerInterface getManager() {
         return processor;
     }
 
-    public void setProcessor(ManagerInterface processor) {
+    public void setManager(ManagerInterface processor) {
         this.processor = processor;
     }
 }
