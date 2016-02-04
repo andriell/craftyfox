@@ -5,24 +5,24 @@ import java.util.concurrent.*;
 /**
  * Created by Андрей on 04.02.2016.
  */
-public class Manager<T extends TaskInterface, P extends ProcessInterface<T>> implements ManagerInterface<T, P> {
-    BlockingQueue<T> task;
+public class Manager implements ManagerInterface {
+    BlockingQueue task;
     private RunnableLimiter runnableLimiter;
     Starter starter;
 
-    ProcessFactoryInterface<T, P> processFactory;
+    ProcessFactoryInterface processFactory;
+
     public Manager(int capacity, boolean fair) {
         starter = new Starter();
 
-        task = new ArrayBlockingQueue<T>(capacity, fair);
+        task = new ArrayBlockingQueue(capacity, fair);
     }
 
-    public void addTask(T task) {
+    public void addTask(TaskInterface task) {
         this.task.add(task);
-
     }
 
-    public T pullTask() {
+    public TaskInterface pullTask() {
         return null;
     }
 
@@ -44,11 +44,11 @@ public class Manager<T extends TaskInterface, P extends ProcessInterface<T>> imp
     }
 
     protected boolean runNew() {
-        T task = this.task.poll();
+
         if (task == null) {
             return false;
         }
-        boolean isStart = runnableLimiter.start(processFactory.newProcess(task));
+        boolean isStart = runnableLimiter.start(processFactory.newProcess(this));
         if (!isStart) {
             this.task.add(task);
         }
