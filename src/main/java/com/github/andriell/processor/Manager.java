@@ -7,8 +7,7 @@ import java.util.concurrent.*;
  */
 public class Manager<T extends TaskInterface, P extends ProcessInterface<T>> implements ManagerInterface<T, P> {
     BlockingQueue<T> task;
-    private int runProcess = 0;
-    private int runProcessMax = 10;
+    private RunnableLimiter runnableLimiter;
     Starter starter;
 
     ProcessFactoryInterface<T, P> processFactory;
@@ -23,9 +22,7 @@ public class Manager<T extends TaskInterface, P extends ProcessInterface<T>> imp
 
     }
 
-    class Starter implements Runnable {
-
-
+    private class Starter implements Runnable {
         public void run() {
             while (true) {
                 while(runProcess <= runProcessMax) {
@@ -47,18 +44,19 @@ public class Manager<T extends TaskInterface, P extends ProcessInterface<T>> imp
     }
 
     protected boolean runNew() {
-        runProcess--;
         T task = this.task.poll();
         if (task == null) {
             return false;
         }
-        P process = processFactory.newProcess(task);
-        if (process == null) {
-            return false;
+        boolean isStart = false;
+        try {
+            isStart = runnableLimiter.start(processFactory.newProcess(task));
+        } finally {
+            if (!isStart) {
+                this.task.add(task);
+            }
         }
-        Thread thread = new Thread(process);
-        thread.run();
-        runProcess++;
-        return true;
+
+        return isStart;
     }
 }

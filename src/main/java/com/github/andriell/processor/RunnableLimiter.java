@@ -4,6 +4,7 @@ package com.github.andriell.processor;
  * Created by Андрей on 04.02.2016.
  */
 public class RunnableLimiter {
+    private final Object sync = new Object();
     private int runningProcesses = 0;
     private int limitProcess = 0;
 
@@ -11,15 +12,13 @@ public class RunnableLimiter {
         if (runnable == null) {
             return false;
         }
-        if (runningProcesses > limitProcess) {
-            return false;
+        synchronized (sync) {
+            if (runningProcesses > limitProcess) {
+                return false;
+            }
+            runningProcesses++;
         }
-        SelfRunnable selfRunnable;
-        if (runnable instanceof SelfRunnable) {
-            selfRunnable = (SelfRunnable) runnable;
-        } else {
-            selfRunnable = new SelfRunnable(runnable);
-        }
+        SelfRunnable selfRunnable = new SelfRunnable(runnable);
         Thread thread = new Thread(selfRunnable);
         thread.run();
         return true;
@@ -45,7 +44,6 @@ public class RunnableLimiter {
         }
 
         public void run() {
-            runningProcesses++;
             try {
                 runnable.run();
             } finally {
