@@ -6,5 +6,4 @@ package com.github.andriell.processor;
 public interface ManagerInterface {
     void addTask(DataInterface task);
     DataInterface pullTask();
-    void onProcessComplete();
 }

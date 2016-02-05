@@ -49,4 +49,12 @@ public class RunnableAdapter implements Runnable {
             }
         }
     }
+
+    public static RunnableAdapter envelop(Runnable runnable) {
+        if (runnable instanceof RunnableAdapter) {
+            return (RunnableAdapter) runnable;
+        } else {
+            return new RunnableAdapter(runnable);
+        }
+    }
 }

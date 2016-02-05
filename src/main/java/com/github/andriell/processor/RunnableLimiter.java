@@ -24,12 +24,7 @@ public class RunnableLimiter {
         if (runningProcesses > limitProcess) {
             return false;
         }
-        RunnableAdapter adapter;
-        if (runnable instanceof RunnableAdapter) {
-            adapter = (RunnableAdapter) runnable;
-        } else {
-            adapter = new RunnableAdapter(runnable);
-        }
+        RunnableAdapter adapter = RunnableAdapter.envelop(runnable);
         adapter.addListener(runnableListener);
         Thread thread = new Thread(adapter);
         thread.run();

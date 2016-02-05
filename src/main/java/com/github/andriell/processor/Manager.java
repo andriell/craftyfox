@@ -12,11 +12,12 @@ public class Manager implements ManagerInterface {
 
     private ProcessFactoryInterface processFactory;
     private RunnableLimiter runnableLimiter;
+    private RunnableListener runnableListener;
 
     public Manager(int capacity, boolean fair) {
         starter = new Starter();
+        runnableListener = new RunnableListener();
         taskQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
-        taskQueue.remainingCapacity();
     }
 
     public void start() {
@@ -52,17 +53,26 @@ public class Manager implements ManagerInterface {
         }
     }
 
-    public void onProcessComplete() {
-        runNew();
+    private class RunnableListener implements RunnableListenerInterface {
+
+        public void onStart(Runnable r) {}
+
+        public void onException(Runnable r, Exception e) {}
+
+        public void onComplete(Runnable r) {
+            runNew();
+        }
     }
 
     protected boolean runNew() {
-        DataInterface task = pullTask();
-        if (task == null) {
+        DataInterface data = pullTask();
+        if (data == null) {
             return false;
         }
-
-        return runnableLimiter.start(processFactory.newProcess(this));
+        ProcessInterface process = processFactory.newProcess(data);
+        RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
+        runnableAdapter.addListener(runnableListener);
+        return runnableLimiter.start(runnableAdapter);
     }
 
     public ProcessFactoryInterface getProcessFactory() {
