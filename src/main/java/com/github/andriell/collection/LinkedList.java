@@ -32,7 +32,7 @@ public class LinkedList<T> implements Iterable<T> {
         }
 
         public boolean hasNext() {
-            return position.next != null;
+            return position != null && position.next != null;
         }
 
         public T next() {
@@ -42,6 +42,8 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     public void add(T v) {
-        root = new Node(v, root);
+        synchronized (this) {
+            root = new Node(v, root);
+        }
     }
 }
