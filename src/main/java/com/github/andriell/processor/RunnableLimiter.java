@@ -6,7 +6,7 @@ package com.github.andriell.processor;
 public class RunnableLimiter {
     private final Object sync = new Object();
     private int runningProcesses = 0;
-    private int limitProcess = 10;
+    private int limitProcess = 2;
     private final RunnableListener runnableListener;
 
     public RunnableLimiter() {
@@ -26,11 +26,12 @@ public class RunnableLimiter {
             if (runningProcesses > limitProcess) {
                 return false;
             }
-            RunnableAdapter adapter = RunnableAdapter.envelop(runnable);
-            adapter.addListener(runnableListener);
-            Thread thread = new Thread(adapter);
-            thread.start();
+            runningProcesses++;
         }
+        RunnableAdapter adapter = RunnableAdapter.envelop(runnable);
+        adapter.addListener(runnableListener);
+        Thread thread = new Thread(adapter);
+        thread.start();
         return true;
     }
 
@@ -47,9 +48,7 @@ public class RunnableLimiter {
     }
 
     private class RunnableListener implements RunnableListenerInterface {
-        public void onStart(Runnable r) {
-            runningProcesses++;
-        }
+        public void onStart(Runnable r) {}
         public void onException(Runnable r, Exception e) {
             e.printStackTrace();
         }
