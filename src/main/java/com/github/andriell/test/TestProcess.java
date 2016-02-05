@@ -9,7 +9,13 @@ import com.github.andriell.processor.RunnableLimiter;
 public class TestProcess extends ProcessAbstract {
     private static int count = 0;
     private String name;
+
     public TestProcess() {
+        this(null);
+    }
+
+    public TestProcess(TestData data) {
+        setData(data);
         name = Integer.toString(count++);
     }
 

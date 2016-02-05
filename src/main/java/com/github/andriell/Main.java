@@ -3,6 +3,7 @@ package com.github.andriell;
 import com.github.andriell.processor.Manager;
 import com.github.andriell.processor.RunnableLimiter;
 import com.github.andriell.processor.DataInterface;
+import com.github.andriell.test.TestProcess;
 import com.github.andriell.test.TestProcessFactory;
 import com.github.andriell.test.TestData;
 
@@ -16,11 +17,17 @@ public class Main {
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
         Manager processor = applicationContext.getBean("processor", Manager.class);*/
-        test();
+        test3();
     }
 
     public static void test3() {
-        //ThreadPoolExecutor executor = new ThreadPoolExecutor();
+        RunnableLimiter limiter = new RunnableLimiter(2);
+        limiter.start(new TestProcess(new TestData()));
+        System.out.println(1);
+        limiter.start(new TestProcess(new TestData()));
+        System.out.println(2);
+        limiter.start(new TestProcess(new TestData()));
+        System.out.println(3);
     }
 
     public static void test2() {
@@ -37,8 +44,10 @@ public class Main {
     public static void test() {
         TestProcessFactory factory = new TestProcessFactory();
         Manager manager = new Manager(1000, true);
-        manager.setRunnableLimiter(new RunnableLimiter(4));
+        manager.setRunnableLimiter(new RunnableLimiter(2));
         manager.setProcessFactory(factory);
+        manager.addTask(new TestData());
+        manager.addTask(new TestData());
         manager.addTask(new TestData());
         manager.addTask(new TestData());
         manager.addTask(new TestData());

@@ -29,7 +29,7 @@ public class RunnableLimiter {
             RunnableAdapter adapter = RunnableAdapter.envelop(runnable);
             adapter.addListener(runnableListener);
             Thread thread = new Thread(adapter);
-            thread.run();
+            thread.start();
         }
         return true;
     }
