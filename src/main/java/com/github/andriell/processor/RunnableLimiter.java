@@ -23,7 +23,7 @@ public class RunnableLimiter {
             return false;
         }
         synchronized (sync) {
-            if (runningProcesses > limitProcess) {
+            if (runningProcesses >= limitProcess) {
                 return false;
             }
             runningProcesses++;

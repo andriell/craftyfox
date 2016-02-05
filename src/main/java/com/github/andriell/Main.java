@@ -17,11 +17,11 @@ public class Main {
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
         Manager processor = applicationContext.getBean("processor", Manager.class);*/
-        test3();
+        test();
     }
 
     public static void test3() {
-        RunnableLimiter limiter = new RunnableLimiter(2);
+        RunnableLimiter limiter = new RunnableLimiter(1);
         limiter.start(new TestProcess(new TestData()));
         System.out.println(1);
         limiter.start(new TestProcess(new TestData()));
@@ -44,7 +44,7 @@ public class Main {
     public static void test() {
         TestProcessFactory factory = new TestProcessFactory();
         Manager manager = new Manager(1000, true);
-        manager.setRunnableLimiter(new RunnableLimiter(2));
+        manager.setRunnableLimiter(new RunnableLimiter(1));
         manager.setProcessFactory(factory);
         manager.addTask(new TestData());
         manager.addTask(new TestData());
