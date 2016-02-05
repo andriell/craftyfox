@@ -9,17 +9,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+        /*ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
-        Manager processor = applicationContext.getBean("processor", Manager.class);
+        Manager processor = applicationContext.getBean("processor", Manager.class);*/
         test();
     }
 
     public static void test() {
         TestProcessFactory factory = new TestProcessFactory();
         Manager manager = new Manager(1000, true);
-        manager.setRunnableLimiter(new RunnableLimiter());
+        manager.setRunnableLimiter(new RunnableLimiter(4));
         manager.setProcessFactory(factory);
         manager.addTask(new TestTask());
         manager.addTask(new TestTask());
@@ -35,5 +35,6 @@ public class Main {
         manager.addTask(new TestTask());
         manager.addTask(new TestTask());
         manager.addTask(new TestTask());
+        manager.start();
     }
 }

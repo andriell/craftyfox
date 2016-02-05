@@ -33,20 +33,20 @@ public class Manager implements ManagerInterface {
     }
 
     public TaskInterface pullTask() {
-        return null;
+        return taskQueue.poll();
     }
 
     private class Starter implements Runnable {
         public void run() {
             while (start) {
                 boolean isRunen = true;
-                while (isRunen) {
+                do {
                     try {
                         isRunen = runNew();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
+                } while (isRunen);
                 RunnableLimiter.sleep(1000);
             }
         }

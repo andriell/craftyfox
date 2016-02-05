@@ -13,6 +13,6 @@ public class TestTask implements TaskInterface {
 
     @Override
     public String toString() {
-        return "" + count;
+        return Integer.toString(count);
     }
 }
