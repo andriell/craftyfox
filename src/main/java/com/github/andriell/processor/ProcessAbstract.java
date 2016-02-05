@@ -13,7 +13,7 @@ public abstract class ProcessAbstract implements ProcessInterface {
         getManager().onProcessComplete();
     }
 
-    public TaskInterface pullTask() {
+    public DataInterface pullTask() {
         return manager.pullTask();
     }
 

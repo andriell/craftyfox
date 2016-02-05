@@ -6,7 +6,7 @@ import java.util.concurrent.*;
  * Created by Андрей on 04.02.2016
  */
 public class Manager implements ManagerInterface {
-    private BlockingQueue<TaskInterface> taskQueue;
+    private BlockingQueue<DataInterface> taskQueue;
     private Starter starter;
     private boolean start = true;
 
@@ -15,7 +15,7 @@ public class Manager implements ManagerInterface {
 
     public Manager(int capacity, boolean fair) {
         starter = new Starter();
-        taskQueue = new ArrayBlockingQueue<TaskInterface>(capacity, fair);
+        taskQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
         taskQueue.remainingCapacity();
     }
 
@@ -28,11 +28,11 @@ public class Manager implements ManagerInterface {
         start = false;
     }
 
-    public void addTask(TaskInterface task) {
+    public void addTask(DataInterface task) {
         taskQueue.add(task);
     }
 
-    public TaskInterface pullTask() {
+    public DataInterface pullTask() {
         return taskQueue.poll();
     }
 
@@ -57,6 +57,11 @@ public class Manager implements ManagerInterface {
     }
 
     protected boolean runNew() {
+        DataInterface task = pullTask();
+        if (task == null) {
+            return false;
+        }
+
         return runnableLimiter.start(processFactory.newProcess(this));
     }
 
