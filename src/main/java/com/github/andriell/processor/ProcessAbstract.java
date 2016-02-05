@@ -4,24 +4,13 @@ package com.github.andriell.processor;
  * Created by Андрей on 04.02.2016
  */
 public abstract class ProcessAbstract implements ProcessInterface {
-    private ManagerInterface manager;
+   private DataInterface data;
 
-    protected abstract void doJob();
-
-    public void run() {
-        doJob();
-        getManager().onProcessComplete();
+    public DataInterface getData() {
+        return data;
     }
 
-    public DataInterface pullTask() {
-        return manager.pullTask();
-    }
-
-    public ManagerInterface getManager() {
-        return manager;
-    }
-
-    public void setManager(ManagerInterface manager) {
-        this.manager = manager;
+    public void setData(DataInterface data) {
+        this.data = data;
     }
 }

@@ -43,16 +43,6 @@ public class Main {
         manager.addTask(new TestData());
         manager.addTask(new TestData());
         manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
         manager.start();
     }
 }

@@ -13,11 +13,10 @@ public class TestProcess extends ProcessAbstract {
         name = Integer.toString(count++);
     }
 
-    @Override
-    protected void doJob() {
-        TestData task = (TestData) pullTask();
+    public void run() {
+        TestData data = (TestData) getData();
         for (int i = 0; i < 10; i++) {
-            System.out.println("process " + this + " task " + task + " " + i);
+            System.out.println("process " + this + " task " + data + " " + i);
             RunnableLimiter.sleep(100);
         }
     }
@@ -28,8 +27,6 @@ public class TestProcess extends ProcessAbstract {
 
     @Override
     public String toString() {
-        return "TestProcess{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

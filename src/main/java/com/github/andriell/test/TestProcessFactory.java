@@ -8,9 +8,9 @@ import com.github.andriell.processor.DataInterface;
  * Created by Андрей on 04.02.2016.
  */
 public class TestProcessFactory implements ProcessFactoryInterface {
-    public ProcessInterface newProcess(DataInterface manager) {
+    public ProcessInterface newProcess(DataInterface data) {
         TestProcess process = new TestProcess();
-        process.setManager(manager);
+        process.setData(data);
         return process;
     }
 }
