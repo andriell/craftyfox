@@ -6,32 +6,46 @@ import java.util.HashSet;
  * Created by Vika on 05.02.2016
  */
 public class RunnableAdapter implements Runnable {
-    private HashSet<RunnableListenerInterface> listeners = new HashSet<RunnableListenerInterface>();
+    private HashSet<RunnableListenerInterface> listeners;
     private Runnable runnable;
+
     public RunnableAdapter(Runnable runnable) {
         this.runnable = runnable;
+        listeners = new HashSet<RunnableListenerInterface>();
+    }
+
+    public void addListener(RunnableListenerInterface listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(RunnableListenerInterface listener) {
+        listeners.remove(listener);
+    }
+
+    public int sizeListener() {
+        return listeners.size();
     }
 
     public void run() {
         for (RunnableListenerInterface listener: listeners) {
             try {
-                listener.onStart();
+                listener.onStart(runnable);
             } catch (Exception e) {
-                listener.onException(e);
+                listener.onException(runnable, e);
             }
         }
         try {
             runnable.run();
         } catch (Exception e) {
             for (RunnableListenerInterface listener: listeners) {
-                listener.onException(e);
+                listener.onException(runnable, e);
             }
         }
         for (RunnableListenerInterface listener: listeners) {
             try {
-                listener.onComplete();
+                listener.onComplete(runnable);
             } catch (Exception e) {
-                listener.onException(e);
+                listener.onException(runnable, e);
             }
         }
     }

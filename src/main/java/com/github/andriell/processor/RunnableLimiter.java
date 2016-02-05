@@ -4,9 +4,9 @@ package com.github.andriell.processor;
  * Created by Андрей on 04.02.2016
  */
 public class RunnableLimiter {
-    private final Object sync = new Object();
     private int runningProcesses = 0;
     private int limitProcess = 10;
+    private final RunnableListener runnableListener;
 
     public RunnableLimiter() {
         this(10);
@@ -14,20 +14,24 @@ public class RunnableLimiter {
 
     public RunnableLimiter(int limitProcess) {
         this.limitProcess = limitProcess;
+        runnableListener = new RunnableListener();
     }
 
     public boolean start(Runnable runnable) {
         if (runnable == null) {
             return false;
         }
-        synchronized (sync) {
-            if (runningProcesses > limitProcess) {
-                return false;
-            }
-            runningProcesses++;
+        if (runningProcesses > limitProcess) {
+            return false;
         }
-        SelfRunnable selfRunnable = new SelfRunnable(runnable);
-        Thread thread = new Thread(selfRunnable);
+        RunnableAdapter adapter;
+        if (runnable instanceof RunnableAdapter) {
+            adapter = (RunnableAdapter) runnable;
+        } else {
+            adapter = new RunnableAdapter(runnable);
+        }
+        adapter.addListener(runnableListener);
+        Thread thread = new Thread(adapter);
         thread.run();
         return true;
     }
@@ -44,19 +48,15 @@ public class RunnableLimiter {
         this.limitProcess = limitProcess;
     }
 
-    private class SelfRunnable implements Runnable {
-        Runnable runnable;
-
-        public SelfRunnable(Runnable runnable) {
-            this.runnable = runnable;
+    private class RunnableListener implements RunnableListenerInterface {
+        public void onStart(Runnable r) {
+            runningProcesses++;
         }
-
-        public void run() {
-            try {
-                runnable.run();
-            } finally {
-                runningProcesses--;
-            }
+        public void onException(Runnable r, Exception e) {
+            e.printStackTrace();
+        }
+        public void onComplete(Runnable r) {
+            runningProcesses--;
         }
     }
 
