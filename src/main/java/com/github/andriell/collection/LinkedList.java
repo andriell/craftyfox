@@ -10,10 +10,6 @@ import java.util.function.Consumer;
 public class LinkedList<T> implements Iterable<T> {
     private Node root;
 
-    public Iterator<T> iterator() {
-        return new ListIterator();
-    }
-
     private class Node {
         T value;
         Node next;
@@ -39,6 +35,10 @@ public class LinkedList<T> implements Iterable<T> {
             position = position.next;
             return position.value;
         }
+    }
+
+    public Iterator<T> iterator() {
+        return new ListIterator();
     }
 
     public void add(T v) {
