@@ -9,7 +9,6 @@ import com.github.andriell.test.TestData;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class Main {
     public static void main(String[] args) {
@@ -46,12 +45,12 @@ public class Main {
         Manager manager = new Manager(1000, true);
         manager.setRunnableLimiter(new RunnableLimiter(1));
         manager.setProcessFactory(factory);
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
-        manager.addTask(new TestData());
+        manager.addData(new TestData());
+        manager.addData(new TestData());
+        manager.addData(new TestData());
+        manager.addData(new TestData());
+        manager.addData(new TestData());
+        manager.addData(new TestData());
         manager.start();
     }
 }

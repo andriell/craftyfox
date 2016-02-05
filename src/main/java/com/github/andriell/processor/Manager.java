@@ -33,7 +33,7 @@ public class Manager implements ManagerInterface {
         }
     }
 
-    public void addTask(DataInterface task) {
+    public void addData(DataInterface task) {
         taskQueue.add(task);
     }
 
@@ -80,7 +80,11 @@ public class Manager implements ManagerInterface {
         ProcessInterface process = processFactory.newProcess(data);
         RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
         runnableAdapter.addListener(runnableListener);
-        return runnableLimiter.start(runnableAdapter);
+        if (!runnableLimiter.start(runnableAdapter)) {
+            addData(data);
+            return false;
+        }
+        return true;
     }
 
     public ProcessFactoryInterface getProcessFactory() {
