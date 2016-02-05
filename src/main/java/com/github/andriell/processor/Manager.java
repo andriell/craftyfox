@@ -40,14 +40,14 @@ public class Manager implements ManagerInterface {
     private class Starter implements Runnable {
         public void run() {
             while (start) {
-                boolean isRunen = true;
+                boolean isRun = true;
                 do {
                     try {
-                        isRunen = runNew();
+                        isRun = runNew();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } while (isRunen);
+                } while (isRun);
                 RunnableLimiter.sleep(1000);
             }
         }

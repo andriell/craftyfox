@@ -4,6 +4,7 @@ package com.github.andriell.processor;
  * Created by Андрей on 04.02.2016
  */
 public class RunnableLimiter {
+    private final Object sync = new Object();
     private int runningProcesses = 0;
     private int limitProcess = 10;
     private final RunnableListener runnableListener;
@@ -21,14 +22,16 @@ public class RunnableLimiter {
         if (runnable == null) {
             return false;
         }
-        if (runningProcesses > limitProcess) {
-            return false;
+        synchronized (sync) {
+            if (runningProcesses > limitProcess) {
+                return false;
+            }
+            RunnableAdapter adapter = RunnableAdapter.envelop(runnable);
+            adapter.addListener(runnableListener);
+            Thread thread = new Thread(adapter);
+            thread.run();
+            return true;
         }
-        RunnableAdapter adapter = RunnableAdapter.envelop(runnable);
-        adapter.addListener(runnableListener);
-        Thread thread = new Thread(adapter);
-        thread.run();
-        return true;
     }
 
     public int getRunningProcesses() {
