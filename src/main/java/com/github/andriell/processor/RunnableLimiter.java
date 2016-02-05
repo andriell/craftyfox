@@ -30,8 +30,8 @@ public class RunnableLimiter {
             adapter.addListener(runnableListener);
             Thread thread = new Thread(adapter);
             thread.run();
-            return true;
         }
+        return true;
     }
 
     public int getRunningProcesses() {

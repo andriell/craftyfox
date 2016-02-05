@@ -8,25 +8,29 @@ import java.util.concurrent.*;
 public class Manager implements ManagerInterface {
     private BlockingQueue<DataInterface> taskQueue;
     private Starter starter;
-    private boolean start = true;
 
     private ProcessFactoryInterface processFactory;
     private RunnableLimiter runnableLimiter;
     private RunnableListener runnableListener;
 
     public Manager(int capacity, boolean fair) {
-        starter = new Starter();
+
         runnableListener = new RunnableListener();
         taskQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
     }
 
     public void start() {
-        start = true;
-        runnableLimiter.start(starter);
+        if (starter == null) {
+            starter = new Starter();
+            runnableLimiter.start(starter);
+        }
     }
 
     public void stop() {
-        start = false;
+        if (starter != null) {
+            starter.stop();
+            starter = null;
+        }
     }
 
     public void addTask(DataInterface task) {
@@ -38,6 +42,7 @@ public class Manager implements ManagerInterface {
     }
 
     private class Starter implements Runnable {
+        private boolean start = true;
         public void run() {
             while (start) {
                 boolean isRun = true;
@@ -47,9 +52,12 @@ public class Manager implements ManagerInterface {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } while (isRun);
+                } while (isRun && start);
                 RunnableLimiter.sleep(1000);
             }
+        }
+        public void stop() {
+            start = false;
         }
     }
 
