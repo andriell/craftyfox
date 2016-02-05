@@ -1,12 +1,20 @@
 package com.github.andriell.processor;
 
 /**
- * Created by Андрей on 04.02.2016.
+ * Created by Андрей on 04.02.2016
  */
 public class RunnableLimiter {
     private final Object sync = new Object();
     private int runningProcesses = 0;
-    private int limitProcess = 0;
+    private int limitProcess = 10;
+
+    public RunnableLimiter() {
+        this(10);
+    }
+
+    public RunnableLimiter(int limitProcess) {
+        this.limitProcess = limitProcess;
+    }
 
     public boolean start(Runnable runnable) {
         if (runnable == null) {

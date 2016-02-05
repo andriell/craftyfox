@@ -1,7 +1,7 @@
 package com.github.andriell.processor;
 
 /**
- * Created by Андрей on 04.02.2016.
+ * Created by Андрей on 04.02.2016
  */
 public abstract class ProcessAbstract implements ProcessInterface {
     private ManagerInterface manager;
@@ -13,7 +13,7 @@ public abstract class ProcessAbstract implements ProcessInterface {
         getManager().onProcessComplete();
     }
 
-    public TaskInterface getTask() {
+    public TaskInterface pullTask() {
         return manager.pullTask();
     }
 
