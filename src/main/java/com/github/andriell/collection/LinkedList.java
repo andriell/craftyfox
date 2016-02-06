@@ -50,7 +50,6 @@ public class LinkedList<T> implements Iterable<T> {
                 end.next = new Node(v, null);
                 end = end.next;
             }
-
         }
     }
 }
