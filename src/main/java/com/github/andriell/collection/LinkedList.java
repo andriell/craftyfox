@@ -1,14 +1,13 @@
 package com.github.andriell.collection;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 /**
  * Created by Vika on 06.02.2016
  */
 public class LinkedList<T> implements Iterable<T> {
     private Node root;
+    private Node end;
 
     private class Node {
         T value;
@@ -43,7 +42,14 @@ public class LinkedList<T> implements Iterable<T> {
 
     public void add(T v) {
         synchronized (this) {
-            root = new Node(v, root);
+            if (root == null) {
+                root = new Node(v, null);
+                end = root;
+            } else {
+                end.next = new Node(v, null);
+                end = end.next;
+            }
+
         }
     }
 }
