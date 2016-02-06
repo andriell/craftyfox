@@ -43,6 +43,7 @@ public class LinkedList<T> implements Iterable<T> {
 
     public void add(T v) {
         synchronized (this) {
+            // TODO Проверка на уникальность
             if (root == null) {
                 root = new Node(v, null);
                 end = root;
