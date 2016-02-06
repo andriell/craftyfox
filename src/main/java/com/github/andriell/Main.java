@@ -16,7 +16,7 @@ public class Main {
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
         Manager processor = applicationContext.getBean("processor", Manager.class);*/
-        test();
+        test3();
     }
 
     public static void test3() {
