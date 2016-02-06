@@ -27,12 +27,13 @@ public class LinkedList<T> implements Iterable<T> {
         }
 
         public boolean hasNext() {
-            return position != null && position.next != null;
+            return position != null;
         }
 
         public T next() {
+            T r = position.value;
             position = position.next;
-            return position.value;
+            return r;
         }
     }
 
