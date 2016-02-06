@@ -14,12 +14,14 @@ public class RunnableAdapter implements Runnable {
         listeners = new HashSet<RunnableListenerInterface>();
     }
 
-    public void addListener(RunnableListenerInterface listener) {
+    public RunnableAdapter addListener(RunnableListenerInterface listener) {
         listeners.add(listener);
+        return this;
     }
 
-    public void removeListener(RunnableListenerInterface listener) {
+    public RunnableAdapter removeListener(RunnableListenerInterface listener) {
         listeners.remove(listener);
+        return this;
     }
 
     public int sizeListener() {
