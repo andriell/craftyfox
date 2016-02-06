@@ -1,8 +1,4 @@
-package com.github.andriell.test;
-
-import com.github.andriell.processor.ProcessFactoryInterface;
-import com.github.andriell.processor.ProcessInterface;
-import com.github.andriell.processor.DataInterface;
+package com.github.andriell.processor;
 
 /**
  * Created by Андрей on 04.02.2016.

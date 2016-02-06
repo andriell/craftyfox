@@ -1,7 +1,4 @@
-package com.github.andriell.test;
-
-import com.github.andriell.processor.ProcessAbstract;
-import com.github.andriell.processor.RunnableLimiter;
+package com.github.andriell.processor;
 
 /**
  * Created by Андрей on 04.02.2016

@@ -1,4 +1,4 @@
-package com.github.andriell.test;
+package com.github.andriell.processor;
 
 import com.github.andriell.processor.DataInterface;
 
