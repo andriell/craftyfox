@@ -5,7 +5,7 @@ package com.github.andriell.collection;
  */
 public class LinkedListTest {
     public static void main(String[] args) {
-        LinkedSet<Integer> integers = new LinkedSet<Integer>();
+        LinkedSet<Integer> integers = new LinkedSet<>();
         integers.addEnd(1);
         integers.addEnd(2);
         integers.addEnd(3);
