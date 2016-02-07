@@ -53,4 +53,12 @@ public class LinkedList<T> implements Iterable<T> {
             }
         }
     }
+
+    public void remove(T v) {
+
+    }
+
+    public int size() {
+        return 10;
+    }
 }
