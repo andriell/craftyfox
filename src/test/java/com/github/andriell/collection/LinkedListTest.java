@@ -6,25 +6,29 @@ package com.github.andriell.collection;
 public class LinkedListTest {
     public static void main(String[] args) {
         LinkedSet<Integer> integers = new LinkedSet<>();
-        integers.addEnd(1);
+        System.out.println(integers.size());
         integers.addEnd(1);
         integers.addEnd(2);
-        integers.addEnd(2);
+        integers.addEnd(11);
         integers.addEnd(3);
-        integers.addEnd(3);
-        integers.addEnd(4);
         integers.addEnd(4);
         integers.addEnd(5);
         integers.addEnd(5);
         integers.addEnd(5);
+        integers.addEnd(12);
         integers.addFirst(0);
         integers.addFirst(0);
         integers.addFirst(0);
+        integers.addFirst(10);
+        integers.remove(10);
+        integers.remove(11);
+        integers.remove(12);
         System.out.println(integers);
         if ("[0, 1, 2, 3, 4, 5]".equals(integers.toString())) {
             System.out.println("Ok");
         } else {
             System.out.println("Error");
         }
+        System.out.println(integers.size());
     }
 }

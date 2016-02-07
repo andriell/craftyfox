@@ -81,9 +81,11 @@ public class LinkedSet<T> implements Iterable<T> {
                     } else {
                         prev.next = position.next;
                     }
+                    size--;
                     return true;
                 }
                 prev = position;
+                position = position.next;
             }
             return false;
         }
