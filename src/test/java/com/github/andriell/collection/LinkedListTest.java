@@ -17,9 +17,8 @@ public class LinkedListTest {
         integers.add(3);
         integers.add(4);
         integers.add(5);
-        Iterator<Integer> iterator = integers.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+        for (Integer integer : integers) {
+            System.out.println(integer);
         }
     }
 }
