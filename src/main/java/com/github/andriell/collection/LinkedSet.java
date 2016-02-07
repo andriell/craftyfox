@@ -3,7 +3,9 @@ package com.github.andriell.collection;
 import java.util.Iterator;
 
 /**
- * Created by Vika on 06.02.2016
+ * Простой односвязный список. Потокобезопастный.
+ * Вставка и удаление блокируют вставку и удаление.
+ * Created by Андрей on 06.02.2016
  */
 public class LinkedSet<T> implements Iterable<T> {
     private Node root;

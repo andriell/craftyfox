@@ -6,7 +6,12 @@ package com.github.andriell.collection;
 public class LinkedListTest {
     public static void main(String[] args) {
         LinkedSet<Integer> integers = new LinkedSet<>();
-        System.out.println(integers.size());
+        System.out.println();
+        if (integers.size() == 0) {
+            System.out.println("Ok");
+        } else {
+            System.out.println("Error");
+        }
         integers.addEnd(1);
         integers.addEnd(2);
         integers.addEnd(11);
@@ -29,6 +34,10 @@ public class LinkedListTest {
         } else {
             System.out.println("Error");
         }
-        System.out.println(integers.size());
+        if (integers.size() == 6) {
+            System.out.println("Ok");
+        } else {
+            System.out.println("Error");
+        }
     }
 }
