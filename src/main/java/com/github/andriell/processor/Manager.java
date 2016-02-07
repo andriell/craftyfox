@@ -79,11 +79,11 @@ public class Manager implements ManagerInterface {
         }
         ProcessInterface process = processFactory.newProcess(data);
         RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
+        runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
         if (!runnableLimiter.start(runnableAdapter)) {
             addData(data);
             return false;
         }
-        runnableAdapter.addListener(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
         return true;
     }
 

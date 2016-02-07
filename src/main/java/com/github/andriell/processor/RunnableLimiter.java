@@ -28,7 +28,7 @@ public class RunnableLimiter {
             runningProcesses++;
         }
         RunnableAdapter adapter = RunnableAdapter.envelop(runnable);
-        adapter.addListener(runnableListener);
+        adapter.addListenerEnd(runnableListener);
         Thread thread = new Thread(adapter);
         thread.start();
         return true;

@@ -14,8 +14,13 @@ public class RunnableAdapter implements Runnable {
         listeners = new LinkedSet<RunnableListenerInterface>();
     }
 
-    public RunnableAdapter addListener(RunnableListenerInterface listener) {
+    public RunnableAdapter addListenerEnd(RunnableListenerInterface listener) {
         listeners.addEnd(listener);
+        return this;
+    }
+
+    public RunnableAdapter addListenerFirst(RunnableListenerInterface listener) {
+        listeners.addFirst(listener);
         return this;
     }
 
