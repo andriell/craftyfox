@@ -7,7 +7,7 @@ public class ManagerTest {
     public static void main(String[] args) {
         TestProcessFactory factory = new TestProcessFactory();
         Manager manager = new Manager(1000, true);
-        manager.setRunnableLimiter(new RunnableLimiter(1));
+        manager.setRunnableLimiter(new RunnableLimiter(4));
         manager.setProcessFactory(factory);
         manager.addData(new TestData());
         manager.addData(new TestData());

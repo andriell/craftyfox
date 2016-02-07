@@ -73,6 +73,9 @@ public class Manager implements ManagerInterface {
     }
 
     protected boolean runNew() {
+        if (!runnableLimiter.canStart()) {
+            return false;
+        }
         DataInterface data = pullTask();
         if (data == null) {
             return false;
@@ -100,9 +103,7 @@ public class Manager implements ManagerInterface {
     }
 
     public void setRunnableLimiter(RunnableLimiter runnableLimiter) {
-        if (runnableLimiter.getLimitProcess() <= 1) {
-            runnableLimiter.setLimitProcess(2);
-        }
+        runnableLimiter.setLimitProcess(runnableLimiter.getLimitProcess() + 1);
         this.runnableLimiter = runnableLimiter;
     }
 }
