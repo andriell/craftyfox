@@ -46,7 +46,9 @@ public class LinkedSet<T> implements Iterable<T> {
 
     public boolean add(T v) {
         synchronized (this) {
-            // TODO Проверка на уникальность
+            if (contains(v)) {
+                return false;
+            }
             if (root == null) {
                 root = new Node(v, null);
                 end = root;
@@ -60,20 +62,22 @@ public class LinkedSet<T> implements Iterable<T> {
     }
 
     public boolean remove(Object o) {
-        Node position = root;
-        Node prev = null;
-        while (position != null) {
-            if (position.value.equals(o)) {
-                if (prev == null) {
-                    root = position.next;
-                } else {
-                    prev.next = position.next;
+        synchronized (this) {
+            Node position = root;
+            Node prev = null;
+            while (position != null) {
+                if (position.value.equals(o)) {
+                    if (prev == null) {
+                        root = position.next;
+                    } else {
+                        prev.next = position.next;
+                    }
+                    return true;
                 }
-                return true;
+                prev = position;
             }
-            prev = position;
+            return false;
         }
-        return false;
     }
 
     public void clear() {
