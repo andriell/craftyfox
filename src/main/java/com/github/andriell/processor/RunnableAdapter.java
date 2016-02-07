@@ -15,7 +15,7 @@ public class RunnableAdapter implements Runnable {
     }
 
     public RunnableAdapter addListener(RunnableListenerInterface listener) {
-        listeners.add(listener);
+        listeners.addEnd(listener);
         return this;
     }
 

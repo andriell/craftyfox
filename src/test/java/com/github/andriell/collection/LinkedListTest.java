@@ -6,11 +6,13 @@ package com.github.andriell.collection;
 public class LinkedListTest {
     public static void main(String[] args) {
         LinkedSet<Integer> integers = new LinkedSet<Integer>();
-        integers.add(1);
-        integers.add(2);
-        integers.add(3);
-        integers.add(4);
-        integers.add(5);
+        integers.addEnd(1);
+        integers.addEnd(2);
+        integers.addEnd(3);
+        integers.addEnd(4);
+        integers.addEnd(5);
+        integers.addEnd(5);
+        integers.addFirst(0);
         for (Integer integer : integers) {
             System.out.println(integer);
         }

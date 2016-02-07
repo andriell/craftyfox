@@ -44,7 +44,18 @@ public class LinkedSet<T> implements Iterable<T> {
         return new ListIterator();
     }
 
-    public boolean add(T v) {
+    public boolean addFirst(T v) {
+        synchronized (this) {
+            if (contains(v)) {
+                return false;
+            }
+            root = new Node(v, root);
+            size++;
+        }
+        return true;
+    }
+
+    public boolean addEnd(T v) {
         synchronized (this) {
             if (contains(v)) {
                 return false;
