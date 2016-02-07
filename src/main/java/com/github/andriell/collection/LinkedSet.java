@@ -1,13 +1,16 @@
 package com.github.andriell.collection;
 
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by Vika on 06.02.2016
  */
-public class LinkedList<T> implements Iterable<T> {
+public class LinkedSet<T> implements Iterable<T> {
     private Node root;
     private Node end;
+    private int size = 0;
 
     private class Node {
         T value;
@@ -41,7 +44,7 @@ public class LinkedList<T> implements Iterable<T> {
         return new ListIterator();
     }
 
-    public void add(T v) {
+    public boolean add(T v) {
         synchronized (this) {
             // TODO Проверка на уникальность
             if (root == null) {
@@ -51,14 +54,50 @@ public class LinkedList<T> implements Iterable<T> {
                 end.next = new Node(v, null);
                 end = end.next;
             }
+            size++;
         }
+        return true;
     }
 
-    public void remove(T v) {
+    public boolean remove(Object o) {
+        Node position = root;
+        Node prev = null;
+        while (position != null) {
+            if (position.value.equals(o)) {
+                if (prev == null) {
+                    root = position.next;
+                } else {
+                    prev.next = position.next;
+                }
+                return true;
+            }
+            prev = position;
+        }
+        return false;
+    }
 
+    public void clear() {
+        root = null;
+        end = null;
+        size = 0;
     }
 
     public int size() {
-        return 10;
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    public boolean contains(Object o) {
+        Node position = root;
+        while (position != null) {
+            if (position.value.equals(o)) {
+                return true;
+            }
+            position = position.next;
+        }
+        return false;
     }
 }

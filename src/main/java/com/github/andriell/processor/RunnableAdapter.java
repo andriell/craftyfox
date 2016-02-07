@@ -1,19 +1,17 @@
 package com.github.andriell.processor;
 
-import com.github.andriell.collection.LinkedList;
-
-import java.util.HashSet;
+import com.github.andriell.collection.LinkedSet;
 
 /**
  * Created by Vika on 05.02.2016
  */
 public class RunnableAdapter implements Runnable {
-    private LinkedList<RunnableListenerInterface> listeners;
+    private LinkedSet<RunnableListenerInterface> listeners;
     private Runnable runnable;
 
     public RunnableAdapter(Runnable runnable) {
         this.runnable = runnable;
-        listeners = new LinkedList<RunnableListenerInterface>();
+        listeners = new LinkedSet<RunnableListenerInterface>();
     }
 
     public RunnableAdapter addListener(RunnableListenerInterface listener) {
