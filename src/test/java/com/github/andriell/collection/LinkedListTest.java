@@ -13,8 +13,6 @@ public class LinkedListTest {
         integers.addEnd(5);
         integers.addEnd(5);
         integers.addFirst(0);
-        for (Integer integer : integers) {
-            System.out.println(integer);
-        }
+        System.out.println(integers);
     }
 }

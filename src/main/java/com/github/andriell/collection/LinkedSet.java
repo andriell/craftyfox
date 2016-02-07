@@ -1,8 +1,6 @@
 package com.github.andriell.collection;
 
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by Vika on 06.02.2016
@@ -114,5 +112,23 @@ public class LinkedSet<T> implements Iterable<T> {
             position = position.next;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(size() * 2 + 4);
+        builder.append("[");
+        Node position = root;
+        while (true) {
+            builder.append(position.value);
+            if (position.next != null) {
+                builder.append(", ");
+            } else {
+                break;
+            }
+            position = position.next;
+        }
+        builder.append("]");
+        return builder.toString();
     }
 }
