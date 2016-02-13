@@ -26,7 +26,7 @@ public class HashThree<T> {
             if (position.three == null) {
                 position.three = new HashThree[OST];
             }
-            int index = hash & OST1;
+            int index = hash & 7;
             hash = hash >>> 3;
             if (position.three[index] == null) {
                 position.three[index] = new HashThree();
@@ -61,12 +61,10 @@ public class HashThree<T> {
         for(int i = 0; i < OST; i++) {
             if (position.three[i] != null) {
                 builder.append(tab);
-                builder.append(i + 1);
+                builder.append(i);
                 builder.append(": ");
                 toString(position.three[i], builder, tab + "    ");
-
             }
         }
-
     }
 }

@@ -8,7 +8,7 @@ import com.github.andriell.collection.HashThree;
 public class Test {
     public static void main(String[] args) {
         Object o = new Object();
-        int hash = -100500;
+        int hash = o.hashCode();
         System.out.println("Dec: " + o.hashCode());
         System.out.println("Bin: " + Integer.toBinaryString(hash));
         System.out.println("Oct: " + Integer.toOctalString(hash));
