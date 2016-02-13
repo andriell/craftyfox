@@ -10,6 +10,14 @@ public class HashThree<T> {
     private T value;
 
     public boolean add(T t) {
+        return add(t, false);
+    }
+
+    public boolean replace(T t) {
+        return add(t, true);
+    }
+
+    private boolean add(T t, boolean replace) {
         int hash = t.hashCode();
         HashThree position = this;
         while(hash != 0) {
@@ -24,6 +32,9 @@ public class HashThree<T> {
             hash = hash >>> 3;
         }
         if (position.value == null) {
+            position.value = t;
+            return true;
+        } else if (replace) {
             position.value = t;
             return true;
         }
