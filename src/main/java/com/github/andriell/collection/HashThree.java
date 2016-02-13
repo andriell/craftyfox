@@ -28,6 +28,6 @@ public class HashThree<T> {
 
     @Override
     public String toString() {
-        return Arrays.deepToString(three);
+        return Arrays.deepToString(three) + " = " + value;
     }
 }
