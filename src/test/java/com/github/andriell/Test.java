@@ -1,5 +1,7 @@
 package com.github.andriell;
 
+import com.github.andriell.collection.HashThree;
+
 /**
  * Created by Vika on 07.02.2016
  */
@@ -16,5 +18,10 @@ public class Test {
             System.out.print(hash & 7);
             hash = hash >>> 3;
         }
+        System.out.println();
+
+        HashThree<Object> three = new HashThree<Object>();
+        three.add(o);
+        System.out.println(three);
     }
 }
