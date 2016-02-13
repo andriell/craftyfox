@@ -25,11 +25,11 @@ public class HashThree<T> {
                 position.three = new HashThree[8];
             }
             int index = hash & 7;
+            hash = hash >>> 3;
             if (position.three[index] == null) {
                 position.three[index] = new HashThree();
             }
             position = position.three[index];
-            hash = hash >>> 3;
         }
         if (position.value == null) {
             position.value = t;
@@ -41,13 +41,33 @@ public class HashThree<T> {
         return false;
     }
 
-
     @Override
     public String toString() {
-        if (value == null) {
-            return Arrays.deepToString(three);
-        } else {
-            return "Value: " + value;
+        if (three == null) {
+            return "null";
         }
+        StringBuilder builder = new StringBuilder();
+        toString(this, builder, "");
+        return builder.toString();
+    }
+
+    public void toString(HashThree position, StringBuilder builder, String tab) {
+        builder.append("\n");
+        if (position.three == null) {
+            builder.append(tab);
+            builder.append("Value: ");
+            builder.append(position.value);
+            return;
+        }
+        for(int i = 0; i < 8; i++) {
+            if (position.three[i] != null) {
+                builder.append(tab);
+                builder.append(i);
+                builder.append(": ");
+                toString(position.three[i], builder, tab + "    ");
+
+            }
+        }
+
     }
 }
