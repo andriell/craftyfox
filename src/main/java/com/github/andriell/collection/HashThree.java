@@ -8,6 +8,8 @@ import java.util.Arrays;
 public class HashThree<T> {
     private HashThree[] three;
     private T value;
+    private final int OST = 8;
+    private final int OST1 = 7;
 
     public boolean add(T t) {
         return add(t, false);
@@ -22,9 +24,9 @@ public class HashThree<T> {
         HashThree position = this;
         while(hash != 0) {
             if (position.three == null) {
-                position.three = new HashThree[8];
+                position.three = new HashThree[OST];
             }
-            int index = hash & 7;
+            int index = hash & OST1;
             hash = hash >>> 3;
             if (position.three[index] == null) {
                 position.three[index] = new HashThree();
@@ -43,9 +45,6 @@ public class HashThree<T> {
 
     @Override
     public String toString() {
-        if (three == null) {
-            return "null";
-        }
         StringBuilder builder = new StringBuilder();
         toString(this, builder, "");
         return builder.toString();
@@ -59,10 +58,10 @@ public class HashThree<T> {
             builder.append(position.value);
             return;
         }
-        for(int i = 0; i < 8; i++) {
+        for(int i = 0; i < OST; i++) {
             if (position.three[i] != null) {
                 builder.append(tab);
-                builder.append(i);
+                builder.append(i + 1);
                 builder.append(": ");
                 toString(position.three[i], builder, tab + "    ");
 
