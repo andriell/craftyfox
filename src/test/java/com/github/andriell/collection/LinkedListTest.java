@@ -1,17 +1,20 @@
 package com.github.andriell.collection;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+
 /**
  * Created by Vika on 06.02.2016
  */
 public class LinkedListTest {
-    public static void main(String[] args) {
+    @Test
+    public void test1() {
         LinkedSet<Integer> integers = new LinkedSet<Integer>();
-        System.out.println();
-        if (integers.size() == 0) {
-            System.out.println("Ok");
-        } else {
-            System.out.println("Error");
-        }
+
+        assertEquals(0, integers.size());
+
         integers.addEnd(1);
         integers.addEnd(2);
         integers.addEnd(11);
@@ -28,16 +31,8 @@ public class LinkedListTest {
         integers.remove(10);
         integers.remove(11);
         integers.remove(12);
-        System.out.println(integers);
-        if ("[0, 1, 2, 3, 4, 5]".equals(integers.toString())) {
-            System.out.println("Ok");
-        } else {
-            System.out.println("Error");
-        }
-        if (integers.size() == 6) {
-            System.out.println("Ok");
-        } else {
-            System.out.println("Error");
-        }
+
+        assertEquals(integers.toString(), "[0, 1, 2, 3, 4, 5]", integers.toString());
+        assertEquals(6, integers.size());
     }
 }
