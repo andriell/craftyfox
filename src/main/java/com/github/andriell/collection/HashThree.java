@@ -10,24 +10,33 @@ public class HashThree<T> {
     private T value;
 
     public boolean add(T t) {
-        return add(t, this, t.hashCode(), false);
+        int hash = t.hashCode();
+        HashThree position = this;
+        while(hash != 0) {
+            if (position.three == null) {
+                position.three = new HashThree[8];
+            }
+            int index = hash & 7;
+            if (position.three[index] == null) {
+                position.three[index] = new HashThree();
+            }
+            position = position.three[index];
+            hash = hash >>> 3;
+        }
+        if (position.value == null) {
+            position.value = t;
+            return true;
+        }
+        return false;
     }
 
-    private boolean add(T t, HashThree position, int hash, boolean replace) {
-        if (hash == 0) {
-            boolean empty = position.value == null;
-            if (replace && !empty) {
-                position.value = t;
-            }
-            return empty;
-        } else {
-            position.three = new HashThree[8];
-            return add(t, position.three[hash & 7] = new HashThree(), hash >>> 7, replace);
-        }
-    }
 
     @Override
     public String toString() {
-        return Arrays.deepToString(three) + " = " + value;
+        if (value == null) {
+            return Arrays.deepToString(three);
+        } else {
+            return "Value: " + value;
+        }
     }
 }
