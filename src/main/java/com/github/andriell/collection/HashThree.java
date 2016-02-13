@@ -52,7 +52,7 @@ public class HashThree<T> {
 
     public void toString(HashThree position, StringBuilder builder) {
         if (position.three == null) {
-            builder.append(": ");
+            builder.append(":");
             builder.append(position.value);
             builder.append("\n");
             return;
