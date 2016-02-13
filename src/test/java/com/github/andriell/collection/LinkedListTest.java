@@ -5,7 +5,7 @@ package com.github.andriell.collection;
  */
 public class LinkedListTest {
     public static void main(String[] args) {
-        LinkedSet<Integer> integers = new LinkedSet<>();
+        LinkedSet<Integer> integers = new LinkedSet<Integer>();
         System.out.println();
         if (integers.size() == 0) {
             System.out.println("Ok");
