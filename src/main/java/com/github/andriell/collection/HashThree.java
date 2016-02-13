@@ -46,24 +46,21 @@ public class HashThree<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        toString(this, builder, "");
+        toString(this, builder);
         return builder.toString();
     }
 
-    public void toString(HashThree position, StringBuilder builder, String tab) {
-        builder.append("\n");
+    public void toString(HashThree position, StringBuilder builder) {
         if (position.three == null) {
-            builder.append(tab);
-            builder.append("Value: ");
+            builder.append(": ");
             builder.append(position.value);
+            builder.append("\n");
             return;
         }
         for(int i = 0; i < OST; i++) {
             if (position.three[i] != null) {
-                builder.append(tab);
                 builder.append(i);
-                builder.append(": ");
-                toString(position.three[i], builder, tab + "    ");
+                toString(position.three[i], builder);
             }
         }
     }
