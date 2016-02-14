@@ -12,7 +12,7 @@ public class HashThree<T> {
     private int size = 0;
     private static final char[] alphabet = {
             '0', '1', '2', '3', '4', '5', '6', '7',
-            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+            '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
     };
 
     public boolean add(T t) {

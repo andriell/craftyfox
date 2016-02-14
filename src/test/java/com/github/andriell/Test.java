@@ -11,9 +11,8 @@ public class Test {
         int hash = o.hashCode();
         System.out.println("Dec: " + o.hashCode());
         System.out.println("Bin: " + Integer.toBinaryString(hash));
-        System.out.println("Oct: " + Integer.toOctalString(hash));
         System.out.println("Hex: " + Integer.toHexString(hash));
-        System.out.println("Oct revers: " + new StringBuilder(Integer.toOctalString(hash)).reverse());
+        System.out.println("Hex revers: " + new StringBuilder(Integer.toHexString(hash)).reverse());
 
         while(hash != 0) {
             System.out.print(hash & 7);
