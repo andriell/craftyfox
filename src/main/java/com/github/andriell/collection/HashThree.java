@@ -23,33 +23,53 @@ public class HashThree<T> {
     }
 
     public boolean exist(T t) {
+        return getPath(t) != null;
+    }
+
+    private Entity[] getPath(T t) {
+        Entity[] path = new Entity[8];
+        int i = 0;
         int hash = t.hashCode();
         Entity position = root;
         while(hash != 0) {
             if (position.three == null) {
-                return false;
+                return null;
             }
             int index = hash & 15;
             hash = hash >>> 4;
             if (position.three[index] == null) {
-                return false;
+                return null;
             }
+            path[i] = position;
+            i++;
             position = position.three[index];
         }
-        return true;
+        return path;
     }
 
     public boolean remove(T t) {
-        if (!exist(t)) {
+        Entity[] path = getPath(t);
+        if (path == null) {
             return false;
         }
         //<editor-fold desc="Удаляем ненужные части дерева">
-        int hash = t.hashCode();
-        Entity position = root;
-        while(hash != 0) {
-            int index = hash & 15;
-            hash = hash >>> 4;
-            position = position.three[index];
+        for (int i = 0; i < 4; i++) {
+            if (path[i] == null) {
+                break;
+            }
+            byte count = 0;
+            for (int j = 0; j < 16; j++) {
+                if (path[i].three[j] != null) {
+                    count++;
+                }
+                if (count>1) {
+                    break;
+                }
+            }
+            if (count <= 1) {
+                path[i].three = null;
+                return true;
+            }
         }
         return false;
         //</editor-fold>
