@@ -8,8 +8,11 @@ import java.util.Arrays;
 public class HashThree<T> {
     private HashThree[] three;
     private T value;
-    private final int OST = 8;
-    private final int OST1 = 7;
+    private int size = 0;
+    private static final char[] alphabet = {
+            '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+    };
 
     public boolean add(T t) {
         return add(t, false);
@@ -19,15 +22,19 @@ public class HashThree<T> {
         return add(t, true);
     }
 
+    public boolean remove(T t) {
+        return true;
+    }
+
     private boolean add(T t, boolean replace) {
         int hash = t.hashCode();
         HashThree position = this;
         while(hash != 0) {
             if (position.three == null) {
-                position.three = new HashThree[OST];
+                position.three = new HashThree[16];
             }
-            int index = hash & 7;
-            hash = hash >>> 3;
+            int index = hash & 15;
+            hash = hash >>> 4;
             if (position.three[index] == null) {
                 position.three[index] = new HashThree();
             }
@@ -57,9 +64,9 @@ public class HashThree<T> {
             builder.append("\n");
             return;
         }
-        for(int i = 0; i < OST; i++) {
+        for(int i = 0; i < 16; i++) {
             if (position.three[i] != null) {
-                builder.append(i);
+                builder.append(alphabet[i]);
                 toString(position.three[i], builder);
             }
         }
