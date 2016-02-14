@@ -68,6 +68,7 @@ public class HashThree<T> {
             }
             if (count <= 1) {
                 path[i].three = null;
+                size--;
                 return true;
             }
         }
