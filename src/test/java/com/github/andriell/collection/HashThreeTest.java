@@ -15,9 +15,9 @@ public class HashThreeTest {
 
     @Test
     public void test1() {
-        ObjectTest test1 = new ObjectTest(-100);
-        ObjectTest test2 = new ObjectTest(-101);
-        ObjectTest test3 = new ObjectTest(-102);
+        ObjectTest test1 = new ObjectTest(100);
+        ObjectTest test2 = new ObjectTest(101);
+        ObjectTest test3 = new ObjectTest(102);
         ObjectTest test4 = new ObjectTest(-103);
 
         HashThree<ObjectTest> three = new HashThree<ObjectTest>();

@@ -31,7 +31,7 @@ public class HashThree<T> {
         int i = 0;
         int hash = t.hashCode();
         Entity position = root;
-        while(hash != 0) {
+        for(byte b = 0; b < 8; b++) {
             if (position.three == null) {
                 return null;
             }
@@ -83,7 +83,7 @@ public class HashThree<T> {
     private boolean add(T t, boolean replace) {
         int hash = t.hashCode();
         Entity position = root;
-        while(hash != 0) {
+        for(byte b = 0; b < 8; b++) {
             if (position.three == null) {
                 position.three = new Entity[16];
             }

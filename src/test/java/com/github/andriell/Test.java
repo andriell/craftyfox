@@ -14,7 +14,7 @@ public class Test {
         System.out.println("Hex: " + Integer.toHexString(hash));
         System.out.println("Hex revers: " + new StringBuilder(Integer.toHexString(hash)).reverse());
 
-        while(hash != 0) {
+        for(byte b = 0; b < 8; b++) {
             System.out.print(hash & 7);
             hash = hash >>> 3;
         }
