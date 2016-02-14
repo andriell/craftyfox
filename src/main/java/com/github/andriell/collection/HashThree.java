@@ -27,10 +27,15 @@ public class HashThree<T> {
         return true;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     private boolean add(T t, boolean replace) {
         int hash = t.hashCode();
         HashThree position = this;
         while(hash != 0) {
+            position.size++;
             if (position.three == null) {
                 position.three = new HashThree[16];
             }
