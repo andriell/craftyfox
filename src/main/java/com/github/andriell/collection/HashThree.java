@@ -6,8 +6,7 @@ import java.util.Arrays;
  * Created by Vika on 07.02.2016
  */
 public class HashThree<T> {
-    private HashThree[] three;
-    private T value;
+    private Entity root;
     /** размер этого узла и всех вложенных в него */
     private int size = 0;
     private static final char[] alphabet = {
@@ -25,7 +24,7 @@ public class HashThree<T> {
 
     public boolean exist(T t) {
         int hash = t.hashCode();
-        HashThree position = this;
+        Entity position = root;
         while(hash != 0) {
             if (position.three == null) {
                 return false;
@@ -46,13 +45,8 @@ public class HashThree<T> {
         }
         //<editor-fold desc="Удаляем ненужные части дерева">
         int hash = t.hashCode();
-        HashThree position = this;
+        Entity position = root;
         while(hash != 0) {
-            position.size--;
-            if (position.size == 0) {
-                position.three = null;
-                return true;
-            }
             int index = hash & 15;
             hash = hash >>> 4;
             position = position.three[index];
@@ -67,16 +61,15 @@ public class HashThree<T> {
 
     private boolean add(T t, boolean replace) {
         int hash = t.hashCode();
-        HashThree position = this;
+        Entity position = root;
         while(hash != 0) {
-            position.size++;
             if (position.three == null) {
-                position.three = new HashThree[16];
+                position.three = new Entity[16];
             }
             int index = hash & 15;
             hash = hash >>> 4;
             if (position.three[index] == null) {
-                position.three[index] = new HashThree();
+                position.three[index] = new Entity();
             }
             position = position.three[index];
         }
@@ -93,11 +86,11 @@ public class HashThree<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        toString(this, builder);
+        toString(root, builder);
         return builder.toString();
     }
 
-    public void toString(HashThree position, StringBuilder builder) {
+    public void toString(Entity position, StringBuilder builder) {
         if (position.three == null) {
             builder.append(":");
             builder.append(position.value);
@@ -110,5 +103,10 @@ public class HashThree<T> {
                 toString(position.three[i], builder);
             }
         }
+    }
+
+    private class Entity {
+        private Entity[] three = new Entity[16];
+        private T value;
     }
 }
