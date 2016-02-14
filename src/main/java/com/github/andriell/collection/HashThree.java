@@ -23,8 +23,7 @@ public class HashThree<T> {
         return add(t, true);
     }
 
-    public boolean remove(T t) {
-        //<editor-fold desc="Проверяем содержится ли в дереве этот объект">
+    public boolean exist(T t) {
         int hash = t.hashCode();
         HashThree position = this;
         while(hash != 0) {
@@ -38,10 +37,16 @@ public class HashThree<T> {
             }
             position = position.three[index];
         }
-        //</editor-fold>
+        return true;
+    }
+
+    public boolean remove(T t) {
+        if (!exist(t)) {
+            return false;
+        }
         //<editor-fold desc="Удаляем ненужные части дерева">
-        hash = t.hashCode();
-        position = this;
+        int hash = t.hashCode();
+        HashThree position = this;
         while(hash != 0) {
             position.size--;
             if (position.size == 0) {
