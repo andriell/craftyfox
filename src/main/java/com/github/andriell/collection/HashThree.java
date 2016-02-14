@@ -24,7 +24,36 @@ public class HashThree<T> {
     }
 
     public boolean remove(T t) {
-        return true;
+        //<editor-fold desc="Проверяем содержится ли в дереве этот объект">
+        int hash = t.hashCode();
+        HashThree position = this;
+        while(hash != 0) {
+            if (position.three == null) {
+                return false;
+            }
+            int index = hash & 15;
+            hash = hash >>> 4;
+            if (position.three[index] == null) {
+                return false;
+            }
+            position = position.three[index];
+        }
+        //</editor-fold>
+        //<editor-fold desc="Удаляем ненужные части дерева">
+        hash = t.hashCode();
+        position = this;
+        while(hash != 0) {
+            position.size--;
+            if (position.size == 0) {
+                position.three = null;
+                return true;
+            }
+            int index = hash & 15;
+            hash = hash >>> 4;
+            position = position.three[index];
+        }
+        return false;
+        //</editor-fold>
     }
 
     public int getSize() {
