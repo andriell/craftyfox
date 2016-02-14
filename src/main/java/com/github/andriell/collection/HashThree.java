@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class HashThree<T> {
     private HashThree[] three;
     private T value;
+    /** размер этого узла и всех вложенных в него */
     private int size = 0;
     private static final char[] alphabet = {
             '0', '1', '2', '3', '4', '5', '6', '7',
