@@ -75,9 +75,11 @@ public class HashThree<T> {
         }
         if (position.value == null) {
             position.value = t;
+            size++;
             return true;
         } else if (replace) {
             position.value = t;
+            size++;
             return true;
         }
         return false;
@@ -105,8 +107,8 @@ public class HashThree<T> {
         }
     }
 
-    private class Entity {
-        private Entity[] three;
+    public class Entity<T> {
+        public Entity[] three;
         private T value;
     }
 }

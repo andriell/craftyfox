@@ -24,4 +24,9 @@ public class Test {
         three.add(o);
         System.out.println(three);
     }
+
+    public class Entity {
+        public Entity[] three = new Entity[10];
+        private int value;
+    }
 }
