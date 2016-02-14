@@ -53,7 +53,7 @@ public class HashThree<T> {
             return false;
         }
         //<editor-fold desc="Удаляем ненужные части дерева">
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             if (path[i] == null) {
                 break;
             }
