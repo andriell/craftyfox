@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Created by Vika on 07.02.2016
  */
 public class HashThree<T> {
-    private Entity root;
+    private Entity root = new Entity();
     /** размер этого узла и всех вложенных в него */
     private int size = 0;
     private static final char[] alphabet = {
@@ -106,7 +106,7 @@ public class HashThree<T> {
     }
 
     private class Entity {
-        private Entity[] three = new Entity[16];
+        private Entity[] three;
         private T value;
     }
 }
