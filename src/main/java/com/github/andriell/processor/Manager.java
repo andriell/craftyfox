@@ -6,70 +6,32 @@ import java.util.concurrent.*;
  * Created by Андрей on 04.02.2016
  */
 public class Manager implements ManagerInterface {
-    private BlockingQueue<DataInterface> taskQueue;
-    private Starter starter;
+    private BlockingQueue<DataInterface> dataQueue;
 
     private ProcessFactoryInterface processFactory;
     private RunnableLimiter runnableLimiter;
-    private RunnableListener runnableListener;
+    private RunnableListenerInterface runnableListener;
 
     public Manager(int capacity, boolean fair) {
-
-        runnableListener = new RunnableListener();
-        taskQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
-    }
-
-    public void start() {
-        if (starter == null) {
-            starter = new Starter();
-            runnableLimiter.start(starter);
-        }
-    }
-
-    public void stop() {
-        if (starter != null) {
-            starter.stop();
-            starter = null;
-        }
+        runnableListener = new RunnableListenerInterface() {
+            public void onStart(Runnable r) {
+            }
+            public void onException(Runnable r, Exception e) {
+                runNew();
+            }
+            public void onComplete(Runnable r) {
+                runNew();
+            }
+        };
+        dataQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
     }
 
     public void addData(DataInterface task) {
-        taskQueue.add(task);
+        dataQueue.add(task);
     }
 
     public DataInterface pullTask() {
-        return taskQueue.poll();
-    }
-
-    private class Starter implements Runnable {
-        private boolean start = true;
-        public void run() {
-            while (start) {
-                boolean isRun = true;
-                do {
-                    try {
-                        isRun = runNew();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } while (isRun && start);
-                RunnableLimiter.sleep(1000);
-            }
-        }
-        public void stop() {
-            start = false;
-        }
-    }
-
-    private class RunnableListener implements RunnableListenerInterface {
-
-        public void onStart(Runnable r) {}
-
-        public void onException(Runnable r, Exception e) {}
-
-        public void onComplete(Runnable r) {
-            runNew();
-        }
+        return dataQueue.poll();
     }
 
     protected boolean runNew() {
