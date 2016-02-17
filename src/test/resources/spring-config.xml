@@ -3,11 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="process" class="com.github.andriell.processor.ManagerTest.TestProcess"/>
+    <bean id="process" class="com.github.andriell.test.TestProcess1" />
 
-    <bean id="processor" class="com.github.andriell.processor.Manager" abstract="true">
+    <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
+        <property name="limitProcess" value="4" />
+    </bean>
+
+    <bean id="manager" class="com.github.andriell.processor.Manager">
         <property name="fair" value="true" />
         <property name="capacity" value="100" />
+        <property name="runnableLimiter" ref="limiter" />
         <lookup-method name="getProcess" bean="process"/>
     </bean>
 

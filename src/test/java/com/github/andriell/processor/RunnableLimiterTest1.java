@@ -60,6 +60,10 @@ public class RunnableLimiterTest1 {
         public String toString() {
             return name;
         }
+
+        public int getProcessType() {
+            return 0;
+        }
     }
 
 }
