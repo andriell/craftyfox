@@ -28,7 +28,7 @@ public abstract class Manager implements ManagerInterface, InitializingBean {
     public void run() {
         while (true) {
             DataInterface data = pullTask();
-            if (data == null) {
+            if (data == null || !runnableLimiter.canStart()) {
                 break;
             }
             ProcessInterface process = getProcess();

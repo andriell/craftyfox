@@ -34,6 +34,9 @@ public class RunnableLimiter {
         return true;
     }
 
+    public boolean canStart() {
+        return runningProcesses < limitProcess;
+    }
 
     public int getRunningProcesses() {
         return runningProcesses;

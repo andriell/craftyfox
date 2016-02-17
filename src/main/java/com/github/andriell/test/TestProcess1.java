@@ -18,7 +18,7 @@ public class TestProcess1 extends ProcessAbstract {
         TestData1 data = (TestData1) getData();
         for (int i = 0; i < 10; i++) {
             System.out.println("process " + this + " task " + data + " " + i);
-            RunnableLimiter.sleep(100);
+            RunnableLimiter.sleep(100 + (int) (Math.random() * 200));
         }
     }
 
