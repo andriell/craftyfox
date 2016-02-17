@@ -66,7 +66,6 @@ public class Manager implements ManagerInterface {
     }
 
     public void setRunnableLimiter(RunnableLimiter runnableLimiter) {
-        runnableLimiter.setLimitProcess(runnableLimiter.getLimitProcess() + 1);
         this.runnableLimiter = runnableLimiter;
     }
 }

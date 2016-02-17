@@ -15,7 +15,7 @@ public class ManagerTest {
         manager.addData(new TestData());
         manager.addData(new TestData());
         manager.addData(new TestData());
-        manager.start();
+        new Thread(manager).start();
     }
 
     static class TestData implements DataInterface {
