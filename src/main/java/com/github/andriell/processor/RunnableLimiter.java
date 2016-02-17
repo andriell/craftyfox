@@ -34,11 +34,6 @@ public class RunnableLimiter {
         return true;
     }
 
-    public boolean canStart() {
-        synchronized (this) {
-            return runningProcesses < limitProcess;
-        }
-    }
 
     public int getRunningProcesses() {
         return runningProcesses;
