@@ -1,30 +1,23 @@
 package com.github.andriell.processor;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.concurrent.*;
 
 /**
  * Created by Андрей on 04.02.2016
  */
-public class Manager implements ManagerInterface {
+public abstract class Manager implements ManagerInterface, InitializingBean {
     private BlockingQueue<DataInterface> dataQueue;
 
-    private ProcessFactoryInterface processFactory;
+    private BeanFactory processFactory;
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
+    private int capacity;
+    private boolean fair;
 
-    public Manager(int capacity, boolean fair) {
-        runnableListener = new RunnableListenerInterface() {
-            public void onStart(Runnable r) {
-            }
-            public void onException(Runnable r, Exception e) {
-                run();
-            }
-            public void onComplete(Runnable r) {
-                run();
-            }
-        };
-        dataQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
-    }
+    public abstract ProcessInterface getProcess();
 
     public void addData(DataInterface task) {
         dataQueue.add(task);
@@ -40,7 +33,8 @@ public class Manager implements ManagerInterface {
             if (data == null) {
                 break;
             }
-            ProcessInterface process = processFactory.newProcess(data);
+            ProcessInterface process = getProcess();
+            process.setData(data);
             RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
             runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
             if (!runnableLimiter.start(runnableAdapter)) {
@@ -50,19 +44,34 @@ public class Manager implements ManagerInterface {
         }
     }
 
-    public ProcessFactoryInterface getProcessFactory() {
-        return processFactory;
-    }
-
-    public void setProcessFactory(ProcessFactoryInterface processFactory) {
-        this.processFactory = processFactory;
-    }
-
     public RunnableLimiter getRunnableLimiter() {
         return runnableLimiter;
     }
 
     public void setRunnableLimiter(RunnableLimiter runnableLimiter) {
         this.runnableLimiter = runnableLimiter;
+    }
+
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setFair(boolean fair) {
+        this.fair = fair;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        runnableListener = new RunnableListenerInterface() {
+            public void onStart(Runnable r) {
+            }
+            public void onException(Runnable r, Exception e) {
+                run();
+            }
+            public void onComplete(Runnable r) {
+                run();
+            }
+        };
+        dataQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
     }
 }

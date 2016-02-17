@@ -25,6 +25,10 @@ public class RunnableLimiterTest1 {
         public String toString() {
             return number;
         }
+
+        public int getProcessType() {
+            return 0;
+        }
     }
 
     static class TestProcess extends ProcessAbstract {

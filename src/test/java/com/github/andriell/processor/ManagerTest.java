@@ -1,14 +1,19 @@
 package com.github.andriell.processor;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 /**
  * Created by Vika on 06.02.2016
  */
 public class ManagerTest {
     public static void main(String[] args) {
-        TestProcessFactory factory = new TestProcessFactory();
-        Manager manager = new Manager(1000, true);
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+        // Без этого событие destroy для бинов не будет вызвано
+        applicationContext.registerShutdownHook();
+        Manager manager = applicationContext.getBean("manager", Manager.class);
+
+
         manager.setRunnableLimiter(new RunnableLimiter(4));
-        manager.setProcessFactory(factory);
         manager.addData(new TestData());
         manager.addData(new TestData());
         manager.addData(new TestData());
@@ -29,18 +34,17 @@ public class ManagerTest {
         public String toString() {
             return number;
         }
+
+        public int getProcessType() {
+            return 0;
+        }
     }
 
-    static class TestProcess extends ProcessAbstract {
+    public static class TestProcess extends ProcessAbstract {
         private static int count = 0;
         private String name;
 
         public TestProcess() {
-            this(null);
-        }
-
-        public TestProcess(TestData data) {
-            setData(data);
             name = Integer.toString(count++);
         }
 
@@ -52,21 +56,13 @@ public class ManagerTest {
             }
         }
 
-        public String getTaskType() {
-            return TestData.class.toString();
-        }
-
         @Override
         public String toString() {
             return name;
         }
-    }
 
-    static class TestProcessFactory implements ProcessFactoryInterface {
-        public ProcessInterface newProcess(DataInterface data) {
-            TestProcess process = new TestProcess();
-            process.setData(data);
-            return process;
+        public int getProcessType() {
+            return 0;
         }
     }
 }
