@@ -26,20 +26,18 @@ public abstract class Manager implements ManagerInterface, InitializingBean {
     }
 
     public void run() {
-        synchronized (this) {
-            while (true) {
-                DataInterface data = pullTask();
-                if (data == null) {
-                    break;
-                }
-                ProcessInterface process = getProcess();
-                process.setData(data);
-                RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
-                runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
-                if (!runnableLimiter.start(runnableAdapter)) {
-                    addData(data);
-                    break;
-                }
+        while (true) {
+            DataInterface data = pullTask();
+            if (data == null) {
+                break;
+            }
+            ProcessInterface process = getProcess();
+            process.setData(data);
+            RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
+            runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
+            if (!runnableLimiter.start(runnableAdapter)) {
+                addData(data);
+                break;
             }
         }
     }
