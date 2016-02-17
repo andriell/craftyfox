@@ -1,6 +1,5 @@
 package com.github.andriell.processor;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.*;
