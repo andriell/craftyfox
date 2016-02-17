@@ -17,10 +17,10 @@ public class Manager implements ManagerInterface {
             public void onStart(Runnable r) {
             }
             public void onException(Runnable r, Exception e) {
-                runNew();
+                run();
             }
             public void onComplete(Runnable r) {
-                runNew();
+                run();
             }
         };
         dataQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
@@ -34,22 +34,23 @@ public class Manager implements ManagerInterface {
         return dataQueue.poll();
     }
 
-    protected boolean runNew() {
-        if (!runnableLimiter.canStart()) {
-            return false;
+    public void run() {
+        while (true) {
+            if (!runnableLimiter.canStart()) {
+                break;
+            }
+            DataInterface data = pullTask();
+            if (data == null) {
+                break;
+            }
+            ProcessInterface process = processFactory.newProcess(data);
+            RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
+            runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
+            if (!runnableLimiter.start(runnableAdapter)) {
+                addData(data);
+                break;
+            }
         }
-        DataInterface data = pullTask();
-        if (data == null) {
-            return false;
-        }
-        ProcessInterface process = processFactory.newProcess(data);
-        RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
-        runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
-        if (!runnableLimiter.start(runnableAdapter)) {
-            addData(data);
-            return false;
-        }
-        return true;
     }
 
     public ProcessFactoryInterface getProcessFactory() {
