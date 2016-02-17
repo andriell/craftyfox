@@ -11,7 +11,6 @@ import java.util.concurrent.*;
 public abstract class Manager implements ManagerInterface, InitializingBean {
     private BlockingQueue<DataInterface> dataQueue;
 
-    private BeanFactory processFactory;
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
     private int capacity;
