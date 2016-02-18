@@ -58,7 +58,7 @@ public class ManagerTest {
     public class TestProcess1 extends ProcessAbstract {
         private String name;
 
-        public TestProcess1() {
+        TestProcess1() {
             name = Integer.toString(count++);
         }
 
