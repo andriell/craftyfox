@@ -12,11 +12,6 @@ public class ManagerTest {
     private static int count = 0;
     private StringBuffer builder;
 
-    public static void main(String[] args) {
-        new ManagerTest().test1();
-    }
-
-
     @Test
     public void test1() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
