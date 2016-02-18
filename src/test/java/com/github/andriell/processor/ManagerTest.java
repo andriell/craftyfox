@@ -65,7 +65,7 @@ public class ManagerTest {
         public void run() {
             ManagerTest.TestData1 data = (ManagerTest.TestData1) getData();
             for (int i = 0; i < 10; i++) {
-                //builder.append("process " + this + " task " + data + " " + i);
+                builder.append("process ").append(name).append(" task ").append(data).append(" ").append(i);
                 RunnableLimiter.sleep(100 + (int) (Math.random() * 200));
             }
         }
