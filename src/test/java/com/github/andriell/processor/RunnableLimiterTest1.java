@@ -25,6 +25,10 @@ public class RunnableLimiterTest1 {
         public String toString() {
             return number;
         }
+
+        public String getProcessBeanId() {
+            return null;
+        }
     }
 
     static class TestProcess extends ProcessAbstract {
@@ -56,6 +60,9 @@ public class RunnableLimiterTest1 {
         public String toString() {
             return name;
         }
-    }
 
+        public int getProcessType() {
+            return 0;
+        }
+    }
 }

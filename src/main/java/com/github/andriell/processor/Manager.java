@@ -1,101 +1,50 @@
 package com.github.andriell.processor;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
 import java.util.concurrent.*;
 
 /**
  * Created by Андрей on 04.02.2016
  */
-public class Manager implements ManagerInterface {
-    private BlockingQueue<DataInterface> taskQueue;
-    private Starter starter;
+public class Manager implements ManagerInterface, InitializingBean, ApplicationContextAware {
+    private BlockingQueue<DataInterface> dataQueue;
 
-    private ProcessFactoryInterface processFactory;
+    private ApplicationContext applicationContext;
     private RunnableLimiter runnableLimiter;
-    private RunnableListener runnableListener;
-
-    public Manager(int capacity, boolean fair) {
-
-        runnableListener = new RunnableListener();
-        taskQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
-    }
-
-    public void start() {
-        if (starter == null) {
-            starter = new Starter();
-            runnableLimiter.start(starter);
-        }
-    }
-
-    public void stop() {
-        if (starter != null) {
-            starter.stop();
-            starter = null;
-        }
-    }
+    private RunnableListenerInterface runnableListener;
+    private int capacity;
+    private boolean fair;
 
     public void addData(DataInterface task) {
-        taskQueue.add(task);
+        dataQueue.add(task);
     }
 
     public DataInterface pullTask() {
-        return taskQueue.poll();
+        return dataQueue.poll();
     }
 
-    private class Starter implements Runnable {
-        private boolean start = true;
-        public void run() {
-            while (start) {
-                boolean isRun = true;
-                do {
-                    try {
-                        isRun = runNew();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } while (isRun && start);
-                RunnableLimiter.sleep(1000);
+    public void run() {
+        while (true) {
+            if (!runnableLimiter.canStart()) {
+                break;
+            }
+            DataInterface data = pullTask();
+            if (data == null) {
+                break;
+            }
+            ProcessInterface process = applicationContext.getBean(data.getProcessBeanId(), ProcessInterface.class);
+            process.setData(data);
+            RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
+            runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
+            if (!runnableLimiter.start(runnableAdapter)) {
+                addData(data);
+                break;
             }
         }
-        public void stop() {
-            start = false;
-        }
-    }
-
-    private class RunnableListener implements RunnableListenerInterface {
-
-        public void onStart(Runnable r) {}
-
-        public void onException(Runnable r, Exception e) {}
-
-        public void onComplete(Runnable r) {
-            runNew();
-        }
-    }
-
-    protected boolean runNew() {
-        if (!runnableLimiter.canStart()) {
-            return false;
-        }
-        DataInterface data = pullTask();
-        if (data == null) {
-            return false;
-        }
-        ProcessInterface process = processFactory.newProcess(data);
-        RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
-        runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
-        if (!runnableLimiter.start(runnableAdapter)) {
-            addData(data);
-            return false;
-        }
-        return true;
-    }
-
-    public ProcessFactoryInterface getProcessFactory() {
-        return processFactory;
-    }
-
-    public void setProcessFactory(ProcessFactoryInterface processFactory) {
-        this.processFactory = processFactory;
     }
 
     public RunnableLimiter getRunnableLimiter() {
@@ -103,7 +52,33 @@ public class Manager implements ManagerInterface {
     }
 
     public void setRunnableLimiter(RunnableLimiter runnableLimiter) {
-        runnableLimiter.setLimitProcess(runnableLimiter.getLimitProcess() + 1);
         this.runnableLimiter = runnableLimiter;
+    }
+
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setFair(boolean fair) {
+        this.fair = fair;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        runnableListener = new RunnableListenerInterface() {
+            public void onStart(Runnable r) {
+            }
+            public void onException(Runnable r, Exception e) {
+                run();
+            }
+            public void onComplete(Runnable r) {
+                run();
+            }
+        };
+        dataQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="builder" class="java.lang.StringBuffer" />
+
+    <bean id="test_process_1" class="com.github.andriell.processor.ManagerTest$TestProcess1" scope="prototype">
+        <property name="builder" ref="builder" />
+    </bean>
+
+    <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
+        <property name="limitProcess" value="4" />
+    </bean>
+
+    <bean id="manager" class="com.github.andriell.processor.Manager">
+        <property name="fair" value="true" />
+        <property name="capacity" value="100" />
+        <property name="runnableLimiter" ref="limiter" />
+    </bean>
+
+
+
+</beans>

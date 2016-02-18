@@ -3,7 +3,8 @@ package com.github.andriell.processor;
 import com.github.andriell.collection.LinkedSet;
 
 /**
- * Created by Vika on 05.02.2016
+ * Created by Андрей on 05.02.2016
+ *
  */
 public class RunnableAdapter implements Runnable {
     private LinkedSet<RunnableListenerInterface> listeners;
