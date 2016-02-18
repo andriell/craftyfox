@@ -22,6 +22,7 @@ public class HashThreeTest {
 
         HashThree<ObjectTest> three = new HashThree<ObjectTest>();
         assertEquals(0, three.getSize());
+        assertEquals(false, three.remove(test1));
         assertEquals(true, three.add(test1));
         assertEquals(1, three.getSize());
         assertEquals(true, three.add(test2));
@@ -40,9 +41,9 @@ public class HashThreeTest {
         assertEquals(true, three.replace(test2));
         assertEquals(true, three.replace(test3));
         assertEquals(true, three.replace(test4));
-        three.remove(test2);
-        //assertEquals(true, three.exist(test2));
-        //assertEquals(true, three.remove(test2));
+        System.out.println(three);
+        assertEquals(true, three.exist(test2));
+        assertEquals(true, three.remove(test2));
         //assertEquals(false, three.remove(test2));
 
         assertEquals(true, three.exist(test1));

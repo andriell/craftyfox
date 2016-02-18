@@ -40,36 +40,40 @@ public class HashThree<T> {
     }
 
     public boolean remove(T t) {
-        byte[] count = new byte[8];
-        Entity[] path = new Entity[8];
+        int index;
+        int count;
         int hash = t.hashCode();
         Entity position = root;
         for(byte i = 0; i < 8; i++) {
             if (position.three == null) {
                 return false;
             }
-            int index = hash & 15;
+            index = hash & 15;
             hash = hash >>> 4;
             if (position.three[index] == null) {
                 return false;
             }
-            count[i] = 0;
-            path[i] = position;
-            for (byte j = 0; j < 8; j++) {
-                if (position.three[j] != null) {
-                    count[i]++;
-                }
-            }
             position = position.three[index];
         }
-        for(byte i = 7; i <= 0; i--) {
-            if (count[i] == 0) {
-                continue;
+        hash = t.hashCode();
+        position = root;
+        for(byte i = 0; i < 8; i++) {
+            index = hash & 15;
+            hash = hash >>> 4;
+            count = 0;
+            for (byte j = 0; j < 8; j++) {
+                if (position.three[j] != null) {
+                    count++;
+                }
+                if (count > 1) {
+                    break;
+                }
             }
-            if (count[i] > 1) {
-                break;
+            if (count == 1) {
+                position.three[index] = null;
+                return true;
             }
-            path[i].three = null;
+            position = position.three[index];
         }
         return true;
     }
