@@ -23,57 +23,55 @@ public class HashThree<T> {
     }
 
     public boolean exist(T t) {
-        return getPath(t) != null;
-    }
-
-    private Entity[] getPath(T t) {
-        Entity[] path = new Entity[8];
-        int i = 0;
         int hash = t.hashCode();
         Entity position = root;
         for(byte b = 0; b < 8; b++) {
             if (position.three == null) {
-                return null;
+                return false;
             }
             int index = hash & 15;
             hash = hash >>> 4;
             if (position.three[index] == null) {
-                return null;
+                return false;
             }
-            path[i] = position;
-            i++;
             position = position.three[index];
         }
-        return path;
+        return true;
     }
 
     public boolean remove(T t) {
-        Entity[] path = getPath(t);
-        if (path == null) {
-            return false;
+        byte[] count = new byte[8];
+        Entity[] path = new Entity[8];
+        int hash = t.hashCode();
+        Entity position = root;
+        for(byte i = 0; i < 8; i++) {
+            if (position.three == null) {
+                return false;
+            }
+            int index = hash & 15;
+            hash = hash >>> 4;
+            if (position.three[index] == null) {
+                return false;
+            }
+            count[i] = 0;
+            path[i] = position;
+            for (byte j = 0; j < 8; j++) {
+                if (position.three[j] != null) {
+                    count[i]++;
+                }
+            }
+            position = position.three[index];
         }
-        //<editor-fold desc="Удаляем ненужные части дерева">
-        for (int i = 0; i < 8; i++) {
-            if (path[i] == null) {
+        for(byte i = 7; i <= 0; i--) {
+            if (count[i] == 0) {
+                continue;
+            }
+            if (count[i] > 1) {
                 break;
             }
-            byte count = 0;
-            for (int j = 0; j < 16; j++) {
-                if (path[i].three[j] != null) {
-                    count++;
-                }
-                if (count>1) {
-                    break;
-                }
-            }
-            if (count <= 1) {
-                path[i].three = null;
-                size--;
-                return true;
-            }
+            path[i].three = null;
         }
-        return false;
-        //</editor-fold>
+        return true;
     }
 
     public int getSize() {
