@@ -39,6 +39,7 @@ public class ManagerTest {
     }
 
     public static class TestData1 implements DataInterface {
+        private final String PROCESS_BEAN_ID = "test_process_1";
         private String number;
         public TestData1(int i) {
             number = Integer.toString(i);
@@ -49,8 +50,8 @@ public class ManagerTest {
             return number;
         }
 
-        public int getProcessType() {
-            return 0;
+        public String getProcessBeanId() {
+            return PROCESS_BEAN_ID;
         }
     }
 

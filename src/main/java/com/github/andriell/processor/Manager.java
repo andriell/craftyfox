@@ -1,21 +1,23 @@
 package com.github.andriell.processor;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import java.util.concurrent.*;
 
 /**
  * Created by Андрей on 04.02.2016
  */
-public abstract class Manager implements ManagerInterface, InitializingBean {
+public class Manager implements ManagerInterface, InitializingBean, ApplicationContextAware {
     private BlockingQueue<DataInterface> dataQueue;
 
+    private ApplicationContext applicationContext;
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
     private int capacity;
     private boolean fair;
-
-    public abstract ProcessInterface createProcess();
 
     public void addData(DataInterface task) {
         dataQueue.add(task);
@@ -34,7 +36,7 @@ public abstract class Manager implements ManagerInterface, InitializingBean {
             if (data == null) {
                 break;
             }
-            ProcessInterface process = createProcess();
+            ProcessInterface process = applicationContext.getBean(data.getProcessBeanId(), ProcessInterface.class);
             process.setData(data);
             RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
             runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
@@ -74,5 +76,9 @@ public abstract class Manager implements ManagerInterface, InitializingBean {
             }
         };
         dataQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

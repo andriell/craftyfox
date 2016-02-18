@@ -5,7 +5,7 @@
 
     <bean id="builder" class="java.lang.StringBuffer" />
 
-    <bean id="process" class="com.github.andriell.processor.ManagerTest$TestProcess1" scope="prototype">
+    <bean id="test_process_1" class="com.github.andriell.processor.ManagerTest$TestProcess1" scope="prototype">
         <property name="builder" ref="builder" />
     </bean>
 
@@ -17,7 +17,6 @@
         <property name="fair" value="true" />
         <property name="capacity" value="100" />
         <property name="runnableLimiter" ref="limiter" />
-        <lookup-method name="createProcess" bean="process"/>
     </bean>
 
 

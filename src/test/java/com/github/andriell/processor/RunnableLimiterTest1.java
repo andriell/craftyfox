@@ -26,8 +26,8 @@ public class RunnableLimiterTest1 {
             return number;
         }
 
-        public int getProcessType() {
-            return 0;
+        public String getProcessBeanId() {
+            return null;
         }
     }
 
