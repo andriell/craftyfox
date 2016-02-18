@@ -25,7 +25,7 @@ public class ManagerTest {
 
         RunnableLimiter limiter = new RunnableLimiter();
         limiter.start(manager);
-        RunnableLimiter.sleep(2500);
+        RunnableLimiter.sleep(3000);
         String s = builder.toString();
         String s1;
         for (int p = 0; p<=7; p++) {
