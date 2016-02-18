@@ -15,7 +15,7 @@ public abstract class Manager implements ManagerInterface, InitializingBean {
     private int capacity;
     private boolean fair;
 
-    public abstract ProcessInterface getProcess();
+    public abstract ProcessInterface createProcess();
 
     public void addData(DataInterface task) {
         dataQueue.add(task);
@@ -31,7 +31,7 @@ public abstract class Manager implements ManagerInterface, InitializingBean {
             if (data == null || !runnableLimiter.canStart()) {
                 break;
             }
-            ProcessInterface process = getProcess();
+            ProcessInterface process = createProcess();
             process.setData(data);
             RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
             runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
