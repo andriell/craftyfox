@@ -3,8 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="process" class="com.github.andriell.processor.ManagerTest$TestProcess1" scope="prototype" />
-    <bean id="ManagerTest" class="com.github.andriell.processor.ManagerTest" />
+    <bean id="builder" class="java.lang.StringBuilder" />
+
+    <bean id="process" class="com.github.andriell.processor.ManagerTest$TestProcess1" scope="prototype">
+        <property name="builder" ref="builder" />
+    </bean>
 
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />

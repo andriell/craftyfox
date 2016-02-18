@@ -8,20 +8,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class ManagerTest {
     private static int count = 0;
-    private StringBuilder builder = new StringBuilder();
+    private StringBuilder builder;
 
     public static void main(String[] args) {
-        new ManagerTest().test0();
+        new ManagerTest().test1();
     }
 
-    @Test
-    public void test0() {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
-        // Без этого событие destroy для бинов не будет вызвано
-        applicationContext.registerShutdownHook();
-        ManagerTest ManagerTest = applicationContext.getBean("ManagerTest", ManagerTest.class);
-        TestProcess1 process1 = applicationContext.getBean("process", TestProcess1.class);
-    }
 
     @Test
     public void test1() {
@@ -29,23 +21,15 @@ public class ManagerTest {
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
         Manager manager = applicationContext.getBean("manager", Manager.class);
+        builder = applicationContext.getBean("builder", StringBuilder.class);
         for (int i = 0; i <= 7; i++) {
             manager.addData(new TestData1(i));
         }
 
-
         RunnableLimiter limiter = new RunnableLimiter();
-        RunnableAdapter adapter = new RunnableAdapter(manager);
-        adapter.addListenerEnd(new RunnableListenerInterface() {
-            public void onStart(Runnable r) {}
-
-            public void onException(Runnable r, Exception e) {}
-
-            public void onComplete(Runnable r) {
-                System.out.print(builder);
-            }
-        });
-        limiter.start(adapter);
+        limiter.start(manager);
+        RunnableLimiter.sleep(2000);
+        System.out.print(builder);
     }
 
     public static class TestData1 implements DataInterface {
@@ -64,8 +48,9 @@ public class ManagerTest {
         }
     }
 
-    public class TestProcess1 extends ProcessAbstract {
+    public static class TestProcess1 extends ProcessAbstract {
         private String name;
+        private StringBuilder builder;
 
         TestProcess1() {
             name = Integer.toString(count++);
@@ -74,14 +59,13 @@ public class ManagerTest {
         public void run() {
             ManagerTest.TestData1 data = (ManagerTest.TestData1) getData();
             for (int i = 0; i < 10; i++) {
-                builder.append("process ").append(name).append(" task ").append(data).append(" ").append(i);
+                builder.append("process ").append(name).append(" task ").append(data).append(" ").append(i).append("\n");
                 RunnableLimiter.sleep(100 + (int) (Math.random() * 200));
             }
         }
 
-        @Override
-        public String toString() {
-            return name;
+        public void setBuilder(StringBuilder builder) {
+            this.builder = builder;
         }
 
         public int getProcessType() {
