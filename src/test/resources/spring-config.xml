@@ -4,6 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="process" class="com.github.andriell.processor.ManagerTest$TestProcess1" scope="prototype" />
+    <bean id="ManagerTest" class="com.github.andriell.processor.ManagerTest" />
 
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />

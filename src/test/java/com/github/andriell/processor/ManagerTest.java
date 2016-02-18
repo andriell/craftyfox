@@ -11,7 +11,16 @@ public class ManagerTest {
     private StringBuilder builder = new StringBuilder();
 
     public static void main(String[] args) {
-        new ManagerTest().test1();
+        new ManagerTest().test0();
+    }
+
+    @Test
+    public void test0() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+        // Без этого событие destroy для бинов не будет вызвано
+        applicationContext.registerShutdownHook();
+        ManagerTest ManagerTest = applicationContext.getBean("ManagerTest", ManagerTest.class);
+        TestProcess1 process1 = applicationContext.getBean("process", TestProcess1.class);
     }
 
     @Test
