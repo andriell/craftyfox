@@ -3,12 +3,14 @@ package com.github.andriell.processor;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Created by Vika on 06.02.2016
  */
 public class ManagerTest {
     private static int count = 0;
-    private StringBuilder builder;
+    private StringBuffer builder;
 
     public static void main(String[] args) {
         new ManagerTest().test1();
@@ -21,15 +23,24 @@ public class ManagerTest {
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
         Manager manager = applicationContext.getBean("manager", Manager.class);
-        builder = applicationContext.getBean("builder", StringBuilder.class);
-        for (int i = 0; i <= 7; i++) {
-            manager.addData(new TestData1(i));
+        builder = applicationContext.getBean("builder", StringBuffer.class);
+        for (int p = 0; p <= 7; p++) {
+            manager.addData(new TestData1(p));
         }
 
         RunnableLimiter limiter = new RunnableLimiter();
         limiter.start(manager);
-        RunnableLimiter.sleep(2000);
-        System.out.print(builder);
+        RunnableLimiter.sleep(5000);
+        String s = builder.toString();
+        String s1;
+        for (int p = 0; p<=7; p++) {
+            for (int i = 0; i < 10; i++) {
+                s1 = "process " + p + " task " + p + " " + i + "\n";
+                assertEquals(s1, true, s.contains(s1));
+                s = s.replaceAll(s1, "");
+            }
+        }
+        assertEquals("Пустая строка", "", s);
     }
 
     public static class TestData1 implements DataInterface {
@@ -50,7 +61,7 @@ public class ManagerTest {
 
     public static class TestProcess1 extends ProcessAbstract {
         private String name;
-        private StringBuilder builder;
+        private StringBuffer builder;
 
         TestProcess1() {
             name = Integer.toString(count++);
@@ -59,12 +70,14 @@ public class ManagerTest {
         public void run() {
             ManagerTest.TestData1 data = (ManagerTest.TestData1) getData();
             for (int i = 0; i < 10; i++) {
-                builder.append("process ").append(name).append(" task ").append(data).append(" ").append(i).append("\n");
+                String s = "process " + name + " task " + data + " " + i + "\n";
+                System.out.print(s);
+                builder.append(s);
                 RunnableLimiter.sleep(100 + (int) (Math.random() * 200));
             }
         }
 
-        public void setBuilder(StringBuilder builder) {
+        public void setBuilder(StringBuffer builder) {
             this.builder = builder;
         }
 
