@@ -62,7 +62,7 @@ public class HashThree<T> {
             hash = hash >>> 4;
             count = 0;
             for (byte j = 0; j < 8; j++) {
-                if (position.three[j] != null) {
+                if (position.three[index].three[j] != null) {
                     count++;
                 }
                 if (count > 1) {
