@@ -30,7 +30,7 @@ public class ManagerTest {
 
         RunnableLimiter limiter = new RunnableLimiter();
         limiter.start(manager);
-        RunnableLimiter.sleep(5000);
+        RunnableLimiter.sleep(2500);
         String s = builder.toString();
         String s1;
         for (int p = 0; p<=7; p++) {
@@ -73,7 +73,7 @@ public class ManagerTest {
                 String s = "process " + name + " task " + data + " " + i + "\n";
                 System.out.print(s);
                 builder.append(s);
-                RunnableLimiter.sleep(100 + (int) (Math.random() * 200));
+                RunnableLimiter.sleep((int) (Math.random() * 100));
             }
         }
 
