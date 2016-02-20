@@ -7,7 +7,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="b8796" class="javax.swing.JTree" binding="navTree">
+      <component id="b8796" class="javax.swing.JTree" binding="navTree" custom-create="true">
         <constraints border-constraint="West"/>
         <properties/>
       </component>
