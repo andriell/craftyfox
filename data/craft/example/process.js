@@ -4,7 +4,7 @@
  */
 function parse(document) {
     print(document.getClass().getName());
-    var links = document.select("a[href]");
+    var links = document.select("a.link");
     print(links.getClass().getName());
     var iterator = links.iterator();
     print(iterator.getClass().getName());
@@ -14,3 +14,4 @@ function parse(document) {
         print(element.attr("href"));
     }
 }
+

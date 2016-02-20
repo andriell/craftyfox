@@ -86,7 +86,7 @@ public class NashornWorkArea implements WorkArea {
     }
 
     public void loadFiles(String parserName) {
-        fileJs = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "parser.js");
+        fileJs = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "process.js");
         fileHtml = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "page.html");
         jsTextArea.setText(Files.readFile(fileJs));
         htmlTextArea.setText(Files.readFile(fileHtml));
