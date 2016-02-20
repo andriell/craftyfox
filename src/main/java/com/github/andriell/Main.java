@@ -1,5 +1,6 @@
 package com.github.andriell;
 
+import com.github.andriell.gui.MainFrame;
 import com.github.andriell.processor.Manager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -8,6 +9,7 @@ public class Main {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
-        Manager processor = applicationContext.getBean("processor", Manager.class);
+        Manager manager = applicationContext.getBean("manager", Manager.class);
+        MainFrame frame = new MainFrame();
     }
 }
