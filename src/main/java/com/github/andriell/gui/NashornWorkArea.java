@@ -1,7 +1,9 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.general.Files;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -9,9 +11,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 /**
  * Created by Андрей on 20.02.2016.
@@ -26,8 +26,10 @@ public class NashornWorkArea implements WorkArea {
 
     private ScriptEngineManager factory;
 
-    public NashornWorkArea() {
+    public NashornWorkArea() throws FileNotFoundException {
         System.setOut(new PrintStream(new CustomOutputStream()));
+
+        jsTextArea.setText(Files.CRAFT_DIR  + File.separator + "example" + File.separator + "parser.js");
 
         factory = new ScriptEngineManager();
 
