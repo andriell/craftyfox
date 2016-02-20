@@ -10,13 +10,14 @@ import javax.swing.tree.DefaultTreeModel;
  * Created by Андрей on 20.02.2016.
  */
 public class MainFrame {
+    private JFrame frame;
     private JPanel rootPanel;
     private DefaultMutableTreeNode navRootNode;
     private JTree navTree;
     private JPanel workPanel;
 
     public MainFrame() {
-        JFrame frame = new JFrame("Crafty Fox");
+        frame = new JFrame("Crafty Fox");
         frame.setContentPane(rootPanel);
         //frame.setUndecorated(true); // Убрать заголовок и границы
         frame.pack();
@@ -50,8 +51,8 @@ public class MainFrame {
             if (selectedNode.isLeaf()) {
                 workPanel.removeAll();
                 workPanel.add(workArea.getRootPanel());
-                workPanel.doLayout();
-                System.out.println(workPanel);
+                workPanel.validate();
+                workPanel.repaint();
             }
         }
     }
