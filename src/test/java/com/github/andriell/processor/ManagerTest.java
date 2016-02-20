@@ -9,7 +9,6 @@ import static org.junit.Assert.assertEquals;
  * Created by Vika on 06.02.2016
  */
 public class ManagerTest {
-    private static int count = 0;
     private StringBuffer builder;
 
     @Test
@@ -21,6 +20,8 @@ public class ManagerTest {
         builder = applicationContext.getBean("builder", StringBuffer.class);
         for (int p = 0; p <= 3; p++) {
             manager.addData(new TestData1(p));
+        }
+        for (int p = 0; p <= 3; p++) {
             manager.addData(new TestData2(p));
         }
 
@@ -31,9 +32,12 @@ public class ManagerTest {
         String s1;
         for (int p = 0; p <= 3; p++) {
             for (int i = 0; i < 10; i++) {
-                s1 = "Process1, ProcessName:" + p + ", Data:Data1{" + p + "}, Iteration:" + i + "\n";
+                s1 = "Process1, ProcessName:" + p + ", Data:{Data1, DataName:" + p + "}, Iteration:" + i + "\n";
                 assertEquals(s1, true, s.contains(s1));
-                s = s.replaceAll(s1, "");
+                s = s.replace(s1, "");
+                s1 = "Process2, ProcessName:" + p + ", Data:{Data2, DataName:" + p + "}, Iteration:" + i + "\n";
+                assertEquals(s1, true, s.contains(s1));
+                s = s.replace(s1, "");
             }
         }
         assertEquals("Пустая строка", "", s);
@@ -70,6 +74,7 @@ public class ManagerTest {
     }
 
     public static class TestProcess1 extends ProcessAbstract {
+        private static int count = 0;
         private String name;
         private StringBuffer builder;
 
@@ -93,6 +98,7 @@ public class ManagerTest {
     }
 
     public static class TestProcess2 extends ProcessAbstract {
+        private static int count = 0;
         private String name;
         private StringBuffer builder;
 
