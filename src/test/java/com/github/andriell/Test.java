@@ -2,6 +2,10 @@ package com.github.andriell;
 
 import com.github.andriell.collection.HashThree;
 
+import java.io.BufferedOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 /**
  * Created by Vika on 07.02.2016
  */
@@ -12,6 +16,13 @@ public class Test {
     };
 
     public static void main(String[] args) {
+        System.setErr(new PrintStream(new OutputStream() {
+            public void write(int b) {
+
+            }
+        }));
+
+
         Object o = new Object();
         int hash = o.hashCode();
         System.out.println("Dec: " + o.hashCode());
