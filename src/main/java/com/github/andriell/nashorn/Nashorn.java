@@ -12,7 +12,6 @@ import java.io.File;
 public class Nashorn implements InitializingBean {
     private ScriptEngine engine;
 
-
     public void afterPropertiesSet() throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
