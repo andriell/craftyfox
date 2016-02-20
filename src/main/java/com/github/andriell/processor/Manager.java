@@ -90,6 +90,6 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
     }
 
     public int getProcessInQueue() {
-        return runnableLimiter.getLimitProcess();
+        return dataQueue.size();
     }
 }

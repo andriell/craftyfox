@@ -68,6 +68,7 @@
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties>
+          <columns value="4"/>
           <text value=""/>
         </properties>
       </component>

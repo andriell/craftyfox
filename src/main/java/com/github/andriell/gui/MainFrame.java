@@ -1,18 +1,23 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.processor.ManagerInterface;
+import org.springframework.beans.factory.InitializingBean;
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-public class MainFrame {
+public class MainFrame implements InitializingBean {
     private JPanel rootPanel;
     private DefaultMutableTreeNode navRootNode;
     private JTree navTree;
     private JPanel workPanel;
 
-    public MainFrame() {
+    private ManagerInterface manager;
+
+    public void afterPropertiesSet() throws Exception {
         JFrame frame = new JFrame("Crafty Fox");
         frame.setContentPane(rootPanel);
         //frame.setUndecorated(true); // Убрать заголовок и границы
@@ -22,7 +27,9 @@ public class MainFrame {
         frame.setSize(800, 600);
         frame.setVisible(true);
         navRootNode.add(new DefaultMutableTreeNode(new ErrorWorkArea()));
-        navRootNode.add(new DefaultMutableTreeNode(new ProcessWorkArea()));
+        ProcessWorkArea processWorkArea = new ProcessWorkArea();
+        processWorkArea.setManager(manager);
+        navRootNode.add(new DefaultMutableTreeNode(processWorkArea));
         navTree.addTreeSelectionListener(new SelectionListener());
     }
 
@@ -31,6 +38,8 @@ public class MainFrame {
         DefaultTreeModel model = new DefaultTreeModel(navRootNode);
         navTree = new JTree(model);
     }
+
+
 
     public class SelectionListener implements TreeSelectionListener {
 
@@ -50,5 +59,9 @@ public class MainFrame {
                 workPanel.repaint();
             }
         }
+    }
+
+    public void setManager(ManagerInterface manager) {
+        this.manager = manager;
     }
 }

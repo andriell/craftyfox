@@ -19,19 +19,23 @@ public class ProcessWorkArea implements WorkArea {
     public ProcessWorkArea() {
         new Thread(new Runnable() {
             public void run() {
+                String s;
                 while (true) {
-                    processCountLabel.setText(Integer.toString(manager.getProcessInQueue()));
-                    processRunningLabel.setText(Integer.toString(manager.getRunningProcesses()));
-                    processLimitLabel.setText(Integer.toString(manager.getLimitProcess()));
                     try {
+                        processCountLabel.setText(Integer.toString(manager.getProcessInQueue()));
+                        processRunningLabel.setText(Integer.toString(manager.getRunningProcesses()));
+                        s = Integer.toString(manager.getLimitProcess());
+                        if (!s.equals(processLimitLabel.getText())) {
+                            processLimitLabel.setText(s);
+                        }
                         Thread.sleep(1000);
-                    } catch (InterruptedException e) {}
+                    } catch (Exception e) {}
                 }
             }
         }).start();
     }
 
-    public void setManager(Manager manager) {
+    public void setManager(ManagerInterface manager) {
         this.manager = manager;
     }
 
