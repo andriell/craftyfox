@@ -3,7 +3,6 @@ package com.github.andriell.gui;
 import com.github.andriell.general.Files;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -23,11 +22,15 @@ public class NashornWorkArea implements WorkArea {
     private JTextArea jsTextArea;
     private JTextArea outTextArea;
     private JButton goButton;
+    private JComboBox<String> parserComboBox;
+    private JButton saveButton;
 
     private ScriptEngineManager factory;
 
     public NashornWorkArea() throws FileNotFoundException {
         System.setOut(new PrintStream(new CustomOutputStream()));
+
+        updateSelect();
 
         jsTextArea.setText(Files.CRAFT_DIR  + File.separator + "example" + File.separator + "parser.js");
 
@@ -50,6 +53,20 @@ public class NashornWorkArea implements WorkArea {
                 tabbedPane1.setSelectedIndex(2);
             }
         });
+    }
+
+    public void updateSelect() {
+        parserComboBox.removeAll();
+        File folder = new File(Files.CRAFT_DIR);
+        File[] files = folder.listFiles();
+        if (files == null) {
+            return;
+        }
+        for (File fileEntry : files) {
+            if (fileEntry.isDirectory()) {
+                parserComboBox.addItem(fileEntry.getName());
+            }
+        }
     }
 
     public JPanel getRootPanel() {
