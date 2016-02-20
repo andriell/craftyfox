@@ -33,10 +33,10 @@ public class NashornWorkArea implements WorkArea {
                 ScriptEngine engine = factory.getEngineByName("nashorn");
                 try {
                     engine.eval(jsTextArea.getText());
-                    tabbedPane1.setSelectedIndex(2);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 }
+                tabbedPane1.setSelectedIndex(2);
             }
         });
     }
