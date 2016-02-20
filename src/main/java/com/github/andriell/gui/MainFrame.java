@@ -26,11 +26,19 @@ public class MainFrame implements InitializingBean {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setVisible(true);
+
+        //<editor-fold desc="navTree">
+        // Error
         navRootNode.add(new DefaultMutableTreeNode(new ErrorWorkArea()));
+        // process
         ProcessWorkArea processWorkArea = new ProcessWorkArea();
         processWorkArea.setManager(manager);
         navRootNode.add(new DefaultMutableTreeNode(processWorkArea));
+        // Nashorn
+        navRootNode.add(new DefaultMutableTreeNode(new NashornWorkArea()));
+        // SelectionListener
         navTree.addTreeSelectionListener(new SelectionListener());
+        //</editor-fold>
     }
 
     private void createUIComponents() {
