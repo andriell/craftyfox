@@ -18,12 +18,33 @@ public class Nashorn implements InitializingBean {
 
         File folder = new File(Files.JS_DIR);
         File[] files = folder.listFiles();
+        String fileName;
         if (files != null) {
             for (File file: files) {
-                String fileName = file.getName();
-                if (file.isFile() && ".js".equals(fileName.substring(fileName.length() - 3, 3))) {
-                    engine.eval(Files.readFile(file));
+                if (!file.isFile()) {
+                    continue;
                 }
+                fileName = file.getName();
+                if (".js".equals(fileName.substring(fileName.length() - 3, 3))) {
+                    continue;
+                }
+                engine.eval(Files.readFile(file));
+            }
+        }
+
+        folder = new File(Files.CRAFT_DIR);
+        files = folder.listFiles();
+        if (files != null) {
+            for (File file: files) {
+                file = new File(file.getPath() + File.separator + "process.js");
+                if (!file.isFile()) {
+                    continue;
+                }
+                fileName = file.getName();
+                if (".js".equals(fileName.substring(fileName.length() - 3, 3))) {
+                    continue;
+                }
+                engine.eval(Files.readFile(file));
             }
         }
     }
