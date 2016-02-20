@@ -3,6 +3,7 @@ package com.github.andriell.gui;
 import com.github.andriell.general.Files;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -24,6 +25,8 @@ public class NashornWorkArea implements WorkArea {
     private JButton goButton;
     private JComboBox<String> parserComboBox;
     private JButton saveButton;
+    private JScrollPane htmlScrollPane;
+    private JScrollPane jsScrollPane;
 
     private ScriptEngineManager factory;
     private File fileJs;
@@ -46,8 +49,6 @@ public class NashornWorkArea implements WorkArea {
                 saveFiles();
             }
         });
-
-        jsTextArea.setText(Files.CRAFT_DIR  + File.separator + "example" + File.separator + "parser.js");
 
         factory = new ScriptEngineManager();
 
@@ -110,10 +111,13 @@ public class NashornWorkArea implements WorkArea {
         rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         rSyntaxTextArea.setCodeFoldingEnabled(true);
         jsTextArea = rSyntaxTextArea;
+        jsScrollPane = new RTextScrollPane(rSyntaxTextArea);
+
         rSyntaxTextArea = new RSyntaxTextArea(20, 60);
         rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_HTML);
         rSyntaxTextArea.setCodeFoldingEnabled(true);
         htmlTextArea = rSyntaxTextArea;
+        htmlScrollPane = new RTextScrollPane(rSyntaxTextArea);
     }
 
     class CustomOutputStream extends OutputStream {

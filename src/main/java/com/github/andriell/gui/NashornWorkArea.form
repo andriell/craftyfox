@@ -21,7 +21,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <scrollpane id="931ca">
+              <scrollpane id="931ca" binding="htmlScrollPane" custom-create="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <forms defaultalign-horz="false" defaultalign-vert="false"/>
@@ -54,7 +54,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <scrollpane id="a7d62">
+              <scrollpane id="a7d62" binding="jsScrollPane" custom-create="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="9" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <forms defaultalign-horz="false" defaultalign-vert="false"/>
