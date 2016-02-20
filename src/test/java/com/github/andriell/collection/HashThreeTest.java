@@ -16,8 +16,8 @@ public class HashThreeTest {
     @Test
     public void test1() {
         ObjectTest test1 = new ObjectTest(0x50000000);
-        ObjectTest test2 = new ObjectTest(0x51000000);
-        ObjectTest test3 = new ObjectTest(0x52000000);
+        ObjectTest test2 = new ObjectTest(0x60000000);
+        ObjectTest test3 = new ObjectTest(0x70000000);
         ObjectTest test4 = new ObjectTest(0x00000005);
         ObjectTest test5 = new ObjectTest(0x00000006);
         ObjectTest test6 = new ObjectTest(0x00000007);

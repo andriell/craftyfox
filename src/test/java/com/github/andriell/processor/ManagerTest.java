@@ -47,9 +47,24 @@ public class ManagerTest {
 
         @Override
         public String toString() {
-            return number;
+            return "TestData1{" + number + '}';
         }
 
+        public String getProcessBeanId() {
+            return PROCESS_BEAN_ID;
+        }
+    }
+
+    public static class TestData2 implements DataInterface {
+        private final String PROCESS_BEAN_ID = "test_process_2";
+        private String number;
+        public TestData2(int i) {
+            number = Integer.toString(i);
+        }
+        @Override
+        public String toString() {
+            return "TestData2{" + number + '}';
+        }
         public String getProcessBeanId() {
             return PROCESS_BEAN_ID;
         }
@@ -66,7 +81,7 @@ public class ManagerTest {
         public void run() {
             ManagerTest.TestData1 data = (ManagerTest.TestData1) getData();
             for (int i = 0; i < 10; i++) {
-                String s = "process " + name + " task " + data + " " + i + "\n";
+                String s = "process1 " + name + " task " + data + " " + i + "\n";
                 System.out.print(s);
                 builder.append(s);
                 RunnableLimiter.sleep((int) (Math.random() * 100));
@@ -76,9 +91,28 @@ public class ManagerTest {
         public void setBuilder(StringBuffer builder) {
             this.builder = builder;
         }
+    }
 
-        public int getProcessType() {
-            return 0;
+    public static class TestProcess2 extends ProcessAbstract {
+        private String name;
+        private StringBuffer builder;
+
+        TestProcess2() {
+            name = Integer.toString(count++);
+        }
+
+        public void run() {
+            ManagerTest.TestData1 data = (ManagerTest.TestData1) getData();
+            for (int i = 0; i < 10; i++) {
+                String s = "process2 " + name + " task " + data + " " + i + "\n";
+                System.out.print(s);
+                builder.append(s);
+                RunnableLimiter.sleep((int) (Math.random() * 100));
+            }
+        }
+
+        public void setBuilder(StringBuffer builder) {
+            this.builder = builder;
         }
     }
 }

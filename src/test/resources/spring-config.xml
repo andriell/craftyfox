@@ -9,6 +9,10 @@
         <property name="builder" ref="builder" />
     </bean>
 
+    <bean id="test_process_2" class="com.github.andriell.processor.ManagerTest$TestProcess2" scope="prototype">
+        <property name="builder" ref="builder" />
+    </bean>
+
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />
     </bean>
