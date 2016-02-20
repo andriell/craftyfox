@@ -1,6 +1,8 @@
 package com.github.andriell.gui;
 
 import com.github.andriell.general.Files;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -101,6 +103,17 @@ public class NashornWorkArea implements WorkArea {
     @Override
     public String toString() {
         return "Nashorn консоль";
+    }
+
+    private void createUIComponents() {
+        RSyntaxTextArea rSyntaxTextArea = new RSyntaxTextArea(20, 60);
+        rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+        rSyntaxTextArea.setCodeFoldingEnabled(true);
+        jsTextArea = rSyntaxTextArea;
+        rSyntaxTextArea = new RSyntaxTextArea(20, 60);
+        rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_HTML);
+        rSyntaxTextArea.setCodeFoldingEnabled(true);
+        htmlTextArea = rSyntaxTextArea;
     }
 
     class CustomOutputStream extends OutputStream {
