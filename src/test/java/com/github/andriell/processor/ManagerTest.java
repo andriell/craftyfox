@@ -19,8 +19,9 @@ public class ManagerTest {
         applicationContext.registerShutdownHook();
         Manager manager = applicationContext.getBean("manager", Manager.class);
         builder = applicationContext.getBean("builder", StringBuffer.class);
-        for (int p = 0; p <= 7; p++) {
+        for (int p = 0; p <= 3; p++) {
             manager.addData(new TestData1(p));
+            manager.addData(new TestData2(p));
         }
 
         RunnableLimiter limiter = new RunnableLimiter();
@@ -28,9 +29,9 @@ public class ManagerTest {
         RunnableLimiter.sleep(3000);
         String s = builder.toString();
         String s1;
-        for (int p = 0; p<=7; p++) {
+        for (int p = 0; p <= 3; p++) {
             for (int i = 0; i < 10; i++) {
-                s1 = "process " + p + " task " + p + " " + i + "\n";
+                s1 = "Process1, ProcessName:" + p + ", Data:Data1{" + p + "}, Iteration:" + i + "\n";
                 assertEquals(s1, true, s.contains(s1));
                 s = s.replaceAll(s1, "");
             }
@@ -44,12 +45,10 @@ public class ManagerTest {
         public TestData1(int i) {
             number = Integer.toString(i);
         }
-
         @Override
         public String toString() {
-            return "TestData1{" + number + '}';
+            return "Data1, DataName:" + number;
         }
-
         public String getProcessBeanId() {
             return PROCESS_BEAN_ID;
         }
@@ -63,7 +62,7 @@ public class ManagerTest {
         }
         @Override
         public String toString() {
-            return "TestData2{" + number + '}';
+            return "Data2, DataName:" + number;
         }
         public String getProcessBeanId() {
             return PROCESS_BEAN_ID;
@@ -81,7 +80,7 @@ public class ManagerTest {
         public void run() {
             ManagerTest.TestData1 data = (ManagerTest.TestData1) getData();
             for (int i = 0; i < 10; i++) {
-                String s = "process1 " + name + " task " + data + " " + i + "\n";
+                String s = "Process1, ProcessName:" + name + ", Data:{" + data + "}, Iteration:" + i + "\n";
                 System.out.print(s);
                 builder.append(s);
                 RunnableLimiter.sleep((int) (Math.random() * 100));
@@ -102,9 +101,9 @@ public class ManagerTest {
         }
 
         public void run() {
-            ManagerTest.TestData1 data = (ManagerTest.TestData1) getData();
+            ManagerTest.TestData2 data = (ManagerTest.TestData2) getData();
             for (int i = 0; i < 10; i++) {
-                String s = "process2 " + name + " task " + data + " " + i + "\n";
+                String s = "Process2, ProcessName:" + name + ", Data:{" + data + "}, Iteration:" + i + "\n";
                 System.out.print(s);
                 builder.append(s);
                 RunnableLimiter.sleep((int) (Math.random() * 100));
