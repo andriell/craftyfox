@@ -16,8 +16,7 @@ public class Nashorn implements InitializingBean {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
 
-        File folder = new File(Files.JS_DIR);
-        File[] files = folder.listFiles();
+        File[] files = Files.readDir(Files.JS_DIR);
         String fileName;
         if (files != null) {
             for (File file: files) {
@@ -32,8 +31,7 @@ public class Nashorn implements InitializingBean {
             }
         }
 
-        folder = new File(Files.CRAFT_DIR);
-        files = folder.listFiles();
+        files = Files.readDir(Files.CRAFT_DIR);
         if (files != null) {
             for (File file: files) {
                 file = new File(file.getPath() + File.separator + "process.js");
