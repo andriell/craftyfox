@@ -5,12 +5,14 @@
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
     <properties/>
-    <border type="none"/>
+    <border type="empty">
+      <size top="5" left="5" bottom="5" right="5"/>
+    </border>
     <children>
       <grid id="60482" binding="workPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
         <properties/>
-        <border type="empty">
+        <border type="none">
           <size top="5" left="5" bottom="0" right="5"/>
         </border>
         <children>
@@ -26,7 +28,7 @@
         <constraints border-constraint="West"/>
         <properties/>
         <border type="empty">
-          <size top="5" left="5" bottom="0" right="0"/>
+          <size top="0" left="0" bottom="0" right="5"/>
         </border>
         <children>
           <component id="b8796" class="javax.swing.JTree" binding="navTree" custom-create="true">
@@ -62,7 +64,7 @@
         <colspec value="fill:d:grow"/>
         <constraints border-constraint="South"/>
         <properties/>
-        <border type="empty">
+        <border type="none">
           <size top="0" left="5" bottom="5" right="5"/>
         </border>
         <children>
