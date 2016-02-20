@@ -10,6 +10,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 
 public class NashornWorkArea implements WorkArea {
@@ -35,6 +36,12 @@ public class NashornWorkArea implements WorkArea {
             public void actionPerformed(ActionEvent e) {
                 String s = parserComboBox.getSelectedItem().toString();
                 loadFiles(s);
+            }
+        });
+
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                saveFiles();
             }
         });
 
@@ -78,24 +85,13 @@ public class NashornWorkArea implements WorkArea {
     public void loadFiles(String parserName) {
         fileJs = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "parser.js");
         fileHtml = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "page.html");
-        jsTextArea.setText(readFile(fileJs));
-        htmlTextArea.setText(readFile(fileHtml));
+        jsTextArea.setText(Files.readFile(fileJs));
+        htmlTextArea.setText(Files.readFile(fileHtml));
     }
 
-    String readFile(File fileName) {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
-            }
-            return sb.toString();
-        } catch (IOException ignored) { }
-        return "";
+    public void saveFiles() {
+        Files.writeToFile(fileJs, jsTextArea.getText());
+        Files.writeToFile(fileHtml, htmlTextArea.getText());
     }
 
     public JPanel getRootPanel() {
