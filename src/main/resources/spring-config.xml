@@ -3,6 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="nashorn_js" class="com.github.andriell.nashorn.Nashorn"/>
+
+    <bean id="process_js" class="com.github.andriell.processor.ProcessJs">
+        <property name="nashorn" ref="nashorn_js"/>
+    </bean>
+
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />
     </bean>

@@ -1,36 +1,37 @@
 package com.github.andriell.processor;
 
+import com.github.andriell.nashorn.Nashorn;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class ProcessJs implements ProcessInterface {
     private DataInterface data;
-    private String script = "print('Hello, World!');";
+    private Nashorn nashorn;
     public void setData(DataInterface data) {
         this.data = data;
     }
 
-    public DataInterface getData() {
-        return this.data;
+    public ProcessJsData getData() {
+        return (ProcessJsData) this.data;
     }
 
-    public String getScript() {
-        return script;
+    public Nashorn getNashorn() {
+        return nashorn;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setNashorn(Nashorn nashorn) {
+        this.nashorn = nashorn;
     }
 
     public void run() {
-        // create a script engine manager
-        ScriptEngineManager factory = new ScriptEngineManager();
-        // create a Nashorn script engine
-        ScriptEngine engine = factory.getEngineByName("nashorn");
-        // evaluate JavaScript statement
         try {
-            engine.eval(script);
-        } catch (final ScriptException se) { se.printStackTrace(); }
+            nashorn.getInvocable().invokeFunction("process.[\"" + getData().getProcessName() + "\"]", getData().getDocument());
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 }
