@@ -5,5 +5,7 @@ package com.github.andriell.processor;
  */
 public interface ManagerInterface extends Runnable {
     void addData(DataInterface task);
-    DataInterface pullTask();
+    int getRunningProcesses();
+    int getLimitProcess();
+    int getProcessInQueue();
 }

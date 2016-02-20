@@ -22,6 +22,7 @@ public class MainFrame {
         frame.setSize(800, 600);
         frame.setVisible(true);
         navRootNode.add(new DefaultMutableTreeNode(new ErrorWorkArea()));
+        navRootNode.add(new DefaultMutableTreeNode(new ProcessWorkArea()));
         navTree.addTreeSelectionListener(new SelectionListener());
     }
 

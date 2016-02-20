@@ -55,7 +55,6 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
         this.runnableLimiter = runnableLimiter;
     }
 
-
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
@@ -80,5 +79,17 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    public int getRunningProcesses() {
+        return runnableLimiter.getRunningProcesses();
+    }
+
+    public int getLimitProcess() {
+        return runnableLimiter.getLimitProcess();
+    }
+
+    public int getProcessInQueue() {
+        return runnableLimiter.getLimitProcess();
     }
 }
