@@ -6,18 +6,14 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-/**
- * Created by Андрей on 20.02.2016.
- */
 public class MainFrame {
-    private JFrame frame;
     private JPanel rootPanel;
     private DefaultMutableTreeNode navRootNode;
     private JTree navTree;
     private JPanel workPanel;
 
     public MainFrame() {
-        frame = new JFrame("Crafty Fox");
+        JFrame frame = new JFrame("Crafty Fox");
         frame.setContentPane(rootPanel);
         //frame.setUndecorated(true); // Убрать заголовок и границы
         frame.pack();
@@ -34,8 +30,6 @@ public class MainFrame {
         DefaultTreeModel model = new DefaultTreeModel(navRootNode);
         navTree = new JTree(model);
     }
-
-
 
     public class SelectionListener implements TreeSelectionListener {
 
