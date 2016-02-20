@@ -12,9 +12,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
 
-/**
- * Created by Андрей on 20.02.2016.
- */
 public class NashornWorkArea implements WorkArea {
     private JTabbedPane tabbedPane1;
     private JPanel rootPanel;
@@ -26,11 +23,20 @@ public class NashornWorkArea implements WorkArea {
     private JButton saveButton;
 
     private ScriptEngineManager factory;
+    private File fileJs;
+    private File fileHtml;
 
     public NashornWorkArea() throws FileNotFoundException {
         System.setOut(new PrintStream(new CustomOutputStream()));
 
         updateSelect();
+        loadFiles("example");
+        parserComboBox.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                String s = parserComboBox.getSelectedItem().toString();
+                loadFiles(s);
+            }
+        });
 
         jsTextArea.setText(Files.CRAFT_DIR  + File.separator + "example" + File.separator + "parser.js");
 
@@ -67,6 +73,29 @@ public class NashornWorkArea implements WorkArea {
                 parserComboBox.addItem(fileEntry.getName());
             }
         }
+    }
+
+    public void loadFiles(String parserName) {
+        fileJs = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "parser.js");
+        fileHtml = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "page.html");
+        jsTextArea.setText(readFile(fileJs));
+        htmlTextArea.setText(readFile(fileHtml));
+    }
+
+    String readFile(File fileName) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append("\n");
+                line = br.readLine();
+            }
+            return sb.toString();
+        } catch (IOException ignored) { }
+        return "";
     }
 
     public JPanel getRootPanel() {
