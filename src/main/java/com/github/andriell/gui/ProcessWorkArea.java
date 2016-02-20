@@ -22,8 +22,14 @@ public class ProcessWorkArea implements WorkArea {
                 String s;
                 while (true) {
                     try {
-                        processCountLabel.setText(Integer.toString(manager.getProcessInQueue()));
-                        processRunningLabel.setText(Integer.toString(manager.getRunningProcesses()));
+                        s = Integer.toString(manager.getProcessInQueue());
+                        if (s.equals(processCountLabel.getText())) {
+                            processCountLabel.setText(s);
+                        }
+                        s = Integer.toString(manager.getRunningProcesses());
+                        if (s.equals(processRunningLabel.getText())) {
+                            processRunningLabel.setText(s);
+                        }
                         s = Integer.toString(manager.getLimitProcess());
                         if (!s.equals(processLimitLabel.getText())) {
                             processLimitLabel.setText(s);
