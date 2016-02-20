@@ -57,7 +57,7 @@
                   <component id="db532" class="javax.swing.JTextArea" binding="jsTextArea">
                     <constraints/>
                     <properties>
-                      <text value="print('Hello, World!');"/>
+                      <text value="function parse(document) {&#10;    print(document.getClass().getName());&#10;}"/>
                     </properties>
                   </component>
                 </children>

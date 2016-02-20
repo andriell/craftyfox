@@ -1,5 +1,9 @@
 package com.github.andriell.gui;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -30,11 +34,16 @@ public class NashornWorkArea implements WorkArea {
         goButton.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 outTextArea.setText("");
+                Document document = Jsoup.parse(htmlTextArea.getText());
                 ScriptEngine engine = factory.getEngineByName("nashorn");
+                Invocable invocable = (Invocable) engine;
                 try {
                     engine.eval(jsTextArea.getText());
+                    Object result = invocable.invokeFunction("parse", document);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
+                } catch (NoSuchMethodException e1) {
+                    outTextArea.setText(e1.toString());
                 }
                 tabbedPane1.setSelectedIndex(2);
             }
