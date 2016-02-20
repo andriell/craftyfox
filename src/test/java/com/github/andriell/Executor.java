@@ -1,7 +1,6 @@
 package com.github.andriell;
 
 import com.github.andriell.processor.RunnableLimiter;
-import sun.plugin2.jvm.ProcessLauncher;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
