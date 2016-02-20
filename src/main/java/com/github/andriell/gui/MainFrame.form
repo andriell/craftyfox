@@ -7,20 +7,31 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="b8796" class="javax.swing.JTree" binding="navTree" custom-create="true">
-        <constraints border-constraint="West"/>
-        <properties/>
-      </component>
       <grid id="60482" binding="workPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
         <properties/>
-        <border type="none"/>
+        <border type="empty">
+          <size top="5" left="5" bottom="5" right="5"/>
+        </border>
         <children>
           <component id="8457f" class="javax.swing.JLabel">
             <constraints border-constraint="Center"/>
             <properties>
               <text value="Work Area"/>
             </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="cf532" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="West"/>
+        <properties/>
+        <border type="empty">
+          <size top="5" left="5" bottom="5" right="0"/>
+        </border>
+        <children>
+          <component id="b8796" class="javax.swing.JTree" binding="navTree" custom-create="true">
+            <constraints border-constraint="Center"/>
+            <properties/>
           </component>
         </children>
       </grid>
