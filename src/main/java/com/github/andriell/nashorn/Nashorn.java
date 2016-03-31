@@ -24,9 +24,10 @@ public class Nashorn implements InitializingBean {
                     continue;
                 }
                 fileName = file.getName();
-                if (".js".equals(fileName.substring(fileName.length() - 3, 3))) {
+                if (!fileName.endsWith(".js")) {
                     continue;
                 }
+                System.out.println();
                 engine.eval(Files.readFile(file));
             }
         }
@@ -39,7 +40,7 @@ public class Nashorn implements InitializingBean {
                     continue;
                 }
                 fileName = file.getName();
-                if (".js".equals(fileName.substring(fileName.length() - 3, 3))) {
+                if (!fileName.endsWith(".js")) {
                     continue;
                 }
                 engine.eval(Files.readFile(file));
