@@ -2,7 +2,7 @@
  * Описание объекта org.jsoup.nodes.Document находится по адресу http://jsoup.org/cookbook/extracting-data/selector-syntax
  * @param  document - org.jsoup.nodes.Document
  */
-craftyFox.addProcess("example", function(document) {
+$.addProcess("example", function(document) {
 	print(document.getClass().getName());
 	var links = document.select("a.link");
 	print(links.getClass().getName());
