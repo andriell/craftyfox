@@ -19,6 +19,16 @@ public class Nashorn implements InitializingBean {
     }
 
     public void reload() throws Exception {
+        reload(null, null);
+    }
+
+    /**
+     *
+     * @param skipCraft - пропустить этот крафт
+     * @param jsCraft - вместо него выполнить этот js
+     * @throws Exception
+     */
+    public void reload(String skipCraft, String jsCraft) throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
 
@@ -41,6 +51,12 @@ public class Nashorn implements InitializingBean {
         files = Files.readDir(Files.CRAFT_DIR);
         if (files != null) {
             for (File file: files) {
+                if (skipCraft != null && skipCraft.equals(file.getName())) {
+                    if (jsCraft != null) {
+                        engine.eval(jsCraft);
+                    }
+                    continue;
+                }
                 file = new File(file.getPath() + File.separator + "process.js");
                 if (!file.isFile()) {
                     continue;

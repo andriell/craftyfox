@@ -45,8 +45,8 @@ public class NashornWorkArea implements WorkArea {
         loadFiles("example");
         parserComboBox.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                String s = parserComboBox.getSelectedItem().toString();
-                loadFiles(s);
+                String craftName = parserComboBox.getSelectedItem().toString();
+                loadFiles(craftName);
             }
         });
 
@@ -59,11 +59,12 @@ public class NashornWorkArea implements WorkArea {
 
         goButton.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
+                String craftName = parserComboBox.getSelectedItem().toString();
                 outTextArea.setText("");
                 Document document = Jsoup.parse(htmlTextArea.getText());
                 try {
-                    nashorn.reload();
-                    Object result = nashorn.runProcess("example", document);
+                    nashorn.reload(craftName, jsTextArea.getText());
+                    Object result = nashorn.runProcess(craftName, document);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 } catch (NoSuchMethodException e1) {
@@ -90,9 +91,9 @@ public class NashornWorkArea implements WorkArea {
         }
     }
 
-    public void loadFiles(String parserName) {
-        fileJs = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "process.js");
-        fileHtml = new File(Files.CRAFT_DIR + File.separator + parserName + File.separator + "page.html");
+    public void loadFiles(String craftName) {
+        fileJs = new File(Files.CRAFT_DIR + File.separator + craftName + File.separator + "process.js");
+        fileHtml = new File(Files.CRAFT_DIR + File.separator + craftName + File.separator + "page.html");
         jsTextArea.setText(Files.readFile(fileJs));
         htmlTextArea.setText(Files.readFile(fileHtml));
     }
