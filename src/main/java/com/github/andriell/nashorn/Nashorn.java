@@ -2,17 +2,23 @@ package com.github.andriell.nashorn;
 
 import com.github.andriell.general.Files;
 
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.io.File;
 
 public class Nashorn implements InitializingBean {
     private ScriptEngine engine;
 
     public void afterPropertiesSet() throws Exception {
+        reload();
+    }
+
+    public void reload() throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
 
@@ -54,5 +60,9 @@ public class Nashorn implements InitializingBean {
 
     public Invocable getInvocable() {
         return (Invocable) engine;
+    }
+
+    public Object runProcess(String processName, Document document) throws ScriptException, NoSuchMethodException {
+        return getInvocable().invokeFunction("craftyFoxRunProcess", processName, document);
     }
 }

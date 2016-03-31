@@ -9,9 +9,9 @@ public class Main {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
-        Manager manager = applicationContext.getBean("manager", Manager.class);
-        MainFrame frame = new MainFrame();
-        frame.setManager(manager);
-        frame.afterPropertiesSet();
+        //Manager manager = applicationContext.getBean("manager", Manager.class);
+        //MainFrame frame = applicationContext.getBean("gui-main-frame", MainFrame.class);
+        //frame.setManager(manager);
+        //frame.afterPropertiesSet();
     }
 }

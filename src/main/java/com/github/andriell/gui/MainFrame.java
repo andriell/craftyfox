@@ -16,6 +16,11 @@ public class MainFrame implements InitializingBean {
     private JPanel workPanel;
 
     private ManagerInterface manager;
+    private NashornWorkArea nashornWorkArea;
+
+    public void setNashornWorkArea(NashornWorkArea nashornWorkArea) {
+        this.nashornWorkArea = nashornWorkArea;
+    }
 
     public void afterPropertiesSet() throws Exception {
         JFrame frame = new JFrame("Crafty Fox");
@@ -35,7 +40,7 @@ public class MainFrame implements InitializingBean {
         processWorkArea.setManager(manager);
         navRootNode.add(new DefaultMutableTreeNode(processWorkArea));
         // Nashorn
-        navRootNode.add(new DefaultMutableTreeNode(new NashornWorkArea()));
+        navRootNode.add(new DefaultMutableTreeNode(nashornWorkArea));
         // SelectionListener
         navTree.addTreeSelectionListener(new SelectionListener());
         //</editor-fold>
@@ -46,8 +51,6 @@ public class MainFrame implements InitializingBean {
         DefaultTreeModel model = new DefaultTreeModel(navRootNode);
         navTree = new JTree(model);
     }
-
-
 
     public class SelectionListener implements TreeSelectionListener {
 

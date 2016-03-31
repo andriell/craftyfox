@@ -1,15 +1,13 @@
 package com.github.andriell.gui;
 
 import com.github.andriell.general.Files;
+import com.github.andriell.nashorn.Nashorn;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,9 +26,17 @@ public class NashornWorkArea implements WorkArea {
     private JScrollPane htmlScrollPane;
     private JScrollPane jsScrollPane;
 
-    private ScriptEngineManager factory;
+    private Nashorn nashorn;
     private File fileJs;
     private File fileHtml;
+
+    public Nashorn getNashorn() {
+        return nashorn;
+    }
+
+    public void setNashorn(Nashorn nashorn) {
+        this.nashorn = nashorn;
+    }
 
     public NashornWorkArea() throws FileNotFoundException {
         System.setOut(new PrintStream(new CustomOutputStream()));
@@ -50,20 +56,19 @@ public class NashornWorkArea implements WorkArea {
             }
         });
 
-        factory = new ScriptEngineManager();
 
         goButton.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 outTextArea.setText("");
                 Document document = Jsoup.parse(htmlTextArea.getText());
-                ScriptEngine engine = factory.getEngineByName("nashorn");
-                Invocable invocable = (Invocable) engine;
                 try {
-                    engine.eval(jsTextArea.getText());
-                    Object result = invocable.invokeFunction("parse", document);
+                    nashorn.reload();
+                    Object result = nashorn.runProcess("example", document);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 } catch (NoSuchMethodException e1) {
+                    outTextArea.setText(e1.toString());
+                } catch (Exception e1) {
                     outTextArea.setText(e1.toString());
                 }
                 tabbedPane1.setSelectedIndex(2);

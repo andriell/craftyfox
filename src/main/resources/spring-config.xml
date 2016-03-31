@@ -3,6 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="gui-main-frame" class="com.github.andriell.gui.MainFrame">
+        <property name="manager" ref="manager"/>
+        <property name="nashornWorkArea" ref="gui-nashorn-work-area" />
+    </bean>
+
+    <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">
+        <property name="nashorn" ref="nashorn_js"/>
+    </bean>
+
     <bean id="nashorn_js" class="com.github.andriell.nashorn.Nashorn"/>
 
     <bean id="process_js" class="com.github.andriell.processor.ProcessJs">
