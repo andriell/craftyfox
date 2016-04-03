@@ -9,6 +9,7 @@
 
     <bean id="gui-nav-three-root" class="com.github.andriell.gui.NavTreeItem">
         <property name="name" value="Параметры" />
+        <property name="workArea" ref="gui-nashorn-work-area" />
         <property name="childNodes">
             <array>
                 <ref bean="gui-nav-three-error" />

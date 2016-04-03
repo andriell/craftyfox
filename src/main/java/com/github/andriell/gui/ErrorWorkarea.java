@@ -16,13 +16,12 @@ public class ErrorWorkArea implements WorkArea {
         System.setErr(new PrintStream(new CustomOutputStream()));
     }
 
-    public JPanel getRootPanel() {
-        return rootPanel;
+    public String getName() {
+        return "Ошибки";
     }
 
-    @Override
-    public String toString() {
-        return "Ошибки";
+    public JPanel getRootPanel() {
+        return rootPanel;
     }
 
     class CustomOutputStream extends OutputStream {

@@ -24,17 +24,7 @@ public class MainFrame implements InitializingBean {
         frame.setSize(800, 600);
         frame.setVisible(true);
 
-        /*//<editor-fold desc="navTree">
-        // Error
-        navTreeMenu.add(new DefaultMutableTreeNode(new ErrorWorkArea()));
-        // process
-        ProcessWorkArea processWorkArea = new ProcessWorkArea();
-        processWorkArea.setManager(manager);
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(processWorkArea);
-        node.add(new DefaultMutableTreeNode("100500"));
-        navTreeMenu.add(node);
-        // Nashorn
-        navTreeMenu.add(new DefaultMutableTreeNode(nashornWorkArea));*/
+        //<editor-fold desc="navTree">
         // SelectionListener
         DefaultTreeModel model = new DefaultTreeModel(navTreeMenu.getNode());
         navTree.setModel(model);
@@ -54,7 +44,7 @@ public class MainFrame implements InitializingBean {
             }
             NavTreeItem navTreeItem = (NavTreeItem) o;
             WorkArea workArea = navTreeItem.getWorkArea();
-            if (workArea != null && selectedNode.isLeaf()) {
+            if (workArea != null) {
                 workPanel.removeAll();
                 workPanel.add(workArea.getRootPanel());
                 workPanel.validate();
