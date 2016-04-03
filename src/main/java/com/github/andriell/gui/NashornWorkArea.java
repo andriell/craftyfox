@@ -2,11 +2,13 @@ package com.github.andriell.gui;
 
 import com.github.andriell.general.Files;
 import com.github.andriell.nashorn.Nashorn;
+import com.github.andriell.nashorn.console.EventInfo;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.context.ApplicationListener;
 
 import javax.script.ScriptException;
 import javax.swing.*;
@@ -14,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class NashornWorkArea implements WorkArea {
+public class NashornWorkArea implements WorkArea, ApplicationListener<EventInfo> {
     private JTabbedPane tabbedPane1;
     private JPanel rootPanel;
     private JTextArea htmlTextArea;
@@ -39,8 +41,6 @@ public class NashornWorkArea implements WorkArea {
     }
 
     public NashornWorkArea() throws FileNotFoundException {
-        System.setOut(new PrintStream(new CustomOutputStream()));
-
         updateSelect();
         loadFiles("example");
         parserComboBox.addActionListener(new AbstractAction() {
@@ -125,11 +125,9 @@ public class NashornWorkArea implements WorkArea {
         htmlScrollPane = new RTextScrollPane(rSyntaxTextArea);
     }
 
-    class CustomOutputStream extends OutputStream {
-        @Override
-        public void write(int b) throws IOException {
-            outTextArea.append(String.valueOf((char)b));
-            outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
-        }
+    public void onApplicationEvent(EventInfo eventInfo) {
+        outTextArea.append(eventInfo.getMessage());
+        outTextArea.append("\n");
+        outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
     }
 }

@@ -3,17 +3,15 @@
  * @param  document - org.jsoup.nodes.Document
  */
 
-console.info(100500);
-
 $.addProcess("example", function(document) {
-	print(document.getClass().getName());
+	console.info(document.getClass().getName());
 	var links = document.select("a.link");
-	print(links.getClass().getName());
+	console.info(links.getClass().getName());
 	var iterator = links.iterator();
-	print(iterator.getClass().getName());
+	console.info(iterator.getClass().getName());
 	while(iterator.hasNext()) {
 		var element = iterator.next();
-		print(element.getClass().getName());
-		print(element.attr("href"));
+		console.info(element.getClass().getName());
+		console.info(element.attr("href"));
 	}
 });
