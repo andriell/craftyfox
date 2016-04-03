@@ -5,7 +5,6 @@
 
     <bean id="gui-main-frame" class="com.github.andriell.gui.MainFrame">
         <property name="navTreeMenu" ref="gui-nav-three-root" />
-
     </bean>
 
     <bean id="gui-nav-three-root" class="com.github.andriell.gui.NavTreeItem">
@@ -18,19 +17,16 @@
             </array>
         </property>
     </bean>
-
     <bean id="gui-nav-three-nashorn" class="com.github.andriell.gui.NavTreeItem">
         <property name="workArea" ref="gui-nashorn-work-area" />
     </bean>
     <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">
         <property name="nashorn" ref="nashorn_js"/>
     </bean>
-
     <bean id="gui-nav-three-error" class="com.github.andriell.gui.NavTreeItem">
         <property name="workArea" ref="gui-error-work-area" />
     </bean>
     <bean id="gui-error-work-area" class="com.github.andriell.gui.ErrorWorkArea" />
-
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
         <property name="workArea" ref="gui-process-work-area" />
     </bean>
