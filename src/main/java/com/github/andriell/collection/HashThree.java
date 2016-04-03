@@ -3,7 +3,7 @@ package com.github.andriell.collection;
 import java.util.Arrays;
 
 /**
- * Created by Vika on 07.02.2016
+ * Created by Andrey on 07.02.2016
  */
 public class HashThree<T> {
     private Entity root = new Entity();

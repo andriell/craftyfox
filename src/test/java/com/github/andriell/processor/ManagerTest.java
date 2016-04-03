@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Vika on 06.02.2016
+ * Created by Andrey on 06.02.2016
  */
 public class ManagerTest {
     private StringBuffer builder;

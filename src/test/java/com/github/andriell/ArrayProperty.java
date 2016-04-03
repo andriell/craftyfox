@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Arrays;
 
 /**
- * Created by Vika on 03.04.2016
+ * Created by Andrey on 03.04.2016
  */
 public class ArrayProperty {
     private ArrayProperty[] properties;

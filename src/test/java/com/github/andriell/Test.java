@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * Created by Vika on 07.02.2016
+ * Created by Andrey on 07.02.2016
  */
 public class Test {
     private static final char[] alphabet = {

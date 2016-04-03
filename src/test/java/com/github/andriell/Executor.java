@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by Vika on 07.02.2016
+ * Created by Andrey on 07.02.2016
  */
 public class Executor {
     public static void main(String[] args) {

@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Vika on 13.02.2016
+ * Created by Andrey on 13.02.2016
  */
 public class HashThreeTest {
     public static void main(String[] args) {

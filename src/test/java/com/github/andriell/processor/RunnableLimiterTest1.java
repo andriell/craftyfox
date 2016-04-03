@@ -1,7 +1,7 @@
 package com.github.andriell.processor;
 
 /**
- * Created by Vika on 06.02.2016
+ * Created by Andrey on 06.02.2016
  */
 public class RunnableLimiterTest1 {
     public static void main(String[] args) {

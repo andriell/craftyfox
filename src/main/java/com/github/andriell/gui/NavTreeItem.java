@@ -5,7 +5,7 @@ import org.springframework.beans.factory.InitializingBean;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * Created by Vika on 03.04.2016
+ * Created by Andrey on 03.04.2016
  */
 public class NavTreeItem implements InitializingBean {
     private DefaultMutableTreeNode node;
