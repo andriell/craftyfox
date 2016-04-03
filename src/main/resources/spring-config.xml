@@ -22,7 +22,7 @@
         <property name="workArea" ref="gui-nashorn-work-area" />
     </bean>
     <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">
-        <property name="nashorn" ref="nashorn_js"/>
+        <property name="nashorn" ref="nashorn"/>
     </bean>
     <bean id="gui-nav-three-error" class="com.github.andriell.gui.NavTreeItem">
         <property name="workArea" ref="gui-error-work-area" />
@@ -36,11 +36,14 @@
     </bean>
 
 
-    <bean id="nashorn_js" class="com.github.andriell.nashorn.Nashorn"/>
-
-    <bean id="process_js" class="com.github.andriell.processor.ProcessJs">
-        <property name="nashorn" ref="nashorn_js"/>
+    <bean id="process-js" class="com.github.andriell.processor.ProcessJs">
+        <property name="nashorn" ref="nashorn"/>
     </bean>
+    <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn">
+        <property name="console" ref="nashorn-console" />
+    </bean>
+    <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console"/>
+
 
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />

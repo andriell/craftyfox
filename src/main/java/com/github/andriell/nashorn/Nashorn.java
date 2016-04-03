@@ -2,16 +2,15 @@ package com.github.andriell.nashorn;
 
 import com.github.andriell.general.Files;
 
+import com.github.andriell.nashorn.console.Console;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.InitializingBean;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import javax.script.*;
 import java.io.File;
 
 public class Nashorn implements InitializingBean {
+    private Console console;
     private ScriptEngine engine;
 
     public void afterPropertiesSet() throws Exception {
@@ -31,7 +30,7 @@ public class Nashorn implements InitializingBean {
     public void reload(String skipCraft, String jsCraft) throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
-
+        engine.getBindings(ScriptContext.ENGINE_SCOPE).put("console", console);
         File[] files = Files.readDir(Files.JS_DIR);
         String fileName;
         if (files != null) {
@@ -80,5 +79,13 @@ public class Nashorn implements InitializingBean {
 
     public Object runProcess(String processName, Document document) throws ScriptException, NoSuchMethodException {
         return getInvocable().invokeFunction("craftyFoxRunProcess", processName, document);
+    }
+
+    public Console getConsole() {
+        return console;
+    }
+
+    public void setConsole(Console console) {
+        this.console = console;
     }
 }

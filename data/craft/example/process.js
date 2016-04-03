@@ -3,6 +3,8 @@
  * @param  document - org.jsoup.nodes.Document
  */
 
+console.info(100500);
+
 $.addProcess("example", function(document) {
 	print(document.getClass().getName());
 	var links = document.select("a.link");
