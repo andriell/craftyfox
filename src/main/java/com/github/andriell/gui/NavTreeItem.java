@@ -35,18 +35,21 @@ public class NavTreeItem implements InitializingBean {
     }
 
     public void afterPropertiesSet() throws Exception {
-        if (workArea != null) {
-            node = new DefaultMutableTreeNode(workArea);
-        } else if (name != null) {
-            node = new DefaultMutableTreeNode(name);
-        } else {
-            node = new DefaultMutableTreeNode("Default");
-        }
-
+        node = new DefaultMutableTreeNode(this);
         if (childNodes != null) {
             for (NavTreeItem childNode : childNodes) {
                 node.add(childNode.getNode());
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        if (name != null) {
+            return name;
+        } else if (workArea != null) {
+            return workArea.getName();
+        }
+        return "No name";
     }
 }

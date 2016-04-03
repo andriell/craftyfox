@@ -103,13 +103,12 @@ public class NashornWorkArea implements WorkArea {
         Files.writeToFile(fileHtml, htmlTextArea.getText());
     }
 
-    public JPanel getRootPanel() {
-        return rootPanel;
+    public String getName() {
+        return "Nashorn консоль";
     }
 
-    @Override
-    public String toString() {
-        return "Nashorn консоль";
+    public JPanel getRootPanel() {
+        return rootPanel;
     }
 
     private void createUIComponents() {

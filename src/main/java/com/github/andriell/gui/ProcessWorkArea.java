@@ -45,12 +45,11 @@ public class ProcessWorkArea implements WorkArea {
         this.manager = manager;
     }
 
-    public JPanel getRootPanel() {
-        return rootPanel;
+    public String getName() {
+        return "Процессы";
     }
 
-    @Override
-    public String toString() {
-        return "Процессы";
+    public JPanel getRootPanel() {
+        return rootPanel;
     }
 }
