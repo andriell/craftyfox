@@ -4,8 +4,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="gui-main-frame" class="com.github.andriell.gui.MainFrame">
-        <property name="manager" ref="manager"/>
-        <property name="nashornWorkArea" ref="gui-nashorn-work-area" />
+        <property name="navTreeMenu" ref="gui-nav-three-root" />
+
+    </bean>
+
+    <bean id="gui-nav-three-root" class="com.github.andriell.gui.NavTreeItem">
+        <property name="name" value="Параметры" />
+    </bean>
+
+    <bean id="gui-nav-three-1" class="com.github.andriell.gui.NavTreeItem">
+        <property name="workArea" ref="gui-nashorn-work-area" />
     </bean>
 
     <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">

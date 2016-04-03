@@ -1,6 +1,5 @@
 package com.github.andriell.gui;
 
-import com.github.andriell.processor.ManagerInterface;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
@@ -11,16 +10,9 @@ import javax.swing.tree.DefaultTreeModel;
 
 public class MainFrame implements InitializingBean {
     private JPanel rootPanel;
-    private DefaultMutableTreeNode navRootNode;
+    private NavTreeItem navTreeMenu;
     private JTree navTree;
     private JPanel workPanel;
-
-    private ManagerInterface manager;
-    private NashornWorkArea nashornWorkArea;
-
-    public void setNashornWorkArea(NashornWorkArea nashornWorkArea) {
-        this.nashornWorkArea = nashornWorkArea;
-    }
 
     public void afterPropertiesSet() throws Exception {
         JFrame frame = new JFrame("Crafty Fox");
@@ -32,24 +24,22 @@ public class MainFrame implements InitializingBean {
         frame.setSize(800, 600);
         frame.setVisible(true);
 
-        //<editor-fold desc="navTree">
+        /*//<editor-fold desc="navTree">
         // Error
-        navRootNode.add(new DefaultMutableTreeNode(new ErrorWorkArea()));
+        navTreeMenu.add(new DefaultMutableTreeNode(new ErrorWorkArea()));
         // process
         ProcessWorkArea processWorkArea = new ProcessWorkArea();
         processWorkArea.setManager(manager);
-        navRootNode.add(new DefaultMutableTreeNode(processWorkArea));
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(processWorkArea);
+        node.add(new DefaultMutableTreeNode("100500"));
+        navTreeMenu.add(node);
         // Nashorn
-        navRootNode.add(new DefaultMutableTreeNode(nashornWorkArea));
+        navTreeMenu.add(new DefaultMutableTreeNode(nashornWorkArea));*/
         // SelectionListener
+        DefaultTreeModel model = new DefaultTreeModel(navTreeMenu.getNode());
+        navTree.setModel(model);
         navTree.addTreeSelectionListener(new SelectionListener());
         //</editor-fold>
-    }
-
-    private void createUIComponents() {
-        navRootNode = new DefaultMutableTreeNode("Crafty Fox [Параметры]");
-        DefaultTreeModel model = new DefaultTreeModel(navRootNode);
-        navTree = new JTree(model);
     }
 
     public class SelectionListener implements TreeSelectionListener {
@@ -59,11 +49,12 @@ public class MainFrame implements InitializingBean {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree
                     .getLastSelectedPathComponent();
             Object o = selectedNode.getUserObject();
-            if (!(o instanceof WorkArea)) {
+            if (!(o instanceof NavTreeItem)) {
                 return;
             }
-            WorkArea workArea = (WorkArea) o;
-            if (selectedNode.isLeaf()) {
+            NavTreeItem navTreeItem = (NavTreeItem) o;
+            WorkArea workArea = navTreeItem.getWorkArea();
+            if (workArea != null && selectedNode.isLeaf()) {
                 workPanel.removeAll();
                 workPanel.add(workArea.getRootPanel());
                 workPanel.validate();
@@ -72,7 +63,7 @@ public class MainFrame implements InitializingBean {
         }
     }
 
-    public void setManager(ManagerInterface manager) {
-        this.manager = manager;
+    public void setNavTreeMenu(NavTreeItem navTreeMenu) {
+        this.navTreeMenu = navTreeMenu;
     }
 }

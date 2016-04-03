@@ -31,7 +31,7 @@
           <size top="0" left="0" bottom="0" right="5"/>
         </border>
         <children>
-          <component id="b8796" class="javax.swing.JTree" binding="navTree" custom-create="true">
+          <component id="b8796" class="javax.swing.JTree" binding="navTree">
             <constraints border-constraint="Center"/>
             <properties/>
           </component>
