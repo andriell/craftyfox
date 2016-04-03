@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="prop0" class="com.github.andriell.ArrayProperty">
+        <property name="name" value="prop0"/>
+        <property name="properties">
+            <array>
+                <ref bean="prop1"/>
+                <ref bean="prop2"/>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="prop1" class="com.github.andriell.ArrayProperty">
+        <property name="name" value="prop1"/>
+        <property name="properties">
+            <array>
+                <ref bean="prop3"/>
+                <ref bean="prop4"/>
+            </array>
+        </property>
+    </bean>
+
+
+    <bean id="prop2" class="com.github.andriell.ArrayProperty">
+        <property name="name" value="prop2"/>
+    </bean>
+
+    <bean id="prop3" class="com.github.andriell.ArrayProperty">
+        <property name="name" value="prop3"/>
+    </bean>
+
+    <bean id="prop4" class="com.github.andriell.ArrayProperty">
+        <property name="name" value="prop4"/>
+    </bean>
+
+
+
+</beans>
