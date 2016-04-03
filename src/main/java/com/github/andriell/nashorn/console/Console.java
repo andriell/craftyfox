@@ -6,14 +6,16 @@ import org.springframework.context.ApplicationEventPublisherAware;
 /**
  * Created by Andrey on 03.04.2016
  */
-public class Console implements ApplicationEventPublisherAware {
-    private ApplicationEventPublisher publisher;
+public class Console {
+    private ConsoleListenerInterface[] consoleListeners;
 
     private void publishConsoleMessage(int level, String message) {
-        ConsoleMessage info = new ConsoleMessage(this);
-        info.setLevel(level);
-        info.setMessage(message);
-        publisher.publishEvent(info);
+        ConsoleMessage consoleMessage = new ConsoleMessage();
+        consoleMessage.setLevel(level);
+        consoleMessage.setMessage(message);
+        for (ConsoleListenerInterface listener: consoleListeners) {
+            listener.onConsoleMessage(consoleMessage);
+        }
     }
 
     public void info(String message) {
@@ -32,7 +34,7 @@ public class Console implements ApplicationEventPublisherAware {
         publishConsoleMessage(ConsoleMessage.LEVEL_ERROR, message);
     }
 
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        publisher = applicationEventPublisher;
+    public void setConsoleListeners(ConsoleListenerInterface[] consoleListeners) {
+        this.consoleListeners = consoleListeners;
     }
 }

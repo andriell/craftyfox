@@ -50,7 +50,13 @@
         <property name="name" value="console" />
         <property name="object" ref="nashorn-console" />
     </bean>
-    <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console"/>
+    <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console">
+        <property name="consoleListeners">
+            <array>
+                <ref bean="gui-nashorn-work-area" />
+            </array>
+        </property>
+    </bean>
 
 
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
