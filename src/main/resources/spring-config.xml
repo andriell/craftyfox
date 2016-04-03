@@ -40,7 +40,15 @@
         <property name="nashorn" ref="nashorn"/>
     </bean>
     <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn">
-        <property name="console" ref="nashorn-console" />
+        <property name="jsItems">
+            <array>
+                <ref bean="nashorn-js-item-console" />
+            </array>
+        </property>
+    </bean>
+    <bean id="nashorn-js-item-console" class="com.github.andriell.nashorn.JsItem">
+        <property name="name" value="console" />
+        <property name="object" ref="nashorn-console" />
     </bean>
     <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console"/>
 

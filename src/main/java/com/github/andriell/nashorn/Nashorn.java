@@ -10,7 +10,7 @@ import javax.script.*;
 import java.io.File;
 
 public class Nashorn implements InitializingBean {
-    private Console console;
+    private JsItem[] jsItems;
     private ScriptEngine engine;
 
     public void afterPropertiesSet() throws Exception {
@@ -30,7 +30,11 @@ public class Nashorn implements InitializingBean {
     public void reload(String skipCraft, String jsCraft) throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
-        engine.getBindings(ScriptContext.ENGINE_SCOPE).put("console", console);
+        if (jsItems != null) {
+            for (JsItem jsItem: jsItems) {
+                engine.getBindings(ScriptContext.ENGINE_SCOPE).put(jsItem.getName(), jsItem.getObject());
+            }
+        }
         File[] files = Files.readDir(Files.JS_DIR);
         String fileName;
         if (files != null) {
@@ -81,11 +85,7 @@ public class Nashorn implements InitializingBean {
         return getInvocable().invokeFunction("craftyFoxRunProcess", processName, document);
     }
 
-    public Console getConsole() {
-        return console;
-    }
-
-    public void setConsole(Console console) {
-        this.console = console;
+    public void setJsItems(JsItem[] jsItems) {
+        this.jsItems = jsItems;
     }
 }
