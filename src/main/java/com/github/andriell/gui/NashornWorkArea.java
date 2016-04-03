@@ -2,7 +2,7 @@ package com.github.andriell.gui;
 
 import com.github.andriell.general.Files;
 import com.github.andriell.nashorn.Nashorn;
-import com.github.andriell.nashorn.console.EventInfo;
+import com.github.andriell.nashorn.console.ConsoleMessage;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class NashornWorkArea implements WorkArea, ApplicationListener<EventInfo> {
+public class NashornWorkArea implements WorkArea, ApplicationListener<ConsoleMessage> {
     private JTabbedPane tabbedPane1;
     private JPanel rootPanel;
     private JTextArea htmlTextArea;
@@ -125,8 +125,8 @@ public class NashornWorkArea implements WorkArea, ApplicationListener<EventInfo>
         htmlScrollPane = new RTextScrollPane(rSyntaxTextArea);
     }
 
-    public void onApplicationEvent(EventInfo eventInfo) {
-        outTextArea.append(eventInfo.getMessage());
+    public void onApplicationEvent(ConsoleMessage consoleMessage) {
+        outTextArea.append(consoleMessage.getMessage());
         outTextArea.append("\n");
         outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
     }
