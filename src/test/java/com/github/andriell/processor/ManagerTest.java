@@ -31,7 +31,9 @@ public class ManagerTest {
             manager2.addData(new TestData2(p));
         }
 
-        RunnableLimiter.sleep(60000);
+        RunnableLimiter.sleep(7000);
+        manager1.stop();
+        manager2.stop();
         String s = builder.toString();
         String s1;
         for (int p = 0; p <= 3; p++) {

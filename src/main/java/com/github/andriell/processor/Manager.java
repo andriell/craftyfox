@@ -13,6 +13,7 @@ import java.util.concurrent.*;
 public class Manager implements ManagerInterface, InitializingBean, ApplicationContextAware {
     private BlockingQueue<Object> dataQueue;
 
+    private Boolean run = true;
     private ApplicationContext applicationContext;
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
@@ -37,7 +38,7 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
     }
 
     public void run() {
-        while (true) {
+        while (run) {
             while (true) {
                 if (!runnableLimiter.canStart()) {
                     break;
@@ -57,6 +58,10 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
             }
             RunnableLimiter.sleep(1000);
         }
+    }
+
+    public void stop() {
+        run = false;
     }
 
     public RunnableLimiter getRunnableLimiter() {
