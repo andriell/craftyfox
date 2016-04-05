@@ -38,8 +38,8 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
     }
 
     public void run() {
-        while (run) {
-            while (true) {
+        while (run) { // Возобновляем работу
+            while (true) { // Запускаем по максимум новых процессов
                 if (!runnableLimiter.canStart()) {
                     break;
                 }
