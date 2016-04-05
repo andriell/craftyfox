@@ -38,21 +38,24 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
 
     public void run() {
         while (true) {
-            if (!runnableLimiter.canStart()) {
-                break;
+            while (true) {
+                if (!runnableLimiter.canStart()) {
+                    break;
+                }
+                Object data = pullTask();
+                if (data == null) {
+                    break;
+                }
+                ProcessInterface process = applicationContext.getBean(getProcessBeanId(), ProcessInterface.class);
+                process.setData(data);
+                RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
+                runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
+                if (!runnableLimiter.start(runnableAdapter)) {
+                    addData(data);
+                    break;
+                }
             }
-            Object data = pullTask();
-            if (data == null) {
-                break;
-            }
-            ProcessInterface process = applicationContext.getBean(getProcessBeanId(), ProcessInterface.class);
-            process.setData(data);
-            RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
-            runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
-            if (!runnableLimiter.start(runnableAdapter)) {
-                addData(data);
-                break;
-            }
+            RunnableLimiter.sleep(1000);
         }
     }
 
