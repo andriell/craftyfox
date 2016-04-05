@@ -11,19 +11,28 @@ import java.util.concurrent.*;
  * Created by Андрей on 04.02.2016
  */
 public class Manager implements ManagerInterface, InitializingBean, ApplicationContextAware {
-    private BlockingQueue<DataInterface> dataQueue;
+    private BlockingQueue<Object> dataQueue;
 
     private ApplicationContext applicationContext;
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
+    private String processBeanId;
     private int capacity;
     private boolean fair;
 
-    public void addData(DataInterface task) {
+    public void addData(Object task) {
         dataQueue.add(task);
     }
 
-    public DataInterface pullTask() {
+    public void setProcessBeanId(String processBeanId) {
+        this.processBeanId = processBeanId;
+    }
+
+    public String getProcessBeanId() {
+        return processBeanId;
+    }
+
+    public Object pullTask() {
         return dataQueue.poll();
     }
 
@@ -32,11 +41,11 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
             if (!runnableLimiter.canStart()) {
                 break;
             }
-            DataInterface data = pullTask();
+            Object data = pullTask();
             if (data == null) {
                 break;
             }
-            ProcessInterface process = applicationContext.getBean(data.getProcessBeanId(), ProcessInterface.class);
+            ProcessInterface process = applicationContext.getBean(getProcessBeanId(), ProcessInterface.class);
             process.setData(data);
             RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
             runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
@@ -74,7 +83,7 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
                 run();
             }
         };
-        dataQueue = new ArrayBlockingQueue<DataInterface>(capacity, fair);
+        dataQueue = new ArrayBlockingQueue<Object>(capacity, fair);
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

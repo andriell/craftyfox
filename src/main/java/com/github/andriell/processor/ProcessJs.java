@@ -7,14 +7,14 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class ProcessJs implements ProcessInterface {
-    private DataInterface data;
+    private ProcessJsData data;
     private Nashorn nashorn;
-    public void setData(DataInterface data) {
-        this.data = data;
+    public void setData(Object data) {
+        this.data = (ProcessJsData) data;
     }
 
     public ProcessJsData getData() {
-        return (ProcessJsData) this.data;
+        return this.data;
     }
 
     public Nashorn getNashorn() {

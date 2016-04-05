@@ -32,7 +32,11 @@
         <property name="workArea" ref="gui-process-work-area" />
     </bean>
     <bean id="gui-process-work-area" class="com.github.andriell.gui.ProcessWorkArea">
-        <property name="manager" ref="manager" />
+        <property name="managers">
+            <array>
+                <ref bean="manager-js" />
+            </array>
+        </property>
     </bean>
 
 
@@ -58,10 +62,11 @@
         </property>
     </bean>
 
-    <bean id="manager" class="com.github.andriell.processor.Manager">
+    <bean id="manager-js" class="com.github.andriell.processor.Manager">
         <property name="fair" value="true" />
         <property name="capacity" value="100" />
         <property name="runnableLimiter" ref="limiter" />
+        <property name="processBeanId" value="process-js" />
     </bean>
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />

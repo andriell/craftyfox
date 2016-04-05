@@ -14,35 +14,42 @@ public class ProcessWorkArea implements WorkArea {
     private JLabel processRunningLabel;
     private JTextField processLimitLabel;
 
-    private ManagerInterface manager;
+    private ManagerInterface[] managers;
 
     public ProcessWorkArea() {
         new Thread(new Runnable() {
             public void run() {
                 String s;
                 while (true) {
+                    for (ManagerInterface manager : managers) {
+                        try {
+                            s = Integer.toString(manager.getProcessInQueue());
+                            if (s.equals(processCountLabel.getText())) {
+                                processCountLabel.setText(s);
+                            }
+                            s = Integer.toString(manager.getRunningProcesses());
+                            if (s.equals(processRunningLabel.getText())) {
+                                processRunningLabel.setText(s);
+                            }
+                            s = Integer.toString(manager.getLimitProcess());
+                            if (!s.equals(processLimitLabel.getText())) {
+                                processLimitLabel.setText(s);
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
                     try {
-                        s = Integer.toString(manager.getProcessInQueue());
-                        if (s.equals(processCountLabel.getText())) {
-                            processCountLabel.setText(s);
-                        }
-                        s = Integer.toString(manager.getRunningProcesses());
-                        if (s.equals(processRunningLabel.getText())) {
-                            processRunningLabel.setText(s);
-                        }
-                        s = Integer.toString(manager.getLimitProcess());
-                        if (!s.equals(processLimitLabel.getText())) {
-                            processLimitLabel.setText(s);
-                        }
                         Thread.sleep(1000);
-                    } catch (Exception e) {}
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).start();
     }
 
-    public void setManager(ManagerInterface manager) {
-        this.manager = manager;
+    public void setManagers(ManagerInterface[] manager) {
+        this.managers = manager;
     }
 
     public String getName() {

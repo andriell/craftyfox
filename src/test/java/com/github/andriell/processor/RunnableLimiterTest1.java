@@ -14,7 +14,7 @@ public class RunnableLimiterTest1 {
         System.out.println(3);
     }
 
-    static class TestData implements DataInterface {
+    static class TestData {
         private static int count = 0;
         private String number;
         public TestData() {
@@ -24,10 +24,6 @@ public class RunnableLimiterTest1 {
         @Override
         public String toString() {
             return number;
-        }
-
-        public String getProcessBeanId() {
-            return null;
         }
     }
 

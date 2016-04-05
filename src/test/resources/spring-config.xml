@@ -13,16 +13,23 @@
         <property name="builder" ref="builder" />
     </bean>
 
-    <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
+    <bean id="manager1" class="com.github.andriell.processor.Manager">
+        <property name="fair" value="true" />
+        <property name="capacity" value="100" />
+        <property name="runnableLimiter" ref="limiter1" />
+        <property name="processBeanId" value="test_process_1" />
+    </bean>
+    <bean id="limiter1" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />
     </bean>
 
-    <bean id="manager" class="com.github.andriell.processor.Manager">
+    <bean id="manager2" class="com.github.andriell.processor.Manager">
         <property name="fair" value="true" />
         <property name="capacity" value="100" />
-        <property name="runnableLimiter" ref="limiter" />
+        <property name="runnableLimiter" ref="limiter2" />
+        <property name="processBeanId" value="test_process_2" />
     </bean>
-
-
-
+    <bean id="limiter2" class="com.github.andriell.processor.RunnableLimiter">
+        <property name="limitProcess" value="4" />
+    </bean>
 </beans>

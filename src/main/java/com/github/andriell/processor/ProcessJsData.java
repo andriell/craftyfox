@@ -3,13 +3,9 @@ package com.github.andriell.processor;
 
 import org.jsoup.nodes.Document;
 
-public class ProcessJsData implements DataInterface {
+public class ProcessJsData {
     private String processName;
     private Document document;
-
-    public String getProcessBeanId() {
-        return "process-js";
-    }
 
     public String getProcessName() {
         return processName;

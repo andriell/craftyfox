@@ -16,17 +16,19 @@ public class ManagerTest {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
-        Manager manager = applicationContext.getBean("manager", Manager.class);
+        Manager manager1 = applicationContext.getBean("manager1", Manager.class);
+        Manager manager2 = applicationContext.getBean("manager2", Manager.class);
         builder = applicationContext.getBean("builder", StringBuffer.class);
         for (int p = 0; p <= 3; p++) {
-            manager.addData(new TestData1(p));
+            manager1.addData(new TestData1(p));
         }
         for (int p = 0; p <= 3; p++) {
-            manager.addData(new TestData2(p));
+            manager2.addData(new TestData2(p));
         }
 
         RunnableLimiter limiter = new RunnableLimiter();
-        limiter.start(manager);
+        limiter.start(manager1);
+        limiter.start(manager2);
         RunnableLimiter.sleep(3000);
         String s = builder.toString();
         String s1;
@@ -43,7 +45,7 @@ public class ManagerTest {
         assertEquals("Пустая строка", "", s);
     }
 
-    public static class TestData1 implements DataInterface {
+    public static class TestData1 {
         private final String PROCESS_BEAN_ID = "test_process_1";
         private String number;
         public TestData1(int i) {
@@ -53,12 +55,9 @@ public class ManagerTest {
         public String toString() {
             return "Data1, DataName:" + number;
         }
-        public String getProcessBeanId() {
-            return PROCESS_BEAN_ID;
-        }
     }
 
-    public static class TestData2 implements DataInterface {
+    public static class TestData2 {
         private final String PROCESS_BEAN_ID = "test_process_2";
         private String number;
         public TestData2(int i) {
@@ -67,9 +66,6 @@ public class ManagerTest {
         @Override
         public String toString() {
             return "Data2, DataName:" + number;
-        }
-        public String getProcessBeanId() {
-            return PROCESS_BEAN_ID;
         }
     }
 
