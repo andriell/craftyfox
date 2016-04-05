@@ -58,15 +58,13 @@
         </property>
     </bean>
 
-
-    <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
-        <property name="limitProcess" value="4" />
-    </bean>
-
     <bean id="manager" class="com.github.andriell.processor.Manager">
         <property name="fair" value="true" />
         <property name="capacity" value="100" />
         <property name="runnableLimiter" ref="limiter" />
+    </bean>
+    <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
+        <property name="limitProcess" value="4" />
     </bean>
 
 </beans>

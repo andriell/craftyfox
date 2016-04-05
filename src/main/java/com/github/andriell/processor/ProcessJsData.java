@@ -8,7 +8,7 @@ public class ProcessJsData implements DataInterface {
     private Document document;
 
     public String getProcessBeanId() {
-        return "process_js";
+        return "process-js";
     }
 
     public String getProcessName() {
