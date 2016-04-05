@@ -18,6 +18,11 @@ public class ManagerTest {
         applicationContext.registerShutdownHook();
         Manager manager1 = applicationContext.getBean("manager1", Manager.class);
         Manager manager2 = applicationContext.getBean("manager2", Manager.class);
+
+        RunnableLimiter limiter = new RunnableLimiter(10);
+        limiter.start(manager1);
+        limiter.start(manager2);
+
         builder = applicationContext.getBean("builder", StringBuffer.class);
         for (int p = 0; p <= 3; p++) {
             manager1.addData(new TestData1(p));
@@ -26,10 +31,7 @@ public class ManagerTest {
             manager2.addData(new TestData2(p));
         }
 
-        RunnableLimiter limiter = new RunnableLimiter();
-        limiter.start(manager1);
-        limiter.start(manager2);
-        RunnableLimiter.sleep(3000);
+        RunnableLimiter.sleep(60000);
         String s = builder.toString();
         String s1;
         for (int p = 0; p <= 3; p++) {
@@ -46,7 +48,6 @@ public class ManagerTest {
     }
 
     public static class TestData1 {
-        private final String PROCESS_BEAN_ID = "test_process_1";
         private String number;
         public TestData1(int i) {
             number = Integer.toString(i);
@@ -58,7 +59,6 @@ public class ManagerTest {
     }
 
     public static class TestData2 {
-        private final String PROCESS_BEAN_ID = "test_process_2";
         private String number;
         public TestData2(int i) {
             number = Integer.toString(i);
