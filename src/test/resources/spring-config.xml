@@ -26,6 +26,6 @@
         <property name="processBeanId" value="test_process_2" />
     </bean>
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
-        <property name="limitProcess" value="1" />
+        <property name="limitProcess" value="4" />
     </bean>
 </beans>
