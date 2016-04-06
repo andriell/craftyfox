@@ -14,6 +14,7 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
     private BlockingQueue<Object> dataQueue;
 
     private Boolean run = true;
+    private int runPause = 1000;
     private ApplicationContext applicationContext;
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
@@ -56,12 +57,20 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
                     break;
                 }
             }
-            RunnableLimiter.sleep(1000);
+            RunnableLimiter.sleep(runPause);
         }
     }
 
     public void stop() {
         run = false;
+    }
+
+    public int getRunPause() {
+        return runPause;
+    }
+
+    public void setRunPause(int runPause) {
+        this.runPause = runPause;
     }
 
     public RunnableLimiter getRunnableLimiter() {
