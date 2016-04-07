@@ -18,6 +18,10 @@ public class NavTreeItem implements InitializingBean {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setChildNodes(NavTreeItem[] childNodes) {
         this.childNodes = childNodes;
     }
