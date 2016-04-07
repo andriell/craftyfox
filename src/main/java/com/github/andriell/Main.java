@@ -44,6 +44,8 @@ public class Main {
 
         Color color = new Color(255, 255, 255);
         UIManager.put("Panel.background", color);
+        UIManager.put("CheckBox.background", color);
+        UIManager.put("Button.background", color);
 
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
         // Без этого событие destroy для бинов не будет вызвано

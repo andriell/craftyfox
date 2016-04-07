@@ -19,11 +19,18 @@ public class MainFrame implements InitializingBean {
     private JTree navTree;
     private JPanel workPanel;
     private JLabel footerJLabel;
+    private JButton xButton;
+    private JButton _Button;
+    private JButton button3;
+    private JLabel titleJLabel;
 
     public void afterPropertiesSet() throws Exception {
+        //rootPanel.setBackground(new Color(0,0,0));
+        //rootPanel.setBounds(1,1,1,1);
+
         JFrame frame = new JFrame("Crafty Fox");
         frame.setContentPane(rootPanel);
-        //frame.setUndecorated(true); // Убрать заголовок и границы
+        frame.setUndecorated(true); // Убрать заголовок и границы
         frame.pack();
         //frame.setAlwaysOnTop(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -57,6 +64,7 @@ public class MainFrame implements InitializingBean {
             if (!(o instanceof WorkArea)) {
                 return;
             }
+            titleJLabel.setText(selectedNode.toString());
             WorkArea workArea = (WorkArea) o;
             workPanel.removeAll();
             workPanel.add(workArea.getRootPanel());
