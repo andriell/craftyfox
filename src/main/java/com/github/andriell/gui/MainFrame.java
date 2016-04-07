@@ -35,7 +35,7 @@ public class MainFrame implements InitializingBean {
         renderer.setClosedIcon(new WindowsTreeUI.CollapsedIcon()); // Папки закрытые
         renderer.setOpenIcon(new WindowsTreeUI.ExpandedIcon()); // Папки открытые
 
-        DefaultTreeModel model = new DefaultTreeModel(navTreeMenu.getNode());
+        DefaultTreeModel model = new DefaultTreeModel(navTreeMenu);
         navTree.setModel(model);
         navTree.addTreeSelectionListener(new SelectionListener());
         //</editor-fold>
@@ -48,11 +48,10 @@ public class MainFrame implements InitializingBean {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree
                     .getLastSelectedPathComponent();
             Object o = selectedNode.getUserObject();
-            if (!(o instanceof NavTreeItem)) {
+            if (!(o instanceof WorkArea)) {
                 return;
             }
-            NavTreeItem navTreeItem = (NavTreeItem) o;
-            WorkArea workArea = navTreeItem.getWorkArea();
+            WorkArea workArea = (WorkArea) o;
             if (workArea != null) {
                 workPanel.removeAll();
                 workPanel.add(workArea.getRootPanel());

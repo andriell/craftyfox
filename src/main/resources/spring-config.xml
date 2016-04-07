@@ -9,7 +9,7 @@
 
     <bean id="gui-nav-three-root" class="com.github.andriell.gui.NavTreeItem">
         <property name="name" value="Параметры" />
-        <property name="workArea" ref="gui-nashorn-work-area" />
+        <property name="userObject" ref="gui-nashorn-work-area" />
         <property name="childNodes">
             <array>
                 <ref bean="gui-nav-three-error" />
@@ -19,17 +19,17 @@
         </property>
     </bean>
     <bean id="gui-nav-three-nashorn" class="com.github.andriell.gui.NavTreeItem">
-        <property name="workArea" ref="gui-nashorn-work-area" />
+        <property name="userObject" ref="gui-nashorn-work-area" />
     </bean>
     <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">
         <property name="nashorn" ref="nashorn"/>
     </bean>
     <bean id="gui-nav-three-error" class="com.github.andriell.gui.NavTreeItem">
-        <property name="workArea" ref="gui-error-work-area" />
+        <property name="userObject" ref="gui-error-work-area" />
     </bean>
     <bean id="gui-error-work-area" class="com.github.andriell.gui.ErrorWorkArea" />
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
-        <property name="workArea" ref="gui-process-work-area" />
+        <property name="userObject" ref="gui-process-work-area" />
     </bean>
     <bean id="gui-process-work-area" class="com.github.andriell.gui.ProcessWorkArea">
         <property name="processWorkAreaTableModel" ref="gui-process-work-area-table-model" />
