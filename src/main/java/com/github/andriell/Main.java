@@ -42,6 +42,9 @@ public class Main {
         UIManager.put("ToolTip.font", f);
         UIManager.put("Tree.font", f);
 
+        Color color = new Color(255, 255, 255);
+        UIManager.put("Panel.background", color);
+
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
