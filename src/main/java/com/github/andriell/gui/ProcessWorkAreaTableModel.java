@@ -1,14 +1,12 @@
 package com.github.andriell.gui;
 
 import javax.swing.event.EventListenerList;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 /**
  * Created by Rybalko on 07.04.2016.
  */
-public class ProcessWorkAreaTableModel implements TableModel {
+public class ProcessWorkAreaTableModel extends AbstractTableModel  {
     protected EventListenerList listenerList = new EventListenerList();
 
     private String[] columnNames = {"a","b","c"};
@@ -40,14 +38,6 @@ public class ProcessWorkAreaTableModel implements TableModel {
 
     public void setValueAt(Object value, int row, int col) {
         data[row][col] = value;
-        //fireTableCellUpdated(row, col);
-    }
-
-    public void addTableModelListener(TableModelListener l) {
-        listenerList.add(TableModelListener.class, l);
-    }
-
-    public void removeTableModelListener(TableModelListener l) {
-        listenerList.remove(TableModelListener.class, l);
+        fireTableCellUpdated(row, col);
     }
 }
