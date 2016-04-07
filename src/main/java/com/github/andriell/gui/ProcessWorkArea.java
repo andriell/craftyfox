@@ -3,6 +3,7 @@ package com.github.andriell.gui;
 import com.github.andriell.processor.ManagerInterface;
 import com.github.andriell.processor.Processor;
 import com.github.andriell.processor.ProcessorInterface;
+import org.springframework.beans.factory.InitializingBean;
 
 
 import javax.swing.*;
@@ -13,21 +14,19 @@ import javax.swing.table.TableModel;
 /**
  * Created by Андрей on 20.02.2016.
  */
-public class ProcessWorkArea implements WorkArea {
+public class ProcessWorkArea implements WorkArea, InitializingBean {
     private JPanel rootPanel;
     private JTable tableManagers;
 
+    private ProcessWorkAreaTableModel processWorkAreaTableModel;
 
 
-    private ManagerInterface[] managers;
-    private ProcessorInterface processor;
-
-    public ProcessWorkArea() {
-        tableManagers.setModel(new ProcessWorkAreaTableModel());
+    public ProcessWorkAreaTableModel getProcessWorkAreaTableModel() {
+        return processWorkAreaTableModel;
     }
 
-    public void setManagers(ManagerInterface[] manager) {
-        this.managers = manager;
+    public void setProcessWorkAreaTableModel(ProcessWorkAreaTableModel processWorkAreaTableModel) {
+        this.processWorkAreaTableModel = processWorkAreaTableModel;
     }
 
     public String getName() {
@@ -36,5 +35,9 @@ public class ProcessWorkArea implements WorkArea {
 
     public JPanel getRootPanel() {
         return rootPanel;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        tableManagers.setModel(processWorkAreaTableModel);
     }
 }

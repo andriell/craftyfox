@@ -1,5 +1,7 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.processor.ManagerInterface;
+
 import javax.swing.event.EventListenerList;
 import javax.swing.table.AbstractTableModel;
 
@@ -7,17 +9,31 @@ import javax.swing.table.AbstractTableModel;
  * Created by Rybalko on 07.04.2016.
  */
 public class ProcessWorkAreaTableModel extends AbstractTableModel  {
-    protected EventListenerList listenerList = new EventListenerList();
+    private String[] columnNames = {"ProcessBeanId", "RunningProcesses", "ProcessInQueue", "LimitProcess"};
+    private ManagerInterface[] managers;
 
-    private String[] columnNames = {"a","b","c"};
-    private Object[][] data = {{"a","b","c"},{"a","b","c"}};
+    public String[] getColumnNames() {
+        return columnNames;
+    }
+
+    public void setColumnNames(String[] columnNames) {
+        this.columnNames = columnNames;
+    }
+
+    public ManagerInterface[] getManagers() {
+        return managers;
+    }
+
+    public void setManagers(ManagerInterface[] managers) {
+        this.managers = managers;
+    }
 
     public int getColumnCount() {
         return columnNames.length;
     }
 
     public int getRowCount() {
-        return data.length;
+        return managers.length;
     }
 
     public String getColumnName(int col) {
@@ -25,7 +41,17 @@ public class ProcessWorkAreaTableModel extends AbstractTableModel  {
     }
 
     public Object getValueAt(int row, int col) {
-        return data[row][col];
+        ManagerInterface manager = managers[row];
+        if (col == 0) {
+            return manager.getProcessBeanId();
+        } else if (col == 1) {
+            return manager.getRunningProcesses();
+        } else if (col == 2) {
+            return manager.getProcessInQueue();
+        } else if (col == 3) {
+            return manager.getLimitProcess();
+        }
+        return "";
     }
 
     public Class getColumnClass(int c) {
@@ -33,11 +59,10 @@ public class ProcessWorkAreaTableModel extends AbstractTableModel  {
     }
 
     public boolean isCellEditable(int row, int col) {
-        return col < 2;
+        return col == 3;
     }
 
     public void setValueAt(Object value, int row, int col) {
-        data[row][col] = value;
         fireTableCellUpdated(row, col);
     }
 }
