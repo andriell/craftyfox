@@ -11,12 +11,14 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import java.awt.*;
 
 public class MainFrame implements InitializingBean {
     private JPanel rootPanel;
     private NavTreeItem navTreeMenu;
     private JTree navTree;
     private JPanel workPanel;
+    private JLabel footerJLabel;
 
     public void afterPropertiesSet() throws Exception {
         JFrame frame = new JFrame("Crafty Fox");
@@ -26,7 +28,7 @@ public class MainFrame implements InitializingBean {
         //frame.setAlwaysOnTop(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
-        frame.setVisible(true);
+
 
         //<editor-fold desc="navTree">
         // SelectionListener
@@ -39,6 +41,10 @@ public class MainFrame implements InitializingBean {
         navTree.setModel(model);
         navTree.addTreeSelectionListener(new SelectionListener());
         //</editor-fold>
+
+        footerJLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
+        frame.setVisible(true);
     }
 
     public class SelectionListener implements TreeSelectionListener {
