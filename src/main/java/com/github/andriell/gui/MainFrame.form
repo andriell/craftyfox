@@ -92,7 +92,7 @@
               <forms/>
             </constraints>
             <properties>
-              <text value=" _ "/>
+              <text value=" - "/>
             </properties>
           </component>
           <component id="a9c34" class="javax.swing.JLabel" binding="pJLabel">
@@ -110,7 +110,7 @@
               <forms/>
             </constraints>
             <properties>
-              <text value="   X   "/>
+              <text value=" x   "/>
             </properties>
           </component>
         </children>

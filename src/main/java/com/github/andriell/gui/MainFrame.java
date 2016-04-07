@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainFrame implements InitializingBean {
+    private JFrame frame;
     private JPanel rootPanel;
     private NavTreeItem navTreeMenu;
     private JTree navTree;
@@ -30,17 +31,36 @@ public class MainFrame implements InitializingBean {
         //rootPanel.setBackground(new Color(0,0,0));
         //rootPanel.setBounds(1,1,1,1);
 
+
+        //xJLabel.setOpaque(true);
+        //xJLabel.setBackground(Color.RED);
+        //xJLabel.setForeground(Color.WHITE);
+        //xJLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+        frame = new JFrame("Crafty Fox");
+        //<editor-fold desc="Управление окном">
         xJLabel.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 System.exit(0);
             }
         });
-        //xJLabel.setOpaque(true);
-        //xJLabel.setBackground(Color.RED);
-        //xJLabel.setForeground(Color.WHITE);
-        xJLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-
-        JFrame frame = new JFrame("Crafty Fox");
+        _JLabel.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+                frame.setState(JFrame.ICONIFIED);
+            }
+        });
+        pJLabel.addMouseListener(new MouseAdapter() {
+            private boolean max = false;
+            public void mouseReleased(MouseEvent e) {
+                if (max) {
+                    frame.setExtendedState(JFrame.NORMAL);
+                } else {
+                    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                }
+                max = !max;
+            }
+        });
+        //</editor-fold>
         frame.setContentPane(rootPanel);
         frame.setUndecorated(true); // Убрать заголовок и границы
         frame.pack();
