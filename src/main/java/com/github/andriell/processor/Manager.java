@@ -115,6 +115,10 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
         return runnableLimiter.getLimitProcess();
     }
 
+    public void setLimitProcess(int limit) {
+        runnableLimiter.setLimitProcess(limit);
+    }
+
     public int getProcessInQueue() {
         return dataQueue.size();
     }

@@ -7,6 +7,7 @@ public interface ManagerInterface extends Runnable {
     void addData(Object task);
     String getProcessBeanId();
     int getRunningProcesses();
-    int getLimitProcess();
     int getProcessInQueue();
+    int getLimitProcess();
+    void setLimitProcess(int limit);
 }
