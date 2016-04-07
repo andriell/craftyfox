@@ -1,5 +1,6 @@
 package com.github.andriell.gui;
 
+import com.jgoodies.looks.windows.WindowsTreeUI;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
@@ -31,8 +32,8 @@ public class MainFrame implements InitializingBean {
         // SelectionListener
         DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) navTree.getCellRenderer();
         renderer.setLeafIcon(null); // Файлы
-        renderer.setClosedIcon(null); // Папки закрытые
-        renderer.setOpenIcon(null); // Папки открытые
+        renderer.setClosedIcon(new WindowsTreeUI.CollapsedIcon()); // Папки закрытые
+        renderer.setOpenIcon(new WindowsTreeUI.ExpandedIcon()); // Папки открытые
 
         DefaultTreeModel model = new DefaultTreeModel(navTreeMenu.getNode());
         navTree.setModel(model);
