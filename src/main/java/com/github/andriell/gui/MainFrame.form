@@ -65,33 +65,6 @@
               <text value="CraftyFox"/>
             </properties>
           </component>
-          <component id="d56b6" class="javax.swing.JButton" binding="xButton" default-binding="true">
-            <constraints>
-              <grid row="0" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <forms/>
-            </constraints>
-            <properties>
-              <text value="X"/>
-            </properties>
-          </component>
-          <component id="dfe29" class="javax.swing.JButton" binding="_Button" default-binding="true">
-            <constraints>
-              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <forms/>
-            </constraints>
-            <properties>
-              <text value="_"/>
-            </properties>
-          </component>
-          <component id="4c892" class="javax.swing.JButton" binding="button3" default-binding="true">
-            <constraints>
-              <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <forms/>
-            </constraints>
-            <properties>
-              <text value="+"/>
-            </properties>
-          </component>
           <component id="e8cb8" class="javax.swing.JLabel" binding="titleJLabel">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -113,6 +86,33 @@
               <forms defaultalign-vert="false"/>
             </constraints>
           </vspacer>
+          <component id="e698" class="javax.swing.JLabel" binding="_JLabel">
+            <constraints>
+              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=" _ "/>
+            </properties>
+          </component>
+          <component id="a9c34" class="javax.swing.JLabel" binding="pJLabel">
+            <constraints>
+              <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=" + "/>
+            </properties>
+          </component>
+          <component id="f18fe" class="javax.swing.JLabel" binding="xJLabel">
+            <constraints>
+              <grid row="0" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="   X   "/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="b39b1" layout-manager="FormLayout">

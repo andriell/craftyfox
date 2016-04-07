@@ -12,6 +12,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainFrame implements InitializingBean {
     private JPanel rootPanel;
@@ -19,14 +21,24 @@ public class MainFrame implements InitializingBean {
     private JTree navTree;
     private JPanel workPanel;
     private JLabel footerJLabel;
-    private JButton xButton;
-    private JButton _Button;
-    private JButton button3;
     private JLabel titleJLabel;
+    private JLabel _JLabel;
+    private JLabel pJLabel;
+    private JLabel xJLabel;
 
     public void afterPropertiesSet() throws Exception {
         //rootPanel.setBackground(new Color(0,0,0));
         //rootPanel.setBounds(1,1,1,1);
+
+        xJLabel.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+                System.exit(0);
+            }
+        });
+        //xJLabel.setOpaque(true);
+        //xJLabel.setBackground(Color.RED);
+        //xJLabel.setForeground(Color.WHITE);
+        xJLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
         JFrame frame = new JFrame("Crafty Fox");
         frame.setContentPane(rootPanel);
