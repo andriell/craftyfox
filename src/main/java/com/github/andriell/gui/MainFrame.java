@@ -26,6 +26,8 @@ public class MainFrame implements InitializingBean {
     private JLabel _JLabel;
     private JLabel pJLabel;
     private JLabel xJLabel;
+    private JPanel titleJPanel;
+    private JLabel logoJLabel;
 
     public void afterPropertiesSet() throws Exception {
         //rootPanel.setBackground(new Color(0,0,0));
@@ -60,6 +62,21 @@ public class MainFrame implements InitializingBean {
                 max = !max;
             }
         });
+        MouseAdapter drugAndDropMouseAdapter = new MouseAdapter() {
+            private int pX, pY;
+            public void mousePressed(MouseEvent me) {
+                pX = me.getX();
+                pY = me.getY();
+            }
+            public void mouseDragged(MouseEvent me) {
+                frame.setLocation(frame.getLocation().x + me.getX() - pX,
+                        frame.getLocation().y + me.getY() - pY);
+            }
+        };
+        titleJLabel.addMouseListener(drugAndDropMouseAdapter);
+        titleJLabel.addMouseMotionListener(drugAndDropMouseAdapter);
+        logoJLabel.addMouseListener(drugAndDropMouseAdapter);
+        logoJLabel.addMouseMotionListener(drugAndDropMouseAdapter);
         //</editor-fold>
         frame.setContentPane(rootPanel);
         frame.setUndecorated(true); // Убрать заголовок и границы

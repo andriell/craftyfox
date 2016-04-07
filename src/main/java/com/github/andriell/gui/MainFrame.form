@@ -37,7 +37,7 @@
           </component>
         </children>
       </grid>
-      <grid id="f7f57" layout-manager="FormLayout">
+      <grid id="f7f57" binding="titleJPanel" layout-manager="FormLayout">
         <rowspec value="center:d:noGrow"/>
         <rowspec value="top:4dlu:noGrow"/>
         <rowspec value="center:d:grow"/>
@@ -56,7 +56,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="7e3e8" class="javax.swing.JLabel">
+          <component id="7e3e8" class="javax.swing.JLabel" binding="logoJLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <forms/>
