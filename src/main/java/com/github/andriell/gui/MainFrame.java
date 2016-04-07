@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 public class MainFrame implements InitializingBean {
@@ -26,6 +27,11 @@ public class MainFrame implements InitializingBean {
 
         //<editor-fold desc="navTree">
         // SelectionListener
+        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) navTree.getCellRenderer();
+        renderer.setLeafIcon(null); // Файлы
+        renderer.setClosedIcon(null); // Папки закрытые
+        renderer.setOpenIcon(null); // Папки открытые
+
         DefaultTreeModel model = new DefaultTreeModel(navTreeMenu.getNode());
         navTree.setModel(model);
         navTree.addTreeSelectionListener(new SelectionListener());
