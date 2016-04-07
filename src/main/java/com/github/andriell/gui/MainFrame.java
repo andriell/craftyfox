@@ -52,12 +52,10 @@ public class MainFrame implements InitializingBean {
                 return;
             }
             WorkArea workArea = (WorkArea) o;
-            if (workArea != null) {
-                workPanel.removeAll();
-                workPanel.add(workArea.getRootPanel());
-                workPanel.validate();
-                workPanel.repaint();
-            }
+            workPanel.removeAll();
+            workPanel.add(workArea.getRootPanel());
+            workPanel.validate();
+            workPanel.repaint();
         }
     }
 
