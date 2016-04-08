@@ -22,8 +22,8 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
     private int capacity;
     private boolean fair;
 
-    public void addData(Object task) {
-        dataQueue.add(task);
+    public boolean addData(Object task) {
+        return dataQueue.add(task);
     }
 
     public void setProcessBeanId(String processBeanId) {
