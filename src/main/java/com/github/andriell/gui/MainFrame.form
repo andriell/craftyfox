@@ -12,8 +12,8 @@
       <grid id="60482" binding="workPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
         <properties/>
-        <border type="none">
-          <size top="5" left="5" bottom="0" right="5"/>
+        <border type="empty">
+          <size top="0" left="0" bottom="0" right="5"/>
         </border>
         <children>
           <component id="8457f" class="javax.swing.JLabel">
@@ -28,7 +28,7 @@
         <constraints border-constraint="West"/>
         <properties/>
         <border type="empty">
-          <size top="0" left="0" bottom="0" right="5"/>
+          <size top="0" left="5" bottom="0" right="5"/>
         </border>
         <children>
           <component id="b8796" class="javax.swing.JTree" binding="navTree">
@@ -52,7 +52,11 @@
         <colspec value="fill:max(d;4px):noGrow"/>
         <constraints border-constraint="North"/>
         <properties/>
-        <border type="none"/>
+        <border type="empty">
+          <title-color color="-16777216"/>
+          <size top="0" left="5" bottom="0" right="0"/>
+          <color color="-16777216"/>
+        </border>
         <children>
           <component id="7e3e8" class="javax.swing.JLabel" binding="logoJLabel">
             <constraints>
@@ -111,7 +115,7 @@
         <colspec value="fill:d:grow"/>
         <constraints border-constraint="South"/>
         <properties/>
-        <border type="none">
+        <border type="empty">
           <size top="0" left="5" bottom="5" right="5"/>
         </border>
         <children>
