@@ -25,6 +25,10 @@ public class ProcessWorkAreaTableModel extends AbstractTableModel  {
         return managers;
     }
 
+    public void setManagers(ManagerInterface[] managers) {
+        this.managers = managers;
+    }
+
     public void setProcessor(ProcessorInterface processor) {
         Collection<ManagerInterface> collection = processor.getManagers();
         if (collection == null) {
