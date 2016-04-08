@@ -2,6 +2,7 @@ package com.github.andriell.gui;
 
 import com.jgoodies.looks.windows.WindowsTreeUI;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.StringUtils;
 
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
@@ -16,6 +17,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainFrame implements InitializingBean {
+    private String logo = "Crafty Fox ";
+    private String space = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ";
     private JFrame frame;
     private JPanel rootPanel;
     private NavTreeItem navTreeMenu;
@@ -39,7 +42,7 @@ public class MainFrame implements InitializingBean {
         //xJLabel.setForeground(Color.WHITE);
         //xJLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
-        frame = new JFrame("Crafty Fox");
+        frame = new JFrame(logo);
         //<editor-fold desc="Управление окном">
         xJLabel.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
@@ -73,10 +76,10 @@ public class MainFrame implements InitializingBean {
                         frame.getLocation().y + me.getY() - pY);
             }
         };
-        titleJLabel.addMouseListener(drugAndDropMouseAdapter);
-        titleJLabel.addMouseMotionListener(drugAndDropMouseAdapter);
         logoJLabel.addMouseListener(drugAndDropMouseAdapter);
         logoJLabel.addMouseMotionListener(drugAndDropMouseAdapter);
+        titleJPanel.addMouseListener(drugAndDropMouseAdapter);
+        titleJPanel.addMouseMotionListener(drugAndDropMouseAdapter);
         //</editor-fold>
         frame.setContentPane(rootPanel);
         frame.setUndecorated(true); // Убрать заголовок и границы
@@ -113,7 +116,7 @@ public class MainFrame implements InitializingBean {
             if (!(o instanceof WorkArea)) {
                 return;
             }
-            titleJLabel.setText(selectedNode.toString());
+            logoJLabel.setText(logo + selectedNode.toString());
             WorkArea workArea = (WorkArea) o;
             workPanel.removeAll();
             workPanel.add(workArea.getRootPanel());
