@@ -17,7 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainFrame implements InitializingBean {
-    private String logo = "Crafty Fox ";
+    private String logo = "Crafty Fox     ";
     private String space = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ";
     private JFrame frame;
     private JPanel rootPanel;
