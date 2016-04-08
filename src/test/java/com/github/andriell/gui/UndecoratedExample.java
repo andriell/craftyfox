@@ -25,7 +25,6 @@ public class UndecoratedExample {
     }
 
     class BorderPanel extends JPanel {
-
         private JLabel label;
         int pX, pY;
 
