@@ -9,12 +9,19 @@ import com.github.andriell.processor.ProcessorInterface;
 public class Task {
     ProcessorInterface processor;
 
-
     public boolean add(String processBeanId, Object data) {
         ManagerInterface manager = processor.getManager(processBeanId);
         if (manager == null) {
             return false;
         }
         return manager.addData(data);
-    };
+    }
+
+    public ProcessorInterface getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(ProcessorInterface processor) {
+        this.processor = processor;
+    }
 }

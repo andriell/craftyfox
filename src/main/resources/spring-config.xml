@@ -50,6 +50,7 @@
         <property name="jsItems">
             <array>
                 <ref bean="nashorn-js-item-console" />
+                <ref bean="nashorn-js-item-task" />
             </array>
         </property>
     </bean>
@@ -57,10 +58,25 @@
         <property name="name" value="console" />
         <property name="object" ref="nashorn-console" />
     </bean>
+    <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsItem">
+        <property name="name" value="task" />
+        <property name="object" ref="nashorn-task" />
+    </bean>
     <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console">
         <property name="consoleListeners">
             <array>
                 <ref bean="gui-nashorn-work-area" />
+            </array>
+        </property>
+    </bean>
+    <bean id="nashorn-task" class="com.github.andriell.nashorn.Task">
+        <property name="processor" ref="processor" />
+    </bean>
+
+    <bean id="processor" class="com.github.andriell.processor.Processor">
+        <property name="managers">
+            <array>
+                <ref bean="manager-js" />
             </array>
         </property>
     </bean>
