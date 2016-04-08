@@ -1,9 +1,10 @@
 package com.github.andriell.gui;
 
 import com.github.andriell.processor.ManagerInterface;
+import com.github.andriell.processor.ProcessorInterface;
 
-import javax.swing.event.EventListenerList;
 import javax.swing.table.AbstractTableModel;
+import java.util.Collection;
 
 /**
  * Created by Rybalko on 07.04.2016.
@@ -24,8 +25,17 @@ public class ProcessWorkAreaTableModel extends AbstractTableModel  {
         return managers;
     }
 
-    public void setManagers(ManagerInterface[] managers) {
-        this.managers = managers;
+    public void setProcessor(ProcessorInterface processor) {
+        Collection<ManagerInterface> collection = processor.getManagers();
+        if (collection == null) {
+            return;
+        }
+        int size = collection.size();
+        managers = new ManagerInterface[size];
+        int i = 0;
+        for (ManagerInterface manager:collection) {
+            managers[i++] = manager;
+        }
     }
 
     public int getColumnCount() {

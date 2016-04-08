@@ -35,11 +35,7 @@
         <property name="processWorkAreaTableModel" ref="gui-process-work-area-table-model" />
     </bean>
     <bean id="gui-process-work-area-table-model" class="com.github.andriell.gui.ProcessWorkAreaTableModel">
-        <property name="managers">
-            <array>
-                <ref bean="manager-js" />
-            </array>
-        </property>
+        <property name="processor" ref="processor" />
     </bean>
 
 

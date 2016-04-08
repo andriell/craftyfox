@@ -1,5 +1,6 @@
 package com.github.andriell.processor;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -14,7 +15,7 @@ public class Processor implements ProcessorInterface {
         }
     }
 
-    public Iterable<ManagerInterface> getManagers() {
+    public Collection<ManagerInterface> getManagers() {
         return this.managers.values();
     }
 
