@@ -34,12 +34,9 @@ public class UndecoratedExample {
             label.setOpaque(true);
             label.setBackground(Color.RED);
             label.setForeground(Color.WHITE);
-
             setBackground(Color.black);
             setLayout(new FlowLayout(FlowLayout.RIGHT));
-
             add(label);
-
             label.addMouseListener(new MouseAdapter() {
                 public void mouseReleased(MouseEvent e) {
                     System.exit(0);
@@ -47,22 +44,18 @@ public class UndecoratedExample {
             });
             addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent me) {
-                    // Get x,y and store them
                     pX = me.getX();
                     pY = me.getY();
 
                 }
 
                 public void mouseDragged(MouseEvent me) {
-
                     frame.setLocation(frame.getLocation().x + me.getX() - pX,
                             frame.getLocation().y + me.getY() - pY);
                 }
             });
-
             addMouseMotionListener(new MouseMotionAdapter() {
                 public void mouseDragged(MouseEvent me) {
-
                     frame.setLocation(frame.getLocation().x + me.getX() - pX,
                             frame.getLocation().y + me.getY() - pY);
                 }
@@ -71,7 +64,6 @@ public class UndecoratedExample {
     }
 
     class OutsidePanel extends JPanel {
-
         public OutsidePanel() {
             setLayout(new BorderLayout());
             add(new MainPanel(), BorderLayout.CENTER);
