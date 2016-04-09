@@ -6,8 +6,11 @@ package com.github.andriell.processor;
 public interface ManagerInterface extends Runnable {
     boolean addData(Object task);
     String getProcessBeanId();
+    String getDataBeanId();
     int getRunningProcesses();
     int getProcessInQueue();
     int getLimitProcess();
     void setLimitProcess(int limit);
+    void stop();
+    boolean isRun();
 }

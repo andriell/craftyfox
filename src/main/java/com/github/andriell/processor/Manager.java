@@ -19,6 +19,7 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
     private String processBeanId;
+    private String dataBeanId;
     private int capacity;
     private boolean fair;
 
@@ -32,6 +33,14 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
 
     public String getProcessBeanId() {
         return processBeanId;
+    }
+
+    public String getDataBeanId() {
+        return dataBeanId;
+    }
+
+    public void setDataBeanId(String dataBeanId) {
+        this.dataBeanId = dataBeanId;
     }
 
     public Object pullTask() {
@@ -63,6 +72,10 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
 
     public void stop() {
         run = false;
+    }
+
+    public boolean isRun() {
+        return run;
     }
 
     public int getRunPause() {

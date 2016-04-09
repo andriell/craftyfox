@@ -14,7 +14,11 @@ public class Nashorn implements InitializingBean {
     private ScriptEngine engine;
 
     public void afterPropertiesSet() throws Exception {
-        reload();
+        try {
+            reload();
+        } catch (Exception e) { // Без этого приложение вообще не запустится при ошибках в JS
+            e.printStackTrace();
+        }
     }
 
     public void reload() throws Exception {
