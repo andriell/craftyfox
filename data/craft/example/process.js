@@ -2,7 +2,12 @@
  * Описание объекта org.jsoup.nodes.Document находится по адресу http://jsoup.org/cookbook/extracting-data/selector-syntax
  * @param  document - org.jsoup.nodes.Document
  */
-console.info(task2.add("process-js", {}));
+
+var data = processor.newData("process-js");
+data.setCraftName("test");
+console.info(processor.add("process-js", data));
+
+
 $.addProcess("example", function(document) {
 	console.info(document.getClass().getName());
 	var links = document.select("a.link");

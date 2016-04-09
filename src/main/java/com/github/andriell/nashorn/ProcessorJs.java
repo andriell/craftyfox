@@ -20,7 +20,7 @@ public class ProcessorJs {
         return manager.addData(data);
     }
 
-    public Object newDataClass(String processBeanId) {
+    public Object newData(String processBeanId) {
         return processor.newData(processBeanId);
     }
 

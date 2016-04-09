@@ -72,7 +72,7 @@
     </bean>
     <!-- JS Инжекция, processor -->
     <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsInjection">
-        <property name="name" value="task" />
+        <property name="name" value="processor" />
         <property name="object" ref="nashorn-processor" />
     </bean>
     <!-- JS Инжекция, объект processor -->

@@ -25,7 +25,7 @@ public class ProcessJs implements ProcessInterface {
 
     public void run() {
         try {
-            nashorn.getInvocable().invokeFunction("process.[\"" + getData().getCraftName() + "\"]", getData().getDocument());
+            nashorn.runProcess(getData().getCraftName(), getData().getDocument());
         } catch (ScriptException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
