@@ -3,7 +3,7 @@ package com.github.andriell.nashorn;
 /**
  * Created by Vika on 03.04.2016
  */
-public class JsItem {
+public class JsInjection {
     private String name;
     private Object object;
 

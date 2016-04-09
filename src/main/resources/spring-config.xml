@@ -50,7 +50,7 @@
 
     <!-- Nashorn - среда для выполнения JS -->
     <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn">
-        <property name="jsItems">
+        <property name="jsInjections">
             <array>
                 <ref bean="nashorn-js-item-console" />
                 <ref bean="nashorn-js-item-task" />
@@ -58,7 +58,7 @@
         </property>
     </bean>
     <!-- JS Инжекция, console -->
-    <bean id="nashorn-js-item-console" class="com.github.andriell.nashorn.JsItem">
+    <bean id="nashorn-js-item-console" class="com.github.andriell.nashorn.JsInjection">
         <property name="name" value="console" />
         <property name="object" ref="nashorn-console" />
     </bean>
@@ -70,13 +70,13 @@
             </array>
         </property>
     </bean>
-    <!-- JS Инжекция, task -->
-    <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsItem">
+    <!-- JS Инжекция, processor -->
+    <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsInjection">
         <property name="name" value="task" />
-        <property name="object" ref="nashorn-task" />
+        <property name="object" ref="nashorn-processor" />
     </bean>
-    <!-- JS Инжекция, объект task -->
-    <bean id="nashorn-task" class="com.github.andriell.nashorn.Task">
+    <!-- JS Инжекция, объект processor -->
+    <bean id="nashorn-processor" class="com.github.andriell.nashorn.ProcessorJs">
         <property name="processor" ref="processor" />
     </bean>
 

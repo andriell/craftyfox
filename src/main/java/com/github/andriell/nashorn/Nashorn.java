@@ -2,7 +2,6 @@ package com.github.andriell.nashorn;
 
 import com.github.andriell.general.Files;
 
-import com.github.andriell.nashorn.console.Console;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -10,7 +9,7 @@ import javax.script.*;
 import java.io.File;
 
 public class Nashorn implements InitializingBean {
-    private JsItem[] jsItems;
+    private JsInjection[] jseInjections;
     private ScriptEngine engine;
 
     public void afterPropertiesSet() throws Exception {
@@ -34,9 +33,9 @@ public class Nashorn implements InitializingBean {
     public void reload(String skipCraft, String jsCraft) throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
-        if (jsItems != null) {
-            for (JsItem jsItem: jsItems) {
-                engine.getBindings(ScriptContext.ENGINE_SCOPE).put(jsItem.getName(), jsItem.getObject());
+        if (jseInjections != null) {
+            for (JsInjection jsInjection : jseInjections) {
+                engine.getBindings(ScriptContext.ENGINE_SCOPE).put(jsInjection.getName(), jsInjection.getObject());
             }
         }
         File[] files = Files.readDir(Files.JS_DIR);
@@ -89,7 +88,7 @@ public class Nashorn implements InitializingBean {
         return getInvocable().invokeFunction("craftyFoxRunProcess", processName, document);
     }
 
-    public void setJsItems(JsItem[] jsItems) {
-        this.jsItems = jsItems;
+    public void setJsInjections(JsInjection[] jseInjections) {
+        this.jseInjections = jseInjections;
     }
 }
