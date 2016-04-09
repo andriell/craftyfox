@@ -2,8 +2,6 @@ package com.github.andriell.processor;
 
 import com.github.andriell.nashorn.Nashorn;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class ProcessJs implements ProcessInterface {
@@ -27,7 +25,7 @@ public class ProcessJs implements ProcessInterface {
 
     public void run() {
         try {
-            nashorn.getInvocable().invokeFunction("process.[\"" + getData().getProcessName() + "\"]", getData().getDocument());
+            nashorn.getInvocable().invokeFunction("process.[\"" + getData().getCraftName() + "\"]", getData().getDocument());
         } catch (ScriptException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {

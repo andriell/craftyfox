@@ -9,4 +9,5 @@ public interface ProcessorInterface {
     void setManagers(Iterable<ManagerInterface> managers);
     Collection<ManagerInterface> getManagers();
     ManagerInterface getManager(String processBeanId);
+    Object newData(String processBeanId);
 }

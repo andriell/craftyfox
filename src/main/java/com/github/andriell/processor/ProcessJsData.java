@@ -4,15 +4,15 @@ package com.github.andriell.processor;
 import org.jsoup.nodes.Document;
 
 public class ProcessJsData {
-    private String processName;
+    private String craftName;
     private Document document;
 
-    public String getProcessName() {
-        return processName;
+    public String getCraftName() {
+        return craftName;
     }
 
-    public void setProcessName(String processName) {
-        this.processName = processName;
+    public void setCraftName(String craftName) {
+        this.craftName = craftName;
     }
 
     public Document getDocument() {

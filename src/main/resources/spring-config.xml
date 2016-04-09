@@ -48,10 +48,6 @@
     </bean>
     <!-- КОНЕЦ НАСТРОЙКИ GUI -->
 
-    <!-- Процесс JS -->
-    <bean id="process-js" class="com.github.andriell.processor.ProcessJs">
-        <property name="nashorn" ref="nashorn"/>
-    </bean>
     <!-- Nashorn - среда для выполнения JS -->
     <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn">
         <property name="jsItems">
@@ -99,7 +95,15 @@
         <property name="capacity" value="100" />
         <property name="runnableLimiter" ref="limiter" />
         <property name="processBeanId" value="process-js" />
+        <property name="dataBeanId" value="process-js-data" />
     </bean>
+    <!-- Процесс JS -->
+    <bean id="process-js" class="com.github.andriell.processor.ProcessJs">
+        <property name="nashorn" ref="nashorn"/>
+    </bean>
+    <!-- Класс данных процесса JS -->
+    <bean id="process-js-data" class="com.github.andriell.processor.ProcessJsData" scope="prototype" />
+
     <!-- Ограничитель числа активных процессов -->
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />
