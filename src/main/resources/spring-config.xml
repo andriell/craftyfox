@@ -3,10 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- НАСТРОЙКИ GUI -->
+    <!-- Главное окно прогораммы -->
     <bean id="gui-main-frame" class="com.github.andriell.gui.MainFrame">
         <property name="navTreeMenu" ref="gui-nav-three-root" />
     </bean>
 
+    <!-- Основное меню, корневой раздел параметры -->
     <bean id="gui-nav-three-root" class="com.github.andriell.gui.NavTreeItem">
         <property name="name" value="Параметры" />
         <property name="userObject" ref="gui-nashorn-work-area" />
@@ -18,30 +21,38 @@
             </array>
         </property>
     </bean>
+    <!-- Основное меню, раздел Nashorn -->
     <bean id="gui-nav-three-nashorn" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-nashorn-work-area" />
     </bean>
+    <!-- Рабочая область Nashorn -->
     <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">
         <property name="nashorn" ref="nashorn"/>
     </bean>
+    <!-- Основное меню, раздел Ошибки -->
     <bean id="gui-nav-three-error" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-error-work-area" />
     </bean>
+    <!-- Рабочая область Ошибки -->
     <bean id="gui-error-work-area" class="com.github.andriell.gui.ErrorWorkArea" />
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-process-work-area" />
     </bean>
+    <!-- Основное меню, раздел Процессы -->
     <bean id="gui-process-work-area" class="com.github.andriell.gui.ProcessWorkArea">
         <property name="processWorkAreaTableModel" ref="gui-process-work-area-table-model" />
     </bean>
+    <!-- Рабочая область Процессы -->
     <bean id="gui-process-work-area-table-model" class="com.github.andriell.gui.ProcessWorkAreaTableModel">
         <property name="processor" ref="processor" />
     </bean>
+    <!-- КОНЕЦ НАСТРОЙКИ GUI -->
 
-
+    <!-- Процесс JS -->
     <bean id="process-js" class="com.github.andriell.processor.ProcessJs">
         <property name="nashorn" ref="nashorn"/>
     </bean>
+    <!-- Nashorn - среда для выполнения JS -->
     <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn">
         <property name="jsItems">
             <array>
@@ -50,14 +61,12 @@
             </array>
         </property>
     </bean>
+    <!-- JS Инжекция console -->
     <bean id="nashorn-js-item-console" class="com.github.andriell.nashorn.JsItem">
         <property name="name" value="console" />
         <property name="object" ref="nashorn-console" />
     </bean>
-    <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsItem">
-        <property name="name" value="task" />
-        <property name="object" ref="nashorn-task" />
-    </bean>
+    <!-- JS Инжекция объект console -->
     <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console">
         <property name="consoleListeners">
             <array>
@@ -65,10 +74,17 @@
             </array>
         </property>
     </bean>
+    <!-- JS Инжекция task -->
+    <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsItem">
+        <property name="name" value="task" />
+        <property name="object" ref="nashorn-task" />
+    </bean>
+    <!-- JS Инжекция объект task -->
     <bean id="nashorn-task" class="com.github.andriell.nashorn.Task">
         <property name="processor" ref="processor" />
     </bean>
 
+    <!-- Процессор -->
     <bean id="processor" class="com.github.andriell.processor.Processor">
         <property name="managers">
             <array>
@@ -77,12 +93,14 @@
         </property>
     </bean>
 
+    <!-- Менеджер процессов JS -->
     <bean id="manager-js" class="com.github.andriell.processor.Manager">
         <property name="fair" value="true" />
         <property name="capacity" value="100" />
         <property name="runnableLimiter" ref="limiter" />
         <property name="processBeanId" value="process-js" />
     </bean>
+    <!-- Ограничитель числа активных процессов -->
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />
     </bean>
