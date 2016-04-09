@@ -61,12 +61,12 @@
             </array>
         </property>
     </bean>
-    <!-- JS Инжекция console -->
+    <!-- JS Инжекция, console -->
     <bean id="nashorn-js-item-console" class="com.github.andriell.nashorn.JsItem">
         <property name="name" value="console" />
         <property name="object" ref="nashorn-console" />
     </bean>
-    <!-- JS Инжекция объект console -->
+    <!-- JS Инжекция, объект console -->
     <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console">
         <property name="consoleListeners">
             <array>
@@ -74,12 +74,12 @@
             </array>
         </property>
     </bean>
-    <!-- JS Инжекция task -->
+    <!-- JS Инжекция, task -->
     <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsItem">
         <property name="name" value="task" />
         <property name="object" ref="nashorn-task" />
     </bean>
-    <!-- JS Инжекция объект task -->
+    <!-- JS Инжекция, объект task -->
     <bean id="nashorn-task" class="com.github.andriell.nashorn.Task">
         <property name="processor" ref="processor" />
     </bean>
