@@ -12,13 +12,26 @@ import java.lang.reflect.Method;
 public class ProcessorJs {
     ProcessorInterface processor;
 
+    public boolean add(String processBeanId, Object data) {
+        ManagerInterface manager = processor.getManager(processBeanId);
+        if (manager == null) {
+            return false;
+        }
+        return manager.addData(data);
+    }
+
+    public Object newDataClass(String processBeanId) {
+        return processor.newData(processBeanId);
+    }
+
     public boolean add(String processBeanId, ScriptObjectMirror scriptObjectMirror) {
         ManagerInterface manager = processor.getManager(processBeanId);
         if (manager == null) {
             return false;
         }
         Object data = processor.newData(processBeanId);
-        //Method method = data.getClass().getDeclaredField()
+        // TODO рефлексия для преобразования объекта ScriptObjectMirror в объект данных процесса
+        //Method method = data.getClass().getDeclaredField();
 
         return manager.addData(data);
     }
