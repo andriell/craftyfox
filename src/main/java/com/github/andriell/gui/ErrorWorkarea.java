@@ -10,7 +10,6 @@ public class ErrorWorkArea implements WorkArea {
     private JPanel rootPanel;
     private JTextField sizeTextField;
     private JButton clearButton;
-    private JCheckBox autoRefreshCheckBox;
 
     public ErrorWorkArea() {
         System.setErr(new PrintStream(new CustomOutputStream()));
