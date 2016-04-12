@@ -43,4 +43,12 @@ public class ProcessorJs {
     public void setProcessor(ProcessorInterface processor) {
         this.processor = processor;
     }
+
+    public void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
