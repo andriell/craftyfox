@@ -9,7 +9,7 @@ public class ErrorWorkArea implements WorkArea {
     private JTextArea errorTextArea;
     private JPanel rootPanel;
     private JTextField sizeTextField;
-    private JButton refreshButton;
+    private JButton clearButton;
     private JCheckBox autoRefreshCheckBox;
 
     public ErrorWorkArea() {
