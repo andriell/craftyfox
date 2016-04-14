@@ -3,8 +3,6 @@ package com.github.andriell.processor.http;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.io.*;
@@ -12,6 +10,7 @@ import java.io.*;
 public class ProcessHTTPContext implements InitializingBean {
     private HttpClientContext clientContext;
     private CookieStore cookieStore;
+    private String name;
 
     public void afterPropertiesSet() throws Exception {
 
@@ -38,6 +37,14 @@ public class ProcessHTTPContext implements InitializingBean {
 
     public void setCookieStore(CookieStore cookieStore) {
         this.cookieStore = cookieStore;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void saveCookie() throws IOException {
