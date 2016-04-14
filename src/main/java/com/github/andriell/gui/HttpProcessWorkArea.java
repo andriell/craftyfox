@@ -10,6 +10,6 @@ public class HttpProcessWorkArea {
     private JComboBox comboBoxContext;
     private JTabbedPane tabbedPane1;
     private JTable tableContext;
-    private JComboBox comboBoxClient;
-    private JTable tableClient;
+    private JComboBox comboBoxProcess;
+    private JTable tableProcess;
 }

@@ -57,16 +57,16 @@
                   <component id="bbf87" class="javax.swing.JLabel">
                     <constraints/>
                     <properties>
-                      <text value="HTTP Клиент"/>
+                      <text value="HTTP Процесс"/>
                     </properties>
                   </component>
-                  <component id="1a84f" class="javax.swing.JComboBox" binding="comboBoxClient">
+                  <component id="1a84f" class="javax.swing.JComboBox" binding="comboBoxProcess">
                     <constraints/>
                     <properties/>
                   </component>
                 </children>
               </grid>
-              <component id="d1610" class="javax.swing.JTable" binding="tableClient">
+              <component id="d1610" class="javax.swing.JTable" binding="tableProcess">
                 <constraints border-constraint="Center"/>
                 <properties/>
               </component>
