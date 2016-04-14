@@ -40,10 +40,6 @@ public class ProcessHTTP implements ProcessInterface {
         return localContext;
     }
 
-    public ProcessHTTPListenerInterface[] getListeners() {
-        return listeners;
-    }
-
     public void setListeners(ProcessHTTPListenerInterface[] listeners) {
         this.listeners = listeners;
     }
