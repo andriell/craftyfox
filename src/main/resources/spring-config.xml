@@ -102,7 +102,7 @@
         <property name="nashorn" ref="nashorn"/>
     </bean>
     <!-- Класс данных процесса JS -->
-    <bean id="process-js-data" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype" />
+    <bean id="process-js-data" class="com.github.andriell.processor.js.ProcessJsDataHtml" scope="prototype" />
 
     <!-- Ограничитель числа активных процессов -->
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">

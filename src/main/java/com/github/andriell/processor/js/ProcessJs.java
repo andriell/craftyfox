@@ -6,13 +6,13 @@ import com.github.andriell.processor.ProcessInterface;
 import javax.script.ScriptException;
 
 public class ProcessJs implements ProcessInterface {
-    private ProcessJsData data;
+    private ProcessJsDataInterface data;
     private Nashorn nashorn;
     public void setData(Object data) {
-        this.data = (ProcessJsData) data;
+        this.data = (ProcessJsDataInterface) data;
     }
 
-    public ProcessJsData getData() {
+    public ProcessJsDataInterface getData() {
         return this.data;
     }
 
@@ -26,7 +26,7 @@ public class ProcessJs implements ProcessInterface {
 
     public void run() {
         try {
-            nashorn.runProcess(getData().getCraftName(), getData().getDocument());
+            nashorn.runProcess(getData().getCraftName(), getData());
         } catch (ScriptException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {

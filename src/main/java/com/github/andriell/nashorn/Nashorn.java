@@ -84,8 +84,8 @@ public class Nashorn implements InitializingBean {
         return (Invocable) engine;
     }
 
-    public Object runProcess(String processName, Document document) throws ScriptException, NoSuchMethodException {
-        return getInvocable().invokeFunction("craftyFoxRunProcess", processName, document);
+    public Object runProcess(String processName, Object data) throws ScriptException, NoSuchMethodException {
+        return getInvocable().invokeFunction("craftyFoxRunProcess", processName, data);
     }
 
     public void setJsInjections(JsInjection[] jseInjections) {
