@@ -12,6 +12,7 @@ import java.io.IOException;
  * Created by Rybalko on 12.04.2016.
  */
 public class ProcessHTTP implements ProcessInterface {
+    private String name;
     private ProcessHTTPData data;
     private HttpClientContext localContext;
     private ProcessHTTPContext httpClient;
@@ -50,6 +51,14 @@ public class ProcessHTTP implements ProcessInterface {
 
     public ProcessHTTPData getData() {
         return data;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ProcessHTTPContext getHttpClient() {
