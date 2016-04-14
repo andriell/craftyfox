@@ -9,15 +9,12 @@ import org.springframework.beans.factory.InitializingBean;
 
 import java.io.*;
 
-public class ProcessHTTPClient implements InitializingBean {
-    private CloseableHttpClient httpClient;
+public class ProcessHTTPContext implements InitializingBean {
     private HttpClientContext clientContext;
     private CookieStore cookieStore;
 
     public void afterPropertiesSet() throws Exception {
-        if (httpClient == null) {
-            httpClient = HttpClients.createDefault();
-        }
+
         if (clientContext == null) {
             clientContext = HttpClientContext.create();
         }
@@ -25,14 +22,6 @@ public class ProcessHTTPClient implements InitializingBean {
             cookieStore = new BasicCookieStore();
         }
         clientContext.setAttribute("http.cookie-store", cookieStore);
-    }
-
-    public CloseableHttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    public void setHttpClient(CloseableHttpClient httpClient) {
-        this.httpClient = httpClient;
     }
 
     public HttpClientContext getClientContext() {

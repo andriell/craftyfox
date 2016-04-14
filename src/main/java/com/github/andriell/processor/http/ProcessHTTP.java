@@ -7,6 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 
@@ -15,7 +16,40 @@ import java.io.IOException;
  */
 public class ProcessHTTP implements ProcessInterface {
     private ProcessHTTPData data;
-    private ProcessHTTPClient httpClient;
+    private HttpClientContext localContext;
+    private ProcessHTTPContext httpClient;
+    private ProcessHTTPListenerInterface[] listeners;
+
+    public void run() {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        localContext = this.httpClient.getClientContext();
+        try {
+            CloseableHttpResponse response = httpClient.execute(data, localContext);
+            for (ProcessHTTPListenerInterface listener: listeners) {
+                listener.afterResponse(this);
+            }
+            response.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            httpClient.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public HttpClientContext getLocalContext() {
+        return localContext;
+    }
+
+    public ProcessHTTPListenerInterface[] getListeners() {
+        return listeners;
+    }
+
+    public void setListeners(ProcessHTTPListenerInterface[] listeners) {
+        this.listeners = listeners;
+    }
 
     public void setData(Object data) {
         this.data = (ProcessHTTPData) data;
@@ -25,32 +59,11 @@ public class ProcessHTTP implements ProcessInterface {
         return data;
     }
 
-    public void run() {
-        CloseableHttpClient httpClient = this.httpClient.getHttpClient();
-        HttpClientContext localContext = this.httpClient.getClientContext();
-        try {
-            CloseableHttpResponse response = null;
-            try {
-                response = httpClient.execute(data, localContext);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            HttpResponse httpResponse = localContext.getResponse();
-            HttpRequest httpRequest = localContext.getRequest();
+    public ProcessHTTPContext getHttpClient() {
+        return httpClient;
+    }
 
-            Header[] headers;
-
-            System.out.println("---Request-------------------------------------");
-            headers = httpRequest.getAllHeaders();
-
-
-            System.out.println("---Response-------------------------------------");
-            headers = httpResponse.getAllHeaders();
-
-            response.close();
-
-        } finally {
-            httpClient.close();
-        }
+    public void setHttpClient(ProcessHTTPContext httpClient) {
+        this.httpClient = httpClient;
     }
 }
