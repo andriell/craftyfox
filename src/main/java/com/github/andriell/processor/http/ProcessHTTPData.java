@@ -4,13 +4,11 @@ import org.apache.http.Consts;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Rybalko on 12.04.2016.
@@ -21,7 +19,7 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
 
     private String method = METHOD_GET;
     private Collection<NameValuePair> data = new ArrayList<NameValuePair>();
-    private Collection<ProcessHTTPListenerInterface> processHTTPListeners = new ArrayList<ProcessHTTPListenerInterface>();
+    private Collection<DataListenerInterface> dataListeners = new ArrayList<DataListenerInterface>(2);
 
     public ProcessHttpData() {}
 
@@ -65,5 +63,13 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
 
     public Collection<NameValuePair> getData() {
         return data;
+    }
+
+    public boolean addDataListener(DataListenerInterface dataListener) {
+        return dataListeners.add(dataListener);
+    }
+
+    public Collection<DataListenerInterface> getDataListeners() {
+        return dataListeners;
     }
 }

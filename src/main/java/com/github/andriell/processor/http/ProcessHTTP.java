@@ -6,6 +6,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -35,9 +36,10 @@ public class ProcessHttp implements ProcessInterface {
 
             HttpEntity httpEntity = httpResponse.getEntity();
             byte[] body = EntityUtils.toByteArray(httpEntity);
+            ContentType contentType = ContentType.getOrDefault(httpEntity);
             EntityUtils.consume(httpEntity);
             for (DataListenerInterface dataListener: dataListeners) {
-                dataListener.setResponse(body, httpRequest, httpResponse);
+                dataListener.setResponse(body, contentType, httpRequest, httpResponse);
             }
 
             for (ProcessHTTPListenerInterface listener: listeners) {
