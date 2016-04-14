@@ -48,8 +48,6 @@ public class CloseableHttpClientTest {
                 HttpEntity entity1 = response1.getEntity();
                 System.out.println("Body " + EntityUtils.toString(entity1));
                 EntityUtils.consume(entity1);
-
-                EntityUtils.consume(entity1);
             } finally {
                 response1.close();
             }
