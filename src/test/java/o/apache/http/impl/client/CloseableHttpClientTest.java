@@ -25,7 +25,7 @@ public class CloseableHttpClientTest {
 
     public static void main(String[] args) throws Exception {
         CloseableHttpClientTest test = new CloseableHttpClientTest();
-        test.test1();
+        //test.test1();
         test.test2();
     }
 
