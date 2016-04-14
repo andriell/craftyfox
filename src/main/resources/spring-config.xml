@@ -98,11 +98,11 @@
         <property name="dataBeanId" value="process-js-data" />
     </bean>
     <!-- Процесс JS -->
-    <bean id="process-js" class="com.github.andriell.processor.ProcessJs">
+    <bean id="process-js" class="com.github.andriell.processor.js.ProcessJs">
         <property name="nashorn" ref="nashorn"/>
     </bean>
     <!-- Класс данных процесса JS -->
-    <bean id="process-js-data" class="com.github.andriell.processor.ProcessJsData" scope="prototype" />
+    <bean id="process-js-data" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype" />
 
     <!-- Ограничитель числа активных процессов -->
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">

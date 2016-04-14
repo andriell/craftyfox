@@ -1,6 +1,7 @@
-package com.github.andriell.processor;
+package com.github.andriell.processor.js;
 
 import com.github.andriell.nashorn.Nashorn;
+import com.github.andriell.processor.ProcessInterface;
 
 import javax.script.ScriptException;
 

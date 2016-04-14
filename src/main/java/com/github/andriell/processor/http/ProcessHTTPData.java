@@ -1,4 +1,4 @@
-package com.github.andriell.processor;
+package com.github.andriell.processor.http;
 
 import org.apache.http.Consts;
 import org.apache.http.NameValuePair;

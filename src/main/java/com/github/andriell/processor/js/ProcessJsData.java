@@ -1,4 +1,4 @@
-package com.github.andriell.processor;
+package com.github.andriell.processor.js;
 
 
 import org.jsoup.nodes.Document;
