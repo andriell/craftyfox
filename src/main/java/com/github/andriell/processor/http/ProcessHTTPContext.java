@@ -7,7 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 import java.io.*;
 
-public class ProcessHTTPContext implements InitializingBean {
+public class ProcessHttpContext implements InitializingBean {
     private HttpClientContext clientContext;
     private CookieStore cookieStore;
     private String name;

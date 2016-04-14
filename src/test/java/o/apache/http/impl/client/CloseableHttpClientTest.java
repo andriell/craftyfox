@@ -1,6 +1,6 @@
 package o.apache.http.impl.client;
 
-import com.github.andriell.processor.http.ProcessHTTPData;
+import com.github.andriell.processor.http.ProcessHttpData;
 import org.apache.http.*;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -27,7 +27,7 @@ public class CloseableHttpClientTest {
 
         try {
             org.apache.http.impl.client.CloseableHttpClient httpclient = HttpClients.createDefault();
-            ProcessHTTPData httpGet = new ProcessHTTPData("http://ya.ru");
+            ProcessHttpData httpGet = new ProcessHttpData("http://ya.ru");
             CloseableHttpResponse response1 = httpclient.execute(httpGet);
 
             try {

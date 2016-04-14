@@ -11,11 +11,11 @@ import java.io.IOException;
 /**
  * Created by Rybalko on 12.04.2016.
  */
-public class ProcessHTTP implements ProcessInterface {
+public class ProcessHttp implements ProcessInterface {
     private String name;
-    private ProcessHTTPData data;
+    private ProcessHttpData data;
     private HttpClientContext localContext;
-    private ProcessHTTPContext httpClient;
+    private ProcessHttpContext httpClient;
     private ProcessHTTPListenerInterface[] listeners;
 
     public void run() {
@@ -46,10 +46,10 @@ public class ProcessHTTP implements ProcessInterface {
     }
 
     public void setData(Object data) {
-        this.data = (ProcessHTTPData) data;
+        this.data = (ProcessHttpData) data;
     }
 
-    public ProcessHTTPData getData() {
+    public ProcessHttpData getData() {
         return data;
     }
 
@@ -61,11 +61,11 @@ public class ProcessHTTP implements ProcessInterface {
         this.name = name;
     }
 
-    public ProcessHTTPContext getHttpClient() {
+    public ProcessHttpContext getHttpClient() {
         return httpClient;
     }
 
-    public void setHttpClient(ProcessHTTPContext httpClient) {
+    public void setHttpClient(ProcessHttpContext httpClient) {
         this.httpClient = httpClient;
     }
 }

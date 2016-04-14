@@ -15,29 +15,30 @@ import java.util.List;
 /**
  * Created by Rybalko on 12.04.2016.
  */
-public class ProcessHTTPData extends HttpEntityEnclosingRequestBase {
+public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
     public static final String METHOD_GET = "GET";
     public static final String METHOD_POST = "POST";
 
     private String method = METHOD_GET;
     private Collection<NameValuePair> data = new ArrayList<NameValuePair>();
+    private Collection<ProcessHTTPListenerInterface> processHTTPListeners = new ArrayList<ProcessHTTPListenerInterface>();
 
-    public ProcessHTTPData() {}
+    public ProcessHttpData() {}
 
-    public ProcessHTTPData(URI uri) {
+    public ProcessHttpData(URI uri) {
         this.setURI(uri);
     }
 
-    public ProcessHTTPData(URI uri, String method) {
+    public ProcessHttpData(URI uri, String method) {
         this.setURI(uri);
         this.method = method;
     }
 
-    public ProcessHTTPData(String uri) {
+    public ProcessHttpData(String uri) {
         this.setURI(URI.create(uri));
     }
 
-    public ProcessHTTPData(String uri, String method) {
+    public ProcessHttpData(String uri, String method) {
         this.setURI(URI.create(uri));
         this.method = method;
     }
