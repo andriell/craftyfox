@@ -1,9 +1,7 @@
 package o.apache.http.impl.client;
 
 import com.github.andriell.processor.ProcessHTTPData;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,6 +13,7 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HttpCoreContext;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
@@ -68,33 +67,50 @@ public class CloseableHttpClientTest {
         }
     }
 
+    private CloseableHttpClient httpclient;
+    private HttpClientContext localContext;
+    private CookieStore cookieStore;
+
+
     public void test2() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
+        httpclient = HttpClients.createDefault();
         try {
             // Create a local instance of cookie store
-            CookieStore cookieStore = new BasicCookieStore();
+            cookieStore = new BasicCookieStore();
+            cookieStore.clear();
 
             // Create local HTTP context
-            HttpClientContext localContext = HttpClientContext.create();
+            localContext = HttpClientContext.create();
             // Bind custom cookie store to the local context
             localContext.setCookieStore(cookieStore);
 
-            HttpGet httpget = new HttpGet("http://ya.ru");
-            System.out.println("Executing request " + httpget.getRequestLine());
+            CloseableHttpResponse response = null;
+            for (int i = 0; i < 2; i++) {
+                HttpGet httpGet = new HttpGet("http://ya.ru");
+                System.out.println("Executing request " + httpGet.getRequestLine());
 
-            // Pass local context as a parameter
-            CloseableHttpResponse response = httpclient.execute(httpget, localContext);
-            try {
-                System.out.println("----------------------------------------");
-                System.out.println(response.getStatusLine());
-                List<Cookie> cookies = cookieStore.getCookies();
-                for (int i = 0; i < cookies.size(); i++) {
-                    System.out.println("Local cookie: " + cookies.get(i));
+                // Pass local context as a parameter
+                response = httpclient.execute(httpGet, localContext);
+                HttpResponse httpResponse = localContext.getResponse();
+                HttpRequest httpRequest = localContext.getRequest();
+
+                Header[] headers;
+
+                System.out.println("---Request-------------------------------------");
+                headers = httpRequest.getAllHeaders();
+                for (Header header:headers) {
+                    System.out.println(header);
                 }
-                EntityUtils.consume(response.getEntity());
-            } finally {
-                response.close();
+
+                System.out.println("---Response-------------------------------------");
+                headers = httpResponse.getAllHeaders();
+                for (Header header:headers) {
+                    System.out.println(header);
+                }
             }
+
+            response.close();
+
         } finally {
             httpclient.close();
         }
