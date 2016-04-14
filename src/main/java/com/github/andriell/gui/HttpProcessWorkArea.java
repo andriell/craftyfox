@@ -7,4 +7,8 @@ import javax.swing.*;
  */
 public class HttpProcessWorkArea {
     private JPanel panel1;
+    private JComboBox comboBoxContext;
+    private JTabbedPane tabbedPane1;
+    private JTable table1;
+    private JComboBox comboBoxClient;
 }

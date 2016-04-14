@@ -7,12 +7,69 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="f5c92" class="javax.swing.JLabel">
-        <constraints border-constraint="North"/>
-        <properties>
-          <text value="HTTP контекст"/>
-        </properties>
-      </component>
+      <tabbedpane id="8fd2d" binding="tabbedPane1" default-binding="true">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="2bd01" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Cokie"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="7d84f" class="javax.swing.JTable" binding="table1" default-binding="true">
+                <constraints border-constraint="Center"/>
+                <properties/>
+              </component>
+              <grid id="67fd7" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+                <constraints border-constraint="North"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="f5c92" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="HTTP контекст"/>
+                    </properties>
+                  </component>
+                  <component id="916e3" class="javax.swing.JComboBox" binding="comboBoxContext">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="44114" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="HTTP"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="52752" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+                <constraints border-constraint="North"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="bbf87" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <text value="HTTP Клиент"/>
+                    </properties>
+                  </component>
+                  <component id="1a84f" class="javax.swing.JComboBox" binding="comboBoxClient">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
     </children>
   </grid>
 </form>
