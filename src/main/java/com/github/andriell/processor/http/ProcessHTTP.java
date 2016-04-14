@@ -1,9 +1,6 @@
 package com.github.andriell.processor.http;
 
 import com.github.andriell.processor.ProcessInterface;
-import org.apache.http.Header;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
