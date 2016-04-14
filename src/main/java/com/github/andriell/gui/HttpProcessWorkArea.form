@@ -19,7 +19,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="7d84f" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="7d84f" class="javax.swing.JTable" binding="tableContext">
                 <constraints border-constraint="Center"/>
                 <properties/>
               </component>
@@ -66,6 +66,10 @@
                   </component>
                 </children>
               </grid>
+              <component id="d1610" class="javax.swing.JTable" binding="tableClient">
+                <constraints border-constraint="Center"/>
+                <properties/>
+              </component>
             </children>
           </grid>
         </children>
