@@ -65,7 +65,7 @@
                   <component id="db532" class="javax.swing.JTextArea" binding="jsTextArea" custom-create="true">
                     <constraints/>
                     <properties>
-                      <text value="function parse(json) {&#10;    print(json.getClass().getName());&#10;}"/>
+                      <text value=""/>
                     </properties>
                   </component>
                 </children>
