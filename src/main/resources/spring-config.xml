@@ -27,7 +27,7 @@
     </bean>
     <!-- Рабочая область Nashorn -->
     <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">
-        <property name="nashorn" ref="nashorn-test"/>
+        <property name="nashorn" ref="nashorn"/>
     </bean>
     <!-- Основное меню, раздел Ошибки -->
     <bean id="gui-nav-three-error" class="com.github.andriell.gui.NavTreeItem">
