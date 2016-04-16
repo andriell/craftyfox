@@ -22,11 +22,12 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     private JTextArea htmlTextArea;
     private JTextArea jsTextArea;
     private JTextArea outTextArea;
-    private JButton goButton;
-    private JComboBox<String> parserComboBox;
-    private JButton saveButton;
+    private JButton buttonGo;
+    private JComboBox<String> comboBoxParser;
+    private JButton buttonSave;
     private JScrollPane htmlScrollPane;
     private JScrollPane jsScrollPane;
+    private JComboBox<String> comboBoxProject;
 
     private Nashorn nashorn;
     private File fileJs;
@@ -43,23 +44,24 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     public NashornWorkArea() throws FileNotFoundException {
         updateSelect();
         loadFiles("example");
-        parserComboBox.addActionListener(new AbstractAction() {
+
+        comboBoxParser.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                String craftName = parserComboBox.getSelectedItem().toString();
+                String craftName = comboBoxParser.getSelectedItem().toString();
                 loadFiles(craftName);
             }
         });
 
-        saveButton.addActionListener(new ActionListener() {
+        buttonSave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 saveFiles();
             }
         });
 
 
-        goButton.addActionListener(new AbstractAction() {
+        buttonGo.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                String craftName = parserComboBox.getSelectedItem().toString();
+                String craftName = comboBoxParser.getSelectedItem().toString();
                 outTextArea.setText("");
                 Document document = Jsoup.parse(htmlTextArea.getText());
                 try {
@@ -78,7 +80,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     }
 
     public void updateSelect() {
-        parserComboBox.removeAll();
+        comboBoxProject.removeAll();
         File folder = new File(Files.PROJECTS_DIR);
         File[] files = folder.listFiles();
         if (files == null) {
@@ -86,7 +88,19 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         }
         for (File fileEntry : files) {
             if (fileEntry.isDirectory()) {
-                parserComboBox.addItem(fileEntry.getName());
+                comboBoxProject.addItem(fileEntry.getName());
+            }
+        }
+
+        comboBoxParser.removeAll();
+        folder = new File(Files.PROJECTS_DIR + File.separator + comboBoxProject.getSelectedItem());
+        files = folder.listFiles();
+        if (files == null) {
+            return;
+        }
+        for (File fileEntry : files) {
+            if (fileEntry.isDirectory()) {
+                comboBoxParser.addItem(fileEntry.getName());
             }
         }
     }
