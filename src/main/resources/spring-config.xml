@@ -50,7 +50,6 @@
 
     <!-- Nashorn - среда для выполнения JS -->
     <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn" />
-    <bean id="nashorn-test" class="com.github.andriell.nashorn.Nashorn" />
     <!-- JS объект console -->
     <bean id="js-console" class="com.github.andriell.nashorn.console.Console">
         <property name="consoleListeners">
