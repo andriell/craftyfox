@@ -10,3 +10,5 @@ var $ = craftyFox;
 function craftyFoxRunProcess(nane, document) {
     craftyFox.process[nane](document);
 }
+
+var app = applicationContext.getApplicationContext();

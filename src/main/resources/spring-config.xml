@@ -52,18 +52,19 @@
     <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn">
         <property name="jsInjections">
             <array>
-                <ref bean="nashorn-js-item-console" />
-                <ref bean="nashorn-js-item-task" />
+                <ref bean="js-injection-console" />
+                <ref bean="js-injection-processor" />
+                <ref bean="js-injection-application-context" />
             </array>
         </property>
     </bean>
     <!-- JS Инжекция, console -->
-    <bean id="nashorn-js-item-console" class="com.github.andriell.nashorn.JsInjection">
+    <bean id="js-injection-console" class="com.github.andriell.nashorn.JsInjection">
         <property name="name" value="console" />
-        <property name="object" ref="nashorn-console" />
+        <property name="object" ref="js-console" />
     </bean>
     <!-- JS Инжекция, объект console -->
-    <bean id="nashorn-console" class="com.github.andriell.nashorn.console.Console">
+    <bean id="js-console" class="com.github.andriell.nashorn.console.Console">
         <property name="consoleListeners">
             <array>
                 <ref bean="gui-nashorn-work-area" />
@@ -71,14 +72,21 @@
         </property>
     </bean>
     <!-- JS Инжекция, processor -->
-    <bean id="nashorn-js-item-task" class="com.github.andriell.nashorn.JsInjection">
+    <bean id="js-injection-processor" class="com.github.andriell.nashorn.JsInjection">
         <property name="name" value="processor" />
-        <property name="object" ref="nashorn-processor" />
+        <property name="object" ref="js-processor" />
     </bean>
     <!-- JS Инжекция, объект processor -->
-    <bean id="nashorn-processor" class="com.github.andriell.nashorn.ProcessorJs">
+    <bean id="js-processor" class="com.github.andriell.nashorn.ProcessorJs">
         <property name="processor" ref="processor" />
     </bean>
+    <!-- JS Инжекция, application context -->
+    <bean id="js-injection-application-context" class="com.github.andriell.nashorn.JsInjection">
+        <property name="name" value="applicationContext" />
+        <property name="object" ref="js-application-context" />
+    </bean>
+    <!-- JS Инжекция, объект application context -->
+    <bean id="js-application-context" class="com.github.andriell.nashorn.ApplicationContextJs" />
 
     <!-- Процессор -->
     <bean id="processor" class="com.github.andriell.processor.Processor">

@@ -5,6 +5,7 @@
 
 var data = processor.newData("process-js");
 data.setCraftName("test");
+console.info(app);
 
 $.addProcess("example", function(document) {
 	console.info(document.getClass().getName());
