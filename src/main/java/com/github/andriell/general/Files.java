@@ -39,12 +39,4 @@ public class Files {
             out.close();
         } catch (FileNotFoundException ignored) { }
     }
-
-    public static File[] readDir(String dir) {
-        File folder = new File(dir);
-        if (!folder.isDirectory()) {
-            return null;
-        }
-        return folder.listFiles();
-    }
 }
