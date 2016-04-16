@@ -37,7 +37,7 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
         //</editor-fold>
 
         //<editor-fold desc="Чтение статичных Js">
-        File[] files = Files.readDir(Files.JS_DIR);
+        File[] files = new File(Files.JS_DIR).listFiles();
         String fileName;
         if (files != null) {
             Arrays.sort(files);
@@ -72,7 +72,7 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
         }
         //</editor-fold>
         //<editor-fold desc="Чтение парсеров">
-        File[] files = Files.readDir(projectDirString);
+        File[] files = projectDir.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (skipCraft != null && skipCraft.equals(file.getName())) {
