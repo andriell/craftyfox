@@ -3,10 +3,6 @@
  * @param  document - org.jsoup.nodes.Document
  */
 
-var data = processor.newData("process-js");
-data.setCraftName("test");
-processor.add("process-js", data);
-
 $.addParser("test1", function(document) {
 	console.info(document.getClass().getName());
 	var links = document.select("a.link");
@@ -18,11 +14,5 @@ $.addParser("test1", function(document) {
 		console.info(element.getClass().getName());
 		console.info(element.attr("href"));
 	}
-	processor.add("process-js", data);
-});
-
-$.addParser("test", function(document) {
-	processor.sleep(1000);
-	console.info("test\n");
 	processor.add("process-js", data);
 });
