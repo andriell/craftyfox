@@ -1,14 +1,14 @@
 var craftyFox = {
-    process: {},
+    pageParsers: {},
     addProcess: function(nane, process) {
-        craftyFox.process[nane] = process;
+        craftyFox.pageParsers[nane] = process;
     }
 };
-
 var $ = craftyFox;
 
-function craftyFoxRunProcess(nane, document) {
-    craftyFox.process[nane](document);
+function nashornRunProcess(nane, property) {
+    craftyFox.pageParsers[nane](property);
 }
 
-var app = applicationContext.getApplicationContext();
+var console = app.getBean("js-console");
+var processor = app.getBean("js-processor");

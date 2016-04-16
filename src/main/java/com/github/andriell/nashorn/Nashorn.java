@@ -2,14 +2,17 @@ package com.github.andriell.nashorn;
 
 import com.github.andriell.general.Files;
 
-import org.jsoup.nodes.Document;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import javax.script.*;
 import java.io.File;
+import java.util.Arrays;
 
-public class Nashorn implements InitializingBean {
-    private JsInjection[] jseInjections;
+public class Nashorn implements InitializingBean, ApplicationContextAware {
+    private ApplicationContext applicationContext;
     private ScriptEngine engine;
 
     public void afterPropertiesSet() throws Exception {
@@ -33,14 +36,16 @@ public class Nashorn implements InitializingBean {
     public void reload(String skipCraft, String jsCraft) throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
-        if (jseInjections != null) {
-            for (JsInjection jsInjection : jseInjections) {
-                engine.getBindings(ScriptContext.ENGINE_SCOPE).put(jsInjection.getName(), jsInjection.getObject());
-            }
-        }
+
+        //<editor-fold desc="Инжекциия">
+        engine.getBindings(ScriptContext.ENGINE_SCOPE).put("app", applicationContext);
+        //</editor-fold>
+
+        //<editor-fold desc="Чтение статичных Js">
         File[] files = Files.readDir(Files.JS_DIR);
         String fileName;
         if (files != null) {
+            Arrays.sort(files);
             for (File file: files) {
                 if (!file.isFile()) {
                     continue;
@@ -53,9 +58,12 @@ public class Nashorn implements InitializingBean {
                 engine.eval(Files.readFile(file));
             }
         }
+        //</editor-fold>
 
+        //<editor-fold desc="Чтение парсеров">
         files = Files.readDir(Files.CRAFT_DIR);
         if (files != null) {
+            Arrays.sort(files);
             for (File file: files) {
                 if (skipCraft != null && skipCraft.equals(file.getName())) {
                     if (jsCraft != null) {
@@ -74,6 +82,7 @@ public class Nashorn implements InitializingBean {
                 engine.eval(Files.readFile(file));
             }
         }
+        //</editor-fold>
     }
 
     public ScriptEngine getEngine() {
@@ -85,10 +94,10 @@ public class Nashorn implements InitializingBean {
     }
 
     public Object runProcess(String processName, Object data) throws ScriptException, NoSuchMethodException {
-        return getInvocable().invokeFunction("craftyFoxRunProcess", processName, data);
+        return getInvocable().invokeFunction("nashornRunProcess", processName, data);
     }
 
-    public void setJsInjections(JsInjection[] jseInjections) {
-        this.jseInjections = jseInjections;
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

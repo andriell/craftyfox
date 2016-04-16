@@ -49,21 +49,8 @@
     <!-- КОНЕЦ НАСТРОЙКИ GUI -->
 
     <!-- Nashorn - среда для выполнения JS -->
-    <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn">
-        <property name="jsInjections">
-            <array>
-                <ref bean="js-injection-console" />
-                <ref bean="js-injection-processor" />
-                <ref bean="js-injection-application-context" />
-            </array>
-        </property>
-    </bean>
-    <!-- JS Инжекция, console -->
-    <bean id="js-injection-console" class="com.github.andriell.nashorn.JsInjection">
-        <property name="name" value="console" />
-        <property name="object" ref="js-console" />
-    </bean>
-    <!-- JS Инжекция, объект console -->
+    <bean id="nashorn" class="com.github.andriell.nashorn.Nashorn" />
+    <!-- JS объект console -->
     <bean id="js-console" class="com.github.andriell.nashorn.console.Console">
         <property name="consoleListeners">
             <array>
@@ -71,22 +58,10 @@
             </array>
         </property>
     </bean>
-    <!-- JS Инжекция, processor -->
-    <bean id="js-injection-processor" class="com.github.andriell.nashorn.JsInjection">
-        <property name="name" value="processor" />
-        <property name="object" ref="js-processor" />
-    </bean>
-    <!-- JS Инжекция, объект processor -->
+    <!-- JS объект processor -->
     <bean id="js-processor" class="com.github.andriell.nashorn.ProcessorJs">
         <property name="processor" ref="processor" />
     </bean>
-    <!-- JS Инжекция, application context -->
-    <bean id="js-injection-application-context" class="com.github.andriell.nashorn.JsInjection">
-        <property name="name" value="applicationContext" />
-        <property name="object" ref="js-application-context" />
-    </bean>
-    <!-- JS Инжекция, объект application context -->
-    <bean id="js-application-context" class="com.github.andriell.nashorn.ApplicationContextJs" />
 
     <!-- Процессор -->
     <bean id="processor" class="com.github.andriell.processor.Processor">
