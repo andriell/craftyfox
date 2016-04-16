@@ -3,14 +3,12 @@ package com.github.andriell.gui;
 import com.github.andriell.general.Files;
 import com.github.andriell.nashorn.Nashorn;
 import com.github.andriell.nashorn.console.ConsoleListenerInterface;
-import com.github.andriell.nashorn.console.ConsoleMessage;
 import com.github.andriell.nashorn.console.ConsoleMessageInterface;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.springframework.context.ApplicationListener;
 
 import javax.script.ScriptException;
 import javax.swing.*;
@@ -81,7 +79,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
 
     public void updateSelect() {
         parserComboBox.removeAll();
-        File folder = new File(Files.CRAFT_DIR);
+        File folder = new File(Files.PROJECTS_DIR);
         File[] files = folder.listFiles();
         if (files == null) {
             return;
@@ -94,8 +92,8 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     }
 
     public void loadFiles(String craftName) {
-        fileJs = new File(Files.CRAFT_DIR + File.separator + craftName + File.separator + "process.js");
-        fileHtml = new File(Files.CRAFT_DIR + File.separator + craftName + File.separator + "page.html");
+        fileJs = new File(Files.PROJECTS_DIR + File.separator + craftName + File.separator + "100-init.js");
+        fileHtml = new File(Files.PROJECTS_DIR + File.separator + craftName + File.separator + "page.html");
         jsTextArea.setText(Files.readFile(fileJs));
         htmlTextArea.setText(Files.readFile(fileHtml));
     }

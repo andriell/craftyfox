@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 
 import javax.script.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Nashorn implements InitializingBean, ApplicationContextAware {
@@ -17,23 +18,17 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
 
     public void afterPropertiesSet() throws Exception {
         try {
-            reload();
+            init();
         } catch (Exception e) { // Без этого приложение вообще не запустится при ошибках в JS
             e.printStackTrace();
         }
     }
 
     public void reload() throws Exception {
-        reload(null, null);
+        init();
     }
 
-    /**
-     *
-     * @param skipCraft - пропустить этот крафт
-     * @param jsCraft - вместо него выполнить этот js
-     * @throws Exception
-     */
-    public void reload(String skipCraft, String jsCraft) throws Exception {
+    public void init() throws Exception {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
 
@@ -54,17 +49,32 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
                 if (!fileName.endsWith(".js")) {
                     continue;
                 }
-                System.out.println();
                 engine.eval(Files.readFile(file));
             }
         }
         //</editor-fold>
+    }
 
+    public void loadProject(String projectName) throws Exception {
+        loadProject(projectName, null, null);
+    }
+
+    public void loadProject(String projectName, String skipCraft, String jsCraft) throws Exception {
+        String projectDirString = Files.PROJECTS_DIR + File.separator + projectName;
+        File projectDir = new File(projectDirString);
+        if (!projectDir.isDirectory()) {
+            throw new IOException("Is not dir: " + projectDirString);
+        }
+        //<editor-fold desc="init.js">
+        File initFile = new File(projectDirString + File.separator + "init.js");
+        if (initFile.isFile()) {
+            engine.eval(Files.readFile(initFile));
+        }
+        //</editor-fold>
         //<editor-fold desc="Чтение парсеров">
-        files = Files.readDir(Files.CRAFT_DIR);
+        File[] files = Files.readDir(projectDirString);
         if (files != null) {
-            Arrays.sort(files);
-            for (File file: files) {
+            for (File file : files) {
                 if (skipCraft != null && skipCraft.equals(file.getName())) {
                     if (jsCraft != null) {
                         engine.eval(jsCraft);
@@ -75,14 +85,23 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
                 if (!file.isFile()) {
                     continue;
                 }
-                fileName = file.getName();
-                if (!fileName.endsWith(".js")) {
+                if (!file.getName().endsWith(".js")) {
                     continue;
                 }
                 engine.eval(Files.readFile(file));
             }
         }
         //</editor-fold>
+    }
+
+    /**
+     *
+     * @param skipCraft - пропустить этот крафт
+     * @param jsCraft - вместо него выполнить этот js
+     * @throws Exception
+     */
+    public void reload(String skipCraft, String jsCraft) throws Exception {
+
     }
 
     public ScriptEngine getEngine() {
