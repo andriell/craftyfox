@@ -59,7 +59,14 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
         loadProject(projectName, null, null);
     }
 
-    public void loadProject(String projectName, String skipCraft, String jsCraft) throws Exception {
+    /**
+     *
+     * @param projectName - название проекта
+     * @param skipParser - пропустить этот крафт
+     * @param jsParser - вместо него выполнить этот js
+     * @throws Exception
+     */
+    public void loadProject(String projectName, String skipParser, String jsParser) throws Exception {
         String projectDirString = Files.PROJECTS_DIR + File.separator + projectName;
         File projectDir = new File(projectDirString);
         if (!projectDir.isDirectory()) {
@@ -75,9 +82,9 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
         File[] files = projectDir.listFiles();
         if (files != null) {
             for (File file : files) {
-                if (skipCraft != null && skipCraft.equals(file.getName())) {
-                    if (jsCraft != null) {
-                        engine.eval(jsCraft);
+                if (skipParser != null && skipParser.equals(file.getName())) {
+                    if (jsParser != null) {
+                        engine.eval(jsParser);
                     }
                     continue;
                 }
@@ -92,16 +99,6 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
             }
         }
         //</editor-fold>
-    }
-
-    /**
-     *
-     * @param skipCraft - пропустить этот крафт
-     * @param jsCraft - вместо него выполнить этот js
-     * @throws Exception
-     */
-    public void reload(String skipCraft, String jsCraft) throws Exception {
-
     }
 
     public ScriptEngine getEngine() {

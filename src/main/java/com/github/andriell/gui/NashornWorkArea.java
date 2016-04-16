@@ -43,12 +43,11 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
 
     public NashornWorkArea() throws FileNotFoundException {
         updateSelect();
-        loadFiles("example");
+        loadFiles();
 
         comboBoxParser.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                String craftName = comboBoxParser.getSelectedItem().toString();
-                loadFiles(craftName);
+                loadFiles();
             }
         });
 
@@ -61,11 +60,13 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
 
         buttonGo.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
+                String projectName = comboBoxProject.getSelectedItem().toString();
                 String craftName = comboBoxParser.getSelectedItem().toString();
                 outTextArea.setText("");
                 Document document = Jsoup.parse(htmlTextArea.getText());
                 try {
-                    nashorn.reload(craftName, jsTextArea.getText());
+                    nashorn.reload();
+                    nashorn.loadProject(projectName, craftName, jsTextArea.getText());
                     Object result = nashorn.runProcess(craftName, document);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
@@ -82,6 +83,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     public void updateSelect() {
         comboBoxProject.removeAll();
         File folder = new File(Files.PROJECTS_DIR);
+        boolean b = folder.isDirectory();
         File[] files = folder.listFiles();
         if (files == null) {
             return;
@@ -105,9 +107,13 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         }
     }
 
-    public void loadFiles(String craftName) {
-        fileJs = new File(Files.PROJECTS_DIR + File.separator + craftName + File.separator + "100-init.js");
-        fileHtml = new File(Files.PROJECTS_DIR + File.separator + craftName + File.separator + "page.html");
+    public void loadFiles() {
+        String projectPath = Files.PROJECTS_DIR + File.separator
+                + comboBoxProject.getSelectedItem() + File.separator
+                + comboBoxParser.getSelectedItem();
+
+        fileJs = new File(projectPath + File.separator + "process.js");
+        fileHtml = new File(projectPath + File.separator + "page.html");
         jsTextArea.setText(Files.readFile(fileJs));
         htmlTextArea.setText(Files.readFile(fileHtml));
     }
