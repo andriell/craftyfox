@@ -3,15 +3,14 @@ package com.github.andriell.processor.js;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
-import org.jsoup.Jsoup;
-
+import org.json.JSONObject;
 
 /**
  * Created by Rybalko on 14.04.2016.
  */
 public class ProcessJsDataJson extends ProcessJsDataAbstract {
     private String craftName;
-    private Jsoup json;
+    private JSONObject json;
 
     public String getCraftName() {
         return craftName;
@@ -21,15 +20,15 @@ public class ProcessJsDataJson extends ProcessJsDataAbstract {
         this.craftName = craftName;
     }
 
-    public Jsoup getJson() {
+    public JSONObject getJson() {
         return json;
     }
 
-    public void setJson(Jsoup json) {
+    public void setJson(JSONObject json) {
         this.json = json;
     }
 
     public void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response) {
-        setJson(new Jsoup(new String(body, contentType.getCharset())));
+        setJson(new JSONObject(new String(body, contentType.getCharset())));
     }
 }
