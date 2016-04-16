@@ -5,9 +5,9 @@
 
 var data = processor.newData("process-js");
 data.setCraftName("test");
-console.info(app);
+processor.add("process-js", data);
 
-$.addProcess("example", function(document) {
+$.addParser("test1", function(document) {
 	console.info(document.getClass().getName());
 	var links = document.select("a.link");
 	console.info(links.getClass().getName());
@@ -21,9 +21,7 @@ $.addProcess("example", function(document) {
 	processor.add("process-js", data);
 });
 
-
-
-$.addProcess("test", function(document) {
+$.addParser("test", function(document) {
 	processor.sleep(1000);
 	console.info("test\n");
 	processor.add("process-js", data);

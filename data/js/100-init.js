@@ -1,6 +1,6 @@
 var craftyFox = {
     pageParsers: {},
-    addProcess: function(nane, process) {
+    addParser: function(nane, process) {
         craftyFox.pageParsers[nane] = process;
     }
 };
