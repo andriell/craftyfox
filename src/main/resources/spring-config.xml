@@ -64,6 +64,7 @@
         <property name="managers">
             <array>
                 <ref bean="manager-js" />
+                <ref bean="manager-http" />
             </array>
         </property>
     </bean>
@@ -72,8 +73,12 @@
     <bean id="manager-js" class="com.github.andriell.processor.Manager">
         <property name="fair" value="true" />
         <property name="capacity" value="100" />
-        <property name="runnableLimiter" ref="limiter" />
+        <property name="runnableLimiter" ref="process-js-limiter" />
         <property name="processBeanId" value="process-js" />
+    </bean>
+    <!-- Ограничитель числа активных процессов JS -->
+    <bean id="process-js-limiter" class="com.github.andriell.processor.RunnableLimiter">
+        <property name="limitProcess" value="4" />
     </bean>
     <!-- Процесс JS -->
     <bean id="process-js" class="com.github.andriell.processor.js.ProcessJs">
@@ -82,9 +87,24 @@
     <!-- Класс данных процесса JS -->
     <bean id="process-js-data-html" class="com.github.andriell.processor.js.ProcessJsDataHtml" scope="prototype" />
 
-    <!-- Ограничитель числа активных процессов -->
-    <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
+
+    <!-- Менеджер процессов HTTP -->
+    <bean id="manager-http" class="com.github.andriell.processor.Manager">
+        <property name="fair" value="true" />
+        <property name="capacity" value="100" />
+        <property name="runnableLimiter" ref="process-http-limiter" />
+        <property name="processBeanId" value="process-http" />
+    </bean>
+    <!-- Процесс HTTP -->
+    <bean id="process-http" class="com.github.andriell.processor.http.ProcessHttp">
+
+    </bean>
+    <!-- Ограничитель числа активных процессов HTTP -->
+    <bean id="process-http-limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />
     </bean>
+
+    <!-- Класс данных процесса HTTP -->
+    <bean id="process-http-data" class="com.github.andriell.processor.http.ProcessHttpData" scope="prototype" />
 
 </beans>

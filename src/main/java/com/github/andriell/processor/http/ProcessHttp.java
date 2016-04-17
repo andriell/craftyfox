@@ -20,13 +20,12 @@ import java.util.Collection;
 public class ProcessHttp implements ProcessInterface {
     private String name;
     private ProcessHttpData data;
-    private HttpClientContext localContext;
     private ProcessHttpContext httpClient;
     private ProcessHttpListenerInterface[] listeners;
 
     public void run() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        localContext = this.httpClient.getClientContext();
+        HttpClientContext localContext = this.httpClient.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
             Collection<DataListenerInterface> dataListeners = data.getDataListeners();
@@ -54,10 +53,6 @@ public class ProcessHttp implements ProcessInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public HttpClientContext getLocalContext() {
-        return localContext;
     }
 
     public void setListeners(ProcessHttpListenerInterface[] listeners) {
