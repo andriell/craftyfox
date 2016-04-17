@@ -2,6 +2,7 @@ package com.github.andriell.nashorn;
 
 import com.github.andriell.general.Files;
 
+import com.github.andriell.processor.js.ProcessJsDataInterface;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -109,8 +110,8 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
         return (Invocable) engine;
     }
 
-    public Object runProcess(String processName, Object data) throws ScriptException, NoSuchMethodException {
-        return getInvocable().invokeFunction("nashornRunProcess", processName, data);
+    public Object runProcess(ProcessJsDataInterface processData) throws ScriptException, NoSuchMethodException {
+        return getInvocable().invokeFunction("nashornRunProcess", processData.getPageName(), processData.getData());
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

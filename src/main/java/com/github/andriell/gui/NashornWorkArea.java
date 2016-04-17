@@ -49,6 +49,8 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     private File fileJson;
     private File fileText;
 
+    private DataEditorWorkArea[] dataEditors;
+
     public Nashorn getNashorn() {
         return nashorn;
     }
@@ -79,7 +81,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
                 String projectName = comboBoxProject.getSelectedItem().toString();
                 String pageName = comboBoxPage.getSelectedItem().toString();
                 outTextArea.setText("");
-                ProcessHttpDataListenerInterface property = null;
+                ProcessJsDataInterface processData = null;
                 property.setResponse(htmlTextArea.getText().getBytes(), ContentType.TEXT_HTML, null, null);
                 if (fileHtml != null) {
                     property = new ProcessJsDataHtml();
@@ -136,6 +138,20 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         fileJs = new File(projectPath + File.separator + "process.js");
         jsTextArea.setText(Files.readFile(fileJs));
 
+        if (dataEditors == null) {
+            return;
+        }
+        for (DataEditorWorkArea dataEditor: dataEditors) {
+            File file = new File(projectPath + File.separator + dataEditor.getFileName());
+            if (file.isFile()) {
+                htmlTextArea.setText(Files.readFile(fileHtml));
+                tabbedPane1.setEnabledAt(0, true);
+            } else {
+                fileHtml = null;
+                tabbedPane1.setEnabledAt(0, false);
+            }
+        }
+
         fileHtml = new File(projectPath + File.separator + "page.html");
         if (fileHtml.isFile()) {
             htmlTextArea.setText(Files.readFile(fileHtml));
@@ -190,23 +206,12 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         jsTextArea = rSyntaxTextArea;
         jsScrollPane = new RTextScrollPane(rSyntaxTextArea);
 
-        rSyntaxTextArea = new RSyntaxTextArea(20, 60);
-        rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_HTML);
-        rSyntaxTextArea.setCodeFoldingEnabled(true);
-        htmlTextArea = rSyntaxTextArea;
-        htmlScrollPane = new RTextScrollPane(rSyntaxTextArea);
-
-        rSyntaxTextArea = new RSyntaxTextArea(20, 60);
-        rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JSON);
-        rSyntaxTextArea.setCodeFoldingEnabled(true);
-        jsonTextArea = rSyntaxTextArea;
-        jsonScrollPane = new RTextScrollPane(rSyntaxTextArea);
-
-        rSyntaxTextArea = new RSyntaxTextArea(20, 60);
-        rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-        rSyntaxTextArea.setCodeFoldingEnabled(true);
-        textTextArea = rSyntaxTextArea;
-        textScrollPane = new RTextScrollPane(rSyntaxTextArea);
+        if (dataEditors == null) {
+            return;
+        }
+        for (DataEditorWorkArea dataEditor: dataEditors) {
+            tabbedPane1.add(dataEditor.getName(), dataEditor.getRootPanel());
+        }
     }
 
     public void onConsoleMessage(ConsoleMessageInterface consoleMessage) {
