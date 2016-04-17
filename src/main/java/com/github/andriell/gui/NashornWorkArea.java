@@ -67,7 +67,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
                 try {
                     nashorn.reload();
                     nashorn.loadProject(projectName, pageName, jsTextArea.getText());
-                    Object result = nashorn.runProcess(projectName + "." +pageName, document);
+                    Object result = nashorn.runProcess(projectName + "." + pageName, document);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 } catch (NoSuchMethodException e1) {
