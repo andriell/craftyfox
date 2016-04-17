@@ -5,6 +5,30 @@ var craftyFox = {
     pages: {},
     addParser: function(nane, process) {
         craftyFox.pages[nane] = process;
+    },
+    newJsDataHtml: function (pageName) {
+        var data = app.getBean("process-js-data-html");
+        data.setProcessBeanId("process-js");
+        data.setPageName(pageName);
+        return data;
+    },
+    newJsDataJson: function (pageName) {
+        var data = app.getBean("process-js-data-json");
+        data.setProcessBeanId("process-js");
+        data.setPageName(pageName);
+        return data;
+    },
+    newJsDataString: function (pageName) {
+        var data = app.getBean("process-js-data-string");
+        data.setProcessBeanId("process-js");
+        data.setPageName(pageName);
+        return data;
+    },
+    newJsDataBin: function (pageName) {
+        var data = app.getBean("process-js-data-bin");
+        data.setProcessBeanId("process-js");
+        data.setPageName(pageName);
+        return data;
     }
 };
 var $ = craftyFox;
