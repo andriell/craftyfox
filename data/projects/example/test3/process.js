@@ -4,6 +4,7 @@ $.addParser("example.test3", function(document) {
 	dataHttp.setMethod("GET");
 	dataHttp.setUrl("http://ya.ru");
 	var data = app.getBean("process-js-data-html");
+	data.setProcessBeanId("process-js");
 	data.setPageName("example.test32");
 	dataHttp.addDataListener(data);
 

@@ -1,6 +1,7 @@
 package com.github.andriell.processor.http;
 
 import com.github.andriell.processor.ProcessInterface;
+import com.github.andriell.processor.ProcessorInterface;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -10,6 +11,9 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -22,6 +26,7 @@ public class ProcessHttp implements ProcessInterface {
     private ProcessHttpData data;
     private ProcessHttpContext httpContext;
     private ProcessHttpListenerInterface[] listeners;
+    private ProcessorInterface processor;
 
     public void run() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -40,6 +45,7 @@ public class ProcessHttp implements ProcessInterface {
             if (dataListeners != null) {
                 for (ProcessHttpDataListenerInterface dataListener: dataListeners) {
                     dataListener.setResponse(body, contentType, httpRequest, httpResponse);
+                    processor.add(dataListener);
                 }
             }
             if (listeners != null) {
@@ -85,5 +91,9 @@ public class ProcessHttp implements ProcessInterface {
 
     public void setHttpContext(ProcessHttpContext httpContext) {
         this.httpContext = httpContext;
+    }
+
+    public void setProcessor(ProcessorInterface processor) {
+        this.processor = processor;
     }
 }

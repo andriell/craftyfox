@@ -20,6 +20,10 @@ public class Processor implements ProcessorInterface {
         }
     }
 
+    public boolean add(DataInterface data) {
+        return add(data.getProcessBeanId(), data);
+    }
+
     public boolean add(String processBeanId, Object data) {
         ManagerInterface manager = getManager(processBeanId);
         if (manager == null) {

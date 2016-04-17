@@ -8,6 +8,7 @@ import org.apache.http.entity.ContentType;
  * Created by Rybalko on 14.04.2016.
  */
 public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
+    private String processBeanId;
     private String pageName;
     private HttpRequest request;
     private HttpResponse response;
@@ -17,6 +18,14 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
         this.request = request;
         this.response = response;
         this.contentType = contentType;
+    }
+
+    public String getProcessBeanId() {
+        return processBeanId;
+    }
+
+    public void setProcessBeanId(String processBeanId) {
+        this.processBeanId = processBeanId;
     }
 
     public String getPageName() {
@@ -38,4 +47,6 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
     public ContentType getContentType() {
         return contentType;
     }
+
+
 }
