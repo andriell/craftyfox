@@ -6,21 +6,21 @@ import java.net.URI;
 /**
  * Created by Vika on 17.04.2016
  */
-public class FileInDataDir extends File {
+public class FileData extends File {
 
-    public FileInDataDir(String pathname) {
+    public FileData(String pathname) {
         super(Files.DATA_DIR + File.separator + pathname);
     }
 
-    public FileInDataDir(String parent, String child) {
+    public FileData(String parent, String child) {
         super(Files.DATA_DIR + File.separator + parent, child);
     }
 
-    public FileInDataDir(File parent, String child) {
+    public FileData(File parent, String child) {
         super(parent, child);
     }
 
-    public FileInDataDir(URI uri) {
+    public FileData(URI uri) {
         super(uri);
     }
 }
