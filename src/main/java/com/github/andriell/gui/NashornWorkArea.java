@@ -23,7 +23,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     private JTextArea jsTextArea;
     private JTextArea outTextArea;
     private JButton buttonGo;
-    private JComboBox<String> comboBoxParser;
+    private JComboBox<String> comboBoxPage;
     private JButton buttonSave;
     private JScrollPane htmlScrollPane;
     private JScrollPane jsScrollPane;
@@ -45,7 +45,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         updateSelect();
         loadFiles();
 
-        comboBoxParser.addActionListener(new AbstractAction() {
+        comboBoxPage.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 loadFiles();
             }
@@ -61,13 +61,13 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         buttonGo.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 String projectName = comboBoxProject.getSelectedItem().toString();
-                String craftName = comboBoxParser.getSelectedItem().toString();
+                String pageName = comboBoxPage.getSelectedItem().toString();
                 outTextArea.setText("");
                 Document document = Jsoup.parse(htmlTextArea.getText());
                 try {
                     nashorn.reload();
-                    nashorn.loadProject(projectName, craftName, jsTextArea.getText());
-                    Object result = nashorn.runProcess(craftName, document);
+                    nashorn.loadProject(projectName, pageName, jsTextArea.getText());
+                    Object result = nashorn.runProcess(pageName, document);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 } catch (NoSuchMethodException e1) {
@@ -94,7 +94,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
             }
         }
 
-        comboBoxParser.removeAll();
+        comboBoxPage.removeAll();
         folder = new File(Files.PROJECTS_DIR + File.separator + comboBoxProject.getSelectedItem());
         files = folder.listFiles();
         if (files == null) {
@@ -102,7 +102,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         }
         for (File fileEntry : files) {
             if (fileEntry.isDirectory()) {
-                comboBoxParser.addItem(fileEntry.getName());
+                comboBoxPage.addItem(fileEntry.getName());
             }
         }
     }
@@ -110,7 +110,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     public void loadFiles() {
         String projectPath = Files.PROJECTS_DIR + File.separator
                 + comboBoxProject.getSelectedItem() + File.separator
-                + comboBoxParser.getSelectedItem();
+                + comboBoxPage.getSelectedItem();
 
         fileJs = new File(projectPath + File.separator + "process.js");
         fileHtml = new File(projectPath + File.separator + "page.html");

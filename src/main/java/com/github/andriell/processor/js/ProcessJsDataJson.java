@@ -9,15 +9,15 @@ import org.json.JSONObject;
  * Created by Rybalko on 14.04.2016.
  */
 public class ProcessJsDataJson extends ProcessJsDataAbstract {
-    private String craftName;
+    private String pageName;
     private JSONObject json;
 
-    public String getCraftName() {
-        return craftName;
+    public String getPageName() {
+        return pageName;
     }
 
-    public void setCraftName(String craftName) {
-        this.craftName = craftName;
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
     }
 
     public JSONObject getJson() {
