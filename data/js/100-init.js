@@ -2,13 +2,13 @@ var console = app.getBean("js-console");
 var processor = app.getBean("processor");
 
 var craftyFox = {
-    pageParsers: {},
+    pages: {},
     addParser: function(nane, process) {
-        craftyFox.pageParsers[nane] = process;
+        craftyFox.pages[nane] = process;
     }
 };
 var $ = craftyFox;
 
 function nashornRunProcess(nane, property) {
-    craftyFox.pageParsers[nane](property);
+    craftyFox.pages[nane](property);
 }
