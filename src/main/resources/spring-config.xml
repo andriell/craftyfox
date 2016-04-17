@@ -101,7 +101,7 @@
     </bean>
     <!-- Ограничитель числа активных процессов HTTP -->
     <bean id="process-http-limiter" class="com.github.andriell.processor.RunnableLimiter">
-        <property name="limitProcess" value="4" />
+        <property name="limitProcess" value="2" />
     </bean>
 
     <!-- Класс данных процесса HTTP -->
