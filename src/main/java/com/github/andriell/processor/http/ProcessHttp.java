@@ -22,7 +22,7 @@ public class ProcessHttp implements ProcessInterface {
     private ProcessHttpData data;
     private HttpClientContext localContext;
     private ProcessHttpContext httpClient;
-    private ProcessHTTPListenerInterface[] listeners;
+    private ProcessHttpListenerInterface[] listeners;
 
     public void run() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -42,7 +42,7 @@ public class ProcessHttp implements ProcessInterface {
                 dataListener.setResponse(body, contentType, httpRequest, httpResponse);
             }
 
-            for (ProcessHTTPListenerInterface listener: listeners) {
+            for (ProcessHttpListenerInterface listener: listeners) {
                 listener.afterResponse(this);
             }
             response.close();
@@ -60,7 +60,7 @@ public class ProcessHttp implements ProcessInterface {
         return localContext;
     }
 
-    public void setListeners(ProcessHTTPListenerInterface[] listeners) {
+    public void setListeners(ProcessHttpListenerInterface[] listeners) {
         this.listeners = listeners;
     }
 
