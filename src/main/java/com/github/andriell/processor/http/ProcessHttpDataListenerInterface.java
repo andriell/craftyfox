@@ -7,6 +7,6 @@ import org.apache.http.entity.ContentType;
 /**
  * Created by Rybalko on 14.04.2016.
  */
-public interface DataListenerInterface {
+public interface ProcessHttpDataListenerInterface {
     void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response);
 }

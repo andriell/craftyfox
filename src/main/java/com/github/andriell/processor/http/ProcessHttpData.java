@@ -24,7 +24,7 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
 
     private String method = METHOD_GET;
     private Collection<NameValuePair> data = new ArrayList<NameValuePair>();
-    private Collection<DataListenerInterface> dataListeners = new ArrayList<DataListenerInterface>(2);
+    private Collection<ProcessHttpDataListenerInterface> dataListeners = new ArrayList<ProcessHttpDataListenerInterface>(2);
 
     public ProcessHttpData() {}
 
@@ -66,11 +66,11 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
         return data;
     }
 
-    public boolean addDataListener(DataListenerInterface dataListener) {
+    public boolean addDataListener(ProcessHttpDataListenerInterface dataListener) {
         return dataListeners.add(dataListener);
     }
 
-    public Collection<DataListenerInterface> getDataListeners() {
+    public Collection<ProcessHttpDataListenerInterface> getDataListeners() {
         return dataListeners;
     }
 }

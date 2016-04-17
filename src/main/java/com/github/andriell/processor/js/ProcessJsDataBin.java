@@ -4,22 +4,23 @@ import com.github.andriell.processor.http.ProcessHttpDataListenerInterface;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
-public class ProcessJsDataHtml extends ProcessJsDataAbstract implements ProcessHttpDataListenerInterface {
-    private Document dataHtml;
+/**
+ * Created by Rybalko on 14.04.2016.
+ */
+public class ProcessJsDataBin extends ProcessJsDataAbstract  implements ProcessHttpDataListenerInterface {
+    private byte[] binData;
 
-    public Document getDataHtml() {
-        return dataHtml;
+    public byte[] getBinData() {
+        return binData;
     }
 
-    public void setDataHtml(Document dataHtml) {
-        this.dataHtml = dataHtml;
+    public void setBinData(byte[] binData) {
+        this.binData = binData;
     }
 
     public void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response) {
         setHttpParam(request, response, contentType);
-        setDataHtml(Jsoup.parse(new String(body, contentType.getCharset())));
+        setBinData(body);
     }
 }

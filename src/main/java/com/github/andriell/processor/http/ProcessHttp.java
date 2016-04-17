@@ -28,7 +28,7 @@ public class ProcessHttp implements ProcessInterface {
         HttpClientContext localContext = this.httpClient.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
-            Collection<DataListenerInterface> dataListeners = data.getDataListeners();
+            Collection<ProcessHttpDataListenerInterface> dataListeners = data.getDataListeners();
 
             HttpResponse httpResponse = localContext.getResponse();
             HttpRequest httpRequest = localContext.getRequest();
@@ -37,7 +37,7 @@ public class ProcessHttp implements ProcessInterface {
             byte[] body = EntityUtils.toByteArray(httpEntity);
             ContentType contentType = ContentType.getOrDefault(httpEntity);
             EntityUtils.consume(httpEntity);
-            for (DataListenerInterface dataListener: dataListeners) {
+            for (ProcessHttpDataListenerInterface dataListener: dataListeners) {
                 dataListener.setResponse(body, contentType, httpRequest, httpResponse);
             }
 
