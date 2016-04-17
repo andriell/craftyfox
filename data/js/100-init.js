@@ -2,6 +2,7 @@ var console = app.getBean("js-console");
 var processor = app.getBean("processor");
 
 var craftyFox = {
+    app: app,
     pages: {},
     addParser: function(nane, process) {
         craftyFox.pages[nane] = process;

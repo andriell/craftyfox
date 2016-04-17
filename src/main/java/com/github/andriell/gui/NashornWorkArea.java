@@ -28,10 +28,19 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     private JScrollPane htmlScrollPane;
     private JScrollPane jsScrollPane;
     private JComboBox<String> comboBoxProject;
+    private JTextArea jsonTextArea;
+    private JTextArea textTextArea;
+    private JScrollPane jsonScrollPane;
+    private JScrollPane textScrollPane;
+    private JPanel htmlJPane;
+    private JPanel jsonJPane;
+    private JPanel textJPane;
 
     private Nashorn nashorn;
     private File fileJs;
     private File fileHtml;
+    private File fileJson;
+    private File fileText;
 
     public Nashorn getNashorn() {
         return nashorn;
@@ -113,14 +122,45 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
                 + comboBoxPage.getSelectedItem();
 
         fileJs = new File(projectPath + File.separator + "process.js");
-        fileHtml = new File(projectPath + File.separator + "page.html");
         jsTextArea.setText(Files.readFile(fileJs));
-        htmlTextArea.setText(Files.readFile(fileHtml));
+
+        fileHtml = new File(projectPath + File.separator + "page.html");
+        if (fileHtml.isFile()) {
+            htmlTextArea.setText(Files.readFile(fileHtml));
+            tabbedPane1.setEnabledAt(0, true);
+        } else {
+            fileHtml = null;
+            tabbedPane1.setEnabledAt(0, false);
+        }
+        fileJson = new File(projectPath + File.separator + "page.json");
+        if (fileJson.isFile()) {
+            jsonTextArea.setText(Files.readFile(fileJson));
+            tabbedPane1.setEnabledAt(1, true);
+        } else {
+            fileJson = null;
+            tabbedPane1.setEnabledAt(1, false);
+        }
+        fileText = new File(projectPath + File.separator + "page.txt");
+        if (fileText.isFile()) {
+            textTextArea.setText(Files.readFile(fileText));
+            tabbedPane1.setEnabledAt(2, true);
+        } else {
+            fileText = null;
+            tabbedPane1.setEnabledAt(2, false);
+        }
     }
 
     public void saveFiles() {
         Files.writeToFile(fileJs, jsTextArea.getText());
-        Files.writeToFile(fileHtml, htmlTextArea.getText());
+        if (fileHtml != null) {
+            Files.writeToFile(fileHtml, htmlTextArea.getText());
+        }
+        if (fileJson != null) {
+            Files.writeToFile(fileJson, htmlTextArea.getText());
+        }
+        if (fileText != null) {
+            Files.writeToFile(fileText, htmlTextArea.getText());
+        }
     }
 
     public String getName() {
@@ -143,6 +183,18 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
         rSyntaxTextArea.setCodeFoldingEnabled(true);
         htmlTextArea = rSyntaxTextArea;
         htmlScrollPane = new RTextScrollPane(rSyntaxTextArea);
+
+        rSyntaxTextArea = new RSyntaxTextArea(20, 60);
+        rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JSON);
+        rSyntaxTextArea.setCodeFoldingEnabled(true);
+        jsonTextArea = rSyntaxTextArea;
+        jsonScrollPane = new RTextScrollPane(rSyntaxTextArea);
+
+        rSyntaxTextArea = new RSyntaxTextArea(20, 60);
+        rSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+        rSyntaxTextArea.setCodeFoldingEnabled(true);
+        textTextArea = rSyntaxTextArea;
+        textScrollPane = new RTextScrollPane(rSyntaxTextArea);
     }
 
     public void onConsoleMessage(ConsoleMessageInterface consoleMessage) {
