@@ -1,6 +1,8 @@
 package com.github.andriell.gui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -13,6 +15,11 @@ public class ErrorWorkArea implements WorkArea {
 
     public ErrorWorkArea() {
         System.setErr(new PrintStream(new CustomOutputStream()));
+        clearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                errorTextArea.setText("");
+            }
+        });
     }
 
     public String getName() {
