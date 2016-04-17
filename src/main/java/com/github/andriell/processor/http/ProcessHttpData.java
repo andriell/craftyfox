@@ -27,7 +27,7 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
         this.setURI(uri);
     }
 
-    public ProcessHttpData(URI uri, String method) {
+    public ProcessHttpData(String method, URI uri) {
         this.setURI(uri);
         this.method = method;
     }
@@ -43,10 +43,6 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
 
     public String getMethod() {
         return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
     }
 
     public void setData(Collection<NameValuePair> data) {
