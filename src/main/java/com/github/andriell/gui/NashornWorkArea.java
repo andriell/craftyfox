@@ -4,6 +4,12 @@ import com.github.andriell.general.Files;
 import com.github.andriell.nashorn.Nashorn;
 import com.github.andriell.nashorn.console.ConsoleListenerInterface;
 import com.github.andriell.nashorn.console.ConsoleMessageInterface;
+import com.github.andriell.processor.http.ProcessHttpData;
+import com.github.andriell.processor.http.ProcessHttpDataListenerInterface;
+import com.github.andriell.processor.js.ProcessJsDataHtml;
+import com.github.andriell.processor.js.ProcessJsDataInterface;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.ContentType;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -15,6 +21,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.nio.charset.Charset;
 
 public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     private JTabbedPane tabbedPane1;
@@ -72,11 +79,16 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
                 String projectName = comboBoxProject.getSelectedItem().toString();
                 String pageName = comboBoxPage.getSelectedItem().toString();
                 outTextArea.setText("");
-                Document document = Jsoup.parse(htmlTextArea.getText());
+                ProcessHttpDataListenerInterface property = null;
+                property.setResponse(htmlTextArea.getText().getBytes(), ContentType.TEXT_HTML, null, null);
+                if (fileHtml != null) {
+                    property = new ProcessJsDataHtml();
+                }
+
                 try {
                     nashorn.reload();
                     nashorn.loadProject(projectName, pageName, jsTextArea.getText());
-                    Object result = nashorn.runProcess(projectName + "." + pageName, document);
+                    Object result = nashorn.runProcess(projectName + "." + pageName, property);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 } catch (NoSuchMethodException e1) {

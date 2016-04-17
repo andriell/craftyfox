@@ -9,6 +9,7 @@ import org.apache.http.entity.ContentType;
  */
 public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
     private String processBeanId;
+    private Object data;
     private String pageName;
     private HttpRequest request;
     private HttpResponse response;
@@ -48,5 +49,11 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
         return contentType;
     }
 
+    public Object getData() {
+        return data;
+    }
 
+    public void setData(Object data) {
+        this.data = data;
+    }
 }

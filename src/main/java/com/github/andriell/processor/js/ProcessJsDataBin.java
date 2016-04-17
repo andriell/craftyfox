@@ -9,18 +9,32 @@ import org.apache.http.entity.ContentType;
  * Created by Rybalko on 14.04.2016.
  */
 public class ProcessJsDataBin extends ProcessJsDataAbstract  implements ProcessHttpDataListenerInterface {
-    private byte[] binData;
-
-    public byte[] getBinData() {
-        return binData;
+    public byte[] getBytes() {
+        BinData binData = (BinData) getData();
+        if (binData == null) {
+            return null;
+        }
+        return binData.getBytes();
     }
 
-    public void setBinData(byte[] binData) {
-        this.binData = binData;
+    public void setBytes(byte[] bytes) {
+        setData(new BinData(bytes));
     }
 
     public void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response) {
         setHttpParam(request, response, contentType);
-        setBinData(body);
+        setBytes(body);
+    }
+
+    public class BinData {
+        private byte[] bytes;
+
+        public BinData(byte[] bytes) {
+            this.bytes = bytes;
+        }
+
+        public byte[] getBytes() {
+            return bytes;
+        }
     }
 }

@@ -6,4 +6,6 @@ package com.github.andriell.processor.js;
 public interface ProcessJsDataInterface {
     String getPageName();
     void setPageName(String pageName);
+    Object getData();
+    void setData(Object pageName);
 }

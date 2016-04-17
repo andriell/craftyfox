@@ -9,18 +9,12 @@ import org.apache.http.entity.ContentType;
  * Created by Rybalko on 14.04.2016.
  */
 public class ProcessJsDataString extends ProcessJsDataAbstract  implements ProcessHttpDataListenerInterface {
-    private String dataString;
-
     public String getDataString() {
-        return dataString;
-    }
-
-    public void setDataString(String dataString) {
-        this.dataString = dataString;
+        return (String) getData();
     }
 
     public void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response) {
         setHttpParam(request, response, contentType);
-        setDataString(new String(body, contentType.getCharset()));
+        setData(new String(body, contentType.getCharset()));
     }
 }
