@@ -12,19 +12,17 @@ import java.util.concurrent.*;
  */
 public class Manager implements ManagerInterface, InitializingBean, ApplicationContextAware {
     private BlockingQueue<Object> dataQueue;
-
     private Boolean run = true;
-    private int runPause = 1000;
+    private int runPause = 30;
     private ApplicationContext applicationContext;
     private RunnableLimiter runnableLimiter;
     private RunnableListenerInterface runnableListener;
     private String processBeanId;
-    private String dataBeanId;
     private int capacity;
     private boolean fair;
 
-    public boolean addData(Object task) {
-        return dataQueue.add(task);
+    public boolean addData(Object data) {
+        return dataQueue.add(data);
     }
 
     public void setProcessBeanId(String processBeanId) {
@@ -35,15 +33,7 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
         return processBeanId;
     }
 
-    public String getDataBeanId() {
-        return dataBeanId;
-    }
-
-    public void setDataBeanId(String dataBeanId) {
-        this.dataBeanId = dataBeanId;
-    }
-
-    public Object pullTask() {
+    private Object pullTask() {
         return dataQueue.poll();
     }
 

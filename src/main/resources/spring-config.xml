@@ -58,10 +58,6 @@
             </array>
         </property>
     </bean>
-    <!-- JS объект processor -->
-    <bean id="js-processor" class="com.github.andriell.nashorn.ProcessorJs">
-        <property name="processor" ref="processor" />
-    </bean>
 
     <!-- Процессор -->
     <bean id="processor" class="com.github.andriell.processor.Processor">
@@ -78,7 +74,6 @@
         <property name="capacity" value="100" />
         <property name="runnableLimiter" ref="limiter" />
         <property name="processBeanId" value="process-js" />
-        <property name="dataBeanId" value="process-js-data" />
     </bean>
     <!-- Процесс JS -->
     <bean id="process-js" class="com.github.andriell.processor.js.ProcessJs">

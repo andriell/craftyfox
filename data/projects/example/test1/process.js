@@ -14,5 +14,4 @@ $.addParser("test1", function(document) {
 		console.info(element.getClass().getName());
 		console.info(element.attr("href"));
 	}
-	processor.add("process-js", data);
 });

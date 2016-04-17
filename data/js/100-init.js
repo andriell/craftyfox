@@ -1,5 +1,5 @@
 var console = app.getBean("js-console");
-var processor = app.getBean("js-processor");
+var processor = app.getBean("processor");
 
 var craftyFox = {
     pageParsers: {},

@@ -10,15 +10,22 @@ import java.util.HashMap;
 /**
  * Created by Rybalko on 06.04.2016.
  */
-public class Processor implements ProcessorInterface, ApplicationContextAware {
+public class Processor implements ProcessorInterface {
     private HashMap<String, ManagerInterface> managers = new HashMap<String, ManagerInterface>();
-    private ApplicationContext applicationContext;
 
-    public void setManagers(Iterable<ManagerInterface> managers) {
+    public void setManagers(Collection<ManagerInterface> managers) {
         for (ManagerInterface manager:managers) {
             this.managers.put(manager.getProcessBeanId(), manager);
             new Thread(manager).start();
         }
+    }
+
+    public boolean add(String processBeanId, Object data) {
+        ManagerInterface manager = getManager(processBeanId);
+        if (manager == null) {
+            return false;
+        }
+        return manager.addData(data);
     }
 
     public Collection<ManagerInterface> getManagers() {
@@ -27,17 +34,5 @@ public class Processor implements ProcessorInterface, ApplicationContextAware {
 
     public ManagerInterface getManager(String processBeanId) {
         return this.managers.get(processBeanId);
-    }
-
-    public Object newData(String processBeanId) {
-        ManagerInterface manager = getManager(processBeanId);
-        if (manager == null) {
-            return null;
-        }
-        return applicationContext.getBean(manager.getDataBeanId());
-    }
-
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 }
