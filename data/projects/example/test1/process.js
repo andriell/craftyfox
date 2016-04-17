@@ -3,7 +3,7 @@
  * @param  document - org.jsoup.nodes.Document
  */
 
-$.addParser("test1", function(document) {
+$.addParser("example.test1", function(document) {
 	console.info(document.getClass().getName());
 	var links = document.select("a.link");
 	console.info(links.getClass().getName());
