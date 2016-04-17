@@ -15,6 +15,9 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import javax.script.ScriptException;
 import javax.swing.*;
@@ -23,7 +26,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.charset.Charset;
 
-public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
+public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, ApplicationContextAware {
     private JTabbedPane tabbedPane1;
     private JPanel rootPanel;
     private JTextArea htmlTextArea;
@@ -43,6 +46,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
     private JPanel jsonJPane;
     private JPanel textJPane;
 
+    private ApplicationContext applicationContext;
     private Nashorn nashorn;
     private File fileJs;
     private File fileHtml;
@@ -145,36 +149,11 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface {
             File file = new File(projectPath + File.separator + dataEditor.getFileName());
             if (file.isFile()) {
                 htmlTextArea.setText(Files.readFile(fileHtml));
-                tabbedPane1.setEnabledAt(0, true);
+                //tabbedPane1.setEnabledAt(0, true);
             } else {
                 fileHtml = null;
-                tabbedPane1.setEnabledAt(0, false);
+                //tabbedPane1.setEnabledAt(0, false);
             }
-        }
-
-        fileHtml = new File(projectPath + File.separator + "page.html");
-        if (fileHtml.isFile()) {
-            htmlTextArea.setText(Files.readFile(fileHtml));
-            tabbedPane1.setEnabledAt(0, true);
-        } else {
-            fileHtml = null;
-            tabbedPane1.setEnabledAt(0, false);
-        }
-        fileJson = new File(projectPath + File.separator + "page.json");
-        if (fileJson.isFile()) {
-            jsonTextArea.setText(Files.readFile(fileJson));
-            tabbedPane1.setEnabledAt(1, true);
-        } else {
-            fileJson = null;
-            tabbedPane1.setEnabledAt(1, false);
-        }
-        fileText = new File(projectPath + File.separator + "page.txt");
-        if (fileText.isFile()) {
-            textTextArea.setText(Files.readFile(fileText));
-            tabbedPane1.setEnabledAt(2, true);
-        } else {
-            fileText = null;
-            tabbedPane1.setEnabledAt(2, false);
         }
     }
 

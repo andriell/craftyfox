@@ -3,6 +3,8 @@ package com.github.andriell.gui;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
 
@@ -60,5 +62,9 @@ public class DataEditorWorkArea implements WorkArea {
         rSyntaxTextArea.setCodeFoldingEnabled(true);
         textArea = rSyntaxTextArea;
         scrollPane = new RTextScrollPane(rSyntaxTextArea);
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
