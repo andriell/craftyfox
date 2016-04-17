@@ -50,6 +50,14 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
         return method;
     }
 
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public void setUrl(String uri) {
+        this.setURI(URI.create(uri));
+    }
+
     public void setData(Collection<NameValuePair> data) {
         this.data = data;
         if (METHOD_GET.equals(method) || METHOD_HEAD.equals(method) || METHOD_OPTIONS.equals(method)) {
