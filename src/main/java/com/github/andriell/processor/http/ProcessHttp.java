@@ -20,12 +20,12 @@ import java.util.Collection;
 public class ProcessHttp implements ProcessInterface {
     private String name;
     private ProcessHttpData data;
-    private ProcessHttpContext httpClient;
+    private ProcessHttpContext httpContext;
     private ProcessHttpListenerInterface[] listeners;
 
     public void run() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpClientContext localContext = this.httpClient.getClientContext();
+        HttpClientContext localContext = this.httpContext.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
             Collection<ProcessHttpDataListenerInterface> dataListeners = data.getDataListeners();
@@ -37,13 +37,17 @@ public class ProcessHttp implements ProcessInterface {
             byte[] body = EntityUtils.toByteArray(httpEntity);
             ContentType contentType = ContentType.getOrDefault(httpEntity);
             EntityUtils.consume(httpEntity);
-            for (ProcessHttpDataListenerInterface dataListener: dataListeners) {
-                dataListener.setResponse(body, contentType, httpRequest, httpResponse);
+            if (dataListeners != null) {
+                for (ProcessHttpDataListenerInterface dataListener: dataListeners) {
+                    dataListener.setResponse(body, contentType, httpRequest, httpResponse);
+                }
+            }
+            if (listeners != null) {
+                for (ProcessHttpListenerInterface listener: listeners) {
+                    listener.afterResponse(this);
+                }
             }
 
-            for (ProcessHttpListenerInterface listener: listeners) {
-                listener.afterResponse(this);
-            }
             response.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,11 +79,11 @@ public class ProcessHttp implements ProcessInterface {
         this.name = name;
     }
 
-    public ProcessHttpContext getHttpClient() {
-        return httpClient;
+    public ProcessHttpContext getHttpContext() {
+        return httpContext;
     }
 
-    public void setHttpClient(ProcessHttpContext httpClient) {
-        this.httpClient = httpClient;
+    public void setHttpContext(ProcessHttpContext httpContext) {
+        this.httpContext = httpContext;
     }
 }

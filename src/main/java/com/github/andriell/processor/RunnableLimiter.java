@@ -53,6 +53,7 @@ public class RunnableLimiter {
     private class RunnableListener implements RunnableListenerInterface {
         public void onStart(Runnable r) {}
         public void onException(Runnable r, Exception e) {
+            runningProcesses--;
             e.printStackTrace();
         }
         public void onComplete(Runnable r) {

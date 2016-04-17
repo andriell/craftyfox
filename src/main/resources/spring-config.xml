@@ -97,8 +97,10 @@
     </bean>
     <!-- Процесс HTTP -->
     <bean id="process-http" class="com.github.andriell.processor.http.ProcessHttp">
-
+        <property name="httpContext" ref="process-http-context" />
     </bean>
+    <!-- Процесс HTTP контекст -->
+    <bean id="process-http-context" class="com.github.andriell.processor.http.ProcessHttpContext" />
     <!-- Ограничитель числа активных процессов HTTP -->
     <bean id="process-http-limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="2" />
