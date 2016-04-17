@@ -15,7 +15,12 @@ import java.util.Collection;
  */
 public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
     public static final String METHOD_GET = "GET";
+    public static final String METHOD_HEAD = "HEAD";
+    public static final String METHOD_OPTIONS = "OPTIONS";
+
+    public static final String METHOD_PATCH = "PATCH";
     public static final String METHOD_POST = "POST";
+    public static final String METHOD_PUT = "PUT";
 
     private String method = METHOD_GET;
     private Collection<NameValuePair> data = new ArrayList<NameValuePair>();
@@ -47,12 +52,12 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
 
     public void setData(Collection<NameValuePair> data) {
         this.data = data;
-        if (METHOD_GET.equals(method)) {
+        if (METHOD_GET.equals(method) || METHOD_HEAD.equals(method) || METHOD_OPTIONS.equals(method)) {
             URIBuilder builder = new URIBuilder(getURI());
             for (NameValuePair pair:data) {
                 builder.setParameter(pair.getName(), pair.getValue());
             }
-        } else if (METHOD_POST.equals(method)) {
+        } else if (METHOD_POST.equals(method) || METHOD_PATCH.equals(method) || METHOD_PUT.equals(method)) {
             this.setEntity(new UrlEncodedFormEntity(data, Consts.UTF_8));
         }
     }
