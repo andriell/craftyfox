@@ -29,6 +29,16 @@ var craftyFox = {
         data.setProcessBeanId("process-js");
         data.setPageName(pageName);
         return data;
+    },
+    newHttpData: function(method, url, param) {
+        var data = app.getBean("process-http-data");
+        data.setProcessBeanId("process-http");
+        data.setMethod(method);
+        data.setUrl(url);
+        if (param) {
+            data.setData(param);
+        }
+        return data;
     }
 };
 var $ = craftyFox;

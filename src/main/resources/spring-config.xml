@@ -86,6 +86,9 @@
     </bean>
     <!-- Класс данных процесса JS -->
     <bean id="process-js-data-html" class="com.github.andriell.processor.js.ProcessJsDataHtml" scope="prototype" />
+    <bean id="process-js-data-json" class="com.github.andriell.processor.js.ProcessJsDataJson" scope="prototype" />
+    <bean id="process-js-data-string" class="com.github.andriell.processor.js.ProcessJsDataString" scope="prototype" />
+    <bean id="process-js-data-bin" class="com.github.andriell.processor.js.ProcessJsDataBin" scope="prototype" />
 
 
     <!-- Менеджер процессов HTTP -->

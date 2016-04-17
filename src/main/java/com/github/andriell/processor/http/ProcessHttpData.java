@@ -1,5 +1,6 @@
 package com.github.andriell.processor.http;
 
+import com.github.andriell.processor.DataInterface;
 import org.apache.http.Consts;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -13,7 +14,7 @@ import java.util.Collection;
 /**
  * Created by Rybalko on 12.04.2016.
  */
-public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
+public class ProcessHttpData extends HttpEntityEnclosingRequestBase implements DataInterface {
     public static final String METHOD_GET = "GET";
     public static final String METHOD_HEAD = "HEAD";
     public static final String METHOD_OPTIONS = "OPTIONS";
@@ -22,6 +23,7 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
     public static final String METHOD_POST = "POST";
     public static final String METHOD_PUT = "PUT";
 
+    private String processBeanId;
     private String method = METHOD_GET;
     private Collection<NameValuePair> data = new ArrayList<NameValuePair>();
     private Collection<ProcessHttpDataListenerInterface> dataListeners = new ArrayList<ProcessHttpDataListenerInterface>(2);
@@ -80,5 +82,13 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase {
 
     public Collection<ProcessHttpDataListenerInterface> getDataListeners() {
         return dataListeners;
+    }
+
+    public String getProcessBeanId() {
+        return processBeanId;
+    }
+
+    public void setProcessBeanId(String processBeanId) {
+        this.processBeanId = processBeanId;
     }
 }
