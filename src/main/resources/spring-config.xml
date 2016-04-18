@@ -28,6 +28,17 @@
     <!-- Рабочая область Nashorn -->
     <bean id="gui-nashorn-work-area" class="com.github.andriell.gui.NashornWorkArea">
         <property name="nashorn" ref="nashorn"/>
+        <property name="dataEditors">
+            <array>
+                <ref bean="gui-data-editor-html" />
+            </array>
+        </property>
+    </bean>
+    <bean id="gui-data-editor-html" class="com.github.andriell.gui.DataEditorWorkArea">
+        <property name="fileName" value="page.html"/>
+        <property name="syntaxEditingStyle" value="text/html" />
+        <property name="dataBinId" value="process-js-data-html" />
+        <property name="name" value="HTML" />
     </bean>
     <!-- Основное меню, раздел Ошибки -->
     <bean id="gui-nav-three-error" class="com.github.andriell.gui.NavTreeItem">

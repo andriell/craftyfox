@@ -16,6 +16,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -26,7 +27,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.charset.Charset;
 
-public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, ApplicationContextAware {
+public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, InitializingBean {
     private JTabbedPane tabbedPane1;
     private JPanel rootPanel;
     private JTextArea htmlTextArea;
@@ -35,18 +36,9 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
     private JButton buttonGo;
     private JComboBox<String> comboBoxPage;
     private JButton buttonSave;
-    private JScrollPane htmlScrollPane;
     private JScrollPane jsScrollPane;
     private JComboBox<String> comboBoxProject;
-    private JTextArea jsonTextArea;
-    private JTextArea textTextArea;
-    private JScrollPane jsonScrollPane;
-    private JScrollPane textScrollPane;
-    private JPanel htmlJPane;
-    private JPanel jsonJPane;
-    private JPanel textJPane;
 
-    private ApplicationContext applicationContext;
     private Nashorn nashorn;
     private File fileJs;
     private File fileHtml;
@@ -54,13 +46,14 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
     private File fileText;
 
     private DataEditorWorkArea[] dataEditors;
-
-    public Nashorn getNashorn() {
-        return nashorn;
-    }
+    private DataEditorWorkArea dataEditorActive;
 
     public void setNashorn(Nashorn nashorn) {
         this.nashorn = nashorn;
+    }
+
+    public void setDataEditors(DataEditorWorkArea[] dataEditors) {
+        this.dataEditors = dataEditors;
     }
 
     public NashornWorkArea() throws FileNotFoundException {
@@ -85,16 +78,12 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
                 String projectName = comboBoxProject.getSelectedItem().toString();
                 String pageName = comboBoxPage.getSelectedItem().toString();
                 outTextArea.setText("");
-                ProcessJsDataInterface processData = null;
-                property.setResponse(htmlTextArea.getText().getBytes(), ContentType.TEXT_HTML, null, null);
-                if (fileHtml != null) {
-                    property = new ProcessJsDataHtml();
-                }
+                ProcessJsDataInterface processData = dataEditorActive.getProcessData();
 
                 try {
                     nashorn.reload();
                     nashorn.loadProject(projectName, pageName, jsTextArea.getText());
-                    Object result = nashorn.runProcess(projectName + "." + pageName, property);
+                    Object result = nashorn.runProcess(processData);
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 } catch (NoSuchMethodException e1) {
@@ -107,10 +96,8 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
         });
     }
 
-    public void updateSelect() {
-        comboBoxProject.removeAll();
+    private void updateSelect() {
         File folder = new File(Files.PROJECTS_DIR);
-        boolean b = folder.isDirectory();
         File[] files = folder.listFiles();
         if (files == null) {
             return;
@@ -120,8 +107,6 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
                 comboBoxProject.addItem(fileEntry.getName());
             }
         }
-
-        comboBoxPage.removeAll();
         folder = new File(Files.PROJECTS_DIR + File.separator + comboBoxProject.getSelectedItem());
         files = folder.listFiles();
         if (files == null) {
@@ -138,6 +123,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
         String projectPath = Files.PROJECTS_DIR + File.separator
                 + comboBoxProject.getSelectedItem() + File.separator
                 + comboBoxPage.getSelectedItem();
+        File projectPathFile = new File(projectPath);
 
         fileJs = new File(projectPath + File.separator + "process.js");
         jsTextArea.setText(Files.readFile(fileJs));
@@ -146,12 +132,11 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
             return;
         }
         for (DataEditorWorkArea dataEditor: dataEditors) {
-            File file = new File(projectPath + File.separator + dataEditor.getFileName());
-            if (file.isFile()) {
-                htmlTextArea.setText(Files.readFile(fileHtml));
+            if (dataEditor.load(projectPathFile)) {
+                //htmlTextArea.setText(Files.readFile(fileHtml));
                 //tabbedPane1.setEnabledAt(0, true);
             } else {
-                fileHtml = null;
+                //fileHtml = null;
                 //tabbedPane1.setEnabledAt(0, false);
             }
         }
@@ -184,18 +169,20 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Appl
         rSyntaxTextArea.setCodeFoldingEnabled(true);
         jsTextArea = rSyntaxTextArea;
         jsScrollPane = new RTextScrollPane(rSyntaxTextArea);
-
-        if (dataEditors == null) {
-            return;
-        }
-        for (DataEditorWorkArea dataEditor: dataEditors) {
-            tabbedPane1.add(dataEditor.getName(), dataEditor.getRootPanel());
-        }
     }
 
     public void onConsoleMessage(ConsoleMessageInterface consoleMessage) {
         outTextArea.append(consoleMessage.getMessage());
         outTextArea.append("\n");
         outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        if (dataEditors == null) {
+            return;
+        }
+        for (DataEditorWorkArea dataEditor: dataEditors) {
+            tabbedPane1.add(dataEditor.getName(), dataEditor.getRootPanel());
+        }
     }
 }

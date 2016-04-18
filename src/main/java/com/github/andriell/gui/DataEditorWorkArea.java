@@ -1,24 +1,30 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.general.Files;
+import com.github.andriell.processor.js.ProcessJsDataInterface;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
+import java.io.File;
 
 /**
  * Created by Vika on 17.04.2016
  */
-public class DataEditorWorkArea implements WorkArea {
+public class DataEditorWorkArea implements WorkArea, InitializingBean {
     private String name;
     private JPanel rootPanel;
+    private JScrollPane scrollPane;
+    private JTextArea textArea;
+
     private String syntaxEditingStyle;
     private String dataBinId;
     private String fileName;
-    private JScrollPane scrollPane;
-    private JTextArea textArea;
+    private ApplicationContext applicationContext;
 
     public String getName() {
         return name;
@@ -44,10 +50,6 @@ public class DataEditorWorkArea implements WorkArea {
         this.dataBinId = dataBinId;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
@@ -58,7 +60,6 @@ public class DataEditorWorkArea implements WorkArea {
 
     private void createUIComponents() {
         RSyntaxTextArea rSyntaxTextArea = new RSyntaxTextArea(20, 60);
-        rSyntaxTextArea.setSyntaxEditingStyle(syntaxEditingStyle);
         rSyntaxTextArea.setCodeFoldingEnabled(true);
         textArea = rSyntaxTextArea;
         scrollPane = new RTextScrollPane(rSyntaxTextArea);
@@ -66,5 +67,25 @@ public class DataEditorWorkArea implements WorkArea {
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    public ProcessJsDataInterface getProcessData() {
+        ProcessJsDataInterface dataBean = applicationContext.getBean(dataBinId, ProcessJsDataInterface.class);
+        dataBean.setData(textArea.getText());
+        return dataBean;
+    }
+
+    public boolean load(File dirProject) {
+        File file = new File(dirProject, fileName);
+        boolean r = file.exists();
+        if (r) {
+            textArea.setText(Files.readFile(file));
+        }
+        return r;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        RSyntaxTextArea rSyntaxTextArea = (RSyntaxTextArea) textArea;
+        rSyntaxTextArea.setSyntaxEditingStyle(syntaxEditingStyle);
     }
 }

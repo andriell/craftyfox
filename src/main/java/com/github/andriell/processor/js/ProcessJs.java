@@ -26,7 +26,7 @@ public class ProcessJs implements ProcessInterface {
 
     public void run() {
         try {
-            nashorn.runProcess(getData().getPageName(), getData());
+            nashorn.runProcess(getData());
         } catch (ScriptException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
