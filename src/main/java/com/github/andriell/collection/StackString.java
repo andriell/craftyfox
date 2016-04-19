@@ -12,14 +12,14 @@ public class StackString {
         data = new String[size];
     }
 
-    public void put(String b) {
+    public void put(String s) {
         synchronized (this) {
             position++;
             if (position >= data.length) {
                 position = 0;
                 crowded = true;
             }
-            data[position] = b;
+            data[position] = s;
         }
     }
 
