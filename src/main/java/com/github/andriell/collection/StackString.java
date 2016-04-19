@@ -23,12 +23,13 @@ public class StackString {
         }
     }
 
-    public String[] strings() {
+    public String[] bytes() {
         String[] r = null;
+        int index = 0;
         if (crowded) {
             r = new String[data.length];
             for (int i = position + 1; i < data.length; i++) {
-                r[i] = data[i];
+                r[index++] = data[i];
             }
         } else if (position >= 0)  {
             r = new String[position + 1];
@@ -36,7 +37,7 @@ public class StackString {
             return r;
         }
         for (int i = 0; i <= position; i++) {
-            r[i] = data[i];
+            r[index++] = data[i];
         }
         return r;
     }
