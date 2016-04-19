@@ -25,10 +25,11 @@ public class StackByte {
 
     public byte[] bytes() {
         byte[] r = null;
+        int index = 0;
         if (crowded) {
             r = new byte[data.length];
             for (int i = position + 1; i < data.length; i++) {
-                r[i] = data[i];
+                r[index++] = data[i];
             }
         } else if (position >= 0)  {
             r = new byte[position + 1];
@@ -36,7 +37,7 @@ public class StackByte {
             return r;
         }
         for (int i = 0; i <= position; i++) {
-            r[i] = data[i];
+            r[index++] = data[i];
         }
         return r;
     }
