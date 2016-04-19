@@ -5,7 +5,7 @@ package com.github.andriell.collection;
  */
 public class StackByte {
     byte[] data;
-    int position = 0;
+    int position = -1;
     boolean crowded = false;
 
     public StackByte(int size) {
@@ -14,11 +14,12 @@ public class StackByte {
 
     public void put(byte b) {
         synchronized (this) {
-            data[position++] = b;
+            position++;
             if (position >= data.length) {
                 position = 0;
                 crowded = true;
             }
+            data[position] = b;
         }
     }
 
@@ -41,6 +42,10 @@ public class StackByte {
     }
 
     public String toString() {
+        byte[] bytes = bytes();
+        if (bytes == null) {
+            return "";
+        }
         return new String(bytes());
     }
 }
