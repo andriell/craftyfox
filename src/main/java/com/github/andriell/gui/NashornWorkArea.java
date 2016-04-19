@@ -16,7 +16,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.Stack;
 
 public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, InitializingBean {
     private JTabbedPane tabbedPane1;
@@ -34,6 +33,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
 
     private Nashorn nashorn;
     private File fileJs;
+    private StackString stack = new StackString(1000);
 
     private DataEditorWorkArea[] dataEditors;
     private DataEditorWorkArea dataEditorActive;
@@ -160,8 +160,6 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
         jsTextArea = rSyntaxTextArea;
         jsScrollPane = new RTextScrollPane(rSyntaxTextArea);
     }
-
-    private StackString stack = new StackString(10);
 
     public void onConsoleMessage(ConsoleMessageInterface consoleMessage) {
         stack.put(consoleMessage.getMessage());

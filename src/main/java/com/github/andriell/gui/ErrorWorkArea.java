@@ -1,5 +1,7 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.collection.StackByte;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +14,7 @@ public class ErrorWorkArea implements WorkArea {
     private JTextField sizeTextField;
     private JButton clearButton;
 
-    ByteBuffer buffer = ByteBuffer.allocate(10000);
+    StackByte buffer = new StackByte(10000);
 
     public ErrorWorkArea() {
         System.setErr(new PrintStream(new CustomOutputStream()));
@@ -26,7 +28,7 @@ public class ErrorWorkArea implements WorkArea {
             public void run() {
                 try {
                     while (true) {
-                        errorTextArea.setText(new String(buffer.array()));
+                        errorTextArea.setText(buffer.toString());
                         errorTextArea.setCaretPosition(errorTextArea.getDocument().getLength());
                         Thread.sleep(1000);
                     }
