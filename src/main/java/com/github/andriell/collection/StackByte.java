@@ -1,0 +1,46 @@
+package com.github.andriell.collection;
+
+/**
+ * Created by Rybalko on 19.04.2016.
+ */
+public class StackByte {
+    byte[] data;
+    int position = 0;
+    boolean crowded = false;
+
+    public StackByte(int size) {
+        data = new byte[size];
+    }
+
+    public void put(byte b) {
+        synchronized (this) {
+            data[position++] = b;
+            if (position >= data.length) {
+                position = 0;
+                crowded = true;
+            }
+        }
+    }
+
+    public byte[] bytes() {
+        byte[] r = null;
+        if (crowded) {
+            r = new byte[data.length];
+            for (int i = position + 1; i < data.length; i++) {
+                r[i] = data[i];
+            }
+        } else if (position >= 0)  {
+            r = new byte[position + 1];
+        } else {
+            return r;
+        }
+        for (int i = 0; i <= position; i++) {
+            r[i] = data[i];
+        }
+        return r;
+    }
+
+    public String toString() {
+        return new String(bytes());
+    }
+}

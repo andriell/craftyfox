@@ -3,15 +3,16 @@ package com.github.andriell.gui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.nio.ByteBuffer;
 
 public class ErrorWorkArea implements WorkArea {
     private JTextArea errorTextArea;
     private JPanel rootPanel;
     private JTextField sizeTextField;
     private JButton clearButton;
+
+    ByteBuffer buffer = ByteBuffer.allocate(10000);
 
     public ErrorWorkArea() {
         System.setErr(new PrintStream(new CustomOutputStream()));
@@ -20,6 +21,20 @@ public class ErrorWorkArea implements WorkArea {
                 errorTextArea.setText("");
             }
         });
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    while (true) {
+                        errorTextArea.setText(new String(buffer.array()));
+                        errorTextArea.setCaretPosition(errorTextArea.getDocument().getLength());
+                        Thread.sleep(1000);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public String getName() {
@@ -33,8 +48,7 @@ public class ErrorWorkArea implements WorkArea {
     class CustomOutputStream extends OutputStream {
         @Override
         public void write(int b) throws IOException {
-            errorTextArea.append(String.valueOf((char)b));
-            errorTextArea.setCaretPosition(errorTextArea.getDocument().getLength());
+            buffer.put((byte) b);
         }
     }
 }

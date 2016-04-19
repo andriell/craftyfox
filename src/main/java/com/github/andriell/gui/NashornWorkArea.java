@@ -1,5 +1,6 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.collection.StackString;
 import com.github.andriell.general.Files;
 import com.github.andriell.nashorn.Nashorn;
 import com.github.andriell.nashorn.console.ConsoleListenerInterface;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Stack;
 
 public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, InitializingBean {
     private JTabbedPane tabbedPane1;
@@ -159,14 +161,29 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
         jsScrollPane = new RTextScrollPane(rSyntaxTextArea);
     }
 
+    private StackString stack = new StackString(10);
+
     public void onConsoleMessage(ConsoleMessageInterface consoleMessage) {
-        outTextArea.append(consoleMessage.getMessage());
-        outTextArea.append("\n");
-        outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
+        stack.put(consoleMessage.getMessage());
+        stack.put("\n");
     }
 
     public void afterPropertiesSet() throws Exception {
         updateSelect();
         loadFiles();
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    while (true) {
+                        outTextArea.setText(stack.toString());
+                        outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
+                        Thread.sleep(1000);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
