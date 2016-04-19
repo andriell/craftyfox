@@ -55,7 +55,6 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
             }
         });
 
-
         buttonGo.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 String projectName = comboBoxProject.getSelectedItem().toString();
