@@ -3,11 +3,11 @@ package com.github.andriell.gui;
 import com.github.andriell.general.Files;
 import com.github.andriell.processor.js.ProcessJsDataInterface;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import javax.swing.*;
 import java.io.File;
@@ -15,7 +15,7 @@ import java.io.File;
 /**
  * Created by Vika on 17.04.2016
  */
-public class DataEditorWorkArea implements WorkArea, InitializingBean {
+public class DataEditorWorkArea implements WorkArea, InitializingBean, ApplicationContextAware {
     private String name;
     private JPanel rootPanel;
     private JScrollPane scrollPane;
@@ -24,6 +24,7 @@ public class DataEditorWorkArea implements WorkArea, InitializingBean {
     private String syntaxEditingStyle;
     private String dataBinId;
     private String fileName;
+    private File file;
     private ApplicationContext applicationContext;
 
     public String getName() {
@@ -69,19 +70,24 @@ public class DataEditorWorkArea implements WorkArea, InitializingBean {
         this.applicationContext = applicationContext;
     }
 
-    public ProcessJsDataInterface getProcessData() {
-        ProcessJsDataInterface dataBean = applicationContext.getBean(dataBinId, ProcessJsDataInterface.class);
+    public ProcessJsDataInterface getProcessData(String pageName) {
+        ProcessJsDataInterface dataBean = (ProcessJsDataInterface) applicationContext.getBean(dataBinId);
         dataBean.setData(textArea.getText());
+        dataBean.setPageName(pageName);
         return dataBean;
     }
 
     public boolean load(File dirProject) {
-        File file = new File(dirProject, fileName);
+        file = new File(dirProject, fileName);
         boolean r = file.exists();
         if (r) {
             textArea.setText(Files.readFile(file));
         }
         return r;
+    }
+
+    public void save() {
+        Files.writeToFile(file, textArea.getText());
     }
 
     public void afterPropertiesSet() throws Exception {

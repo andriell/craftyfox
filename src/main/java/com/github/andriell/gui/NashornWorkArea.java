@@ -41,9 +41,6 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
 
     private Nashorn nashorn;
     private File fileJs;
-    private File fileHtml;
-    private File fileJson;
-    private File fileText;
 
     private DataEditorWorkArea[] dataEditors;
     private DataEditorWorkArea dataEditorActive;
@@ -57,9 +54,6 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
     }
 
     public NashornWorkArea() throws FileNotFoundException {
-        updateSelect();
-        loadFiles();
-
         comboBoxPage.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 loadFiles();
@@ -78,7 +72,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 String projectName = comboBoxProject.getSelectedItem().toString();
                 String pageName = comboBoxPage.getSelectedItem().toString();
                 outTextArea.setText("");
-                ProcessJsDataInterface processData = dataEditorActive.getProcessData();
+                ProcessJsDataInterface processData = dataEditorActive.getProcessData(projectName + "." + pageName);
 
                 try {
                     nashorn.reload();
@@ -123,35 +117,27 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
         String projectPath = Files.PROJECTS_DIR + File.separator
                 + comboBoxProject.getSelectedItem() + File.separator
                 + comboBoxPage.getSelectedItem();
-        File projectPathFile = new File(projectPath);
+        File projectFile = new File(projectPath);
 
-        fileJs = new File(projectPath + File.separator + "process.js");
+        fileJs = new File(projectFile, "process.js");
         jsTextArea.setText(Files.readFile(fileJs));
 
         if (dataEditors == null) {
             return;
         }
         for (DataEditorWorkArea dataEditor: dataEditors) {
-            if (dataEditor.load(projectPathFile)) {
-                //htmlTextArea.setText(Files.readFile(fileHtml));
-                //tabbedPane1.setEnabledAt(0, true);
-            } else {
-                //fileHtml = null;
-                //tabbedPane1.setEnabledAt(0, false);
+            if (dataEditor.load(projectFile)) {
+                tabbedPane1.add(dataEditor.getName(), dataEditor.getRootPanel());
+                dataEditorActive = dataEditor;
+                break;
             }
         }
     }
 
     public void saveFiles() {
         Files.writeToFile(fileJs, jsTextArea.getText());
-        if (fileHtml != null) {
-            Files.writeToFile(fileHtml, htmlTextArea.getText());
-        }
-        if (fileJson != null) {
-            Files.writeToFile(fileJson, htmlTextArea.getText());
-        }
-        if (fileText != null) {
-            Files.writeToFile(fileText, htmlTextArea.getText());
+        for (DataEditorWorkArea dataEditor: dataEditors) {
+            dataEditor.save();
         }
     }
 
@@ -178,11 +164,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
     }
 
     public void afterPropertiesSet() throws Exception {
-        if (dataEditors == null) {
-            return;
-        }
-        for (DataEditorWorkArea dataEditor: dataEditors) {
-            tabbedPane1.add(dataEditor.getName(), dataEditor.getRootPanel());
-        }
+        updateSelect();
+        loadFiles();
     }
 }
