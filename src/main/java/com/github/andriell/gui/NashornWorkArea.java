@@ -59,13 +59,20 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
             public void actionPerformed(ActionEvent e) {
                 String projectName = comboBoxProject.getSelectedItem().toString();
                 String pageName = comboBoxPage.getSelectedItem().toString();
+                String pageNameFull = projectName + "." + pageName;
                 outTextArea.setText("");
-                ProcessJsDataInterface processData = dataEditorActive.getProcessData(projectName + "." + pageName);
-
+                ProcessJsDataInterface processData = null;
+                  if (dataEditorActive != null) {
+                    processData = dataEditorActive.getProcessData(pageNameFull);
+                }
                 try {
                     nashorn.reload();
                     nashorn.loadProject(projectName, pageName, jsTextArea.getText());
-                    Object result = nashorn.runProcess(processData);
+                    if (processData == null) {
+                        Object result = nashorn.runProcess(pageNameFull);
+                    } else {
+                        Object result = nashorn.runProcess(processData);
+                    }
                 } catch (final ScriptException se) {
                     outTextArea.setText(se.toString());
                 } catch (NoSuchMethodException e1) {
@@ -73,7 +80,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 } catch (Exception e1) {
                     outTextArea.setText(e1.toString());
                 }
-                tabbedPane1.setSelectedIndex(2);
+                tabbedPane1.setSelectedIndex(1);
             }
         });
     }
@@ -109,6 +116,11 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
 
         fileJs = new File(projectFile, "process.js");
         jsTextArea.setText(Files.readFile(fileJs));
+
+        if (dataEditorActive != null) {
+            tabbedPane1.remove(2);
+            dataEditorActive = null;
+        }
 
         if (dataEditors == null) {
             return;

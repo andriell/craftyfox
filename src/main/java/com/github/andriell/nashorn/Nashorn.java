@@ -110,8 +110,16 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
         return (Invocable) engine;
     }
 
+    public Object runProcess(String pageName, Object data) throws ScriptException, NoSuchMethodException {
+        return getInvocable().invokeFunction("nashornRunProcess", pageName, data);
+    }
+
     public Object runProcess(ProcessJsDataInterface processData) throws ScriptException, NoSuchMethodException {
-        return getInvocable().invokeFunction("nashornRunProcess", processData.getPageName(), processData);
+        return runProcess(processData.getPageName(), processData);
+    }
+
+    public Object runProcess(String pageName) throws ScriptException, NoSuchMethodException {
+        return runProcess(pageName, null);
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
