@@ -1,6 +1,7 @@
 package com.github.andriell.gui;
 
 import com.github.andriell.general.Files;
+import com.github.andriell.processor.js.DataConverter;
 import com.github.andriell.processor.js.ProcessJsDataInterface;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -21,11 +22,20 @@ public class DataEditorWorkArea implements WorkArea, InitializingBean, Applicati
     private JScrollPane scrollPane;
     private JTextArea textArea;
 
+    private DataConverter converter;
     private String syntaxEditingStyle;
     private String dataBinId;
     private String fileName;
     private File file;
     private ApplicationContext applicationContext;
+
+    public DataConverter getConverter() {
+        return converter;
+    }
+
+    public void setConverter(DataConverter converter) {
+        this.converter = converter;
+    }
 
     public String getName() {
         return name;
@@ -72,7 +82,7 @@ public class DataEditorWorkArea implements WorkArea, InitializingBean, Applicati
 
     public ProcessJsDataInterface getProcessData(String pageName) {
         ProcessJsDataInterface dataBean = (ProcessJsDataInterface) applicationContext.getBean(dataBinId);
-        dataBean.setData(textArea.getText());
+        dataBean.setData(converter.convert(textArea.getText()));
         dataBean.setPageName(pageName);
         return dataBean;
     }

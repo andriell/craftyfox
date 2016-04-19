@@ -4,28 +4,17 @@ import com.github.andriell.general.Files;
 import com.github.andriell.nashorn.Nashorn;
 import com.github.andriell.nashorn.console.ConsoleListenerInterface;
 import com.github.andriell.nashorn.console.ConsoleMessageInterface;
-import com.github.andriell.processor.http.ProcessHttpData;
-import com.github.andriell.processor.http.ProcessHttpDataListenerInterface;
-import com.github.andriell.processor.js.ProcessJsDataHtml;
 import com.github.andriell.processor.js.ProcessJsDataInterface;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.ContentType;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.nio.charset.Charset;
 
 public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, InitializingBean {
     private JTabbedPane tabbedPane1;

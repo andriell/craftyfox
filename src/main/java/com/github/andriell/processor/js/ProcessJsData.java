@@ -4,17 +4,17 @@ import com.github.andriell.processor.http.ProcessHttpDataListenerInterface;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
-/**
- * Created by Rybalko on 14.04.2016.
- */
-public class ProcessJsDataString extends ProcessJsDataAbstract  implements ProcessHttpDataListenerInterface {
-    public String getDataString() {
-        return (String) getData();
+public class ProcessJsData extends ProcessJsDataAbstract implements ProcessHttpDataListenerInterface {
+    public Document getDataHtml() {
+        return (Document) getData();
     }
 
     public void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response) {
         setHttpParam(request, response, contentType);
-        setData(new String(body, contentType.getCharset()));
+        DataConverter converter = getConverter();
+        setData(converter.convert(new String(body, contentType.getCharset())));
     }
 }

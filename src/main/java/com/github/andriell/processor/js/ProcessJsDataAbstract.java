@@ -8,6 +8,7 @@ import org.apache.http.entity.ContentType;
  * Created by Rybalko on 14.04.2016.
  */
 public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
+    private DataConverter converter;
     private String processBeanId;
     private Object data;
     private String pageName;
@@ -19,6 +20,14 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
         this.request = request;
         this.response = response;
         this.contentType = contentType;
+    }
+
+    public DataConverter getConverter() {
+        return converter;
+    }
+
+    public void setConverter(DataConverter converter) {
+        this.converter = converter;
     }
 
     public String getProcessBeanId() {

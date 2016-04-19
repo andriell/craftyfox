@@ -1,4 +1,4 @@
-package com.github.andriell.gui;
+package com.github.andriell.processor.js;
 
 import org.json.JSONObject;
 

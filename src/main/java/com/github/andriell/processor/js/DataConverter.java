@@ -1,4 +1,4 @@
-package com.github.andriell.gui;
+package com.github.andriell.processor.js;
 
 /**
  * Created by Rybalko on 19.04.2016.

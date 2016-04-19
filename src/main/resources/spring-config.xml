@@ -38,6 +38,7 @@
         <property name="fileName" value="page.html"/>
         <property name="syntaxEditingStyle" value="text/html" />
         <property name="dataBinId" value="process-js-data-html" />
+        <property name="converter" ref="data-converter-html" />
         <property name="name" value="HTML" />
     </bean>
     <!-- Основное меню, раздел Ошибки -->
@@ -96,11 +97,20 @@
         <property name="nashorn" ref="nashorn"/>
     </bean>
     <!-- Класс данных процесса JS -->
-    <bean id="process-js-data-html" class="com.github.andriell.processor.js.ProcessJsDataHtml" scope="prototype" />
-    <bean id="process-js-data-json" class="com.github.andriell.processor.js.ProcessJsDataJson" scope="prototype" />
-    <bean id="process-js-data-string" class="com.github.andriell.processor.js.ProcessJsDataString" scope="prototype" />
+    <bean id="process-js-data-html" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype">
+        <property name="converter" ref="data-converter-html" />
+    </bean>
+    <bean id="process-js-data-json" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype">
+        <property name="converter" ref="data-converter-json" />
+    </bean>
+    <bean id="process-js-data-text" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype">
+        <property name="converter" ref="data-converter-text" />
+    </bean>
     <bean id="process-js-data-bin" class="com.github.andriell.processor.js.ProcessJsDataBin" scope="prototype" />
-
+    <!-- Конвертеры данных JS -->
+    <bean id="data-converter-html" class="com.github.andriell.processor.js.DataConverterHtml" />
+    <bean id="data-converter-json" class="com.github.andriell.processor.js.DataConverterJson" />
+    <bean id="data-converter-text" class="com.github.andriell.processor.js.DataConverterText" />
 
     <!-- Менеджер процессов HTTP -->
     <bean id="manager-http" class="com.github.andriell.processor.Manager">
