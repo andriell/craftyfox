@@ -133,6 +133,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
         }
         tabbedPane1.add("JS", jsJPanel);
         tabbedPane1.add("Output", outputJPanel);
+        outTextArea.setText("");
     }
 
     public void saveFiles() {
