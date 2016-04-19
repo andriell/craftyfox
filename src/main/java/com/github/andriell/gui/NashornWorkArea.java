@@ -27,6 +27,8 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
     private JButton buttonSave;
     private JScrollPane jsScrollPane;
     private JComboBox<String> comboBoxProject;
+    private JPanel outputJPanel;
+    private JPanel jsJPanel;
 
     private Nashorn nashorn;
     private File fileJs;
@@ -80,7 +82,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 } catch (Exception e1) {
                     outTextArea.setText(e1.toString());
                 }
-                tabbedPane1.setSelectedIndex(1);
+                tabbedPane1.setSelectedComponent(outputJPanel);
             }
         });
     }
@@ -117,21 +119,20 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
         fileJs = new File(projectFile, "process.js");
         jsTextArea.setText(Files.readFile(fileJs));
 
-        if (dataEditorActive != null) {
-            tabbedPane1.remove(2);
-            dataEditorActive = null;
-        }
+        tabbedPane1.removeAll();
+        dataEditorActive = null;
 
-        if (dataEditors == null) {
-            return;
-        }
-        for (DataEditorWorkArea dataEditor: dataEditors) {
-            if (dataEditor.load(projectFile)) {
-                tabbedPane1.add(dataEditor.getName(), dataEditor.getRootPanel());
-                dataEditorActive = dataEditor;
-                break;
+        if (dataEditors != null) {
+            for (DataEditorWorkArea dataEditor: dataEditors) {
+                if (dataEditor.load(projectFile)) {
+                    tabbedPane1.add(dataEditor.getName(), dataEditor.getRootPanel());
+                    dataEditorActive = dataEditor;
+                    break;
+                }
             }
         }
+        tabbedPane1.add("JS", jsJPanel);
+        tabbedPane1.add("Output", outputJPanel);
     }
 
     public void saveFiles() {

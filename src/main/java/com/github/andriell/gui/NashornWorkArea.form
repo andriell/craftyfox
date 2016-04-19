@@ -12,7 +12,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="705c9" layout-manager="FormLayout">
+          <grid id="705c9" binding="jsJPanel" layout-manager="FormLayout">
             <rowspec value="center:d:grow"/>
             <colspec value="fill:d:grow"/>
             <colspec value="left:4dlu:noGrow"/>
@@ -47,7 +47,7 @@
               </scrollpane>
             </children>
           </grid>
-          <grid id="22787" layout-manager="FormLayout">
+          <grid id="22787" binding="outputJPanel" layout-manager="FormLayout">
             <rowspec value="center:d:grow"/>
             <colspec value="fill:d:grow"/>
             <constraints>
