@@ -10,6 +10,8 @@ import javax.swing.*;
 public class ProcessWorkArea implements WorkArea, InitializingBean {
     private JPanel rootPanel;
     private JTable tableManagers;
+    private JComboBox comboBoxProjects;
+    private JButton goButton;
 
     private ProcessWorkAreaTableModel processWorkAreaTableModel;
 
