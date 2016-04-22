@@ -175,7 +175,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 try {
                     while (true) {
                         outTextArea.setText(stack.toString());
-                        outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
+                        //outTextArea.setCaretPosition(outTextArea.getDocument().getLength());
                         Thread.sleep(1000);
                     }
                 } catch (Exception e) {

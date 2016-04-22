@@ -29,7 +29,7 @@ public class ErrorWorkArea implements WorkArea {
                 try {
                     while (true) {
                         errorTextArea.setText(buffer.toString());
-                        errorTextArea.setCaretPosition(errorTextArea.getDocument().getLength());
+                        //errorTextArea.setCaretPosition(errorTextArea.getDocument().getLength());
                         Thread.sleep(1000);
                     }
                 } catch (Exception e) {
