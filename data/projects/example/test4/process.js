@@ -17,7 +17,7 @@ $.addParser("example.test4", function(d) {
 	csvWriter1.newLine();
 	csvWriter1.write("11");
 	csvWriter1.write("12");
-	csvWriter1.write("13");
+	csvWriter1.write("13\t0");
 	csvWriter1.newLine();
 	csvWriter1.write(21);
 	csvWriter1.write(22);
@@ -25,7 +25,7 @@ $.addParser("example.test4", function(d) {
 	csvWriter1.newLine();
 
 	csvWriter2.writeLine(["01", "02", "03"]);
-	csvWriter2.writeLine({"01": 11, "02":12, "03":13});
+	csvWriter2.writeLine({"01": 11, "02":12, "03":"13\t0"});
 	csvWriter2.write(21);
 	csvWriter2.write(22);
 	csvWriter2.write(23);
