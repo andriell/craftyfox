@@ -5,9 +5,9 @@
 var rutorCsvWriter = CsvWriter("rutor.csv");
 var rutorCount = 0;
 $.addParser("rutor.items", function(data) {
-    console.info(rutorCount++);
+    console.info("Run: " + rutorCount++);
     var document = data.getData();
-    var tr = document.select("#index tr.gai");
+    var tr = document.select("#index tr.gai, #index tr.tum");
     var iterator = tr.iterator();
     while(iterator.hasNext()) {
         var e = iterator.next();
