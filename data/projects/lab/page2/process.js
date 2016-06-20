@@ -4,9 +4,10 @@
 var labCsvWriter = CsvWriter("lab.csv");
 
 var lab = {
-    "pages": [],
+    "pages": [0],
     "addPage": function (href) {
-        if (!lab.pages.indexOf(href) ) {
+        if (lab.pages.indexOf(href) < 0) {
+            lab.pages.push(href);
             var dataHttp = $.newHttpData("GET", "http://pornolab.net/forum/" + href);
             var dataHtml = $.newJsDataHtml("lab.page2");
             dataHttp.addDataListener(dataHtml);
@@ -37,13 +38,14 @@ $.addParser("lab.page2", function(data) {
     }
     labCsvWriter.flush();
 
-    var pagination = document.search("#pagination a");
-    iterator = tr.iterator();
+    var pagination = document.select("#pagination a");
+    iterator = pagination.iterator();
     while(iterator.hasNext()) {
         e = iterator.next();
         href = e.attr("href");
-        if (href.indexOf("viewforum") > 0) {
+        if (href.indexOf("viewforum") >= 0) {
             lab.addPage(href);
         }
     }
+    console.info(lab.pages);
 });
