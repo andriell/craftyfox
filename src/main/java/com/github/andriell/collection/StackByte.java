@@ -12,6 +12,11 @@ public class StackByte {
         data = new byte[size];
     }
 
+    public void clear() {
+        position = -1;
+        crowded = false;
+    }
+
     public void put(byte b) {
         synchronized (this) {
             position++;

@@ -5,22 +5,22 @@ import com.github.andriell.collection.StackByte;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.nio.ByteBuffer;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class ErrorWorkArea implements WorkArea {
+    StackByte buffer = new StackByte(10000);
     private JTextArea errorTextArea;
     private JPanel rootPanel;
     private JTextField sizeTextField;
     private JButton clearButton;
 
-    StackByte buffer = new StackByte(10000);
-
     public ErrorWorkArea() {
         System.setErr(new PrintStream(new CustomOutputStream()));
         clearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                errorTextArea.setText("");
+                buffer.clear();
             }
         });
 
