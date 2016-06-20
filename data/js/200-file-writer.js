@@ -32,17 +32,23 @@ function CsvWriter(fileName) {
         "writer": writer,
         "prefix": "",
         "writeLine": function (list) {
-
+            var s = "";
             if (Array.isArray(list)) {
                 for (var i = 0; i < list.length; i++) {
-                    fileWriter.write(list[i]);
+                    s += fileWriter.prefix + list[i].replace("\t", " ").trim();
+                    fileWriter.prefix = "\t";
                 }
-                fileWriter.newLine();
+                s += "\r\n";
+                fileWriter.writer.write(s);
+                fileWriter.prefix = "";
             } else if (typeof(list) == "object") {
                 for (var i in list) {
-                    fileWriter.write(list[i]);
+                    s += fileWriter.prefix + list[i].replace("\t", " ").trim();
+                    fileWriter.prefix = "\t";
                 }
-                fileWriter.newLine();
+                s += "\r\n";
+                fileWriter.writer.write(s);
+                fileWriter.prefix = "";
             }
         },
         "write": function (s) {

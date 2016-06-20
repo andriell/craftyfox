@@ -14,16 +14,16 @@ public class DataFileWriter {
     private BufferedWriter writer;
 
     public void init(String pathname) throws IOException {
-        init(pathname, 8192);
+        init(pathname, 8192, false);
     }
 
-    public void init(String pathname, int sz) throws IOException {
+    public void init(String pathname, int sz, boolean append) throws IOException {
         if ("/".equals(File.separator)) {
             pathname = pathname.replace("\\", File.separator);
         } else {
             pathname = pathname.replace("/", File.separator);
         }
-        writer = new BufferedWriter(new FileWriter(Files.DATA_DIR + File.separator + pathname), sz);
+        writer = new BufferedWriter(new FileWriter(Files.DATA_DIR + File.separator + pathname, append), sz);
     }
 
 
@@ -39,11 +39,9 @@ public class DataFileWriter {
         }
     }
 
-
     public void newLine() throws IOException {
         writer.newLine();
     }
-
 
     public void flush() throws IOException {
         writer.flush();
