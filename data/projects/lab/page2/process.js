@@ -47,5 +47,4 @@ $.addParser("lab.page2", function(data) {
             lab.addPage(href);
         }
     }
-    console.info(lab.pages);
 });
