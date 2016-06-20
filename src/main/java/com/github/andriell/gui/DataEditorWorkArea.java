@@ -92,12 +92,21 @@ public class DataEditorWorkArea implements WorkArea, InitializingBean, Applicati
         boolean r = file.exists();
         if (r) {
             textArea.setText(Files.readFile(file));
+        } else {
+            textArea.setText(null);
         }
         return r;
     }
 
     public void save() {
-        Files.writeToFile(file, textArea.getText());
+        String t = textArea.getText();
+        if (t == null) {
+            t = "";
+        }
+        if (!"".equals(t)) {
+            Files.writeToFile(file, t);
+        }
+
     }
 
     public void afterPropertiesSet() throws Exception {
