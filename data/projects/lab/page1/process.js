@@ -3,12 +3,16 @@
  */
 $.addParser("lab.page1", function(data) {
     var document = data.getData();
-    var tr = document.select(".sf_title");
-    var iterator = tr.iterator();
+    var a = document.select(".sf_title a:nth-child(2)");
+    var iterator = a.iterator();
     while(iterator.hasNext()) {
         var e = iterator.next();
-        var a = e.select("a:nth-child(3)");
-        rutorCsvWriter.writeLine([a.text(), a.attr("href"), e.select(".green").text()]);
+        var href = e.attr("href");
+        if (href.indexOf("viewforum") > 0) {
+            var dataHttp = $.newHttpData("GET", "http://pornolab.net/forum/" + href);
+            var dataHtml = $.newJsDataHtml("lab.page2");
+            dataHttp.addDataListener(dataHtml);
+            processor.add("process-http", dataHttp);
+        }
     }
-    rutorCsvWriter.flush();
 });
