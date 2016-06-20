@@ -40,6 +40,12 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
     private DataEditorWorkArea dataEditorActive;
 
     public NashornWorkArea() throws FileNotFoundException {
+        comboBoxProject.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                updateSelect();
+            }
+        });
+
         comboBoxPage.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 loadFiles();
@@ -97,9 +103,11 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
         if (files == null) {
             return;
         }
-        for (File fileEntry : files) {
-            if (fileEntry.isDirectory()) {
-                comboBoxProject.addItem(fileEntry.getName());
+        if (comboBoxProject.getItemCount() <= 0) {
+            for (File fileEntry : files) {
+                if (fileEntry.isDirectory()) {
+                    comboBoxProject.addItem(fileEntry.getName());
+                }
             }
         }
         folder = new File(Files.PROJECTS_DIR + File.separator + comboBoxProject.getSelectedItem());
@@ -107,6 +115,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
         if (files == null) {
             return;
         }
+        comboBoxPage.removeAllItems();
         for (File fileEntry : files) {
             if (fileEntry.isDirectory()) {
                 comboBoxPage.addItem(fileEntry.getName());
