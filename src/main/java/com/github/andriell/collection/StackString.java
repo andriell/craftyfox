@@ -12,6 +12,11 @@ public class StackString {
         data = new String[size];
     }
 
+    public void clear() {
+        position = -1;
+        crowded = false;
+    }
+
     public void put(String s) {
         synchronized (this) {
             position++;

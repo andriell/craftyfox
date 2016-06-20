@@ -15,7 +15,8 @@ import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, InitializingBean {
     private JTabbedPane tabbedPane1;
@@ -38,14 +39,6 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
     private DataEditorWorkArea[] dataEditors;
     private DataEditorWorkArea dataEditorActive;
 
-    public void setNashorn(Nashorn nashorn) {
-        this.nashorn = nashorn;
-    }
-
-    public void setDataEditors(DataEditorWorkArea[] dataEditors) {
-        this.dataEditors = dataEditors;
-    }
-
     public NashornWorkArea() throws FileNotFoundException {
         comboBoxPage.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
@@ -65,6 +58,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 String pageName = comboBoxPage.getSelectedItem().toString();
                 String pageNameFull = projectName + "." + pageName;
                 outTextArea.setText("");
+                stack.clear();
                 ProcessJsDataInterface processData = null;
                   if (dataEditorActive != null) {
                     processData = dataEditorActive.getProcessData(pageNameFull);
@@ -87,6 +81,14 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 tabbedPane1.setSelectedComponent(outputJPanel);
             }
         });
+    }
+
+    public void setNashorn(Nashorn nashorn) {
+        this.nashorn = nashorn;
+    }
+
+    public void setDataEditors(DataEditorWorkArea[] dataEditors) {
+        this.dataEditors = dataEditors;
     }
 
     private void updateSelect() {
