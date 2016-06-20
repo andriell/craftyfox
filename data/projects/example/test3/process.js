@@ -8,5 +8,6 @@ $.addParser("example.test3", function(d) {
 });
 
 $.addParser("example.test32", function(dataHtml) {
+	console.info(dataHtml.getRequest().getRequestLine().getUri());
 	console.info(dataHtml.getDataHtml());
 });
