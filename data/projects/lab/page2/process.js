@@ -14,11 +14,12 @@ $.addParser("lab.page2", function(data) {
             continue;
         }
         var href = e.select("a.torTopic").attr("href");
+
         if (!href) {
             continue;
         }
         href = "http://pornolab.net/forum/" + href;
-
         labCsvWriter.writeLine([href, seedmed]);
     }
+    labCsvWriter.flush();
 });
