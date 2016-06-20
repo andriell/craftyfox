@@ -7,8 +7,12 @@ $.addParser("rutor.items", function(data) {
     var tr = document.select("#index tr.gai");
     var iterator = tr.iterator();
     while(iterator.hasNext()) {
-        var element = iterator.next();
-        var a = element.select("a:nth-child(3)");
-        console.info(a.attr("href"));
+        var e = iterator.next();
+        var a = e.select("a:nth-child(3)");
+        csvWriter1.write(a.text());
+        csvWriter1.write(a.attr("href"));
+        csvWriter1.write(e.select(".green").text());
+        csvWriter1.newLine();
     }
+    csvWriter1.close();
 });

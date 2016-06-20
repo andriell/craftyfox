@@ -47,7 +47,7 @@ function CsvWriter(fileName) {
         },
         "write": function (s) {
             s = "" + s;
-            s = s.replace("\t", " ");
+            s = s.replace("\t", " ").trim();
             fileWriter.writer.write(fileWriter.prefix);
             fileWriter.writer.write(s);
             fileWriter.prefix = "\t";
