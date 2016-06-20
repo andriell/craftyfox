@@ -63,7 +63,6 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 String projectName = comboBoxProject.getSelectedItem().toString();
                 String pageName = comboBoxPage.getSelectedItem().toString();
                 String pageNameFull = projectName + "." + pageName;
-                outTextArea.setText("");
                 stack.clear();
                 ProcessJsDataInterface processData = null;
                   if (dataEditorActive != null) {
@@ -78,11 +77,11 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                         Object result = nashorn.runProcess(processData);
                     }
                 } catch (final ScriptException se) {
-                    outTextArea.setText(se.toString());
+                    stack.put(se.toString());
                 } catch (NoSuchMethodException e1) {
-                    outTextArea.setText(e1.toString());
+                    stack.put(e1.toString());
                 } catch (Exception e1) {
-                    outTextArea.setText(e1.toString());
+                    stack.put(e1.toString());
                 }
                 tabbedPane1.setSelectedComponent(outputJPanel);
             }
