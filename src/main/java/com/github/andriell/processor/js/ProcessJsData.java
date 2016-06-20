@@ -4,8 +4,9 @@ import com.github.andriell.processor.http.ProcessHttpDataListenerInterface;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import java.nio.charset.Charset;
 
 public class ProcessJsData extends ProcessJsDataAbstract implements ProcessHttpDataListenerInterface {
     public Document getDataHtml() {
@@ -15,6 +16,17 @@ public class ProcessJsData extends ProcessJsDataAbstract implements ProcessHttpD
     public void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response) {
         setHttpParam(request, response, contentType);
         DataConverter converter = getConverter();
-        setData(converter.convert(new String(body, contentType.getCharset())));
+        String s = null;
+        Charset charset = null;
+        if (contentType != null) {
+            charset = contentType.getCharset();
+        }
+        if (charset == null) {
+            s = new String(body);
+        } else {
+            s = new String(body, charset);
+        }
+
+        setData(converter.convert(s));
     }
 }

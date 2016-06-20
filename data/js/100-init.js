@@ -1,5 +1,6 @@
 var console = app.getBean("js-console");
 var processor = app.getBean("processor");
+var httpContext = app.getBean("process-http-context");
 
 var craftyFox = {
     app: app,
