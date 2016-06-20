@@ -8,7 +8,7 @@ function FileWriter(fileName) {
     var fileWriter = {
         "writer": writer,
         "write": function (s) {
-            fileWriter.writer.write(s);
+            fileWriter.writer.write("" + s);
         },
         "newLine": function () {
             fileWriter.writer.newLine();
@@ -30,23 +30,31 @@ function CsvWriter(fileName) {
     writer.init(fileName);
     var fileWriter = {
         "writer": writer,
-        "write": function (list) {
-            var prefix = "";
+        "prefix": "",
+        "writeLine": function (list) {
+
             if (Array.isArray(list)) {
-                for(var i = 0; i < list.length; i++) {
-                    fileWriter.writer.write(prefix);
-                    fileWriter.writer.write(list[i].replace("\t", " "));
-                    prefix = "\t";
+                for (var i = 0; i < list.length; i++) {
+                    fileWriter.write(list[i]);
                 }
-                fileWriter.writer.newLine();
+                fileWriter.newLine();
             } else if (typeof(list) == "object") {
-                for(var i in list) {
-                    fileWriter.writer.write(prefix);
-                    fileWriter.writer.write(list[i].replace("\t", " "));
-                    prefix = "\t";
+                for (var i in list) {
+                    fileWriter.write(list[i]);
                 }
-                fileWriter.writer.newLine();
+                fileWriter.newLine();
             }
+        },
+        "write": function (s) {
+            s = "" + s;
+            s = s.replace("\t", " ");
+            fileWriter.writer.write(fileWriter.prefix);
+            fileWriter.writer.write(s);
+            fileWriter.prefix = "\t";
+        },
+        "newLine": function () {
+            fileWriter.writer.newLine();
+            fileWriter.prefix = "";
         },
         "flush": function () {
             fileWriter.writer.flush();

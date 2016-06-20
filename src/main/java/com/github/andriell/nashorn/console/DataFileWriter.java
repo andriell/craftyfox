@@ -28,17 +28,15 @@ public class DataFileWriter {
 
 
     public void write(int c) throws IOException {
-        writer.write(Integer.toString(c));
+        synchronized (this) {
+            writer.write(c);
+        }
     }
 
-
-    public void write(char[] cbuf, int off, int len) throws IOException {
-        writer.write(cbuf, off, len);
-    }
-
-
-    public void write(String s, int off, int len) throws IOException {
-        writer.write(s, off, len);
+    public void write(String s) throws IOException {
+        synchronized (this) {
+            writer.write(s, 0, s.length());
+        }
     }
 
 
