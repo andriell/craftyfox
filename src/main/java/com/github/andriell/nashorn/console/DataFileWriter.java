@@ -28,7 +28,7 @@ public class DataFileWriter {
 
 
     public void write(int c) throws IOException {
-        writer.write(c);
+        writer.write(Integer.toString(c));
     }
 
 
