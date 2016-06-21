@@ -29,7 +29,7 @@
         <property name="limitProcess" value="4" />
     </bean>
 
-    <bean id="db-connection-pool" class="org.hsqldb.jdbc.JDBCPool">
+    <bean id="db-connection-pool" class="org.hsqldb.jdbc.JDBCDataSource">
         <property name="URL" value="jdbc:hsqldb:file:data\db\test\db" />
         <property name="user" value="SA" />
         <property name="password" value="" />
