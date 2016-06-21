@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="builder" class="java.lang.StringBuffer" />
@@ -27,5 +27,11 @@
     </bean>
     <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
         <property name="limitProcess" value="4" />
+    </bean>
+
+    <bean id="db-connection-pool" class="org.hsqldb.jdbc.JDBCPool">
+        <property name="URL" value="jdbc:hsqldb:file:data\db\test\db" />
+        <property name="user" value="SA" />
+        <property name="password" value="" />
     </bean>
 </beans>

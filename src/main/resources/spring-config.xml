@@ -137,4 +137,9 @@
     <!-- DataFileWriter -->
     <bean id="file-writer" class="com.github.andriell.nashorn.console.DataFileWriter" scope="prototype" />
 
+    <bean id="db-connection-pool" class="org.hsqldb.jdbc.JDBCPool">
+        <property name="URL" value="jdbc:hsqldb:file:data\db\my\db" />
+        <property name="user" value="SA" />
+        <property name="password" value="" />
+    </bean>
 </beans>

@@ -1,19 +1,26 @@
 package org.hsqldb;
 
-import com.github.andriell.general.Files;
+import org.hsqldb.jdbc.JDBCPool;
+import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.File;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Rybalko on 21.06.2016.
  */
 public class TestConnection {
-    public static void main(String[] args) throws SQLException {
-        String connectionString = "jdbc:hsqldb:file:" + Files.DB_DIR + File.separator + "testdb";
-        System.out.println(connectionString);
-        Connection c = DriverManager.getConnection(connectionString, "SA", "");
+    @Test
+    public void test1() throws SQLException {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+        // Без этого событие destroy для бинов не будет вызвано
+        applicationContext.registerShutdownHook();
+        JDBCPool jdbcPool = applicationContext.getBean("db-connection-pool", JDBCPool.class);
+        Connection c1 = jdbcPool.getConnection();
+        Connection c2 = jdbcPool.getConnection();
+        assertEquals("Пустая строка", true, c1.equals(c2));
     }
 }
