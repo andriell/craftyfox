@@ -10,6 +10,6 @@
         </id>
         <property name="code" type="string" length="10" not-null="true" unique="true" />
         <property name="name" column="name" type="text" />
-        <property name="url" column="name" type="text" />
+        <property name="url" column="url" type="text" />
     </class>
 </hibernate-mapping>
