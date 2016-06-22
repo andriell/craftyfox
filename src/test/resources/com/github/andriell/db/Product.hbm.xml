@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.github.andriell.db.Store" table="store" catalog="store">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="code" type="string" length="10" not-null="true" unique="true" />
+        <property name="name" column="name" type="text" />
+        <property name="url" column="name" type="text" />
+    </class>
+</hibernate-mapping>
