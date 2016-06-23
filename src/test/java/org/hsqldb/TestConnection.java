@@ -28,7 +28,7 @@ public class TestConnection {
         product.addProperty(new ProductProperty("property1", 1));
         product.addProperty(new ProductProperty("property2", "2"));
         product.addProperty(new ProductProperty("property3", (float) 3.5));
-        product.addProperty(new ProductProperty().price((float) 3.5));
+        product.addProperty(new ProductProperty().price((float) 3.5, "RUB"));
 
         productDao.save(product);
         System.out.println("Product id: " + product.getId());

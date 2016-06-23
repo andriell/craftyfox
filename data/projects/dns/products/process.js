@@ -9,6 +9,10 @@ $.addParser("dns.products", function (data) {
     var iterator = a.iterator();
     while(iterator.hasNext()) {
         var e = iterator.next();
-        console.info(e.text());
+
+        var dataHttp = $.newHttpData("GET", e.text());
+        var dataHtml = $.newJsDataHtml("dns.product");
+        dataHttp.addDataListener(dataHtml);
+        processor.add("process-http", dataHttp);
     }
 });

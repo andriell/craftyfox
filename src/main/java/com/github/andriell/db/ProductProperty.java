@@ -86,8 +86,43 @@ public class ProductProperty {
         return setValue(o.toString());
     }
 
-    public ProductProperty price(float price) {
-        price(price, null);
+    public ProductProperty price(Object price, String currency) {
+        return price(price.toString(), currency);
+    }
+
+    public ProductProperty price(String price, String currency) {
+        if (price == null) {
+            return this;
+        }
+        price = price.trim();
+        if (price.matches("^[\\+\\-]?\\d+$")) {
+            integer = Integer.parseInt(price);
+            aFloat = integer;
+
+        } else if (price.matches("^[\\+\\-]?\\d+[\\.\\,]\\d+$")) {
+            aFloat = Float.parseFloat(price);
+            integer = Math.round(aFloat);
+        }
+
+        name = "price";
+        isArray = null;
+        if (date == null) {
+            date = Calendar.getInstance().getTime();
+        }
+        setString(currency);
+
+        return this;
+    }
+
+    public ProductProperty price(int price, String currency) {
+        name = "price";
+        isArray = null;
+        if (date == null) {
+            date = Calendar.getInstance().getTime();
+        }
+        aFloat = price;
+        integer = price;
+        setString(currency);
         return this;
     }
 
