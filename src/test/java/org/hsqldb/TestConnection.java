@@ -31,19 +31,8 @@ public class TestConnection {
         Product product = new Product();
         product.setCode(today.toString());
         session.save(product);
+        System.out.println("Product id: " + product.getId());
 
         sessionFactory.close();
     }
-/*
-    @Test
-    public void test1() throws SQLException {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
-        // Без этого событие destroy для бинов не будет вызвано
-        applicationContext.registerShutdownHook();
-        DataSource jdbcPool = applicationContext.getBean("dataSource", DataSource.class);
-        Connection c1 = jdbcPool.getConnection();
-        Connection c2 = jdbcPool.getConnection();
-        assertEquals("Пустая строка", true, c1.equals(c2));
-
-    }*/
 }
