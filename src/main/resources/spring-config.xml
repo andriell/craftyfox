@@ -106,6 +106,9 @@
     <bean id="process-js-data-html" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype">
         <property name="converter" ref="data-converter-html" />
     </bean>
+    <bean id="process-js-data-xml" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype">
+        <property name="converter" ref="data-converter-xml" />
+    </bean>
     <bean id="process-js-data-json" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype">
         <property name="converter" ref="data-converter-json" />
     </bean>
@@ -115,6 +118,7 @@
     <bean id="process-js-data-bin" class="com.github.andriell.processor.js.ProcessJsDataBin" scope="prototype" />
     <!-- Конвертеры данных JS -->
     <bean id="data-converter-html" class="com.github.andriell.processor.js.DataConverterHtml" />
+    <bean id="data-converter-xml" class="com.github.andriell.processor.js.DataConverterXml" />
     <bean id="data-converter-json" class="com.github.andriell.processor.js.DataConverterJson" />
     <bean id="data-converter-text" class="com.github.andriell.processor.js.DataConverterText" />
 

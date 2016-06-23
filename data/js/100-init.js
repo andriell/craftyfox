@@ -14,6 +14,12 @@ var craftyFox = {
         data.setPageName(pageName);
         return data;
     },
+    newJsDataXml: function (pageName) {
+        var data = app.getBean("process-js-data-xml");
+        data.setProcessBeanId("process-js");
+        data.setPageName(pageName);
+        return data;
+    },
     newJsDataJson: function (pageName) {
         var data = app.getBean("process-js-data-json");
         data.setProcessBeanId("process-js");
