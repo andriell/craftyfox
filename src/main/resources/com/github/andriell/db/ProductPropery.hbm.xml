@@ -5,18 +5,18 @@
 <hibernate-mapping>
     <class name="com.github.andriell.db.ProductProperty" table="product_property" catalog="store">
         <id name="id" type="java.lang.Integer">
-            <column name="id" />
-            <generator class="identity" />
+            <column name="id"/>
+            <generator class="identity"/>
         </id>
 
-        <property name="name" column="name" type="string" length="32" not-null="true" index="index_product_property_name"  />
-        <property name="integer" column="integer" type="integer" index="index_product_property_integer"  />
-        <property name="float" column="float" type="float" index="index_product_property_float"  />
-        <property name="string" column="string" type="string" index="index_product_property_string"  />
-        <property name="text" column="text" type="text" />
-        <property name="date" column="date" type="date"  index="index_product_property_date"  />
+        <property name="name" column="name" type="string" length="32" not-null="true" index="index_product_property_name"/>
+        <property name="integer" column="integer" type="integer" index="index_product_property_integer"/>
+        <property name="float" column="float" type="float" index="index_product_property_float"/>
+        <property name="string" column="string" type="string" index="index_product_property_string"/>
+        <property name="text" column="text" type="text"/>
+        <property name="date" column="date" type="date" index="index_product_property_date"/>
         <many-to-one name="product" class="com.github.andriell.db.Product" fetch="select">
-            <column name="product_id" not-null="true" />
+            <column name="product_id" not-null="true"/>
         </many-to-one>
     </class>
 </hibernate-mapping>
