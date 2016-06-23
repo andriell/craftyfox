@@ -15,7 +15,7 @@ public class Product {
     private int price;
     private String currency;
     private Date date;
-    private Set<Product> property = new HashSet<Product>(0);
+    private Set<ProductProperty> property = new HashSet<ProductProperty>(0);
 
     public int getId() {
         return id;
@@ -73,11 +73,15 @@ public class Product {
         this.date = date;
     }
 
-    public Set<Product> getProperty() {
+    public Set<ProductProperty> getProperty() {
         return property;
     }
 
-    public void setProperty(Set<Product> property) {
+    public void setProperty(Set<ProductProperty> property) {
         this.property = property;
+    }
+
+    public boolean setProperty(ProductProperty property) {
+        return this.property.add(property);
     }
 }
