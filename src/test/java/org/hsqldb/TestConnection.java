@@ -3,8 +3,6 @@ package org.hsqldb;
 import com.github.andriell.db.Product;
 import com.github.andriell.db.ProductDao;
 import com.github.andriell.db.ProductProperty;
-import com.github.andriell.db.Store;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -17,7 +15,7 @@ import java.util.Date;
 public class TestConnection {
     public static void main(String[] args) {
         Date today = Calendar.getInstance().getTime();
-        System.out.println("Maven + Hibernate + MySQL");
+        System.out.println("Maven + Hibernate + MySQL " + today.toString());
 
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
         // Без этого событие destroy для бинов не будет вызвано
@@ -25,17 +23,17 @@ public class TestConnection {
         SessionFactory sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
         ProductDao productDao = applicationContext.getBean("productDaoImpl", ProductDao.class);
 
-        Session session = sessionFactory.openSession();
+        /*Session session = sessionFactory.openSession();
 
         session.beginTransaction();
         Store stock = new Store();
 
-        stock.setCode("4715");
+        stock.setCode(today.toString());
         stock.setName("GENM");
 
         session.save(stock);
         session.getTransaction().commit();
-        System.out.println("Store id: " + stock.getId());
+        System.out.println("Store id: " + stock.getId());*/
 
         Product product = new Product();
         product.setCode(today.toString());
