@@ -3,13 +3,22 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.github.andriell.db.Store" table="store" catalog="store">
+    <class name="com.github.andriell.db.Product" table="product" catalog="store">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="code" type="string" length="10" not-null="true" unique="true" />
-        <property name="name" column="name" type="text" />
-        <property name="url" column="name" type="text" />
+        <property name="code" column="code" type="string" length="32" not-null="true" unique="true" index="index_code" unique-key="true" />
+        <property name="name" column="name" type="text" index="index_name"  />
+        <property name="url" column="url" type="text" />
+        <property name="price" column="price" type="integer"  index="index_price" />
+        <property name="currency" column="currency" type="string" length="3" index="index_currency" />
+        <property name="date" column="date" type="date" index="index_date"  />
+        <set name="property" table="product_property" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="product_id" not-null="true" />
+            </key>
+            <one-to-many class="com.github.andriell.db.ProductProperty" />
+        </set>
     </class>
 </hibernate-mapping>

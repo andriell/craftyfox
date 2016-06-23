@@ -1,6 +1,6 @@
 package com.github.andriell.db;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +14,7 @@ public class Product {
     private String url;
     private int price;
     private String currency;
-    private Date date;
+    private Date date = new Date();
     private Set<ProductProperty> property = new HashSet<ProductProperty>(0);
 
     public int getId() {

@@ -1,22 +1,19 @@
 package org.hsqldb;
 
 import com.github.andriell.db.HibernateUtil;
+import com.github.andriell.db.Product;
 import com.github.andriell.db.Store;
-import org.hibernate.*;
-import org.junit.Test;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.hibernate.SessionFactory;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import static org.junit.Assert.assertEquals;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Rybalko on 21.06.2016.
  */
 public class TestConnection {
     public static void main(String[] args) {
+        Date today = Calendar.getInstance().getTime();
         System.out.println("Maven + Hibernate + MySQL");
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
@@ -30,6 +27,11 @@ public class TestConnection {
         session.save(stock);
         session.getTransaction().commit();
         System.out.println("Store id: " + stock.getId());
+
+        Product product = new Product();
+        product.setCode(today.toString());
+        session.save(product);
+
         sessionFactory.close();
     }
 /*
