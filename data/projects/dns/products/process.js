@@ -1,6 +1,3 @@
-/**
- * Created by Rybalko on 20.06.2016.
- */
 $.addParser("dns.products", function (data) {
     console.info("products: " + data.getRequest().getRequestLine().getUri());
 
@@ -13,6 +10,6 @@ $.addParser("dns.products", function (data) {
         var dataHttp = $.newHttpData("GET", e.text());
         var dataHtml = $.newJsDataHtml("dns.product");
         dataHttp.addDataListener(dataHtml);
-        processor.add("process-http", dataHttp);
+        //processor.add("process-http", dataHttp);
     }
 });
