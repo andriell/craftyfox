@@ -81,7 +81,8 @@ public class Product {
         this.property = property;
     }
 
-    public boolean setProperty(ProductProperty property) {
+    public boolean addProperty(ProductProperty property) {
+        property.setProduct(this);
         return this.property.add(property);
     }
 }

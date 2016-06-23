@@ -36,4 +36,23 @@
         <property name="username" value="SA" />
         <property name="password" value="" />
     </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mappingResources">
+            <list>
+                <value>com/github/andriell/db/Store.hbm.xml</value>
+                <value>com/github/andriell/db/Product.hbm.xml</value>
+                <value>com/github/andriell/db/ProductPropery.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

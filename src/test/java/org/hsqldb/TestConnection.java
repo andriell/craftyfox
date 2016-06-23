@@ -2,6 +2,7 @@ package org.hsqldb;
 
 import com.github.andriell.db.HibernateUtil;
 import com.github.andriell.db.Product;
+import com.github.andriell.db.ProductProperty;
 import com.github.andriell.db.Store;
 import org.hibernate.SessionFactory;
 
@@ -30,8 +31,14 @@ public class TestConnection {
 
         Product product = new Product();
         product.setCode(today.toString());
+        ProductProperty property = new ProductProperty();
+        property.setName("property1");
+        property.setInteger(100500);
+        product.addProperty(property);
         session.save(product);
         System.out.println("Product id: " + product.getId());
+        session.save(property);
+        System.out.println("Product id: " + property.getId());
 
         sessionFactory.close();
     }
