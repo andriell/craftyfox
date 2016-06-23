@@ -1,6 +1,7 @@
 package org.hsqldb;
 
 import com.github.andriell.db.Product;
+import com.github.andriell.db.ProductDao;
 import com.github.andriell.db.ProductProperty;
 import com.github.andriell.db.Store;
 import org.hibernate.Session;
@@ -22,6 +23,8 @@ public class TestConnection {
         // Без этого событие destroy для бинов не будет вызвано
         applicationContext.registerShutdownHook();
         SessionFactory sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
+        ProductDao productDao = applicationContext.getBean("productDaoImpl", ProductDao.class);
+
         Session session = sessionFactory.openSession();
 
         session.beginTransaction();
@@ -40,10 +43,8 @@ public class TestConnection {
         property.setName("property1");
         property.setInteger(100500);
         product.addProperty(property);
-        session.save(product);
+        productDao.save(product);
         System.out.println("Product id: " + product.getId());
-        session.save(property);
-        System.out.println("Product id: " + property.getId());
 
         sessionFactory.close();
     }
