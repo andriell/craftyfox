@@ -1,0 +1,17 @@
+$.addParser("example.test5", function(d) {
+	console.info("test3");
+	var dataHttp = $.newHttpData("GET", "http://ya.ru");
+	var dataHtml = $.newJsDataHtml("example.test5resp");
+	dataHttp.addDataListener(dataHtml);
+
+	processor.add("process-http", dataHttp);
+});
+
+$.addParser("example.test5resp", function(dataHtml) {
+	var product = Product("ya.ru", "test5");
+	product.addProperty(ProductProperty("p1", 1));
+	product.addProperty(ProductProperty("p2", "2"));
+	product.addProperty(ProductProperty("p3", 3.5));
+	product.addProperty(ProductPrice(50.5, "RUB"));
+	product.save();
+});
