@@ -156,7 +156,9 @@ public class ProductProperty {
     }
 
     public void setString(String string) {
-        if (string.length() > 255) {
+        if (string == null) {
+            this.string = null;
+        } else if (string.length() > 255) {
             this.string = string.substring(0, 255);
         } else {
             this.string = string;
