@@ -17,6 +17,6 @@
         <property name="float" column="float" type="float" index="index_product_property_float"/>
         <property name="string" column="string" type="string" index="index_product_property_string"/>
         <property name="text" column="text" type="text"/>
-        <property name="date" column="date" type="date" index="index_product_property_date"/>
+        <property name="date" column="date" type="timestamp" index="index_product_property_date"/>
     </class>
 </hibernate-mapping>

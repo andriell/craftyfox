@@ -48,11 +48,13 @@ public class ProductDaoImpl implements ProductDao {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Product p = findByCode(product.getCode(), session);
-        if (p != null) {
-            product.setId(p.getId());
+        Product productOld = findByCode(product.getCode(), session);
+        if (productOld != null) {
+            product.setId(productOld.getId());
+            session.merge(product);
+        } else {
+            session.save(product);
         }
-        session.save(product);
         clearProperty(product.getId(), session);
         Set<ProductProperty> properties = product.getProperty();
         for (ProductProperty property: properties) {

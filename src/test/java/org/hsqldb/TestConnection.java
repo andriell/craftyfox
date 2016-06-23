@@ -23,24 +23,13 @@ public class TestConnection {
         SessionFactory sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
         ProductDao productDao = applicationContext.getBean("productDaoImpl", ProductDao.class);
 
-        /*Session session = sessionFactory.openSession();
-
-        session.beginTransaction();
-        Store stock = new Store();
-
-        stock.setCode(today.toString());
-        stock.setName("GENM");
-
-        session.save(stock);
-        session.getTransaction().commit();
-        System.out.println("Store id: " + stock.getId());*/
-
         Product product = new Product();
-        product.setCode(today.toString());
-        ProductProperty property = new ProductProperty();
-        property.setName("property1");
-        property.setInteger(100500);
-        product.addProperty(property);
+        product.setCode("100500");
+        product.addProperty(new ProductProperty("property1", 1));
+        product.addProperty(new ProductProperty("property2", "2"));
+        product.addProperty(new ProductProperty("property3", (float) 3.5));
+        product.addProperty(new ProductProperty().price((float) 3.5));
+
         productDao.save(product);
         System.out.println("Product id: " + product.getId());
 

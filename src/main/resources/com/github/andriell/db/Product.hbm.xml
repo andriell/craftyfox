@@ -13,7 +13,7 @@
         <property name="url" column="url" type="text"/>
         <property name="price" column="price" type="integer" index="index_product_price"/>
         <property name="currency" column="currency" type="string" length="3" index="index_product_currency"/>
-        <property name="date" column="date" type="date" index="index_product_date"/>
+        <property name="date" column="date" type="timestamp" index="index_product_date"/>
         <set name="property" table="product_property" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="product_id" not-null="true"/>

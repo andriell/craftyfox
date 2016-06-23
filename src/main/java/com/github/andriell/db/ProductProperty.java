@@ -1,6 +1,7 @@
 package com.github.andriell.db;
 
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Andrey on 22.06.2016
@@ -8,7 +9,7 @@ import java.sql.Date;
 public class ProductProperty {
     private int id;
     private int productId;
-    private String isArray;
+    private String isArray = "N";
     private String name;
     private int integer;
     private float aFloat;
@@ -16,6 +17,45 @@ public class ProductProperty {
     private String text;
     private Date date;
     private Product product;
+
+    public ProductProperty() {}
+
+    public ProductProperty(String name, int integer) {
+        this.name = name;
+        this.integer = integer;
+    }
+
+    public ProductProperty(String name, float aFloat) {
+        this.name = name;
+        this.aFloat = aFloat;
+    }
+
+    public ProductProperty(String name, String string) {
+        this.name = name;
+        this.string = string;
+    }
+
+    public ProductProperty(String name, Date date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public ProductProperty price(float price) {
+        price(price, null);
+        return this;
+    }
+
+    public ProductProperty price(float price, String currency) {
+        name = "price";
+        isArray = null;
+        if (date == null) {
+            date = Calendar.getInstance().getTime();
+        }
+        aFloat = price;
+        integer = Math.round(price);
+        string = currency;
+        return this;
+    }
 
     public int getId() {
         return id;
