@@ -1,10 +1,11 @@
 package org.hsqldb;
 
-import com.github.andriell.db.HibernateUtil;
 import com.github.andriell.db.Product;
 import com.github.andriell.db.ProductProperty;
 import com.github.andriell.db.Store;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -16,8 +17,12 @@ public class TestConnection {
     public static void main(String[] args) {
         Date today = Calendar.getInstance().getTime();
         System.out.println("Maven + Hibernate + MySQL");
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        org.hibernate.Session session = sessionFactory.openSession();
+
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+        // Без этого событие destroy для бинов не будет вызвано
+        applicationContext.registerShutdownHook();
+        SessionFactory sessionFactory = applicationContext.getBean("sessionFactory", SessionFactory.class);
+        Session session = sessionFactory.openSession();
 
         session.beginTransaction();
         Store stock = new Store();
