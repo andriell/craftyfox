@@ -13,13 +13,15 @@ import java.util.Set;
  */
 public class ProductDaoImpl implements ProductDao {
     private static final Log LOG = LogFactory.getLog(ProductDaoImpl.class);
+    private static final String PRICE = "price";
+
     private SessionFactory sessionFactory;
 
     public Product findByCode(String code) {
         List<Product> users = getSessionFactory()
                 .getCurrentSession()
-                .createQuery("from Product where code=:code")
-                .setParameter("code", code)
+                .createQuery("from Product where code=?")
+                .setParameter(0, code)
                 .list();
         if (users.size() > 0) {
             return users.get(0);
@@ -29,10 +31,27 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public boolean save(Product product) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Product p = findByCode(product.getCode());
         if (p != null) {
             product.setId(p.getId());
         }
+        session.save(product);
+
+        Set<ProductProperty> properties = product.getProperty();
+        for (ProductProperty property: properties) {
+            if (PRICE.equals(product.getName())) {
+                session.save(property);
+            } else if (property.getIsArray() == null) {
+
+            } else {
+
+            }
+        }
+
+        session.getTransaction().commit();
 
         return true;
     }
