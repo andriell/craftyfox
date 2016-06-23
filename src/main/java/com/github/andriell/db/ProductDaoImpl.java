@@ -15,14 +15,12 @@ public class ProductDaoImpl implements ProductDao {
     private static final Log LOG = LogFactory.getLog(ProductDaoImpl.class);
     private SessionFactory sessionFactory;
 
-    public Product findByUserName(String username) {
-
-        List<Product> users;
-
-        users = getSessionFactory().getCurrentSession()
-                .createQuery("from Product where username=?")
-                .setParameter(0, username).list();
-
+    public Product findByCode(String code) {
+        List<Product> users = getSessionFactory()
+                .getCurrentSession()
+                .createQuery("from Product where code=:code")
+                .setParameter("code", code)
+                .list();
         if (users.size() > 0) {
             return users.get(0);
         } else {
@@ -31,6 +29,15 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public boolean save(Product product) {
+        Product p = findByCode(product.getCode());
+        if (p != null) {
+            product.setId(p.getId());
+        }
+
+        return true;
+    }
+
+    public boolean _save(Product product) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();

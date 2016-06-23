@@ -8,6 +8,7 @@ import java.sql.Date;
 public class ProductProperty {
     private int id;
     private int productId;
+    private String isArray;
     private String name;
     private int integer;
     private float aFloat;
@@ -30,6 +31,14 @@ public class ProductProperty {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public String getIsArray() {
+        return isArray;
+    }
+
+    public void setIsArray(String isArray) {
+        this.isArray = isArray;
     }
 
     public String getName() {
