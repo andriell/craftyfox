@@ -2,21 +2,17 @@ function Product(site, code) {
     var product = app.getBean("js-product");
     product.setSite(site);
     product.setCode(code);
-    var fileWriter = {
-        "product": product,
-        "write": function (s) {
-            fileWriter.writer.write("" + s);
-        },
-        "newLine": function () {
-            fileWriter.writer.newLine();
-        },
-        "flush": function () {
-            fileWriter.writer.flush();
-        },
-        "close": function () {
-            fileWriter.writer.flush();
-            fileWriter.writer.close();
-        }
-    };
-    return fileWriter;
+    return product;
+}
+function ProductProperty(name, value) {
+    var productProperty = app.getBean("js-product-property");
+    productProperty.setName(name);
+    productProperty.setValue(value);
+    return productProperty;
+}
+function ProductPrice(name, value) {
+    var productProperty = app.getBean("js-product-property");
+    productProperty.price(name);
+    productProperty.setValue(value);
+    return productProperty;
 }

@@ -1,12 +1,17 @@
 package com.github.andriell.db;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Andrey on 22.06.2016
  */
 public class ProductProperty {
+    private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
     private int id;
     private int productId;
     private String isArray = "N";
@@ -32,12 +37,53 @@ public class ProductProperty {
 
     public ProductProperty(String name, String string) {
         this.name = name;
-        this.string = string;
+        setString(string);
     }
 
     public ProductProperty(String name, Date date) {
         this.name = name;
         this.date = date;
+    }
+
+    public ProductProperty setValue(int i) {
+        integer = i;
+        return this;
+    }
+
+    public ProductProperty setValue(float f) {
+        aFloat = f;
+        return this;
+    }
+
+    public ProductProperty setValue(Date d) {
+        date = d;
+        return this;
+    }
+
+    public ProductProperty setValue(String s) throws ParseException {
+        if (s.length() > 255) {
+            text = s;
+            return this;
+        }
+        s = s.trim();
+        if (s.matches("^[\\+\\-]?\\d+$")) {
+            integer = Integer.getInteger(s);
+            return this;
+        }
+        if (s.matches("^[\\+\\-]?\\d+[\\.\\,]\\d+$")) {
+            aFloat = Float.parseFloat(s);
+            return this;
+        }
+        if (s.matches("^\\d{4}\\-\\d{2}\\-\\d{2} \\d{2}:\\d{2}:\\d{2}$")) {
+            date = FORMAT.parse(s);
+            return this;
+        }
+        setString(s);
+        return this;
+    }
+
+    public ProductProperty setValue(Object o) throws ParseException {
+        return setValue(o.toString());
     }
 
     public ProductProperty price(float price) {
@@ -53,7 +99,7 @@ public class ProductProperty {
         }
         aFloat = price;
         integer = Math.round(price);
-        string = currency;
+        setString(currency);
         return this;
     }
 
@@ -110,7 +156,11 @@ public class ProductProperty {
     }
 
     public void setString(String string) {
-        this.string = string;
+        if (string.length() > 255) {
+            this.string = string.substring(0, 255);
+        } else {
+            this.string = string;
+        }
     }
 
     public String getText() {
