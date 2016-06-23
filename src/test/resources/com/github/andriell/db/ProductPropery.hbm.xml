@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.github.andriell.db.ProductProperty" table="product_property" catalog="store">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="productId" column="product_id" type="int" not-null="true" index="index_product_id" />
+        <property name="name" column="name" type="string" length="32" index="index_name"  />
+        <property name="integer" column="integer" type="integer" index="index_integer"  />
+        <property name="float" column="float" type="float" index="index_float"  />
+        <property name="string" column="string" type="string" index="index_string"  />
+        <property name="text" column="text" type="text" />
+        <property name="date" column="date" type="date"  index="index_date"  />
+        <many-to-one name="product" class="com.github.andriell.db.Product" fetch="select">
+            <column name="product_id" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

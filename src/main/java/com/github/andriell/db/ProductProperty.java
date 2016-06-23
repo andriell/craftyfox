@@ -6,13 +6,23 @@ import java.sql.Date;
  * Created by Andrey on 22.06.2016
  */
 public class ProductProperty {
+    private int id;
     private int productId;
     private String name;
     private int integer;
     private float aFloat;
-    private String varchar;
+    private String string;
     private String text;
     private Date date;
+    private Product product;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getProductId() {
         return productId;
@@ -38,20 +48,20 @@ public class ProductProperty {
         this.integer = integer;
     }
 
-    public float getaFloat() {
+    public float getFloat() {
         return aFloat;
     }
 
-    public void setaFloat(float aFloat) {
+    public void setFloat(float aFloat) {
         this.aFloat = aFloat;
     }
 
-    public String getVarchar() {
-        return varchar;
+    public String getString() {
+        return string;
     }
 
-    public void setVarchar(String varchar) {
-        this.varchar = varchar;
+    public void setString(String string) {
+        this.string = string;
     }
 
     public String getText() {
@@ -68,5 +78,13 @@ public class ProductProperty {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

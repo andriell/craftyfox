@@ -1,6 +1,8 @@
 package com.github.andriell.db;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Andrey on 22.06.2016
@@ -13,6 +15,7 @@ public class Product {
     private int price;
     private String currency;
     private Date date;
+    private Set<Product> property = new HashSet<Product>(0);
 
     public int getId() {
         return id;
@@ -68,5 +71,13 @@ public class Product {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Set<Product> getProperty() {
+        return property;
+    }
+
+    public void setProperty(Set<Product> property) {
+        this.property = property;
     }
 }
