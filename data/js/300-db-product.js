@@ -14,6 +14,6 @@ function ProductProperty(name, value) {
 
 function ProductPrice(price, currency) {
     var productProperty = app.getBean("js-product-property");
-    productProperty.price(name, currency);
+    productProperty.price(price, currency);
     return productProperty;
 }

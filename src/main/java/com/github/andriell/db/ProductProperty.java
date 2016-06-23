@@ -67,7 +67,7 @@ public class ProductProperty {
         }
         s = s.trim();
         if (s.matches("^[\\+\\-]?\\d+$")) {
-            integer = Integer.getInteger(s);
+            integer = Integer.parseInt(s);
             return this;
         }
         if (s.matches("^[\\+\\-]?\\d+[\\.\\,]\\d+$")) {
