@@ -9,6 +9,7 @@ import java.util.Set;
  */
 public class Product {
     private int id;
+    private String site;
     private String code;
     private String name;
     private String url;
@@ -16,6 +17,14 @@ public class Product {
     private String currency;
     private Date date = new Date();
     private Set<ProductProperty> property = new HashSet<ProductProperty>(0);
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
 
     public int getId() {
         return id;

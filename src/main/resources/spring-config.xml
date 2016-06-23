@@ -70,6 +70,9 @@
             </array>
         </property>
     </bean>
+    <!-- JS объект roduct -->
+    <bean id="js-product" class="com.github.andriell.db.Product" scope="prototype" />
+    <bean id="js-product-property" class="com.github.andriell.db.ProductProperty" scope="prototype" />
 
     <!-- Процессор -->
     <bean id="processor" class="com.github.andriell.processor.Processor">

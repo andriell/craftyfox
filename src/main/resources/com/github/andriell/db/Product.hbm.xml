@@ -8,7 +8,8 @@
             <column name="id"/>
             <generator class="identity"/>
         </id>
-        <property name="code" column="code" type="string" length="32" not-null="true" unique="true" index="index_product_code" unique-key="true"/>
+        <property name="site" column="site" type="string" length="32" not-null="true" index="index_product_code" unique-key="unique_product_code"/>
+        <property name="code" column="code" type="string" length="32" not-null="true" index="index_product_code" unique-key="unique_product_code"/>
         <property name="name" column="name" type="text" index="index_product_name"/>
         <property name="url" column="url" type="text"/>
         <property name="price" column="price" type="integer" index="index_product_price"/>
