@@ -17,6 +17,7 @@ public class Product {
     private String currency;
     private Date date = new Date();
     private Set<ProductProperty> property = new HashSet<ProductProperty>(0);
+    private ProductDao productDao;
 
     public String getSite() {
         return site;
@@ -93,5 +94,17 @@ public class Product {
     public boolean addProperty(ProductProperty property) {
         property.setProduct(this);
         return this.property.add(property);
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    public boolean save() {
+        return productDao.save(this);
     }
 }
