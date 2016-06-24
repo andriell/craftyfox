@@ -8,8 +8,8 @@
             <column name="id"/>
             <generator class="identity"/>
         </id>
-        <property name="code" type="string" length="10" not-null="true" unique-key="store_code"/>
-        <property name="name" column="name" type="text"/>
-        <property name="url" column="url" type="text"/>
+        <property name="code" column="c_code" type="string" length="10" not-null="true" unique-key="store_code"/>
+        <property name="name" column="c_name" type="text"/>
+        <property name="url" column="c_url" type="text"/>
     </class>
 </hibernate-mapping>

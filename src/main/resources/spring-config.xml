@@ -163,7 +163,7 @@
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSourceMysql" />
+        <property name="dataSource" ref="dataSource" />
         <property name="mappingResources">
             <list>
                 <value>com/github/andriell/db/Store.hbm.xml</value>
@@ -173,7 +173,7 @@
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.use_sql_comments">false</prop>

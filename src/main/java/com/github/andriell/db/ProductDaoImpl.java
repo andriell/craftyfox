@@ -29,7 +29,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public int clearProperty(int productId, Session session) {
-        return session.createQuery("delete from ProductProperty where c_name<>:name AND c_product_id = :product_id")
+        return session.createQuery("delete from ProductProperty where c_name<>:name AND product_id = :product_id")
                 .setParameter("name", PRICE)
                 .setParameter("product_id", productId)
                 .executeUpdate();
@@ -38,7 +38,7 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductProperty> getProperty(int productId, String propertyName) {
         return getSessionFactory()
                 .getCurrentSession()
-                .createQuery("from ProductProperty where c_product_id=:product_id AND c_name=:name")
+                .createQuery("from ProductProperty where product_id=:product_id AND c_name=:name")
                 .setParameter("product_id", productId)
                 .setParameter("name", propertyName)
                 .list();
@@ -46,21 +46,27 @@ public class ProductDaoImpl implements ProductDao {
 
     public boolean save(Product product) {
         Session session = sessionFactory.openSession();
-        //session.beginTransaction();
+        session.beginTransaction();
 
-        Product productOld = findByCode(product.getCode(), session);
-        if (productOld != null) {
-            product.setId(productOld.getId());
-            session.merge(product);
-        } else {
-            session.save(product);
+        try {
+            Product productOld = findByCode(product.getCode(), session);
+            if (productOld != null) {
+                product.setId(productOld.getId());
+                session.merge(product);
+            } else {
+                session.save(product);
+            }
+            clearProperty(product.getId(), session);
+            Set<ProductProperty> properties = product.getProperty();
+            for (ProductProperty property: properties) {
+                session.save(property);
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            LOG.error(this, e);
+            session.getTransaction().rollback();
+            return false;
         }
-        clearProperty(product.getId(), session);
-        Set<ProductProperty> properties = product.getProperty();
-        for (ProductProperty property: properties) {
-            session.save(property);
-        }
-        //session.getTransaction().commit();
 
         return true;
     }
