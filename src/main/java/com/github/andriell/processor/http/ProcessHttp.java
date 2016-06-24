@@ -34,7 +34,7 @@ public class ProcessHttp implements ProcessInterface {
         HttpClientContext localContext = this.httpContext.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
-            System.out.println(data);
+            System.out.println("run " + data);
             Collection<ProcessHttpDataListenerInterface> dataListeners = data.getDataListeners();
 
             HttpResponse httpResponse = localContext.getResponse();
@@ -72,8 +72,8 @@ public class ProcessHttp implements ProcessInterface {
     }
 
     public void setData(Object data) {
+        System.out.println("set " + data);
         this.data = (ProcessHttpData) data;
-        System.out.println(data);
     }
 
     public ProcessHttpData getData() {
