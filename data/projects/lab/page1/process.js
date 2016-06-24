@@ -2,7 +2,7 @@
  * Created by Rybalko on 20.06.2016.
  */
 $.addParser("lab.page1", function(data) {
-    console.info("page1: " + data.getRequest().getRequestLine().getUri());
+    console.info("page1: " + data.getUrl());
 
     var document = data.getData();
     var a = document.select(".sf_title a:nth-child(2)");

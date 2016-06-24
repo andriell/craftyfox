@@ -7,7 +7,7 @@ $.addParser("example.test3", function(d) {
 	processor.add("process-http", dataHttp);
 });
 
-$.addParser("example.test32", function(dataHtml) {
-	console.info(dataHtml.getRequest().getRequestLine().getUri());
-	console.info(dataHtml.getDataHtml());
+$.addParser("example.test32", function(data) {
+	console.info(data.getUrl());
+	console.info(data.getDataHtml());
 });

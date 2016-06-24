@@ -11,12 +11,12 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
     private String processBeanId;
     private Object data;
     private String pageName;
-    private String request;
+    private String url;
     private HttpResponse response;
     private ContentType contentType;
 
-    protected void setHttpParam(String request, HttpResponse response, ContentType contentType) {
-        this.request = request;
+    protected void setHttpParam(String url, HttpResponse response, ContentType contentType) {
+        this.url = url;
         this.response = response;
         this.contentType = contentType;
     }
@@ -45,8 +45,8 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
         this.pageName = pageName;
     }
 
-    public String getRequest() {
-        return request;
+    public String getUrl() {
+        return url;
     }
 
     public HttpResponse getResponse() {

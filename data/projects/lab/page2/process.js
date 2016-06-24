@@ -17,7 +17,7 @@ var lab = {
 };
 
 $.addParser("lab.page2", function(data) {
-    console.info("page2: " + data.getRequest().getRequestLine().getUri());
+    console.info("page2: " + data.getUrl());
 
     var document = data.getData();
     var tr = document.select(".forum tr");

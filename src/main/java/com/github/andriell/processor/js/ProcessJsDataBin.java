@@ -20,8 +20,8 @@ public class ProcessJsDataBin extends ProcessJsDataAbstract  implements ProcessH
         setData(new BinData(bytes));
     }
 
-    public void setResponse(byte[] body, ContentType contentType, String request, HttpResponse response) {
-        setHttpParam(request, response, contentType);
+    public void setResponse(byte[] body, ContentType contentType, String url, HttpResponse response) {
+        setHttpParam(url, response, contentType);
         setBytes(body);
     }
 

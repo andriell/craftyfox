@@ -12,8 +12,8 @@ public class ProcessJsData extends ProcessJsDataAbstract implements ProcessHttpD
         return (Document) getData();
     }
 
-    public void setResponse(byte[] body, ContentType contentType, String request, HttpResponse response) {
-        setHttpParam(request, response, contentType);
+    public void setResponse(byte[] body, ContentType contentType, String url, HttpResponse response) {
+        setHttpParam(url, response, contentType);
         DataConverter converter = getConverter();
         String s = null;
         Charset charset = null;

@@ -1,5 +1,5 @@
 $.addParser("dns.products", function (data) {
-    console.info("products: " + data.getRequest());
+    console.info("products: " + data.getUrl());
 
     var document = data.getData();
     var a = document.select("loc");
