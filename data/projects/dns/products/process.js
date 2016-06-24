@@ -10,6 +10,6 @@ $.addParser("dns.products", function (data) {
         var dataHttp = $.newHttpData("GET", e.text());
         var dataHtml = $.newJsDataHtml("dns.product");
         dataHttp.addDataListener(dataHtml);
-        //processor.add("process-http", dataHttp);
+        processor.add("process-http", dataHttp);
     }
 });
