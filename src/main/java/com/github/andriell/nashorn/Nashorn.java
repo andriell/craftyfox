@@ -110,7 +110,6 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
     }
 
     public Object runProcess(String pageName, Object data) throws ScriptException, NoSuchMethodException {
-        System.out.println("runProcess " + data);
         return getInvocable().invokeFunction("nashornRunProcess", pageName, data);
     }
 
