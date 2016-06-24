@@ -8,12 +8,13 @@ import javax.script.ScriptException;
 public class ProcessJs implements ProcessInterface {
     private ProcessJsDataInterface data;
     private Nashorn nashorn;
-    public void setData(Object data) {
-        this.data = (ProcessJsDataInterface) data;
-    }
 
     public ProcessJsDataInterface getData() {
         return this.data;
+    }
+
+    public void setData(Object data) {
+        this.data = (ProcessJsDataInterface) data;
     }
 
     public Nashorn getNashorn() {
@@ -32,5 +33,7 @@ public class ProcessJs implements ProcessInterface {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+        data = null;
+        nashorn = null;
     }
 }

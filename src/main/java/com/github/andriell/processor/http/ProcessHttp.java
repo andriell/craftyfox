@@ -56,6 +56,11 @@ public class ProcessHttp implements ProcessInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        name = null;
+        data = null;
+        httpContext = null;
+        listeners = null;
+        processor = null;
     }
 
     public void setListeners(ProcessHttpListenerInterface[] listeners) {
