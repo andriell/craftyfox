@@ -5,6 +5,7 @@ $.addParser("dns.start", function (data) {
         var dataHttp = $.newHttpData("GET", url);
         var dataHtml = $.newJsDataXml("dns.products");
         dataHttp.addDataListener(dataHtml);
+        console.info("Add data: " + dataHttp);
         processor.add("process-http", dataHttp);
     }
 });
