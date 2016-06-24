@@ -3,17 +3,12 @@ package com.github.andriell.processor.http;
 import com.github.andriell.processor.ProcessInterface;
 import com.github.andriell.processor.ProcessorInterface;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -34,19 +29,15 @@ public class ProcessHttp implements ProcessInterface {
         HttpClientContext localContext = this.httpContext.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
-            System.out.println("run " + data);
             Collection<ProcessHttpDataListenerInterface> dataListeners = data.getDataListeners();
 
-            HttpResponse httpResponse = localContext.getResponse();
-            HttpRequest httpRequest = localContext.getRequest();
-
-            HttpEntity httpEntity = httpResponse.getEntity();
+            HttpEntity httpEntity = response.getEntity();
             byte[] body = EntityUtils.toByteArray(httpEntity);
             ContentType contentType = ContentType.getOrDefault(httpEntity);
             EntityUtils.consume(httpEntity);
             if (dataListeners != null) {
                 for (ProcessHttpDataListenerInterface dataListener: dataListeners) {
-                    dataListener.setResponse(body, contentType, httpRequest, httpResponse);
+                    dataListener.setResponse(body, contentType, data.getURI().toURL().toString(), response);
                     processor.add(dataListener);
                 }
             }
@@ -71,13 +62,12 @@ public class ProcessHttp implements ProcessInterface {
         this.listeners = listeners;
     }
 
-    public void setData(Object data) {
-        System.out.println("set " + data);
-        this.data = (ProcessHttpData) data;
-    }
-
     public ProcessHttpData getData() {
         return data;
+    }
+
+    public void setData(Object data) {
+        this.data = (ProcessHttpData) data;
     }
 
     public String getName() {

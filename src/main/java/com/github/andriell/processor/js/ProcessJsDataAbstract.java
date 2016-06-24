@@ -1,6 +1,5 @@
 package com.github.andriell.processor.js;
 
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
 
@@ -12,11 +11,11 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
     private String processBeanId;
     private Object data;
     private String pageName;
-    private HttpRequest request;
+    private String request;
     private HttpResponse response;
     private ContentType contentType;
 
-    protected void setHttpParam(HttpRequest request, HttpResponse response, ContentType contentType) {
+    protected void setHttpParam(String request, HttpResponse response, ContentType contentType) {
         this.request = request;
         this.response = response;
         this.contentType = contentType;
@@ -46,7 +45,7 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
         this.pageName = pageName;
     }
 
-    public HttpRequest getRequest() {
+    public String getRequest() {
         return request;
     }
 

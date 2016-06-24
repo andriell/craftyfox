@@ -1,7 +1,6 @@
 package com.github.andriell.processor.js;
 
 import com.github.andriell.processor.http.ProcessHttpDataListenerInterface;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
 
@@ -21,7 +20,7 @@ public class ProcessJsDataBin extends ProcessJsDataAbstract  implements ProcessH
         setData(new BinData(bytes));
     }
 
-    public void setResponse(byte[] body, ContentType contentType, HttpRequest request, HttpResponse response) {
+    public void setResponse(byte[] body, ContentType contentType, String request, HttpResponse response) {
         setHttpParam(request, response, contentType);
         setBytes(body);
     }

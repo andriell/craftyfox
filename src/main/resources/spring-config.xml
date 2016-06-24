@@ -99,7 +99,7 @@
         <property name="limitProcess" value="4" />
     </bean>
     <!-- Процесс JS -->
-    <bean id="process-js" class="com.github.andriell.processor.js.ProcessJs">
+    <bean id="process-js" class="com.github.andriell.processor.js.ProcessJs" scope="prototype">
         <property name="nashorn" ref="nashorn"/>
     </bean>
     <!-- Класс данных процесса JS -->
@@ -130,7 +130,7 @@
         <property name="processBeanId" value="process-http" />
     </bean>
     <!-- Процесс HTTP -->
-    <bean id="process-http" class="com.github.andriell.processor.http.ProcessHttp">
+    <bean id="process-http" class="com.github.andriell.processor.http.ProcessHttp" scope="prototype">
         <property name="httpContext" ref="process-http-context" />
         <property name="processor" ref="processor" />
     </bean>
