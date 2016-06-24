@@ -12,7 +12,7 @@
         <property name="code" column="code" type="string" length="32" not-null="true" index="index_product_code" unique-key="unique_product_code"/>
         <property name="name" column="name" type="text" index="index_product_name"/>
         <property name="url" column="url" type="text"/>
-        <property name="price" column="price" type="integer" index="index_product_price"/>
+        <property name="price" column="price" type="float" index="index_product_price"/>
         <property name="currency" column="currency" type="string" length="3" index="index_product_currency"/>
         <property name="date" column="date" type="timestamp" index="index_product_date"/>
         <set name="property" table="product_property" inverse="true" lazy="true" fetch="select">

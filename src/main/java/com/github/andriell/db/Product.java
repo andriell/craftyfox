@@ -13,7 +13,7 @@ public class Product {
     private String code;
     private String name;
     private String url;
-    private int price;
+    private float price;
     private String currency;
     private Date date = new Date();
     private Set<ProductProperty> property = new HashSet<ProductProperty>(0);
@@ -59,7 +59,7 @@ public class Product {
         this.url = url;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -93,6 +93,10 @@ public class Product {
 
     public boolean addProperty(ProductProperty property) {
         property.setProduct(this);
+        if ("price".equals(property.getName())) {
+            price = property.getFloat();
+            currency = property.getString();
+        }
         return this.property.add(property);
     }
 
