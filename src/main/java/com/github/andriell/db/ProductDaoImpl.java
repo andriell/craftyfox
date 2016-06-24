@@ -59,6 +59,9 @@ public class ProductDaoImpl implements ProductDao {
             clearProperty(product.getId(), session);
             Set<ProductProperty> properties = product.getProperty();
             for (ProductProperty property: properties) {
+                if (PRICE.equals(property.getName()) && product.getPrice() == property.getFloat()) {
+                    continue; // Если цена не изменилась, то ее не нужно обновлять
+                }
                 session.save(property);
             }
             session.getTransaction().commit();
