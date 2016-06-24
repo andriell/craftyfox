@@ -14,19 +14,10 @@
     </bean>
 
     <bean id="manager1" class="com.github.andriell.processor.Manager">
-        <property name="fair" value="true" />
-        <property name="capacity" value="100" />
-        <property name="runnableLimiter" ref="limiter" />
-        <property name="processBeanId" value="test_process_1" />
+         <property name="processBeanId" value="test_process_1" />
     </bean>
     <bean id="manager2" class="com.github.andriell.processor.Manager">
-        <property name="fair" value="true" />
-        <property name="capacity" value="100" />
-        <property name="runnableLimiter" ref="limiter" />
         <property name="processBeanId" value="test_process_2" />
-    </bean>
-    <bean id="limiter" class="com.github.andriell.processor.RunnableLimiter">
-        <property name="limitProcess" value="4" />
     </bean>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"

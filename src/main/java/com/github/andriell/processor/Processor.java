@@ -9,6 +9,12 @@ import java.util.HashMap;
 public class Processor implements ProcessorInterface {
     private HashMap<String, ManagerInterface> managers = new HashMap<String, ManagerInterface>();
 
+    public static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ignored) {}
+    }
+
     public boolean add(DataInterface data) {
         return add(data.getProcessBeanId(), data);
     }

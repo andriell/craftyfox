@@ -28,7 +28,7 @@ public class ManagerTest {
             manager2.addData(new TestData2(p));
         }
 
-        RunnableLimiter.sleep(7000);
+        Processor.sleep(7000);
         manager1.stop();
         manager2.stop();
         String s = builder.toString();
@@ -83,7 +83,7 @@ public class ManagerTest {
                 String s = "Process1, ProcessName:" + name + ", Data:{" + data + "}, Iteration:" + i + "\n";
                 System.out.print(s);
                 builder.append(s);
-                RunnableLimiter.sleep((int) (Math.random() * 100));
+                Processor.sleep((int) (Math.random() * 100));
             }
         }
 
@@ -107,7 +107,7 @@ public class ManagerTest {
                 String s = "Process2, ProcessName:" + name + ", Data:{" + data + "}, Iteration:" + i + "\n";
                 System.out.print(s);
                 builder.append(s);
-                RunnableLimiter.sleep((int) (Math.random() * 100));
+                Processor.sleep((int) (Math.random() * 100));
             }
         }
 
