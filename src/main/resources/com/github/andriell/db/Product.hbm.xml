@@ -8,13 +8,13 @@
             <column name="id"/>
             <generator class="identity"/>
         </id>
-        <property name="site" column="site" type="string" length="32" not-null="true" index="index_product_code" unique-key="unique_product_code"/>
-        <property name="code" column="code" type="string" length="32" not-null="true" index="index_product_code" unique-key="unique_product_code"/>
-        <property name="name" column="name" type="text" index="index_product_name"/>
-        <property name="url" column="url" type="text"/>
-        <property name="price" column="price" type="float" index="index_product_price"/>
-        <property name="currency" column="currency" type="string" length="3" index="index_product_currency"/>
-        <property name="date" column="date" type="timestamp" index="index_product_date"/>
+        <property name="site" column="c_site" type="string" length="32" not-null="true" index="index_product_code" unique-key="unique_product_code"/>
+        <property name="code" column="c_code" type="string" length="32" not-null="true" index="index_product_code" unique-key="unique_product_code"/>
+        <property name="name" column="c_name" type="string" index="index_product_name"/>
+        <property name="url" column="c_url" type="text"/>
+        <property name="price" column="c_price" type="float" index="index_product_price"/>
+        <property name="currency" column="c_currency" type="string" length="3" index="index_product_currency"/>
+        <property name="date" column="c_date" type="timestamp" index="index_product_date"/>
         <set name="property" table="product_property" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="product_id" not-null="true"/>

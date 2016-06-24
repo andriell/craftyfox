@@ -18,7 +18,7 @@ public class ProductDaoImpl implements ProductDao {
     private SessionFactory sessionFactory;
 
     public Product findByCode(String code, Session session) {
-        List<Product> users = session.createQuery("from Product where code=:code")
+        List<Product> users = session.createQuery("from Product where c_code=:code")
                 .setParameter("code", code)
                 .list();
         if (users.size() > 0) {
@@ -29,7 +29,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public int clearProperty(int productId, Session session) {
-        return session.createQuery("delete from ProductProperty where name<>:name AND product_id = :product_id")
+        return session.createQuery("delete from ProductProperty where c_name<>:name AND c_product_id = :product_id")
                 .setParameter("name", PRICE)
                 .setParameter("product_id", productId)
                 .executeUpdate();
@@ -38,7 +38,7 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductProperty> getProperty(int productId, String propertyName) {
         return getSessionFactory()
                 .getCurrentSession()
-                .createQuery("from ProductProperty where product_id=:product_id AND name=:name")
+                .createQuery("from ProductProperty where c_product_id=:product_id AND c_name=:name")
                 .setParameter("product_id", productId)
                 .setParameter("name", propertyName)
                 .list();
@@ -46,7 +46,7 @@ public class ProductDaoImpl implements ProductDao {
 
     public boolean save(Product product) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        //session.beginTransaction();
 
         Product productOld = findByCode(product.getCode(), session);
         if (productOld != null) {
@@ -60,7 +60,7 @@ public class ProductDaoImpl implements ProductDao {
         for (ProductProperty property: properties) {
             session.save(property);
         }
-        session.getTransaction().commit();
+        //session.getTransaction().commit();
 
         return true;
     }
