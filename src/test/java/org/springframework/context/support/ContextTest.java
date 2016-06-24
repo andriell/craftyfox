@@ -40,7 +40,7 @@ public class ContextTest {
 
             for (int i = 0; i<100; i++) {
                 objectPrototype2 = applicationContext.getBean("objectPrototype", Object.class);
-                assertEquals("objectPrototype" + i, true, objectPrototype1 != objectPrototype2);
+                assertEquals("objectPrototype" + i, false, objectPrototype1 == objectPrototype2);
                 objectPrototype1 = objectPrototype2;
             }
 
