@@ -3,7 +3,7 @@ package com.github.andriell.processor;
 /**
  * Created by Андрей on 04.02.2016
  */
-public interface ManagerInterface extends Runnable {
+public interface ManagerInterface {
     boolean addData(Object data);
     String getProcessBeanId();
     int getRunningProcesses();

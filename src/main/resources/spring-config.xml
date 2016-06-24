@@ -89,14 +89,7 @@
 
     <!-- Менеджер процессов JS -->
     <bean id="manager-js" class="com.github.andriell.processor.Manager">
-        <property name="fair" value="true" />
-        <property name="capacity" value="1000000" />
-        <property name="runnableLimiter" ref="process-js-limiter" />
         <property name="processBeanId" value="process-js" />
-    </bean>
-    <!-- Ограничитель числа активных процессов JS -->
-    <bean id="process-js-limiter" class="com.github.andriell.processor.RunnableLimiter">
-        <property name="limitProcess" value="4" />
     </bean>
     <!-- Процесс JS -->
     <bean id="process-js" class="com.github.andriell.processor.js.ProcessJs" scope="prototype">
@@ -124,9 +117,6 @@
 
     <!-- Менеджер процессов HTTP -->
     <bean id="manager-http" class="com.github.andriell.processor.Manager">
-        <property name="fair" value="true" />
-        <property name="capacity" value="1000000" />
-        <property name="runnableLimiter" ref="process-http-limiter" />
         <property name="processBeanId" value="process-http" />
     </bean>
     <!-- Процесс HTTP -->
@@ -136,10 +126,6 @@
     </bean>
     <!-- Процесс HTTP контекст -->
     <bean id="process-http-context" class="com.github.andriell.processor.http.ProcessHttpContext" />
-    <!-- Ограничитель числа активных процессов HTTP -->
-    <bean id="process-http-limiter" class="com.github.andriell.processor.RunnableLimiter">
-        <property name="limitProcess" value="2" />
-    </bean>
 
     <!-- Класс данных процесса HTTP -->
     <bean id="process-http-data" class="com.github.andriell.processor.http.ProcessHttpData" scope="prototype" />

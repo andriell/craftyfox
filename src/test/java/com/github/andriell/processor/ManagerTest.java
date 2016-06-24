@@ -19,9 +19,6 @@ public class ManagerTest {
         Manager manager1 = applicationContext.getBean("manager1", Manager.class);
         Manager manager2 = applicationContext.getBean("manager2", Manager.class);
 
-        RunnableLimiter limiter = new RunnableLimiter(10);
-        limiter.start(manager1);
-        limiter.start(manager2);
 
         builder = applicationContext.getBean("builder", StringBuffer.class);
         for (int p = 0; p <= 3; p++) {

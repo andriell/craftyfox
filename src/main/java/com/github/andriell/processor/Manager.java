@@ -1,109 +1,44 @@
 package com.github.andriell.processor;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import java.util.concurrent.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Андрей on 04.02.2016
  */
-public class Manager implements ManagerInterface, InitializingBean, ApplicationContextAware {
-    private BlockingQueue<Object> dataQueue;
-    private Boolean run = true;
-    private int runPause = 30;
+public class Manager implements ManagerInterface, ApplicationContextAware {
     private ApplicationContext applicationContext;
-    private RunnableLimiter runnableLimiter;
-    private RunnableListenerInterface runnableListener;
+
+    private ThreadPoolExecutor pool =  new ThreadPoolExecutor(2, 100, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+
     private String processBeanId;
-    private int capacity;
-    private boolean fair;
 
     public boolean addData(Object data) {
-        return dataQueue.add(data);
-    }
-
-    public void setProcessBeanId(String processBeanId) {
-        this.processBeanId = processBeanId;
+        ProcessInterface process = applicationContext.getBean(getProcessBeanId(), ProcessInterface.class);
+        process.setData(data);
+        pool.execute(process);
+        return true;
     }
 
     public String getProcessBeanId() {
         return processBeanId;
     }
 
-    private Object pullTask() {
-        return dataQueue.poll();
-    }
-
-    public void run() {
-        while (run) { // Возобновляем работу
-            while (true) { // Запускаем по максимум новых процессов
-                if (!runnableLimiter.canStart()) {
-                    break;
-                }
-                Object data = pullTask();
-                if (data == null) {
-                    break;
-                }
-                ProcessInterface process = applicationContext.getBean(getProcessBeanId(), ProcessInterface.class);
-                process.setData(data);
-                RunnableAdapter runnableAdapter = RunnableAdapter.envelop(process);
-                runnableAdapter.addListenerEnd(runnableListener); // листенер должен выполняться после листенера RunnableLimiter
-                if (!runnableLimiter.start(runnableAdapter)) {
-                    addData(data);
-                    break;
-                }
-            }
-            RunnableLimiter.sleep(runPause);
-        }
+    public void setProcessBeanId(String processBeanId) {
+        this.processBeanId = processBeanId;
     }
 
     public void stop() {
-        run = false;
+        pool.shutdown();
     }
 
     public boolean isRun() {
-        return run;
-    }
-
-    public int getRunPause() {
-        return runPause;
-    }
-
-    public void setRunPause(int runPause) {
-        this.runPause = runPause;
-    }
-
-    public RunnableLimiter getRunnableLimiter() {
-        return runnableLimiter;
-    }
-
-    public void setRunnableLimiter(RunnableLimiter runnableLimiter) {
-        this.runnableLimiter = runnableLimiter;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public void setFair(boolean fair) {
-        this.fair = fair;
-    }
-
-    public void afterPropertiesSet() throws Exception {
-        runnableListener = new RunnableListenerInterface() {
-            public void onStart(Runnable r) {
-            }
-            public void onException(Runnable r, Exception e) {
-                run();
-            }
-            public void onComplete(Runnable r) {
-                run();
-            }
-        };
-        dataQueue = new ArrayBlockingQueue<Object>(capacity, fair);
+        return pool.getActiveCount() > 0;
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -111,18 +46,18 @@ public class Manager implements ManagerInterface, InitializingBean, ApplicationC
     }
 
     public int getRunningProcesses() {
-        return runnableLimiter.getRunningProcesses();
+        return pool.getActiveCount();
     }
 
     public int getLimitProcess() {
-        return runnableLimiter.getLimitProcess();
+        return pool.getCorePoolSize();
     }
 
     public void setLimitProcess(int limit) {
-        runnableLimiter.setLimitProcess(limit);
+        pool.setCorePoolSize(limit);
     }
 
     public int getProcessInQueue() {
-        return dataQueue.size();
+        return (int) (pool.getTaskCount() - pool.getCompletedTaskCount());
     }
 }
