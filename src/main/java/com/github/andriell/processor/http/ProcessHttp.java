@@ -28,11 +28,13 @@ public class ProcessHttp implements ProcessInterface {
     private ProcessHttpListenerInterface[] listeners;
     private ProcessorInterface processor;
 
+    // TODO data должна поступать вот сюда
     public void run() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpClientContext localContext = this.httpContext.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
+            System.out.println(data);
             Collection<ProcessHttpDataListenerInterface> dataListeners = data.getDataListeners();
 
             HttpResponse httpResponse = localContext.getResponse();
@@ -71,6 +73,7 @@ public class ProcessHttp implements ProcessInterface {
 
     public void setData(Object data) {
         this.data = (ProcessHttpData) data;
+        System.out.println(data);
     }
 
     public ProcessHttpData getData() {
