@@ -68,13 +68,22 @@ public class ManagerTest {
         }
     }
 
-    public static class TestProcess1 extends ProcessAbstract {
+    public static class TestProcess1 implements ProcessInterface {
         private static int count = 0;
         private String name;
         private StringBuffer builder;
+        private Object data;
 
         TestProcess1() {
             name = Integer.toString(count++);
+        }
+
+        public Object getData() {
+            return data;
+        }
+
+        public void setData(Object data) {
+            this.data = data;
         }
 
         public void run() {
@@ -92,13 +101,22 @@ public class ManagerTest {
         }
     }
 
-    public static class TestProcess2 extends ProcessAbstract {
+    public static class TestProcess2 implements ProcessInterface {
         private static int count = 0;
         private String name;
         private StringBuffer builder;
+        private Object data;
 
         TestProcess2() {
             name = Integer.toString(count++);
+        }
+
+        public Object getData() {
+            return data;
+        }
+
+        public void setData(Object data) {
+            this.data = data;
         }
 
         public void run() {
