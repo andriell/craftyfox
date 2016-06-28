@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-public class ErrorWorkArea implements WorkArea {
+public class LogWorkArea implements WorkArea {
     StackByte buffer = new StackByte(10000);
     private JTextArea errorTextArea;
     private JPanel rootPanel;
     private JTextField sizeTextField;
     private JButton clearButton;
 
-    public ErrorWorkArea() {
+    public LogWorkArea() {
         System.setErr(new PrintStream(new CustomOutputStream()));
         clearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

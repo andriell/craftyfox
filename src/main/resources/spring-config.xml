@@ -46,7 +46,7 @@
         <property name="userObject" ref="gui-error-work-area" />
     </bean>
     <!-- Рабочая область Ошибки -->
-    <bean id="gui-error-work-area" class="com.github.andriell.gui.ErrorWorkArea" />
+    <bean id="gui-error-work-area" class="com.github.andriell.gui.LogWorkArea" />
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-process-work-area" />
     </bean>

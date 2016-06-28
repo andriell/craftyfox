@@ -3,12 +3,14 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+    <appender name="consoleAppender0" class="org.apache.log4j.ConsoleAppender">
         <param name="Target" value="System.out"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%p %c: %m%n"/>
         </layout>
     </appender>
+
+    <appender name="consoleAppender" class="com.github.andriell.logger.BeepAppender" />
 
     <category name="org.apache.http">
         <priority value="INFO" />
@@ -25,9 +27,11 @@
 
     <category name="org.hibernate.SQL">
         <priority value="INFO" />
+        <appender-ref ref="consoleAppender" />
     </category>
     <category name="org.hibernate.type">
         <priority value="TRACE" />
+        <appender-ref ref="consoleAppender" />
     </category>
 
     <root>
