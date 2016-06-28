@@ -9,7 +9,7 @@ import org.apache.log4j.spi.LoggingEvent;
  */
 public class AdapterStack extends AppenderSkeleton {
     private static AdapterStack[] adapters = new AdapterStack[16];
-    private StackString stack = new StackString(100);
+    private StackString stack = new StackString(10000);
 
     public static AdapterStack getAdapter(int i) {
         return adapters[i];

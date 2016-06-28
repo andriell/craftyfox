@@ -75,10 +75,10 @@
         <property name="adapterId" value="1" />
     </bean>
     <bean id="gui-log-sql-work-area" class="com.github.andriell.gui.LogWorkArea" >
-        <property name="adapterId" value="1" />
+        <property name="adapterId" value="2" />
     </bean>
     <bean id="gui-log-http-work-area" class="com.github.andriell.gui.LogWorkArea" >
-        <property name="adapterId" value="1" />
+        <property name="adapterId" value="3" />
     </bean>
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-process-work-area" />
