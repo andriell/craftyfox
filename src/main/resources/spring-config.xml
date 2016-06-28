@@ -15,12 +15,25 @@
         <property name="userObject" ref="gui-nashorn-work-area" />
         <property name="childNodes">
             <array>
-                <ref bean="gui-nav-three-error" />
+                <ref bean="gui-nav-three-log" />
                 <ref bean="gui-nav-three-process" />
                 <ref bean="gui-nav-three-nashorn" />
             </array>
         </property>
     </bean>
+    <!-- Основное меню, корневой раздел Логи -->
+    <bean id="gui-nav-three-log" class="com.github.andriell.gui.NavTreeItem">
+        <property name="name" value="Логи" />
+        <property name="userObject" ref="gui-nav-three-log-error" />
+        <property name="childNodes">
+            <array>
+                <ref bean="gui-nav-three-log-error" />
+                <ref bean="gui-nav-three-log-sql" />
+                <ref bean="gui-nav-three-log-http" />
+            </array>
+        </property>
+    </bean>
+
     <!-- Основное меню, раздел Nashorn -->
     <bean id="gui-nav-three-nashorn" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-nashorn-work-area" />
@@ -42,11 +55,25 @@
         <property name="name" value="HTML" />
     </bean>
     <!-- Основное меню, раздел Ошибки -->
-    <bean id="gui-nav-three-error" class="com.github.andriell.gui.NavTreeItem">
-        <property name="userObject" ref="gui-error-work-area" />
+    <bean id="gui-nav-three-log-error" class="com.github.andriell.gui.NavTreeItem">
+        <property name="name" value="Ошибки" />
+        <property name="userObject" ref="gui-log-error-work-area" />
     </bean>
+    <!-- Основное меню, раздел Ошибки -->
+    <bean id="gui-nav-three-log-sql" class="com.github.andriell.gui.NavTreeItem">
+        <property name="name" value="SQL" />
+        <property name="userObject" ref="gui-log-sql-work-area" />
+    </bean>
+    <!-- Основное меню, раздел Http -->
+    <bean id="gui-nav-three-log-http" class="com.github.andriell.gui.NavTreeItem">
+        <property name="name" value="HTTP" />
+        <property name="userObject" ref="gui-log-http-work-area" />
+    </bean>
+
     <!-- Рабочая область Ошибки -->
-    <bean id="gui-error-work-area" class="com.github.andriell.gui.LogWorkArea" />
+    <bean id="gui-log-error-work-area" class="com.github.andriell.gui.LogWorkArea" />
+    <bean id="gui-log-sql-work-area" class="com.github.andriell.gui.LogWorkArea" />
+    <bean id="gui-log-http-work-area" class="com.github.andriell.gui.LogWorkArea" />
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-process-work-area" />
     </bean>
