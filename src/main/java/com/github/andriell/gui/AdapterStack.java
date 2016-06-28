@@ -1,22 +1,32 @@
-package com.github.andriell.logger;
+package com.github.andriell.gui;
 
+import com.github.andriell.collection.StackString;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
-
-import java.awt.*;
 
 /**
  * Этот аппендер пикает PC-спикером и выводит на консоль сообщение.
  */
-public class BeepAppender extends AppenderSkeleton {
+public class AdapterStack extends AppenderSkeleton {
+    private static AdapterStack[] adapters = new AdapterStack[16];
+    private StackString stack = new StackString(100);
+
+    public static AdapterStack getAdapter(int i) {
+        return adapters[i];
+    }
+
+    public void setAdapterId(int id) {
+        adapters[id] = this;
+    }
+
     /**
      * Пикаем и выводим сообщение.
      * @param event отсюда берётся сообщение.
      */
     @Override
     protected void append(LoggingEvent event) {
-        Toolkit.getDefaultToolkit().beep();
-        System.out.println(event.getMessage());
+        stack.put(event.getRenderedMessage());
+        stack.put("\n");
     }
 
     /**
@@ -25,10 +35,15 @@ public class BeepAppender extends AppenderSkeleton {
     public void close() {
 
     }
+
     /**
      * Layout не используется.
      */
     public boolean requiresLayout() {
         return false;
+    }
+
+    public StackString getStack() {
+        return stack;
     }
 }

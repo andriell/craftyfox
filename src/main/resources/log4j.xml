@@ -10,7 +10,9 @@
         </layout>
     </appender>
 
-    <appender name="consoleAppender" class="com.github.andriell.logger.BeepAppender" />
+    <appender name="consoleAppender" class="com.github.andriell.gui.AdapterStack">
+        <param name="AdapterId" value="1"/>
+    </appender>
 
     <category name="org.apache.http">
         <priority value="INFO" />

@@ -24,7 +24,7 @@
     <!-- Основное меню, корневой раздел Логи -->
     <bean id="gui-nav-three-log" class="com.github.andriell.gui.NavTreeItem">
         <property name="name" value="Логи" />
-        <property name="userObject" ref="gui-nav-three-log-error" />
+        <property name="userObject" ref="gui-log-error-work-area" />
         <property name="childNodes">
             <array>
                 <ref bean="gui-nav-three-log-error" />
@@ -71,9 +71,15 @@
     </bean>
 
     <!-- Рабочая область Ошибки -->
-    <bean id="gui-log-error-work-area" class="com.github.andriell.gui.LogWorkArea" />
-    <bean id="gui-log-sql-work-area" class="com.github.andriell.gui.LogWorkArea" />
-    <bean id="gui-log-http-work-area" class="com.github.andriell.gui.LogWorkArea" />
+    <bean id="gui-log-error-work-area" class="com.github.andriell.gui.LogWorkArea">
+        <property name="adapterId" value="1" />
+    </bean>
+    <bean id="gui-log-sql-work-area" class="com.github.andriell.gui.LogWorkArea" >
+        <property name="adapterId" value="1" />
+    </bean>
+    <bean id="gui-log-http-work-area" class="com.github.andriell.gui.LogWorkArea" >
+        <property name="adapterId" value="1" />
+    </bean>
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-process-work-area" />
     </bean>
