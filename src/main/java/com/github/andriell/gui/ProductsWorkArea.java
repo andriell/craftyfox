@@ -33,13 +33,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
     }
 
-    protected Component newFilter() {
-        JPanel jPanel = new JPanel(new BorderLayout());
-
-        jPanel.add(new JLabel("100500100500100500100500"));
-        return jPanel;
-    }
-
     private void createUIComponents() {
         filterPanel = new Filter(filterPanel);
     }
