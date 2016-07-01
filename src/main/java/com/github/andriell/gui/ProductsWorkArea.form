@@ -52,14 +52,27 @@
               </grid>
             </children>
           </scrollpane>
-          <component id="bd4e1" class="javax.swing.JButton" binding="addButton">
+          <grid id="36e65" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <text value="Add"/>
-            </properties>
-          </component>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="bd4e1" class="javax.swing.JButton" binding="addButton">
+                <constraints/>
+                <properties>
+                  <text value="Группа условий"/>
+                </properties>
+              </component>
+              <component id="22659" class="javax.swing.JButton" binding="условиеButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Условие"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>
