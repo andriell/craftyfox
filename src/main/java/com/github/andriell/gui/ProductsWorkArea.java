@@ -51,6 +51,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             rootPanel = this;
             this.parent = parent;
             setLayout(new BorderLayout());
+            setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
             northPanel = new JPanel(new FlowLayout());
             add(northPanel, BorderLayout.NORTH);
