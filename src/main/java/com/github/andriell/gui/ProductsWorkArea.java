@@ -1,6 +1,5 @@
 package com.github.andriell.gui;
 
-import com.jgoodies.forms.layout.FormLayout;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
@@ -67,6 +66,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     centerPanel.add(new Condition());
+                    centerPanel.updateUI();
                 }
             });
             conditionGroupBox = new JComboBox();
@@ -97,7 +97,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             JButton close;
 
             public Condition() {
-                setLayout(new FormLayout());
+                setLayout(new FlowLayout());
                 column = new JComboBox();
                 column.addItem("Id");
                 column.addItem("Id1");
