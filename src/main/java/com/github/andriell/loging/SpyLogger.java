@@ -9,6 +9,10 @@ import java.io.PrintStream;
  * Created by Rybalko on 01.07.2016.
  */
 public class SpyLogger extends FormattedLogger {
+    public SpyLogger() {
+        int i = 10;
+    }
+
     protected PrintStream getStream() {
         return System.out;
     }
@@ -18,7 +22,7 @@ public class SpyLogger extends FormattedLogger {
     }
 
     public void logText(String text) {
-        this.getStream().println(text);
+        System.out.println(text);
     }
 
     public boolean isCategoryEnabled(Category category) {

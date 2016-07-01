@@ -25,6 +25,10 @@ public class AdapterStack extends AppenderSkeleton {
      */
     @Override
     protected void append(LoggingEvent event) {
+        stack.put(event.categoryName);
+        stack.put(" ");
+        stack.put(event.level.toString());
+        stack.put(" ");
         stack.put(event.getRenderedMessage());
         stack.put("\n");
     }

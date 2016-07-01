@@ -28,15 +28,15 @@
     </category>
 
     <category name="org.hibernate">
-        <priority value="TRACE" />
+        <priority value="ERROR" />
         <appender-ref ref="appender2" />
     </category>
-    <category name="org.hibernate.sql">
+    <category name="org.hibernate.SQL">
         <priority value="TRACE" />
         <appender-ref ref="appender2" />
     </category>
     <category name="org.hibernate.type">
-        <priority value="TRACE" />
+        <priority value="DEBUG" />
         <appender-ref ref="appender2" />
     </category>
     <category name="org.hibernate.hql.ast.AST">
