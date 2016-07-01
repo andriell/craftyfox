@@ -13,6 +13,8 @@ public class LogWorkArea implements WorkArea, InitializingBean {
     private JPanel rootPanel;
     private JTextField sizeTextField;
     private JButton clearButton;
+    private JButton stopButton;
+    private boolean run = true;
 
     public String getName() {
         return "Ошибки";
@@ -32,12 +34,24 @@ public class LogWorkArea implements WorkArea, InitializingBean {
                 adapterStack.getStack().clear();
             }
         });
+        stopButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                run = !run;
+                if (run) {
+                    stopButton.setText("Stop");
+                } else {
+                    stopButton.setText("Run");
+                }
+            }
+        });
 
         new Thread(new Runnable() {
             public void run() {
                 try {
                     while (true) {
-                        errorTextArea.setText(adapterStack.getStack().toString());
+                        if (run) {
+                            errorTextArea.setText(adapterStack.getStack().toString());
+                        }
                         Thread.sleep(1000);
                     }
                 } catch (Exception e) {
