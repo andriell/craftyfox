@@ -27,17 +27,42 @@
         <appender-ref ref="appender3" />
     </category>
 
-    <category name="org.hibernate.SQL">
-        <priority value="INFO" />
+    <category name="org.hibernate">
+        <priority value="TRACE" />
+        <appender-ref ref="appender2" />
+    </category>
+    <category name="org.hibernate.sql">
+        <priority value="TRACE" />
         <appender-ref ref="appender2" />
     </category>
     <category name="org.hibernate.type">
         <priority value="TRACE" />
         <appender-ref ref="appender2" />
     </category>
+    <category name="org.hibernate.hql.ast.AST">
+        <priority value="ERROR" />
+        <appender-ref ref="appender2" />
+    </category>
+    <category name="org.hibernate.tool.hbm2ddl">
+        <priority value="ERROR" />
+        <appender-ref ref="appender2" />
+    </category>
+    <category name="org.hibernate.hql">
+        <priority value="ERROR" />
+        <appender-ref ref="appender2" />
+    </category>
+    <category name="org.hibernate.cache">
+        <priority value="ERROR" />
+        <appender-ref ref="appender2" />
+    </category>
+    <category name="org.hibernate.jdbc">
+        <priority value="ERROR" />
+        <appender-ref ref="appender2" />
+    </category>
+
 
     <root>
-        <priority value="DEBUG"/>
+        <priority value="ERROR"/>
         <appender-ref ref="appender1"/>
     </root>
 </log4j:configuration>
