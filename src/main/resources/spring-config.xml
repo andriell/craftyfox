@@ -18,6 +18,7 @@
                 <ref bean="gui-nav-three-log" />
                 <ref bean="gui-nav-three-process" />
                 <ref bean="gui-nav-three-nashorn" />
+                <ref bean="gui-nav-three-products" />
             </array>
         </property>
     </bean>
@@ -91,6 +92,12 @@
     <bean id="gui-process-work-area-table-model" class="com.github.andriell.gui.ProcessWorkAreaTableModel">
         <property name="processor" ref="processor" />
     </bean>
+    <!-- Основное меню, раздел Nashorn -->
+    <bean id="gui-nav-three-products" class="com.github.andriell.gui.NavTreeItem">
+        <property name="userObject" ref="gui-products-work-area" />
+    </bean>
+    <!-- Рабочая область Products -->
+    <bean id="gui-products-work-area" class="com.github.andriell.gui.ProductsWorkArea" />
     <!-- КОНЕЦ НАСТРОЙКИ GUI -->
 
     <!-- Nashorn - среда для выполнения JS -->
