@@ -4,13 +4,13 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 
-    <appender name="appender1" class="com.github.andriell.gui.AdapterStack">
+    <appender name="appender1" class="com.github.andriell.loging.AdapterStack">
         <param name="AdapterId" value="1"/>
     </appender>
-    <appender name="appender2" class="com.github.andriell.gui.AdapterStack">
+    <appender name="appender2" class="com.github.andriell.loging.AdapterStack">
         <param name="AdapterId" value="2"/>
     </appender>
-    <appender name="appender3" class="com.github.andriell.gui.AdapterStack">
+    <appender name="appender3" class="com.github.andriell.loging.AdapterStack">
         <param name="AdapterId" value="3"/>
     </appender>
 

@@ -1,5 +1,6 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.loging.AdapterStack;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;

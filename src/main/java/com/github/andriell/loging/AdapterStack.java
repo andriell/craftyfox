@@ -1,4 +1,4 @@
-package com.github.andriell.gui;
+package com.github.andriell.loging;
 
 import com.github.andriell.collection.StackString;
 import org.apache.log4j.AppenderSkeleton;
