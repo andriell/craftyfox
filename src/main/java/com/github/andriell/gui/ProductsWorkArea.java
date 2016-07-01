@@ -32,7 +32,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         addButton.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                filterPane.add(newFilter());
+                filterPane.add(new JLabel("100500100500100500100500"));
+                rootPanel.updateUI();
+                rootPanel.repaint();
             }
         });
     }
@@ -41,5 +43,11 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JPanel jPanel = new JPanel(new FlowLayout());
         jPanel.add(new JLabel("100500"));
         return jPanel;
+    }
+
+    private void createUIComponents() {
+        filterPane = new JPanel();
+        filterPane.setLayout(new BoxLayout(filterPane, BoxLayout.PAGE_AXIS));
+        filterPane.add(new JLabel("100500"));
     }
 }
