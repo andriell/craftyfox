@@ -1,5 +1,6 @@
 package com.github.andriell.gui;
 
+import com.jgoodies.forms.layout.FormLayout;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
@@ -63,6 +64,11 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 }
             });
             conditionButton = new JButton("Условие");
+            conditionButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    centerPanel.add(new Condition());
+                }
+            });
             conditionGroupBox = new JComboBox();
             conditionGroupBox.addItem("AND");
             conditionGroupBox.addItem("OR");
@@ -82,6 +88,40 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             centerPanel = new JPanel(new FlowLayout());
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
             add(centerPanel, BorderLayout.CENTER);
+        }
+
+        class Condition extends JPanel {
+            JComboBox column;
+            JComboBox condition;
+            JTextField value;
+            JButton close;
+
+            public Condition() {
+                setLayout(new FormLayout());
+                column = new JComboBox();
+                column.addItem("Id");
+                column.addItem("Id1");
+                column.addItem("Id2");
+                add(column);
+
+                condition = new JComboBox();
+                condition.addItem("=");
+                condition.addItem("!=");
+                condition.addItem(">");
+                condition.addItem(">=");
+                condition.addItem("<");
+                condition.addItem("<=");
+                condition.addItem("LIKE");
+                condition.addItem("IN");
+                condition.addItem("RANGE");
+                add(condition);
+
+                value = new JTextField();
+                add(value);
+
+                close = new JButton("X");
+                add(close);
+            }
         }
     }
 }
