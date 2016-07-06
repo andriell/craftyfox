@@ -1,6 +1,7 @@
 package com.github.andriell.gui;
 
 import com.github.andriell.db.ProductDao;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
 /**
  * Created by Rybalko on 01.07.2016.
@@ -101,7 +103,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                     public void actionPerformed(ActionEvent e) {
                         Filter filter = (Filter) filterPanel;
                         Junction junction = filter.render();
-                        System.out.println(junction);
+                        Criteria products = productDao.searchCriteria().add(junction);
+                        System.out.println(products);
+                        System.out.println(products.list());
                     }
                 });
             } else {

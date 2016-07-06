@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.sql.JoinType;
 
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,10 @@ public class ProductDaoImpl implements ProductDao {
     private SessionFactory sessionFactory;
 
     public Criteria searchCriteria() {
-        return sessionFactory.openSession().createCriteria(Product.class, "product").createAlias("property", "property");
+        return sessionFactory
+                .openSession()
+                .createCriteria(Product.class, "product")
+                .createAlias("property", "property", JoinType.LEFT_OUTER_JOIN);
     }
 
     public String[] searchFields() {

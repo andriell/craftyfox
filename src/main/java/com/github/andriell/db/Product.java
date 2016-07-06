@@ -111,4 +111,20 @@ public class Product {
     public boolean save() {
         return productDao.save(this);
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", site='" + site + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", price=" + price +
+                ", currency='" + currency + '\'' +
+                ", date=" + date +
+                ", property=" + property +
+                ", productDao=" + productDao +
+                '}';
+    }
 }
