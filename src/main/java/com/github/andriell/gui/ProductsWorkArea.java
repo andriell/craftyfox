@@ -20,9 +20,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     private JPanel paginationPanel;
     private JPanel dataPanel;
     private JPanel filterPanel;
-    private JPanel queryPanel;
-    private JButton queryButton;
-    private JTextArea textArea1;
 
     public String getName() {
         return name;
@@ -36,16 +33,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         return rootPanel;
     }
 
-    public void afterPropertiesSet() throws Exception {
-        queryButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                query.setLength(0);
-                Filter filter = (Filter) filterPanel;
-                filter.render();
-                textArea1.setText(query.toString());
-            }
-        });
-    }
+    public void afterPropertiesSet() throws Exception { }
 
     private void createUIComponents() {
         filterPanel = new Filter(null);
@@ -95,11 +83,22 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionGroupBox.addItem("AND");
             conditionGroupBox.addItem("OR");
 
-            northPanel.add(groupButton);
-            northPanel.add(conditionButton);
-            northPanel.add(conditionGroupBox);
 
-            if (p != null) {
+
+            if (p == null) {
+                closeButton = new JButton("Query");
+                closeButton.setFont(font);
+                closeButton.setMargin(insets);
+                closeButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        query.setLength(0);
+                        query.append("1 = 1 ");
+                        Filter filter = (Filter) filterPanel;
+                        filter.render();
+                        System.out.println(query.toString());
+                    }
+                });
+            } else {
                 closeButton = new JButton("X");
                 closeButton.setFont(font);
                 closeButton.setMargin(insets);
@@ -109,8 +108,12 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                         parent.updateUI();
                     }
                 });
-                northPanel.add(closeButton);
             }
+
+            northPanel.add(groupButton);
+            northPanel.add(conditionButton);
+            northPanel.add(conditionGroupBox);
+            northPanel.add(closeButton);
 
             JPanel centerPanel = new JPanel();
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
