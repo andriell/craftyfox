@@ -73,7 +73,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionButton.setMargin(insets);
             conditionButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    conditionPanel.add(new Condition(rootPanel));
+                    conditionPanel.add(new Condition(conditionPanel));
                     conditionPanel.updateUI();
                 }
             });
