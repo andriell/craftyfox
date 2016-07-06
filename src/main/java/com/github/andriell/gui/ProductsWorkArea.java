@@ -36,7 +36,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     }
 
     private void createUIComponents() {
-        filterPanel = new Filter(filterPanel);
+        filterPanel = new Filter(null);
     }
 
     class Filter extends JPanel {
@@ -50,7 +50,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JButton closeButton;
         JComboBox conditionGroupBox;
 
-        public Filter(final JPanel p) {
+        public Filter(JPanel p) {
             rootPanel = this;
             this.parent = p;
             setLayout(new BorderLayout());
@@ -83,20 +83,22 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionGroupBox.addItem("AND");
             conditionGroupBox.addItem("OR");
 
-            closeButton = new JButton("X");
-            closeButton.setFont(font);
-            closeButton.setMargin(insets);
-            closeButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    parent.remove(rootPanel);
-                    parent.updateUI();
-                }
-            });
-
             northPanel.add(groupButton);
             northPanel.add(conditionButton);
             northPanel.add(conditionGroupBox);
-            northPanel.add(closeButton);
+
+            if (p != null) {
+                closeButton = new JButton("X");
+                closeButton.setFont(font);
+                closeButton.setMargin(insets);
+                closeButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        parent.remove(rootPanel);
+                        parent.updateUI();
+                    }
+                });
+                northPanel.add(closeButton);
+            }
 
             JPanel centerPanel = new JPanel();
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
