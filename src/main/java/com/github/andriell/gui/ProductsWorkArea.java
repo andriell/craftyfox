@@ -41,7 +41,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JPanel rootPanel;
         JPanel parent;
         JPanel northPanel;
-        JPanel centerPanel;
+        JPanel conditionPanel;
+        JPanel groupPanel;
         JButton groupButton;
         JButton conditionButton;
         JButton closeButton;
@@ -63,8 +64,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             groupButton.setMargin(insets);
             groupButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    centerPanel.add(new Filter(rootPanel));
-                    centerPanel.updateUI();
+                    groupPanel.add(new Filter(groupPanel));
+                    groupPanel.updateUI();
                 }
             });
 
@@ -73,8 +74,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionButton.setMargin(insets);
             conditionButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    centerPanel.add(new Condition());
-                    centerPanel.updateUI();
+                    conditionPanel.add(new Condition());
+                    conditionPanel.updateUI();
                 }
             });
 
@@ -98,8 +99,17 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             northPanel.add(conditionGroupBox);
             northPanel.add(closeButton);
 
-            centerPanel = new JPanel(new FlowLayout());
+            JPanel centerPanel = new JPanel();
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
+
+            groupPanel = new JPanel();
+            groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.PAGE_AXIS));
+            centerPanel.add(groupPanel);
+
+            conditionPanel = new JPanel();
+            conditionPanel.setLayout(new BoxLayout(conditionPanel, BoxLayout.PAGE_AXIS));
+            centerPanel.add(conditionPanel);
+
             add(centerPanel, BorderLayout.CENTER);
         }
 
