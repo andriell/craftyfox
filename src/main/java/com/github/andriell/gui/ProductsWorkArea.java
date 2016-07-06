@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
  * Created by Rybalko on 01.07.2016.
  */
 public class ProductsWorkArea implements WorkArea, InitializingBean {
+    Font font = new Font("Segoe UI", Font.PLAIN, 10);
+    Insets insets = new Insets(2, 2, 2, 2);
     private String name = "Продукты";
     private JPanel rootPanel;
     private JPanel paginationPanel;
@@ -48,16 +50,13 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JButton closeButton;
         JComboBox conditionGroupBox;
 
-        Font font = new Font("Segoe UI", Font.PLAIN, 10);
-        Insets insets = new Insets(2, 2, 2, 2);
-
-        public Filter(final JPanel parent) {
+        public Filter(final JPanel p) {
             rootPanel = this;
-            this.parent = parent;
+            this.parent = p;
             setLayout(new BorderLayout());
             setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY)));
 
-            northPanel = new JPanel(new FlowLayout());
+            northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             add(northPanel, BorderLayout.NORTH);
             groupButton = new JButton("Группа");
             groupButton.setFont(font);
@@ -74,7 +73,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionButton.setMargin(insets);
             conditionButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    conditionPanel.add(new Condition());
+                    conditionPanel.add(new Condition(rootPanel));
                     conditionPanel.updateUI();
                 }
             });
@@ -112,46 +111,57 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
             add(centerPanel, BorderLayout.CENTER);
         }
+    }
 
-        class Condition extends JPanel {
-            JComboBox column;
-            JComboBox condition;
-            JTextField value;
-            JButton close;
+    class Condition extends JPanel {
+        JPanel rootPanel;
+        JComboBox column;
+        JComboBox condition;
+        JTextField value;
+        JButton close;
+        JPanel parent;
 
-            public Condition() {
-                setLayout(new FlowLayout());
-                column = new JComboBox();
-                column.setFont(font);
-                column.addItem("Id");
-                column.addItem("Id1");
-                column.addItem("Id2");
-                add(column);
+        public Condition(JPanel p) {
+            rootPanel = this;
+            this.parent = p;
 
-                condition = new JComboBox();
-                condition.setFont(font);
-                condition.addItem("=");
-                condition.addItem("!=");
-                condition.addItem(">");
-                condition.addItem(">=");
-                condition.addItem("<");
-                condition.addItem("<=");
-                condition.addItem("LIKE");
-                condition.addItem("IN");
-                condition.addItem("RANGE");
-                add(condition);
+            setLayout(new FlowLayout(FlowLayout.LEFT));
+            column = new JComboBox();
+            column.setFont(font);
+            column.addItem("Id");
+            column.addItem("Id1");
+            column.addItem("Id2");
+            add(column);
 
-                value = new JTextField();
-                value.setColumns(20);
-                value.setFont(font);
-                value.setMargin(insets);
-                add(value);
+            condition = new JComboBox();
+            condition.setFont(font);
+            condition.addItem("=");
+            condition.addItem("!=");
+            condition.addItem(">");
+            condition.addItem(">=");
+            condition.addItem("<");
+            condition.addItem("<=");
+            condition.addItem("LIKE");
+            condition.addItem("IN");
+            condition.addItem("RANGE");
+            add(condition);
 
-                close = new JButton("X");
-                close.setFont(font);
-                close.setMargin(insets);
-                add(close);
-            }
+            value = new JTextField();
+            value.setColumns(20);
+            value.setFont(font);
+            value.setMargin(insets);
+            add(value);
+
+            close = new JButton("X");
+            close.setFont(font);
+            close.setMargin(insets);
+            close.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    parent.remove(rootPanel);
+                    parent.updateUI();
+                }
+            });
+            add(close);
         }
     }
 }
