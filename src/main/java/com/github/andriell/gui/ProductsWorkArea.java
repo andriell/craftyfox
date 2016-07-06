@@ -13,13 +13,16 @@ import java.awt.event.ActionListener;
 public class ProductsWorkArea implements WorkArea, InitializingBean {
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
-    StringBuffer query = new StringBuffer();
+    StringBuilder query = new StringBuilder();
 
     private String name = "Продукты";
     private JPanel rootPanel;
     private JPanel paginationPanel;
     private JPanel dataPanel;
     private JPanel filterPanel;
+    private JPanel queryPanel;
+    private JButton queryButton;
+    private JTextArea textArea1;
 
     public String getName() {
         return name;
@@ -34,7 +37,14 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     }
 
     public void afterPropertiesSet() throws Exception {
-
+        queryButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                query.setLength(0);
+                Filter filter = (Filter) filterPanel;
+                filter.render();
+                textArea1.setText(query.toString());
+            }
+        });
     }
 
     private void createUIComponents() {
