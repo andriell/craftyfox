@@ -47,6 +47,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JButton closeButton;
         JComboBox conditionGroupBox;
 
+        Font font = new Font("Segoe UI", Font.PLAIN, 10);
+        Insets insets = new Insets(2, 2, 2, 2);
+
         public Filter(final JPanel parent) {
             rootPanel = this;
             this.parent = parent;
@@ -56,23 +59,33 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             northPanel = new JPanel(new FlowLayout());
             add(northPanel, BorderLayout.NORTH);
             groupButton = new JButton("Группа");
+            groupButton.setFont(font);
+            groupButton.setMargin(insets);
             groupButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     centerPanel.add(new Filter(rootPanel));
                     centerPanel.updateUI();
                 }
             });
+
             conditionButton = new JButton("Условие");
+            conditionButton.setFont(font);
+            conditionButton.setMargin(insets);
             conditionButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     centerPanel.add(new Condition());
                     centerPanel.updateUI();
                 }
             });
+
             conditionGroupBox = new JComboBox();
+            conditionGroupBox.setFont(font);
             conditionGroupBox.addItem("AND");
             conditionGroupBox.addItem("OR");
+
             closeButton = new JButton("X");
+            closeButton.setFont(font);
+            closeButton.setMargin(insets);
             closeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     parent.remove(rootPanel);
@@ -99,12 +112,14 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             public Condition() {
                 setLayout(new FlowLayout());
                 column = new JComboBox();
+                column.setFont(font);
                 column.addItem("Id");
                 column.addItem("Id1");
                 column.addItem("Id2");
                 add(column);
 
                 condition = new JComboBox();
+                condition.setFont(font);
                 condition.addItem("=");
                 condition.addItem("!=");
                 condition.addItem(">");
@@ -117,9 +132,14 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 add(condition);
 
                 value = new JTextField();
+                value.setColumns(20);
+                value.setFont(font);
+                value.setMargin(insets);
                 add(value);
 
                 close = new JButton("X");
+                close.setFont(font);
+                close.setMargin(insets);
                 add(close);
             }
         }
