@@ -2,6 +2,7 @@ package com.github.andriell.db;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -16,6 +17,10 @@ public class ProductDaoImpl implements ProductDao {
     private static final String PRICE = "price";
 
     private SessionFactory sessionFactory;
+
+    public Criteria createCriteria() {
+        return sessionFactory.openSession().createCriteria(Product.class);
+    }
 
     public Product findByCode(String code, Session session) {
         List<Product> users = session.createQuery("from Product where c_code=:code")

@@ -96,6 +96,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                         Filter filter = (Filter) filterPanel;
                         filter.render();
                         System.out.println(query.toString());
+
+
                     }
                 });
             } else {
