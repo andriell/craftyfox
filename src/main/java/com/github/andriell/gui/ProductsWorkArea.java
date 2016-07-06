@@ -1,6 +1,6 @@
 package com.github.andriell.gui;
 
-import com.github.andriell.db.ProductDaoImpl;
+import com.github.andriell.db.ProductDao;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
@@ -17,7 +17,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
     StringBuilder query = new StringBuilder();
-    ProductDaoImpl productDao;
+    ProductDao productDao;
 
     private String name = "Продукты";
     private JPanel rootPanel;
@@ -43,7 +43,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         filterPanel = new Filter(null);
     }
 
-    public void setProductDao(ProductDaoImpl productDao) {
+    public void setProductDao(ProductDao productDao) {
         this.productDao = productDao;
     }
 
@@ -180,9 +180,10 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             setLayout(new FlowLayout(FlowLayout.LEFT));
             column = new JComboBox();
             column.setFont(font);
-            column.addItem("Id");
-            column.addItem("Id1");
-            column.addItem("Id2");
+            String[] fields = productDao.searchFields();
+            for (String f:fields) {
+                column.addItem(f);
+            }
             add(column);
 
             condition = new JComboBox();

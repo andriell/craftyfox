@@ -16,10 +16,32 @@ public class ProductDaoImpl implements ProductDao {
     private static final Log LOG = LogFactory.getLog(ProductDaoImpl.class);
     private static final String PRICE = "price";
 
+    private static final String[] fields = {
+            "product.id",
+            "product.site",
+            "product.code",
+            "product.name",
+            "product.url",
+            "product.price",
+            "product.currency",
+            "product.date",
+            "property.name",
+            "property.isArray",
+            "property.integer",
+            "property.float",
+            "property.string",
+            "property.text",
+            "property.date",
+    };
+
     private SessionFactory sessionFactory;
 
-    public Criteria createCriteria() {
-        return sessionFactory.openSession().createCriteria(Product.class);
+    public Criteria searchCriteria() {
+        return sessionFactory.openSession().createCriteria(Product.class, "product").createAlias("property", "property");
+    }
+
+    public String[] searchFields() {
+        return fields;
     }
 
     public Product findByCode(String code, Session session) {
