@@ -1,5 +1,8 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.db.ProductDaoImpl;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
@@ -14,6 +17,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
     StringBuilder query = new StringBuilder();
+    ProductDaoImpl productDao;
+    Criteria criteria;
 
     private String name = "Продукты";
     private JPanel rootPanel;
@@ -39,9 +44,13 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         filterPanel = new Filter(null);
     }
 
+    public void setProductDao(ProductDaoImpl productDao) {
+        this.productDao = productDao;
+    }
+
     class Filter extends JPanel {
-        JPanel rootPanel;
-        JPanel parent;
+        Filter rootPanel;
+        Filter parent;
         JPanel northPanel;
         JPanel conditionPanel;
         JPanel filtersPanel;
@@ -50,7 +59,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JButton closeButton;
         JComboBox conditionGroupBox;
 
-        public Filter(JPanel p) {
+        public Filter(Filter p) {
             rootPanel = this;
             this.parent = p;
             setLayout(new BorderLayout());
@@ -63,7 +72,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             groupButton.setMargin(insets);
             groupButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    filtersPanel.add(new Filter(filtersPanel));
+                    filtersPanel.add(new Filter(rootPanel));
                     filtersPanel.updateUI();
                 }
             });
@@ -73,7 +82,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionButton.setMargin(insets);
             conditionButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    conditionPanel.add(new Condition(conditionPanel));
+                    conditionPanel.add(new Condition(rootPanel));
                     conditionPanel.updateUI();
                 }
             });
@@ -91,13 +100,10 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 closeButton.setMargin(insets);
                 closeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        query.setLength(0);
-                        query.append("1 = 1 ");
+                        criteria = productDao.createCriteria();
                         Filter filter = (Filter) filterPanel;
                         filter.render();
-                        System.out.println(query.toString());
-
-
+                        System.out.println(criteria.toString());
                     }
                 });
             } else {
@@ -106,8 +112,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 closeButton.setMargin(insets);
                 closeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        parent.remove(rootPanel);
-                        parent.updateUI();
+                        parent.filtersPanel.remove(rootPanel);
+                        parent.filtersPanel.updateUI();
                     }
                 });
             }
@@ -137,6 +143,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 for (Component component: components) {
                     if (component instanceof Filter) {
                         Filter filter = (Filter) component;
+
+                        criteria.add(Restrictions.like("имя", "Фриц%"));
+
                         query.append(conditionGroupBox.getSelectedItem().toString());
                         query.append(" (");
                         filter.render();
@@ -165,9 +174,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JComboBox condition;
         JTextField value;
         JButton close;
-        JPanel parent;
+        Filter parent;
 
-        public Condition(JPanel p) {
+        public Condition(Filter p) {
             rootPanel = this;
             this.parent = p;
 
@@ -203,8 +212,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             close.setMargin(insets);
             close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    parent.remove(rootPanel);
-                    parent.updateUI();
+                    parent.conditionPanel.remove(rootPanel);
+                    parent.conditionPanel.updateUI();
                 }
             });
             add(close);

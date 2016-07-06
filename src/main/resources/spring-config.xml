@@ -97,7 +97,9 @@
         <property name="userObject" ref="gui-products-work-area" />
     </bean>
     <!-- Рабочая область Products -->
-    <bean id="gui-products-work-area" class="com.github.andriell.gui.ProductsWorkArea" />
+    <bean id="gui-products-work-area" class="com.github.andriell.gui.ProductsWorkArea">
+        <property name="productDao" ref="productDaoImpl" />
+    </bean>
     <!-- КОНЕЦ НАСТРОЙКИ GUI -->
 
     <!-- Nashorn - среда для выполнения JS -->
