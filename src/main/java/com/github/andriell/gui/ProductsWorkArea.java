@@ -1,7 +1,7 @@
 package com.github.andriell.gui;
 
 import com.github.andriell.db.ProductDaoImpl;
-import org.hibernate.Criteria;
+import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -18,7 +18,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Insets insets = new Insets(2, 2, 2, 2);
     StringBuilder query = new StringBuilder();
     ProductDaoImpl productDao;
-    Criteria criteria;
 
     private String name = "Продукты";
     private JPanel rootPanel;
@@ -57,7 +56,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JButton groupButton;
         JButton conditionButton;
         JButton closeButton;
-        JComboBox conditionGroupBox;
+        JComboBox conditionComboBox;
 
         public Filter(Filter p) {
             rootPanel = this;
@@ -87,10 +86,10 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 }
             });
 
-            conditionGroupBox = new JComboBox();
-            conditionGroupBox.setFont(font);
-            conditionGroupBox.addItem("AND");
-            conditionGroupBox.addItem("OR");
+            conditionComboBox = new JComboBox();
+            conditionComboBox.setFont(font);
+            conditionComboBox.addItem("AND");
+            conditionComboBox.addItem("OR");
 
 
 
@@ -100,10 +99,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 closeButton.setMargin(insets);
                 closeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        criteria = productDao.createCriteria();
                         Filter filter = (Filter) filterPanel;
-                        filter.render();
-                        System.out.println(criteria.toString());
+                        Junction junction = filter.render();
+                        System.out.println(junction);
                     }
                 });
             } else {
@@ -120,7 +118,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
             northPanel.add(groupButton);
             northPanel.add(conditionButton);
-            northPanel.add(conditionGroupBox);
+            northPanel.add(conditionComboBox);
             northPanel.add(closeButton);
 
             JPanel centerPanel = new JPanel();
@@ -137,19 +135,20 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             add(centerPanel, BorderLayout.CENTER);
         }
 
-        public void render() {
+        public Junction render() {
+            Junction junction;
+            if ("AND".equals(conditionComboBox.getSelectedItem())) {
+                junction = Restrictions.and();
+            } else {
+                junction = Restrictions.or();
+            }
+
             Component[] components = filtersPanel.getComponents();
             if (components != null) {
                 for (Component component: components) {
                     if (component instanceof Filter) {
                         Filter filter = (Filter) component;
-
-                        criteria.add(Restrictions.like("имя", "Фриц%"));
-
-                        query.append(conditionGroupBox.getSelectedItem().toString());
-                        query.append(" (");
-                        filter.render();
-                        query.append(") ");
+                        junction.add(filter.render());
                     }
                 }
             }
@@ -158,13 +157,11 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 for (Component component: components) {
                     if (component instanceof Condition) {
                         Condition condition = (Condition) component;
-                        query.append(conditionGroupBox.getSelectedItem().toString());
-                        query.append(" (");
-                        condition.render();
-                        query.append(") ");
+                        condition.render(junction);
                     }
                 }
             }
+            return junction;
         }
     }
 
@@ -219,12 +216,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             add(close);
         }
 
-        public void render() {
-            query.append(column.getSelectedItem().toString());
-            query.append(" ");
-            query.append(condition.getSelectedItem().toString());
-            query.append(" ");
-            query.append(value.getText());
+        public void render(Junction junction) {
+            junction.add(Restrictions.eq(column.getSelectedItem().toString(), condition.getSelectedItem().toString()));
         }
     }
 }
