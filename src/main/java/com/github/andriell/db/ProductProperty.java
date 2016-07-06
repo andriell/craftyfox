@@ -211,4 +211,19 @@ public class ProductProperty {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    @Override
+    public String toString() {
+        return "ProductProperty{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", isArray='" + isArray + '\'' +
+                ", name='" + name + '\'' +
+                ", integer=" + integer +
+                ", aFloat=" + aFloat +
+                ", string='" + string + '\'' +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }
