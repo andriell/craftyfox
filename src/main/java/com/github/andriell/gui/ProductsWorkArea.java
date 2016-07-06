@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 public class ProductsWorkArea implements WorkArea, InitializingBean {
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
+    StringBuffer query = new StringBuffer();
+
     private String name = "Продукты";
     private JPanel rootPanel;
     private JPanel paginationPanel;
@@ -44,7 +46,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         JPanel parent;
         JPanel northPanel;
         JPanel conditionPanel;
-        JPanel groupPanel;
+        JPanel filtersPanel;
         JButton groupButton;
         JButton conditionButton;
         JButton closeButton;
@@ -63,8 +65,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             groupButton.setMargin(insets);
             groupButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    groupPanel.add(new Filter(groupPanel));
-                    groupPanel.updateUI();
+                    filtersPanel.add(new Filter(filtersPanel));
+                    filtersPanel.updateUI();
                 }
             });
 
@@ -103,15 +105,42 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             JPanel centerPanel = new JPanel();
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
 
-            groupPanel = new JPanel();
-            groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.PAGE_AXIS));
-            centerPanel.add(groupPanel);
+            filtersPanel = new JPanel();
+            filtersPanel.setLayout(new BoxLayout(filtersPanel, BoxLayout.PAGE_AXIS));
+            centerPanel.add(filtersPanel);
 
             conditionPanel = new JPanel();
             conditionPanel.setLayout(new BoxLayout(conditionPanel, BoxLayout.PAGE_AXIS));
             centerPanel.add(conditionPanel);
 
             add(centerPanel, BorderLayout.CENTER);
+        }
+
+        public void render() {
+            Component[] components = filtersPanel.getComponents();
+            if (components != null) {
+                for (Component component: components) {
+                    if (component instanceof Filter) {
+                        Filter filter = (Filter) component;
+                        query.append(conditionGroupBox.getSelectedItem().toString());
+                        query.append(" (");
+                        filter.render();
+                        query.append(") ");
+                    }
+                }
+            }
+            components = conditionPanel.getComponents();
+            if (components != null) {
+                for (Component component: components) {
+                    if (component instanceof Condition) {
+                        Condition condition = (Condition) component;
+                        query.append(conditionGroupBox.getSelectedItem().toString());
+                        query.append(" (");
+                        condition.render();
+                        query.append(") ");
+                    }
+                }
+            }
         }
     }
 
@@ -164,6 +193,14 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 }
             });
             add(close);
+        }
+
+        public void render() {
+            query.append(column.getSelectedItem().toString());
+            query.append(" ");
+            query.append(condition.getSelectedItem().toString());
+            query.append(" ");
+            query.append(value.getText());
         }
     }
 }
