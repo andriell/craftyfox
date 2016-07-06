@@ -217,7 +217,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         }
 
         public void render(Junction junction) {
-            junction.add(Restrictions.eq(column.getSelectedItem().toString(), condition.getSelectedItem().toString()));
+            junction.add(Restrictions.eq(column.getSelectedItem().toString(), value.getText()));
         }
     }
 }
