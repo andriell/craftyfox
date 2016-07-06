@@ -34,6 +34,23 @@ public class ProductDaoImpl implements ProductDao {
             "property.text",
             "property.date",
     };
+    private static final int[] fieldsType = {
+            ProductDao.TYPE_INT,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_FLOAT,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_DATE,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_INT,
+            ProductDao.TYPE_FLOAT,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_STRING,
+            ProductDao.TYPE_DATE,
+    };
 
     private SessionFactory sessionFactory;
 
@@ -46,6 +63,13 @@ public class ProductDaoImpl implements ProductDao {
 
     public String[] searchFields() {
         return fields;
+    }
+
+    public int searchFieldsType(int i) {
+        if (i > fieldsType.length) {
+            return -1;
+        }
+        return fieldsType[i];
     }
 
     public Product findByCode(String code, Session session) {

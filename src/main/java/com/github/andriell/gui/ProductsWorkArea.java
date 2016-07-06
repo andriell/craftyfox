@@ -1,6 +1,8 @@
 package com.github.andriell.gui;
 
 import com.github.andriell.db.ProductDao;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
@@ -10,12 +12,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Created by Rybalko on 01.07.2016.
  */
 public class ProductsWorkArea implements WorkArea, InitializingBean {
+    private static final Log LOG = LogFactory.getLog(ProductsWorkArea.class);
+
+    private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
     StringBuilder query = new StringBuilder();
@@ -226,7 +234,20 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
         public void render(Junction junction) {
             String[] s;
-            String val = value.getText();
+            int type = productDao.searchFieldsType(column.getSelectedIndex());
+            Object val = value.getText();
+            if (type == ProductDao.TYPE_INT) {
+                val = Integer.parseInt(value.getText());
+            } else if (type == ProductDao.TYPE_FLOAT) {
+                val = Float.parseFloat(value.getText());
+            } else if (type == ProductDao.TYPE_DATE) {
+                try {
+                    val = FORMAT.parse(value.getText());
+                } catch (ParseException e) {
+                    LOG.error(this, e);
+                }
+            }
+
             String cond = condition.getSelectedItem().toString();
             String col = column.getSelectedItem().toString();
             if ("==".equals(cond)) {
@@ -243,7 +264,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 junction.add(Restrictions.le(col, val));
             } else if ("LIKE".equals(cond)) {
                 junction.add(Restrictions.like(col, val));
-            } else if ("IN".equals(cond)) {
+            } /*else if ("IN".equals(cond)) {
                 s = val.split(";");
                 junction.add(Restrictions.in(col, s));
             } else if ("NOT IN".equals(cond)) {
@@ -254,7 +275,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 if (s.length == 2) {
                     junction.add(Restrictions.between(col, s[0].trim(), s[1].trim()));
                 }
-            } else if ("NULL".equals(cond)) {
+            }*/ else if ("NULL".equals(cond)) {
                 junction.add(Restrictions.isNull(col));
             } else if ("NOT NULL".equals(cond)) {
                 junction.add(Restrictions.isNotNull(col));
