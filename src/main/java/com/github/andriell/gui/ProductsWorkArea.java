@@ -221,6 +221,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         }
 
         public void render(Junction junction) {
+            String[] s;
             String val = value.getText();
             String cond = condition.getSelectedItem().toString();
             String col = column.getSelectedItem().toString();
@@ -239,11 +240,13 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             } else if ("LIKE".equals(cond)) {
                 junction.add(Restrictions.like(col, val));
             } else if ("IN".equals(cond)) {
-                junction.add(Restrictions.in(col, val));
+                s = val.split(";");
+                junction.add(Restrictions.in(col, s));
             } else if ("NOT IN".equals(cond)) {
-                Restrictions.not(junction.add(Restrictions.in(col, val)));
+                s = val.split(";");
+                junction.add(Restrictions.not(Restrictions.in(col, s)));
             } else if ("RANGE".equals(cond) && val != null) {
-                String[] s = val.split(";", 2);
+                s = val.split(";", 2);
                 if (s.length == 2) {
                     junction.add(Restrictions.between(col, s[0].trim(), s[1].trim()));
                 }
