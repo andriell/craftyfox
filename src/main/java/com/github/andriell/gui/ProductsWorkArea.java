@@ -188,7 +188,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
             condition = new JComboBox();
             condition.setFont(font);
-            condition.addItem("=");
+            condition.addItem("==");
             condition.addItem("!=");
             condition.addItem(">");
             condition.addItem(">=");
@@ -196,7 +196,10 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             condition.addItem("<=");
             condition.addItem("LIKE");
             condition.addItem("IN");
+            condition.addItem("NOT IN");
             condition.addItem("RANGE");
+            condition.addItem("NULL");
+            condition.addItem("NOT NULL");
             add(condition);
 
             value = new JTextField();
@@ -218,7 +221,37 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         }
 
         public void render(Junction junction) {
-            junction.add(Restrictions.eq(column.getSelectedItem().toString(), value.getText()));
+            String val = value.getText();
+            String cond = condition.getSelectedItem().toString();
+            String col = column.getSelectedItem().toString();
+            if ("==".equals(cond)) {
+                junction.add(Restrictions.eq(col, val));
+            } else if ("!=".equals(cond)) {
+                junction.add(Restrictions.ne(col, val));
+            } else if (">".equals(cond)) {
+                junction.add(Restrictions.gt(col, val));
+            } else if (">=".equals(cond)) {
+                junction.add(Restrictions.ge(col, val));
+            } else if ("<".equals(cond)) {
+                junction.add(Restrictions.lt(col, val));
+            } else if ("<=".equals(cond)) {
+                junction.add(Restrictions.le(col, val));
+            } else if ("LIKE".equals(cond)) {
+                junction.add(Restrictions.like(col, val));
+            } else if ("IN".equals(cond)) {
+                junction.add(Restrictions.in(col, val));
+            } else if ("NOT IN".equals(cond)) {
+                Restrictions.not(junction.add(Restrictions.in(col, val)));
+            } else if ("RANGE".equals(cond) && val != null) {
+                String[] s = val.split(";", 2);
+                if (s.length == 2) {
+                    junction.add(Restrictions.between(col, s[0].trim(), s[1].trim()));
+                }
+            } else if ("NULL".equals(cond)) {
+                junction.add(Restrictions.isNull(col));
+            } else if ("NOT NULL".equals(cond)) {
+                junction.add(Restrictions.isNotNull(col));
+            }
         }
     }
 }
