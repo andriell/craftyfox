@@ -262,24 +262,16 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             String[] s;
             int type = productDao.searchFieldsType(column.getSelectedIndex());
             Object val = value.getText();
-            if (type == ProductDao.TYPE_INT) {
-                try {
+            try {
+                if (type == ProductDao.TYPE_INT) {
                     val = Integer.parseInt(value.getText());
-                } catch (Exception e) {
-                    LOG.error(this, e);
-                }
-            } else if (type == ProductDao.TYPE_FLOAT) {
-                try {
+                } else if (type == ProductDao.TYPE_FLOAT) {
                     val = Float.parseFloat(value.getText());
-                } catch (Exception e) {
-                    LOG.error(this, e);
-                }
-            } else if (type == ProductDao.TYPE_DATE) {
-                try {
+                } else if (type == ProductDao.TYPE_DATE) {
                     val = FORMAT.parse(value.getText());
-                } catch (Exception e) {
-                    LOG.error(this, e);
                 }
+            } catch (Exception e) {
+                LOG.error(this, e);
             }
 
             String cond = condition.getSelectedItem().toString();
