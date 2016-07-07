@@ -18,6 +18,15 @@ public class Product {
     private Date date = new Date();
     private Set<ProductProperty> property = new HashSet<ProductProperty>(0);
     private ProductDao productDao;
+    private float priceDelta;
+
+    public float getPriceDelta() {
+        return (float) (Math.rint(100.0 * priceDelta) / 100.0);
+    }
+
+    public void setPriceDelta(float priceDelta) {
+        this.priceDelta = (float) (Math.rint(100.0 * priceDelta) / 100.0);
+    }
 
     public String getSite() {
         return site;
@@ -60,11 +69,11 @@ public class Product {
     }
 
     public float getPrice() {
-        return price;
+        return (float) (Math.rint(100.0 * price) / 100.0);
     }
 
     public void setPrice(float price) {
-        this.price = price;
+        this.price = (float) (Math.rint(100.0 * price) / 100.0);
     }
 
     public String getCurrency() {

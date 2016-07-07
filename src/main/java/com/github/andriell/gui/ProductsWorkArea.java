@@ -143,9 +143,11 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                         LOG.debug(junction.toString());
 
                         List<Product> products = productsList.list();
-                        //dataPanel.removeAll();
-                        for (Product product : products) {
-                            dataPanel.add(new Item(product));
+                        dataPanel.removeAll();
+                        if (products != null) {
+                            for (Product product : products) {
+                                dataPanel.add(new Item(product));
+                            }
                         }
                         dataPanel.updateUI();
                     }

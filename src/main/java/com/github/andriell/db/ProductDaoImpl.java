@@ -25,6 +25,7 @@ public class ProductDaoImpl implements ProductDao {
             "product.name",
             "product.url",
             "product.price",
+            "product.priceDelta",
             "product.currency",
             "product.date",
             "property.name",
@@ -41,6 +42,7 @@ public class ProductDaoImpl implements ProductDao {
             ProductDao.TYPE_STRING,
             ProductDao.TYPE_STRING,
             ProductDao.TYPE_STRING,
+            ProductDao.TYPE_FLOAT,
             ProductDao.TYPE_FLOAT,
             ProductDao.TYPE_STRING,
             ProductDao.TYPE_DATE,
@@ -104,11 +106,11 @@ public class ProductDaoImpl implements ProductDao {
                 .list();
     }
 
-    public float getLastPrice(int productId) {
-        List<ProductProperty> products = getSessionFactory()
-                .getCurrentSession()
-                .createQuery("from ProductProperty where product_id=:product_id AND c_name=\"price\" order by date desc limit 1")
+    public float getLastPrice(int productId, Session session) {
+        List<ProductProperty> products = session
+                .createQuery("from ProductProperty where product_id=:product_id AND c_name=:name order by date desc limit 1")
                 .setParameter("product_id", productId)
+                .setParameter("name", PRICE)
                 .list();
         if (products.size() > 0) {
             return products.get(0).getFloat();
@@ -120,27 +122,27 @@ public class ProductDaoImpl implements ProductDao {
     public boolean save(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         try {
             Product productOld = findByCode(product.getCode(), session);
             if (productOld != null) {
                 product.setId(productOld.getId());
-                session.merge(product);
             } else {
                 session.save(product);
             }
             clearProperty(product.getId(), session);
             Set<ProductProperty> properties = product.getProperty();
             for (ProductProperty property: properties) {
-                if (PRICE.equals(property.getName()) && property.getFloat() == getLastPrice(product.getId())) {
+                if (PRICE.equals(property.getName())) {
                     Float newPrice = property.getFloat();
-                    Float oldPrice = getLastPrice(product.getId());
+                    Float oldPrice = getLastPrice(product.getId(), session);
                     if (oldPrice == newPrice) {
                         continue;
                     }
+                    product.setPriceDelta(oldPrice - newPrice);
                 }
                 session.save(property);
             }
+            session.merge(product);
             session.getTransaction().commit();
         } catch (Exception e) {
             LOG.error(this, e);

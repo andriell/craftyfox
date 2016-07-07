@@ -13,6 +13,7 @@
         <property name="name" column="c_name" type="string" index="index_product_name"/>
         <property name="url" column="c_url" type="text"/>
         <property name="price" column="c_price" type="float" index="index_product_price"/>
+        <property name="priceDelta" column="c_price_delta" type="float" index="index_price_behavior"/>
         <property name="currency" column="c_currency" type="string" length="3" index="index_product_currency"/>
         <property name="date" column="c_date" type="timestamp" index="index_product_date"/>
         <set name="property" table="product_property" inverse="true" lazy="true" fetch="select">
