@@ -78,11 +78,11 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public Product findByCode(String code, Session session) {
-        List<Product> users = session.createQuery("from Product where c_code=:code")
+        List<Product> products = session.createQuery("from Product where c_code=:code")
                 .setParameter("code", code)
                 .list();
-        if (users.size() > 0) {
-            return users.get(0);
+        if (products.size() > 0) {
+            return products.get(0);
         } else {
             return null;
         }
@@ -104,6 +104,19 @@ public class ProductDaoImpl implements ProductDao {
                 .list();
     }
 
+    public float getLastPrice(int productId) {
+        List<ProductProperty> products = getSessionFactory()
+                .getCurrentSession()
+                .createQuery("from ProductProperty where product_id=:product_id AND c_name=\"price\" order by date desc limit 1")
+                .setParameter("product_id", productId)
+                .list();
+        if (products.size() > 0) {
+            return products.get(0).getFloat();
+        } else {
+            return 0.0f;
+        }
+    }
+
     public boolean save(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -119,9 +132,13 @@ public class ProductDaoImpl implements ProductDao {
             clearProperty(product.getId(), session);
             Set<ProductProperty> properties = product.getProperty();
             for (ProductProperty property: properties) {
-                /*if (PRICE.equals(property.getName()) && product.getPrice() == property.getFloat()) {
-                    continue; // Если цена не изменилась, то ее не нужно обновлять
-                }*/
+                if (PRICE.equals(property.getName()) && property.getFloat() == getLastPrice(product.getId())) {
+                    Float newPrice = property.getFloat();
+                    Float oldPrice = getLastPrice(product.getId());
+                    if (oldPrice == newPrice) {
+                        continue;
+                    }
+                }
                 session.save(property);
             }
             session.getTransaction().commit();

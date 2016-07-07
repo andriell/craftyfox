@@ -163,11 +163,11 @@ public class ProductProperty {
     }
 
     public float getFloat() {
-        return aFloat;
+        return (float) (Math.rint(100.0 * aFloat) / 100.0);
     }
 
     public void setFloat(float aFloat) {
-        this.aFloat = aFloat;
+        this.aFloat = (float) (Math.rint(100.0 * aFloat) / 100.0);
     }
 
     public String getString() {
