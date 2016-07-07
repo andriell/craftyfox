@@ -13,6 +13,7 @@ public interface ProductDao {
 
     public boolean save(Product product);
     public Criteria searchCriteria();
+    public Criteria countCriteria();
     public String[] searchFields();
     public int searchFieldsType(int i);
 }

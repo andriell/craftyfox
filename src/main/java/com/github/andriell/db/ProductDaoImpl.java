@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.sql.JoinType;
 
 import java.util.List;
@@ -59,6 +60,10 @@ public class ProductDaoImpl implements ProductDao {
                 .openSession()
                 .createCriteria(Product.class, "product")
                 .createAlias("property", "property", JoinType.LEFT_OUTER_JOIN);
+    }
+
+    public Criteria countCriteria() {
+        return searchCriteria().setProjection(Projections.countDistinct("product.id"));
     }
 
     public String[] searchFields() {

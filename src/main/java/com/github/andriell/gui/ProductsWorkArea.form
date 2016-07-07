@@ -11,7 +11,56 @@
         <constraints border-constraint="South"/>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="dd2f7" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text value="Page:"/>
+            </properties>
+          </component>
+          <component id="7fc0b" class="javax.swing.JButton" binding="prevButton">
+            <constraints/>
+            <properties>
+              <margin top="0" left="7" bottom="0" right="7"/>
+              <preferredSize width="46" height="24"/>
+              <text value="&lt;&lt;"/>
+            </properties>
+          </component>
+          <component id="a3058" class="javax.swing.JTextField" binding="pageTextField">
+            <constraints/>
+            <properties>
+              <columns value="3"/>
+              <text value="0"/>
+            </properties>
+          </component>
+          <component id="51bf4" class="javax.swing.JButton" binding="nextButton">
+            <constraints/>
+            <properties>
+              <margin top="0" left="7" bottom="0" right="7"/>
+              <preferredSize width="46" height="24"/>
+              <text value="&gt;&gt;"/>
+            </properties>
+          </component>
+          <component id="b7312" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text value="In page:"/>
+            </properties>
+          </component>
+          <component id="913c5" class="javax.swing.JTextField" binding="inPageTextField">
+            <constraints/>
+            <properties>
+              <columns value="3"/>
+              <text value="20"/>
+            </properties>
+          </component>
+          <component id="813e3" class="javax.swing.JLabel" binding="totalLabel">
+            <constraints/>
+            <properties>
+              <text value="Total: "/>
+            </properties>
+          </component>
+        </children>
       </grid>
       <grid id="9ee3" binding="dataPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>

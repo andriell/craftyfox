@@ -33,6 +33,11 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     private JPanel paginationPanel;
     private JPanel dataPanel;
     private JPanel filterPanel;
+    private JTextField pageTextField;
+    private JTextField inPageTextField;
+    private JLabel totalLabel;
+    private JButton nextButton;
+    private JButton prevButton;
     private Filter filter;
 
     public String getName() {
@@ -45,6 +50,10 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
     public JPanel getRootPanel() {
         return rootPanel;
+    }
+
+    private void printProducts() {
+
     }
 
     public void afterPropertiesSet() throws Exception {
@@ -114,9 +123,18 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 closeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         Junction junction = filter.render();
-                        Criteria products = productDao.searchCriteria().add(junction);
-                        System.out.println(products);
-                        System.out.println(products.list());
+                        Criteria criteriaCount = productDao.countCriteria().add(junction);
+                        Long count = (Long) criteriaCount.uniqueResult();
+                        totalLabel.setText("Total: " + count);
+
+                        Criteria productsList = productDao.searchCriteria().add(junction);
+                        int page = Integer.parseInt(pageTextField.getText());
+                        int inPage = Integer.parseInt(inPageTextField.getText());
+                        productsList.setFirstResult(page * inPage);
+                        productsList.setMaxResults(inPage);
+
+                        System.out.println(junction.toString());
+                        System.out.println(productsList.list());
                     }
                 });
             } else {
