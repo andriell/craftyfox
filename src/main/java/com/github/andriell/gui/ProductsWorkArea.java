@@ -9,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +26,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
-    CompoundBorder border = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-    StringBuilder query = new StringBuilder();
     ProductDao productDao;
 
     private String name = "Продукты";
@@ -78,7 +75,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             rootPanel = this;
             this.parent = p;
             setLayout(new BorderLayout());
-            setBorder(border);
+            setBorder(Colors.nextBorder());
 
             northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             //northPanel.setBorder(border);
