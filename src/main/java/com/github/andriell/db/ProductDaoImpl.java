@@ -140,7 +140,7 @@ public class ProductDaoImpl implements ProductDao {
                         continue;
                     }
                     if (oldPrice > 0) {
-                        product.setPriceDelta(oldPrice - newPrice);
+                        product.setPriceDelta(newPrice - oldPrice);
                     }
                 }
                 session.save(property);
