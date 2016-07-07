@@ -1,5 +1,6 @@
 package com.github.andriell.gui;
 
+import com.github.andriell.db.Product;
 import com.github.andriell.db.ProductDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -132,8 +134,14 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                         productsList.setFirstResult(page * inPage);
                         productsList.setMaxResults(inPage);
 
-                        System.out.println(junction.toString());
-                        System.out.println(productsList.list());
+                        LOG.debug(junction.toString());
+
+                        List<Product> products = productsList.list();
+                        //dataPanel.removeAll();
+                        for (Product product:products) {
+                            dataPanel.add(new Item(product));
+                        }
+                        dataPanel.updateUI();
                     }
                 });
             } else {
@@ -306,6 +314,19 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             } else if ("NOT NULL".equals(cond)) {
                 junction.add(Restrictions.isNotNull(col));
             }
+        }
+    }
+
+    class Item extends JPanel {
+        private Item rootPanel;
+        public Item(Product product) {
+            rootPanel = this;
+
+            setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
+            setBorder(Colors.nextBorder());
+
+            add(new JLabel(product.getId() + ": " + product.getName()));
+            add(new JLabel(product.getUrl()));
         }
     }
 }
