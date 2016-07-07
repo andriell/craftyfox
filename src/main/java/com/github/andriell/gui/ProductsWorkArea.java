@@ -9,13 +9,14 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Locale;
 
 /**
  * Created by Rybalko on 01.07.2016.
@@ -26,6 +27,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
+    CompoundBorder border = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY));
     StringBuilder query = new StringBuilder();
     ProductDao productDao;
 
@@ -34,6 +36,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     private JPanel paginationPanel;
     private JPanel dataPanel;
     private JPanel filterPanel;
+    private Filter filter;
 
     public String getName() {
         return name;
@@ -47,10 +50,13 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         return rootPanel;
     }
 
-    public void afterPropertiesSet() throws Exception { }
+    public void afterPropertiesSet() throws Exception {
+        filter = new Filter(null);
+        filterPanel.add(filter, BorderLayout.CENTER);
+    }
 
     private void createUIComponents() {
-        filterPanel = new Filter(null);
+
     }
 
     public void setProductDao(ProductDao productDao) {
@@ -72,9 +78,10 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             rootPanel = this;
             this.parent = p;
             setLayout(new BorderLayout());
-            setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), BorderFactory.createLineBorder(Color.LIGHT_GRAY)));
+            setBorder(border);
 
             northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            //northPanel.setBorder(border);
             add(northPanel, BorderLayout.NORTH);
             groupButton = new JButton("Группа");
             groupButton.setFont(font);
@@ -109,7 +116,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 closeButton.setMargin(insets);
                 closeButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        Filter filter = (Filter) filterPanel;
                         Junction junction = filter.render();
                         Criteria products = productDao.searchCriteria().add(junction);
                         System.out.println(products);
@@ -134,15 +140,19 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             northPanel.add(closeButton);
 
             JPanel centerPanel = new JPanel();
-            centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
-
-            filtersPanel = new JPanel();
-            filtersPanel.setLayout(new BoxLayout(filtersPanel, BoxLayout.PAGE_AXIS));
-            centerPanel.add(filtersPanel);
+            centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
             conditionPanel = new JPanel();
-            conditionPanel.setLayout(new BoxLayout(conditionPanel, BoxLayout.PAGE_AXIS));
+            conditionPanel.setLayout(new BoxLayout(conditionPanel, BoxLayout.Y_AXIS));
+            //conditionPanel.setBorder(border);
             centerPanel.add(conditionPanel);
+
+            filtersPanel = new JPanel();
+            filtersPanel.setLayout(new BoxLayout(filtersPanel, BoxLayout.Y_AXIS));
+            //filtersPanel.setBorder(border);
+            centerPanel.add(filtersPanel);
+
+            //centerPanel.add(new JPanel(new BorderLayout()));
 
             add(centerPanel, BorderLayout.CENTER);
         }
@@ -190,6 +200,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             this.parent = p;
 
             setLayout(new FlowLayout(FlowLayout.LEFT));
+            //setBorder(border);
+            setMaximumSize(new Dimension(500, 35));
             column = new JComboBox();
             column.setFont(font);
             String[] fields = productDao.searchFields();
