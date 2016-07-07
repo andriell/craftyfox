@@ -57,7 +57,7 @@
           <component id="813e3" class="javax.swing.JLabel" binding="totalLabel">
             <constraints/>
             <properties>
-              <text value="Total: "/>
+              <text value="Total: 0"/>
             </properties>
           </component>
         </children>
