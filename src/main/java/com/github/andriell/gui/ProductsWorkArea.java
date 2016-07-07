@@ -13,7 +13,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -264,13 +263,21 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             int type = productDao.searchFieldsType(column.getSelectedIndex());
             Object val = value.getText();
             if (type == ProductDao.TYPE_INT) {
-                val = Integer.parseInt(value.getText());
+                try {
+                    val = Integer.parseInt(value.getText());
+                } catch (Exception e) {
+                    LOG.error(this, e);
+                }
             } else if (type == ProductDao.TYPE_FLOAT) {
-                val = Float.parseFloat(value.getText());
+                try {
+                    val = Float.parseFloat(value.getText());
+                } catch (Exception e) {
+                    LOG.error(this, e);
+                }
             } else if (type == ProductDao.TYPE_DATE) {
                 try {
                     val = FORMAT.parse(value.getText());
-                } catch (ParseException e) {
+                } catch (Exception e) {
                     LOG.error(this, e);
                 }
             }
