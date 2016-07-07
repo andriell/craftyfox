@@ -13,6 +13,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URI;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -60,6 +64,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         filter = new Filter(null);
         filterPanel.add(filter, BorderLayout.CENTER);
+        dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.Y_AXIS));
     }
 
     private void createUIComponents() {
@@ -116,7 +121,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             conditionComboBox.addItem("OR");
 
 
-
             if (p == null) {
                 closeButton = new JButton("Query");
                 closeButton.setFont(font);
@@ -138,7 +142,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
                         List<Product> products = productsList.list();
                         //dataPanel.removeAll();
-                        for (Product product:products) {
+                        for (Product product : products) {
                             dataPanel.add(new Item(product));
                         }
                         dataPanel.updateUI();
@@ -189,7 +193,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
             Component[] components = filtersPanel.getComponents();
             if (components != null) {
-                for (Component component: components) {
+                for (Component component : components) {
                     if (component instanceof Filter) {
                         Filter filter = (Filter) component;
                         junction.add(filter.render());
@@ -198,7 +202,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             }
             components = conditionPanel.getComponents();
             if (components != null) {
-                for (Component component: components) {
+                for (Component component : components) {
                     if (component instanceof Condition) {
                         Condition condition = (Condition) component;
                         condition.render(junction);
@@ -227,7 +231,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             column = new JComboBox();
             column.setFont(font);
             String[] fields = productDao.searchFields();
-            for (String f:fields) {
+            for (String f : fields) {
                 column.addItem(f);
             }
             add(column);
@@ -326,7 +330,32 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             setBorder(Colors.nextBorder());
 
             add(new JLabel(product.getId() + ": " + product.getName()));
-            add(new JLabel(product.getUrl()));
+            add(new LabelUrl(product.getUrl()));
+        }
+    }
+
+    class LabelUrl extends JLabel {
+        private URI uri;
+
+        public LabelUrl(String text) {
+            super(text);
+            try {
+                uri = new URL(text).toURI();
+            } catch (Exception e) {
+                LOG.error(this, e);
+            }
+            setCursor(new Cursor(Cursor.HAND_CURSOR));
+            addMouseListener(new ClickListener());
+        }
+
+        public class ClickListener extends MouseAdapter {
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(uri);
+                } catch (Exception e1) {
+                    LOG.error(this, e1);
+                }
+            }
         }
     }
 }
