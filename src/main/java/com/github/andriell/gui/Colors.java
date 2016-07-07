@@ -1,6 +1,7 @@
 package com.github.andriell.gui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
 
@@ -10,17 +11,19 @@ import java.awt.*;
 public class Colors {
     public static Color[] colors;
     public static CompoundBorder[] borders;
+    public static Border emptyBorder;
     private static int position = 0;
 
     static {
         colors = new Color[27];
-        borders = new CompoundBorder[27];
+        borders = new CompoundBorder[colors.length];
+        emptyBorder = BorderFactory.createEmptyBorder(4, 4, 4, 4);
         int i = 0;
         for (int r = 64; r < 256; r += 64) {
             for (int g = 64; g < 256; g += 64) {
                 for (int b = 64; b < 256; b += 64) {
                     colors[i] = new Color(r, g, b);
-                    borders[i] = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createLineBorder(colors[i], 2));
+                    borders[i] = BorderFactory.createCompoundBorder(emptyBorder, BorderFactory.createLineBorder(colors[i], 2));
                     i++;
                 }
             }
