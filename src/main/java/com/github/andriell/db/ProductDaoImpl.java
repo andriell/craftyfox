@@ -108,9 +108,10 @@ public class ProductDaoImpl implements ProductDao {
 
     public float getLastPrice(int productId, Session session) {
         List<ProductProperty> products = session
-                .createQuery("from ProductProperty where product_id=:product_id AND c_name=:name order by date desc limit 1")
+                .createQuery("from ProductProperty where product_id=:product_id AND c_name=:name order by date desc")
                 .setParameter("product_id", productId)
                 .setParameter("name", PRICE)
+                .setMaxResults(1)
                 .list();
         if (products.size() > 0) {
             return products.get(0).getFloat();
@@ -138,7 +139,9 @@ public class ProductDaoImpl implements ProductDao {
                     if (oldPrice == newPrice) {
                         continue;
                     }
-                    product.setPriceDelta(oldPrice - newPrice);
+                    if (oldPrice > 0) {
+                        product.setPriceDelta(oldPrice - newPrice);
+                    }
                 }
                 session.save(property);
             }
