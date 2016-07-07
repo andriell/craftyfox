@@ -82,10 +82,6 @@ public class ProductProperty {
         return this;
     }
 
-    public ProductProperty setValue(Object o) throws ParseException {
-        return setValue(o.toString());
-    }
-
     private void price(int i, float f, String currency) {
         integer = i;
         aFloat = f;
@@ -210,6 +206,27 @@ public class ProductProperty {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getValue() {
+        if ("price".equals(name)) {
+            return Float.toString(aFloat) + " " + string + " " + FORMAT.format(date);
+        } else if (text != null) {
+            return text;
+        } else if (string != null) {
+            return string;
+        } else if (date != null) {
+            return FORMAT.format(date);
+        } else if (aFloat != 0) {
+            return Float.toString(aFloat);
+        } else if (integer != 0) {
+            return Integer.toString(integer);
+        }
+        return null;
+    }
+
+    public ProductProperty setValue(Object o) throws ParseException {
+        return setValue(o.toString());
     }
 
     @Override

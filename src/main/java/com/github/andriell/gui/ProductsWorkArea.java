@@ -2,6 +2,7 @@ package com.github.andriell.gui;
 
 import com.github.andriell.db.Product;
 import com.github.andriell.db.ProductDao;
+import com.github.andriell.db.ProductProperty;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
@@ -21,6 +22,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Created by Rybalko on 01.07.2016.
@@ -331,6 +333,13 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
             add(new JLabel(product.getId() + ": " + product.getName()));
             add(new LabelUrl(product.getUrl()));
+
+            Set<ProductProperty> properties = product.getProperty();
+            if (properties != null) {
+                for (ProductProperty property:properties) {
+                    add(new JLabel(property.getName() + ": " + property.getValue()));
+                }
+            }
         }
     }
 
@@ -346,6 +355,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             }
             setCursor(new Cursor(Cursor.HAND_CURSOR));
             addMouseListener(new ClickListener());
+            setForeground(Color.BLUE);
         }
 
         public class ClickListener extends MouseAdapter {
