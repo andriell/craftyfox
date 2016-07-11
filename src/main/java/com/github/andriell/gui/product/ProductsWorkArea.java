@@ -9,7 +9,6 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
-import org.jfree.ui.RefineryUtilities;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
@@ -338,9 +337,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             price.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     windowPrice.show(product);
-                    windowPrice.pack();
-                    RefineryUtilities.centerFrameOnScreen(windowPrice);
-                    windowPrice.setVisible(true);
+
                 }
             });
             add(price);
