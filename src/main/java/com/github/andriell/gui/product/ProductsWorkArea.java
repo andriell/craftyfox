@@ -7,6 +7,8 @@ import com.github.andriell.gui.WorkArea;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
@@ -32,7 +34,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Insets insets = new Insets(2, 2, 2, 2);
     ProductDao productDao;
     WindowPrice windowPrice = new WindowPrice(null);
-
+    private SessionFactory sessionFactory;
     private String name = "Продукты";
     private JPanel rootPanel;
     private JPanel paginationPanel;
@@ -57,8 +59,12 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         return rootPanel;
     }
 
-    private void printProducts() {
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     public void afterPropertiesSet() throws Exception {
@@ -140,10 +146,12 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
                         LOG.debug(junction.toString());
 
-                        List<Product> products = productsList.list();
+                        List<Integer> products = productsList.list();
+                        Session session = sessionFactory.openSession();
                         dataPanel.removeAll();
                         if (products != null) {
-                            for (Product product : products) {
+                            for (Integer productId : products) {
+                                Product product = session.get(Product.class, productId);
                                 dataPanel.add(new Item(product));
                             }
                         }
@@ -325,15 +333,17 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
     class Item extends JPanel {
         private Item rootPanel;
-        public Item(final Product product) {
+        private Product product;
+        public Item(Product p) {
             rootPanel = this;
+            product = p;
 
             setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
             setBorder(Colors.nextBorder());
 
-            add(new JLabel(product.getId() + ": " + product.getName()));
-            add(new LabelUrl(product.getUrl()));
-            JButton price = new JButton(product.getPrice() + " " + product.getCurrency() + " " + product.getDate() + " (" + product.getPriceDelta() + ")");
+            add(new JLabel(p.getId() + ": " + p.getName()));
+            add(new LabelUrl(p.getUrl()));
+            JButton price = new JButton(p.getPrice() + " " + p.getCurrency() + " " + p.getDate() + " (" + p.getPriceDelta() + ")");
             price.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     windowPrice.show(product);
@@ -342,7 +352,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             });
             add(price);
 
-            Set<ProductProperty> properties = product.getProperty();
+            Set<ProductProperty> properties = p.getProperty();
             if (properties != null) {
                 for (ProductProperty property:properties) {
                     if ("price".equals(property.getName())) {

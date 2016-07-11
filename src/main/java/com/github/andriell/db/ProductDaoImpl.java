@@ -61,7 +61,8 @@ public class ProductDaoImpl implements ProductDao {
         return sessionFactory
                 .openSession()
                 .createCriteria(Product.class, "product")
-                .createAlias("property", "property", JoinType.LEFT_OUTER_JOIN);
+                .createAlias("property", "property", JoinType.LEFT_OUTER_JOIN)
+                .setProjection(Projections.distinct(Projections.property("product.id")));
     }
 
     public Criteria countCriteria() {
@@ -145,7 +146,6 @@ public class ProductDaoImpl implements ProductDao {
                 }
                 session.save(property);
             }
-            session.merge(product);
             session.getTransaction().commit();
         } catch (Exception e) {
             LOG.error(this, e);

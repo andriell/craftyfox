@@ -5,7 +5,7 @@ import com.github.andriell.db.ProductProperty;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.time.Day;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
@@ -29,7 +29,7 @@ public class WindowPrice extends JFrame {
         dataSet = new TimeSeriesCollection();
 
         chart = ChartFactory.createTimeSeriesChart(
-                "Multiple Dataset Demo 1", "Time", "Price", dataSet, false, false, false
+                "Prices", "Time", "Price", dataSet, false, false, false
         );
 
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -46,7 +46,7 @@ public class WindowPrice extends JFrame {
                 if (!"price".equals(property.getName())) {
                     continue;
                 }
-                series.add(new Day(property.getDate()), property.getFloat());
+                series.add(new Second(property.getDate()), property.getFloat());
             }
         }
 

@@ -99,6 +99,7 @@
     <!-- Рабочая область Products -->
     <bean id="gui-products-work-area" class="com.github.andriell.gui.product.ProductsWorkArea">
         <property name="productDao" ref="productDaoImpl" />
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     <!-- КОНЕЦ НАСТРОЙКИ GUI -->
 
