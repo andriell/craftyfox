@@ -14,6 +14,7 @@ public class ProcessWorkArea implements WorkArea, InitializingBean {
     private JTable tableManagers;
     private JComboBox comboBoxProjects;
     private JButton goButton;
+    private JPanel newPanel;
 
     private ProcessWorkAreaTableModel processWorkAreaTableModel;
 

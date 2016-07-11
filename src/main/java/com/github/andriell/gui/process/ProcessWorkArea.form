@@ -68,6 +68,19 @@
           </hspacer>
         </children>
       </grid>
+      <scrollpane id="86bac">
+        <constraints border-constraint="South"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="73f80" binding="newPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>
