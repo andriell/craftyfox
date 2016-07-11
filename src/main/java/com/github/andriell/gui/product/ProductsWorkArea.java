@@ -245,9 +245,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             condition.addItem("<=");
             condition.addItem("LIKE");
             condition.addItem("NOT LIKE");
-            condition.addItem("IN");
-            condition.addItem("NOT IN");
-            condition.addItem("RANGE");
+            //condition.addItem("IN");
+            //condition.addItem("NOT IN");
+            //condition.addItem("RANGE");
             condition.addItem("NULL");
             condition.addItem("NOT NULL");
             add(condition);
