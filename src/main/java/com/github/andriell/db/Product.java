@@ -1,5 +1,7 @@
 package com.github.andriell.db;
 
+import com.github.andriell.processor.db.ProcessDbDataInterface;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +9,7 @@ import java.util.Set;
 /**
  * Created by Andrey on 22.06.2016
  */
-public class Product {
+public class Product implements ProcessDbDataInterface {
     private int id;
     private String site;
     private String code;
