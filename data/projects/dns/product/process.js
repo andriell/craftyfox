@@ -11,5 +11,5 @@ $.addParser("dns.product", function(data) {
         var element = iterator.next();
         product.addProperty(ProductPropertyEnum("path", element.text()));
     }
-    product.save();
+    processor.add("process-db", product);
 });
