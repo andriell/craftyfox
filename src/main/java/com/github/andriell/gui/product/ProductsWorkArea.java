@@ -244,6 +244,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             condition.addItem("<");
             condition.addItem("<=");
             condition.addItem("LIKE");
+            condition.addItem("NOT LIKE");
             condition.addItem("IN");
             condition.addItem("NOT IN");
             condition.addItem("RANGE");
@@ -301,7 +302,9 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                 junction.add(Restrictions.le(col, val));
             } else if ("LIKE".equals(cond)) {
                 junction.add(Restrictions.like(col, val));
-            } /*else if ("IN".equals(cond)) {
+            } else if ("NOT LIKE".equals(cond)) {
+                junction.add(Restrictions.not(Restrictions.like(col, val)));
+            }/*else if ("IN".equals(cond)) {
                 s = val.split(";");
                 junction.add(Restrictions.in(col, s));
             } else if ("NOT IN".equals(cond)) {
