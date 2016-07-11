@@ -6,7 +6,7 @@ import com.github.andriell.processor.ProcessInterface;
  * Created by Rybalko on 11.07.2016.
  */
 public class ProcessDb implements ProcessInterface {
-    ProcessDbDataInterface data;
+    private ProcessDbDataInterface data;
 
     public void setData(Object data) {
         this.data = (ProcessDbDataInterface) data;

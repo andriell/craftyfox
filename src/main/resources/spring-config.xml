@@ -125,6 +125,7 @@
             <array>
                 <ref bean="manager-js" />
                 <ref bean="manager-http" />
+                <ref bean="manager-db" />
             </array>
         </property>
     </bean>
@@ -160,6 +161,7 @@
     <!-- Менеджер процессов HTTP -->
     <bean id="manager-http" class="com.github.andriell.processor.Manager">
         <property name="processBeanId" value="process-http" />
+        <property name="limitProcess" value="6" />
     </bean>
     <!-- Процесс HTTP -->
     <bean id="process-http" class="com.github.andriell.processor.http.ProcessHttp" scope="prototype">
@@ -171,6 +173,14 @@
 
     <!-- Класс данных процесса HTTP -->
     <bean id="process-http-data" class="com.github.andriell.processor.http.ProcessHttpData" scope="prototype" />
+
+    <!-- Менеджер процессов DB -->
+    <bean id="manager-db" class="com.github.andriell.processor.Manager">
+        <property name="processBeanId" value="process-db" />
+        <property name="limitProcess" value="4" />
+    </bean>
+    <!-- Процесс DB -->
+    <bean id="process-db" class="com.github.andriell.processor.db.ProcessDb" scope="prototype" />
 
     <!-- DataFileWriter -->
     <bean id="file-writer" class="com.github.andriell.nashorn.console.DataFileWriter" scope="prototype" />
