@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.sql.JoinType;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
 import java.util.Set;
@@ -14,10 +15,9 @@ import java.util.Set;
 /**
  * Created by Rybalko on 23.06.2016.
  */
-public class ProductDaoImpl implements ProductDao {
+public class ProductDaoImpl implements ProductDao, InitializingBean {
     private static final Log LOG = LogFactory.getLog(ProductDaoImpl.class);
     private static final String PRICE = "price";
-
     private static final String[] fields = {
             "product.id",
             "product.site",
@@ -54,8 +54,16 @@ public class ProductDaoImpl implements ProductDao {
             ProductDao.TYPE_STRING,
             ProductDao.TYPE_DATE,
     };
-
+    private Session session;
     private SessionFactory sessionFactory;
+
+    public Product getById(int id) {
+        return session.get(Product.class, id);
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        session = sessionFactory.openSession();
+    }
 
     public Criteria searchCriteria() {
         return sessionFactory

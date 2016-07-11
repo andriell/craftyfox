@@ -11,6 +11,7 @@ public interface ProductDao {
     public final int TYPE_DATE = 3;
     public final int TYPE_STRING = 4;
 
+    public Product getById(int id);
     public boolean save(Product product);
     public Criteria searchCriteria();
     public Criteria countCriteria();

@@ -7,8 +7,6 @@ import com.github.andriell.gui.WorkArea;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.InitializingBean;
@@ -34,7 +32,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Insets insets = new Insets(2, 2, 2, 2);
     ProductDao productDao;
     WindowPrice windowPrice = new WindowPrice(null);
-    private SessionFactory sessionFactory;
+
     private String name = "Продукты";
     private JPanel rootPanel;
     private JPanel paginationPanel;
@@ -57,14 +55,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
     public JPanel getRootPanel() {
         return rootPanel;
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 
     public void afterPropertiesSet() throws Exception {
@@ -146,12 +136,11 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
                         LOG.debug(junction.toString());
 
-                        List<Integer> products = productsList.list();
-                        Session session = sessionFactory.openSession();
+                        List<Integer> productsId = productsList.list();
                         dataPanel.removeAll();
-                        if (products != null) {
-                            for (Integer productId : products) {
-                                Product product = session.get(Product.class, productId);
+                        if (productsId != null) {
+                            for (Integer id: productsId) {
+                                Product product = productDao.getById(id);
                                 dataPanel.add(new Item(product));
                             }
                         }
