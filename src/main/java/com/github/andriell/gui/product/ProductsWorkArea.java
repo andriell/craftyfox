@@ -1,23 +1,21 @@
-package com.github.andriell.gui;
+package com.github.andriell.gui.product;
 
 import com.github.andriell.db.Product;
 import com.github.andriell.db.ProductDao;
 import com.github.andriell.db.ProductProperty;
+import com.github.andriell.gui.WorkArea;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Restrictions;
+import org.jfree.ui.RefineryUtilities;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.net.URI;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -34,6 +32,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
     ProductDao productDao;
+    WindowPrice windowPrice = new WindowPrice("100500");
 
     private String name = "Продукты";
     private JPanel rootPanel;
@@ -327,7 +326,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
     class Item extends JPanel {
         private Item rootPanel;
-        public Item(Product product) {
+        public Item(final Product product) {
             rootPanel = this;
 
             setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
@@ -335,37 +334,24 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
             add(new JLabel(product.getId() + ": " + product.getName()));
             add(new LabelUrl(product.getUrl()));
+            JButton price = new JButton(product.getPrice() + " " + product.getCurrency() + " " + product.getDate());
+            price.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    windowPrice.show(product);
+                    windowPrice.pack();
+                    RefineryUtilities.centerFrameOnScreen(windowPrice);
+                    windowPrice.setVisible(true);
+                }
+            });
+            add(price);
 
             Set<ProductProperty> properties = product.getProperty();
             if (properties != null) {
                 for (ProductProperty property:properties) {
+                    if ("price".equals(property.getName())) {
+                        continue;
+                    }
                     add(new JLabel(property.getName() + ": " + property.getValue()));
-                }
-            }
-        }
-    }
-
-    class LabelUrl extends JLabel {
-        private URI uri;
-
-        public LabelUrl(String text) {
-            super(text);
-            try {
-                uri = new URL(text).toURI();
-            } catch (Exception e) {
-                LOG.error(this, e);
-            }
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
-            addMouseListener(new ClickListener());
-            setForeground(Color.BLUE);
-        }
-
-        public class ClickListener extends MouseAdapter {
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(uri);
-                } catch (Exception e1) {
-                    LOG.error(this, e1);
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.github.andriell.gui;
+package com.github.andriell.gui.product;
 
 import javax.swing.*;
 import javax.swing.border.Border;

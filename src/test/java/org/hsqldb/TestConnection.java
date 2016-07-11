@@ -31,7 +31,7 @@ public class TestConnection {
         product.addProperty(new ProductProperty().price((float) 3.5, "RUB"));
 
         productDao.save(product);
-        System.out.println("Product id: " + product.getId());
+        System.out.println("product id: " + product.getId());
 
         sessionFactory.close();
     }

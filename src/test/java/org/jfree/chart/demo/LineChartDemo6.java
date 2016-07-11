@@ -64,6 +64,4 @@ public class LineChartDemo6 extends ApplicationFrame {
         demo.setVisible(true);
 
     }
-
-
 }

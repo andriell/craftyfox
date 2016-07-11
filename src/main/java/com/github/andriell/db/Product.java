@@ -123,7 +123,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "product{" +
                 "id=" + id +
                 ", site='" + site + '\'' +
                 ", code='" + code + '\'' +
