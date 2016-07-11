@@ -330,7 +330,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
             setBorder(Colors.nextBorder());
 
-            add(new JLabel(p.getId() + ": " + p.getName()));
+            add(new JLabel(p.getCode() + ": " + p.getName()));
             add(new LabelUrl(p.getUrl()));
             JButton price = new JButton(p.getPrice() + " " + p.getCurrency() + " " + p.getDate() + " (" + p.getPriceDelta() + ")");
             price.addActionListener(new ActionListener() {
