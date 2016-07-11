@@ -10,15 +10,16 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
+import javax.swing.*;
 import java.util.Set;
 
 /**
  * Created by Rybalko on 11.07.2016.
  */
-public class WindowPrice extends ApplicationFrame {
+public class WindowPrice extends JFrame {
     public WindowPrice(String title) {
         super(title);
-
+        setDefaultCloseOperation(ApplicationFrame.HIDE_ON_CLOSE);
 
     }
 
