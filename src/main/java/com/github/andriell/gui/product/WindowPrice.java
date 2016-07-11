@@ -18,26 +18,23 @@ import java.util.Set;
  * Created by Rybalko on 11.07.2016.
  */
 public class WindowPrice extends JFrame {
-    private TimeSeriesCollection dataset;
+    JFreeChart chart;
+    private TimeSeriesCollection dataSet;
 
     public WindowPrice(String title) {
-        super(title);
+        super("Prices");
         setDefaultCloseOperation(ApplicationFrame.HIDE_ON_CLOSE);
         RefineryUtilities.centerFrameOnScreen(this);
 
-        // create the chart...
-        dataset = new TimeSeriesCollection();
+        dataSet = new TimeSeriesCollection();
 
-        final JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Multiple Dataset Demo 1", "Time", "Value", dataset, true, true, false
+        chart = ChartFactory.createTimeSeriesChart(
+                "Multiple Dataset Demo 1", "Time", "Price", dataSet, false, false, false
         );
 
-        final ChartPanel chartPanel = new ChartPanel(chart);
+        ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
-
-
-
     }
 
     public void show(Product product) {
@@ -53,9 +50,9 @@ public class WindowPrice extends JFrame {
             }
         }
 
-        dataset.removeAllSeries();
-        dataset.addSeries(series);
-
+        dataSet.removeAllSeries();
+        dataSet.addSeries(series);
+        chart.setTitle(product.getCode() + ": " + product.getName());
         setVisible(true);
         pack();
     }

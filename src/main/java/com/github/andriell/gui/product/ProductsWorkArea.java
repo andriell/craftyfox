@@ -31,7 +31,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Font font = new Font("Segoe UI", Font.PLAIN, 10);
     Insets insets = new Insets(2, 2, 2, 2);
     ProductDao productDao;
-    WindowPrice windowPrice = new WindowPrice("100500");
+    WindowPrice windowPrice = new WindowPrice(null);
 
     private String name = "Продукты";
     private JPanel rootPanel;
@@ -333,7 +333,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
             add(new JLabel(product.getId() + ": " + product.getName()));
             add(new LabelUrl(product.getUrl()));
-            JButton price = new JButton(product.getPrice() + " " + product.getCurrency() + " " + product.getDate());
+            JButton price = new JButton(product.getPrice() + " " + product.getCurrency() + " " + product.getDate() + " (" + product.getPriceDelta() + ")");
             price.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     windowPrice.show(product);
