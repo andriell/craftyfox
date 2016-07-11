@@ -1,5 +1,7 @@
-package com.github.andriell.gui;
+package com.github.andriell.gui.process;
 
+import com.github.andriell.gui.ProcessWorkAreaTableModel;
+import com.github.andriell.gui.WorkArea;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;

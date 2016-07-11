@@ -85,7 +85,7 @@
         <property name="userObject" ref="gui-process-work-area" />
     </bean>
     <!-- Основное меню, раздел Процессы -->
-    <bean id="gui-process-work-area" class="com.github.andriell.gui.ProcessWorkArea">
+    <bean id="gui-process-work-area" class="com.github.andriell.gui.process.ProcessWorkArea">
         <property name="processWorkAreaTableModel" ref="gui-process-work-area-table-model" />
     </bean>
     <!-- Рабочая область Процессы -->
