@@ -146,6 +146,10 @@ public class ProductProperty {
         this.isArray = isArray;
     }
 
+    public void setIsArray() {
+        this.isArray = null;
+    }
+
     public String getName() {
         return name;
     }

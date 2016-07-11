@@ -12,6 +12,15 @@ function ProductProperty(name, value) {
     return productProperty;
 }
 
+function ProductPropertyEnum(name, value) {
+    var productProperty = app.getBean("js-product-property");
+    productProperty.setName(name);
+    productProperty.setValue(value);
+    productProperty.setIsArray();
+    return productProperty;
+}
+
+
 function ProductPrice(price, currency) {
     var productProperty = app.getBean("js-product-property");
     productProperty.price(price, currency);
