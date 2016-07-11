@@ -129,6 +129,20 @@ public class ProductDaoImpl implements ProductDao, InitializingBean {
         }
     }
 
+    public float getFistPrice(int productId, Session session) {
+        List<ProductProperty> products = session
+                .createQuery("from ProductProperty where product_id=:product_id AND c_name=:name order by date asc")
+                .setParameter("product_id", productId)
+                .setParameter("name", PRICE)
+                .setMaxResults(1)
+                .list();
+        if (products.size() > 0) {
+            return products.get(0).getFloat();
+        } else {
+            return 0.0f;
+        }
+    }
+
     public boolean save(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -144,7 +158,7 @@ public class ProductDaoImpl implements ProductDao, InitializingBean {
             for (ProductProperty property: properties) {
                 if (PRICE.equals(property.getName())) {
                     Float newPrice = property.getFloat();
-                    Float oldPrice = getLastPrice(product.getId(), session);
+                    Float oldPrice = getFistPrice(product.getId(), session);
                     if (oldPrice == newPrice) {
                         continue;
                     }
