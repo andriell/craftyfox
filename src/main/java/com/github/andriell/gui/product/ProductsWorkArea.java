@@ -336,7 +336,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             price.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     windowPrice.show(product);
-
                 }
             });
             add(price);
