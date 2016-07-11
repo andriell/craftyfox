@@ -32,6 +32,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     Insets insets = new Insets(2, 2, 2, 2);
     ProductDao productDao;
     WindowPrice windowPrice = new WindowPrice(null);
+    GridBagConstraints gridBagConstraints;
 
     private String name = "Продукты";
     private JPanel rootPanel;
@@ -60,7 +61,12 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         filter = new Filter(null);
         filterPanel.add(filter, BorderLayout.CENTER);
-        dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.Y_AXIS));
+        dataPanel.setLayout(new GridBagLayout());
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.gridx = 0;
     }
 
     private void createUIComponents() {
@@ -141,7 +147,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                         if (productsId != null) {
                             for (Integer id: productsId) {
                                 Product product = productDao.getById(id);
-                                dataPanel.add(new Item(product));
+                                dataPanel.add(new Item(product), gridBagConstraints);
                             }
                         }
                         dataPanel.updateUI();
