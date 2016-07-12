@@ -47,11 +47,13 @@ public class MainFrame implements InitializingBean, Runnable {
                 System.exit(0);
             }
         });
+        xJLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         _JLabel.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 frame.setState(JFrame.ICONIFIED);
             }
         });
+        _JLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         pJLabel.addMouseListener(new MouseAdapter() {
             private boolean max = false;
             public void mouseReleased(MouseEvent e) {
@@ -63,6 +65,7 @@ public class MainFrame implements InitializingBean, Runnable {
                 max = !max;
             }
         });
+        pJLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         MouseAdapter drugAndDropMouseAdapter = new MouseAdapter() {
             private int pX, pY;
             public void mousePressed(MouseEvent me) {
@@ -80,7 +83,7 @@ public class MainFrame implements InitializingBean, Runnable {
         titleJPanel.addMouseMotionListener(drugAndDropMouseAdapter);
 
         MouseAdapter resizeAdapter = new MouseAdapter() {
-            private int pX, pY, width, height;
+            private int pX, pY;
             public void mousePressed(MouseEvent me) {
                 pX = me.getX();
                 pY = me.getY();
@@ -91,6 +94,7 @@ public class MainFrame implements InitializingBean, Runnable {
         };
         resizeLabel.addMouseListener(resizeAdapter);
         resizeLabel.addMouseMotionListener(resizeAdapter);
+        resizeLabel.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
         //resizeLabel.setBorder(BorderFactory.createLineBorder(Color.black));
         //</editor-fold>
         frame.setContentPane(rootPanel);
