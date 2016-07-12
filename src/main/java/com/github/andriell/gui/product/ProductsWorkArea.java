@@ -45,7 +45,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     private JButton nextButton;
     private JButton prevButton;
     private JButton queryButton;
-    private int total;
     private Filter filter;
 
     public String getName() {
@@ -73,10 +72,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int v = Integer.parseInt(pageTextField.getText());
-                int t = total / Integer.parseInt(inPageTextField.getText());
-                if (v > t) {
-                    return;
-                }
                 pageTextField.setText(Integer.toString(v + 1));
                 queryButton.doClick();
             }
@@ -157,7 +152,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                         Junction junction = filter.render();
                         Criteria criteriaCount = productDao.countCriteria().add(junction);
                         Long count = (Long) criteriaCount.uniqueResult();
-                        total = count.intValue();
                         totalLabel.setText("Total: " + count);
 
                         Criteria productsList = productDao.searchCriteria().add(junction);
