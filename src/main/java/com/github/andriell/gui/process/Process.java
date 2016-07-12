@@ -4,6 +4,8 @@ import com.github.andriell.processor.ManagerInterface;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 /**
@@ -37,7 +39,7 @@ public class Process extends JPanel {
     private int startCount = 0;
     private long startTime = 0L;
 
-    public Process(ManagerInterface manager) {
+    public Process(final ManagerInterface manager) {
         this.manager = manager;
         setLayout(null);
         setPreferredSize(size);
@@ -81,9 +83,14 @@ public class Process extends JPanel {
         label.setBorder(border2);
         add(label);
 
-        limit = new JSpinner();
+        limit = new JSpinner(new SpinnerNumberModel(2, 1, 999, 1));
         limit.setSize(40, H);
         limit.setLocation(W13 + P * 2, TH + H + P * 3);
+        limit.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                manager.setLimitProcess((Integer) limit.getValue());
+            }
+        });
         add(limit);
 
         label = new JLabel("Time left:");
