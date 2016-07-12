@@ -26,7 +26,7 @@ public class Process extends JPanel {
     private JSpinner limit;
 
     private ManagerInterface manager;
-    private int startCount = 0;
+    private int startComplitedCount = 0;
     private long startTime = 0L;
 
     public Process(ManagerInterface m) {
@@ -47,7 +47,7 @@ public class Process extends JPanel {
                 new int[]{90, 5, 60, 5, 90, 5, 60},
                 new int[]{20, 5, 20, 5, 20},
                 new Component[][]{
-                        {new JLabel("Total process:"), null, total = new JLabel(zero), null, new JLabel("Run process:"), null, runProcess = new JLabel(zero)},
+                        {new JLabel("Completed:"), null, total = new JLabel(zero), null, new JLabel("Run process:"), null, runProcess = new JLabel(zero)},
                         null,
                         {new JLabel("In queue:"), null, inQueue = new JLabel(zero), null, new JLabel("Item/sec:"), null, pcSec = new JLabel(zero)},
                         null,
@@ -71,21 +71,23 @@ public class Process extends JPanel {
     }
 
     public void update() {
-        int count = manager.getProcessInQueue();
+        int complitedCount = manager.getCompletedProcess();
         long time = System.currentTimeMillis();
-        inQueue.setText(Integer.toString(count));
+        int inQueueCount = manager.getProcessInQueue();
+        inQueue.setText(Integer.toString(inQueueCount));
         runProcess.setText(Integer.toString(manager.getRunningProcesses()));
+        total.setText(Integer.toString(complitedCount));
         limit.setValue(manager.getLimitProcess());
 
-        if (count > 10 && startTime > 0 && count < startCount) {
-            float inTime = (startCount - count) / ((time - startTime) / 1000);
+        if (inQueueCount > 10 && startTime > 0 && complitedCount > startComplitedCount) {
+            float inTime = (complitedCount - startComplitedCount) / ((time - startTime) / 1000);
             if (inTime > 0) {
                 pcSec.setText(Float.toString(inTime));
-                timeLeft.setText(secToTime(Math.round((count / inTime))));
+                timeLeft.setText(secToTime(Math.round((inQueueCount / inTime))));
             }
         } else {
             startTime = time;
-            startCount = count;
+            startComplitedCount = complitedCount;
             timeLeft.setText(timeZero);
         }
     }

@@ -9,7 +9,13 @@ public interface ManagerInterface {
     int getRunningProcesses();
     int getProcessInQueue();
     int getLimitProcess();
+
     void setLimitProcess(int limit);
+
+    int getTotalProcess();
+
+    int getCompletedProcess();
+
     void stop();
     boolean isRun();
 }

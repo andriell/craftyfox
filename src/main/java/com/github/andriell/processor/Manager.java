@@ -57,6 +57,14 @@ public class Manager implements ManagerInterface, ApplicationContextAware {
         pool.setCorePoolSize(limit);
     }
 
+    public int getTotalProcess() {
+        return (int) pool.getTaskCount();
+    }
+
+    public int getCompletedProcess() {
+        return (int) pool.getCompletedTaskCount();
+    }
+
     public int getProcessInQueue() {
         return (int) (pool.getTaskCount() - pool.getCompletedTaskCount());
     }
