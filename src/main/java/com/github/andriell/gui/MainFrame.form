@@ -113,20 +113,31 @@
         <rowspec value="top:4dlu:noGrow"/>
         <rowspec value="center:max(d;4px):noGrow"/>
         <colspec value="fill:d:grow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="fill:max(d;4px):noGrow"/>
         <constraints border-constraint="South"/>
         <properties/>
         <border type="empty">
-          <size top="0" left="5" bottom="5" right="5"/>
+          <size top="0" left="5" bottom="0" right="0"/>
         </border>
         <children>
           <component id="67a3" class="javax.swing.JLabel" binding="footerJLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-              <forms/>
+              <forms top="0" left="0" bottom="5" right="0"/>
             </constraints>
             <properties>
               <font swing-font="PasswordField.font"/>
               <text value="Program running |"/>
+            </properties>
+          </component>
+          <component id="14a5" class="javax.swing.JLabel" binding="resizeLabel">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="///"/>
             </properties>
           </component>
         </children>
