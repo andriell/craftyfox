@@ -16,10 +16,13 @@ public class Process extends JPanel {
     private static final Font fontTitle = new Font("Arial", Font.PLAIN, 16);
     private static final Border border = BorderFactory.createLineBorder(Color.black);
     private static final String timeZero = "00:00:00";
+    private static final String zero = "0";
 
     private JLabel inQueue;
     private JLabel timeLeft;
     private JLabel runProcess;
+    private JLabel pcSec;
+    private JLabel total;
     private JSpinner limit;
 
     private ManagerInterface manager;
@@ -29,7 +32,7 @@ public class Process extends JPanel {
     public Process(ManagerInterface m) {
         manager = m;
         setLayout(null);
-        setPreferredSize(new Dimension(325, 80));
+        setPreferredSize(new Dimension(325, 105));
         setBorder(border);
 
         JLabel title = new JLabel(manager.getProcessBeanId(), JLabel.CENTER);
@@ -42,9 +45,11 @@ public class Process extends JPanel {
                 this,
                 new int[]{5, 30},
                 new int[]{90, 5, 60, 5, 90, 5, 60},
-                new int[]{20, 5, 20},
+                new int[]{20, 5, 20, 5, 20},
                 new Component[][]{
-                        {new JLabel("In queue:"), null, inQueue = new JLabel("0"), null, new JLabel("Run process:"), null, runProcess = new JLabel("0")},
+                        {new JLabel("Total process:"), null, total = new JLabel(zero), null, new JLabel("Run process:"), null, runProcess = new JLabel(zero)},
+                        null,
+                        {new JLabel("In queue:"), null, inQueue = new JLabel(zero), null, new JLabel("Item/sec:"), null, pcSec = new JLabel(zero)},
                         null,
                         {new JLabel("Limit process:"), null, limit = new JSpinner(new SpinnerNumberModel(2, 1, 999, 1)), null, new JLabel("Time left:"), null, timeLeft = new JLabel(timeZero)},
                 }
@@ -75,6 +80,7 @@ public class Process extends JPanel {
         if (count > 10 && startTime > 0 && count < startCount) {
             float inTime = (startCount - count) / ((time - startTime) / 1000);
             if (inTime > 0) {
+                pcSec.setText(Float.toString(inTime));
                 timeLeft.setText(secToTime(Math.round((count / inTime))));
             }
         } else {
