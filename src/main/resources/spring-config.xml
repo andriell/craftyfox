@@ -17,6 +17,7 @@
             <array>
                 <ref bean="gui-nav-three-log" />
                 <ref bean="gui-nav-three-process" />
+                <ref bean="gui-nav-three-process2" />
                 <ref bean="gui-nav-three-nashorn" />
                 <ref bean="gui-nav-three-products" />
             </array>
@@ -84,10 +85,15 @@
     <bean id="gui-nav-three-process" class="com.github.andriell.gui.NavTreeItem">
         <property name="userObject" ref="gui-process-work-area" />
     </bean>
+    <bean id="gui-nav-three-process2" class="com.github.andriell.gui.NavTreeItem">
+        <property name="userObject" ref="gui-process-work-area2" />
+    </bean>
     <!-- Основное меню, раздел Процессы -->
     <bean id="gui-process-work-area" class="com.github.andriell.gui.process.ProcessWorkArea">
         <property name="processWorkAreaTableModel" ref="gui-process-work-area-table-model" />
     </bean>
+    <bean id="gui-process-work-area2" class="com.github.andriell.gui.process.ProcessWorkArea2"/>
+
     <!-- Рабочая область Процессы -->
     <bean id="gui-process-work-area-table-model" class="com.github.andriell.gui.ProcessWorkAreaTableModel">
         <property name="processor" ref="processor" />
