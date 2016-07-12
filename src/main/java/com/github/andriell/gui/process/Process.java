@@ -98,6 +98,14 @@ public class Process extends JPanel {
         add(timeLeft);
     }
 
+    private static String secToTime(int totalSecs) {
+        int hours = totalSecs / 3600;
+        int minutes = (totalSecs % 3600) / 60;
+        int seconds = totalSecs % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
     public void update() {
         int count = manager.getProcessInQueue();
         long time = System.currentTimeMillis();
@@ -105,11 +113,14 @@ public class Process extends JPanel {
         runProcess.setText(Integer.toString(manager.getRunningProcesses()));
         limit.setValue(manager.getLimitProcess());
 
-
+        if (count > 0 && lastTime > 0) {
+            float inTime = (count - lastCount) / (time - lastTime);
+            if (inTime > 0) {
+                timeLeft.setText(secToTime(Math.round(count / inTime)));
+            }
+        }
 
         lastTime = time;
         lastCount = count;
     }
-
-
 }

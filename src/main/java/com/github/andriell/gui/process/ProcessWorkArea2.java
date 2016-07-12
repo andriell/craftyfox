@@ -27,7 +27,6 @@ public class ProcessWorkArea2 implements WorkArea, InitializingBean, Runnable {
             rootPanel.add(process[i]);
             i++;
         }
-        rootPanel.updateUI();
         new Thread(this).start();
     }
 
@@ -48,12 +47,14 @@ public class ProcessWorkArea2 implements WorkArea, InitializingBean, Runnable {
     }
 
     public void run() {
-        for (Process p: process) {
-            p.update();
+        while (true) {
+            for (Process p: process) {
+                p.update();
+            }
+            rootPanel.updateUI();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {}
         }
-        rootPanel.updateUI();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {}
     }
 }
