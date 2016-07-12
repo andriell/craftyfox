@@ -14,7 +14,7 @@ public class Process extends JPanel {
     private static final int W13 = 90; // Ширина столбца 1 и 3
     private static final int W24 = 60; // Ширина столбца 2 и 4
     private static final int H = 20; // Высота столбца
-    private static final Dimension size = new Dimension(TW + P * 2, TH + P * 2 + (H + P) * 2);
+    private static final Dimension size;
     private static final Font fontTitle = new Font("Arial", Font.PLAIN, 16);
     private static final Border border = BorderFactory.createLineBorder(Color.black);
     //private static final Border border2 = BorderFactory.createLineBorder(Color.YELLOW);
@@ -22,6 +22,7 @@ public class Process extends JPanel {
 
     static {
         TW = W13 * 2 + W24 * 2 + P * 3;
+        size = new Dimension(TW + P * 2, TH + P * 2 + (H + P) * 2);
     }
 
     JLabel title;
@@ -83,7 +84,6 @@ public class Process extends JPanel {
         label.setLocation(W13 + W24 + P * 3, TH + H + P * 3);
         label.setBorder(border2);
         add(label);
-
 
         timeLeft = new JLabel("00:00:00");
         timeLeft.setSize(W24, H);
