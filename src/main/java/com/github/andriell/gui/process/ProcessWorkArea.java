@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * Created by Rybalko on 12.07.2016.
  */
-public class ProcessWorkArea2 implements WorkArea, InitializingBean, Runnable {
+public class ProcessWorkArea implements WorkArea, InitializingBean, Runnable {
     private JPanel rootPanel;
     private String name = "Процессы 2";
     private ProcessorInterface processor;

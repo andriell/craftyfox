@@ -39,8 +39,8 @@ public class Process extends JPanel {
     private int startCount = 0;
     private long startTime = 0L;
 
-    public Process(final ManagerInterface manager) {
-        this.manager = manager;
+    public Process(ManagerInterface m) {
+        manager = m;
         setLayout(null);
         setPreferredSize(size);
         setBorder(border);
