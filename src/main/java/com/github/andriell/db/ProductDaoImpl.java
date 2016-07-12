@@ -168,6 +168,7 @@ public class ProductDaoImpl implements ProductDao, InitializingBean {
                 }
                 session.save(property);
             }
+            session.merge(product);
             session.getTransaction().commit();
         } catch (Exception e) {
             LOG.error(this, e);
