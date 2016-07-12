@@ -113,7 +113,7 @@ public class Process extends JPanel {
         runProcess.setText(Integer.toString(manager.getRunningProcesses()));
         limit.setValue(manager.getLimitProcess());
 
-        if (count > 10 && startTime > 0) {
+        if (count > 10 && startTime > 0 && count < startCount) {
             float inTime = (startCount - count) / ((time - startTime) / 1000);
             if (inTime > 0) {
                 timeLeft.setText(secToTime(Math.round((count / inTime))));
