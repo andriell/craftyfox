@@ -44,6 +44,8 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
     private JLabel totalLabel;
     private JButton nextButton;
     private JButton prevButton;
+    private JButton queryButton;
+    private int total;
     private Filter filter;
 
     public String getName() {
@@ -67,6 +69,29 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1;
         gridBagConstraints.gridx = 0;
+
+        nextButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int v = Integer.parseInt(pageTextField.getText());
+                int t = total / Integer.parseInt(inPageTextField.getText());
+                if (v > t) {
+                    return;
+                }
+                pageTextField.setText(Integer.toString(v + 1));
+                queryButton.doClick();
+            }
+        });
+
+        prevButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int v = Integer.parseInt(pageTextField.getText());
+                if (v <= 0) {
+                    return;
+                }
+                pageTextField.setText(Integer.toString(v - 1));
+                queryButton.doClick();
+            }
+        });
     }
 
     private void createUIComponents() {
@@ -124,7 +149,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
 
 
             if (p == null) {
-                closeButton = new JButton("Query");
+                queryButton = closeButton = new JButton("Query");
                 closeButton.setFont(font);
                 closeButton.setMargin(insets);
                 closeButton.addActionListener(new ActionListener() {
@@ -132,6 +157,7 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                         Junction junction = filter.render();
                         Criteria criteriaCount = productDao.countCriteria().add(junction);
                         Long count = (Long) criteriaCount.uniqueResult();
+                        total = count.intValue();
                         totalLabel.setText("Total: " + count);
 
                         Criteria productsList = productDao.searchCriteria().add(junction);
