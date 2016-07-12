@@ -2,11 +2,8 @@ package com.github.andriell.gui;
 
 import com.jgoodies.looks.windows.WindowsTreeUI;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.StringUtils;
 
 import javax.swing.*;
-import javax.swing.event.TreeExpansionEvent;
-import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -16,7 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MainFrame implements InitializingBean {
+public class MainFrame implements InitializingBean, Runnable {
     private String logo = "Crafty Fox     ";
     private String space = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ";
     private JFrame frame;
@@ -104,6 +101,22 @@ public class MainFrame implements InitializingBean {
         footerJLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
 
         frame.setVisible(true);
+
+        new Thread(this).start();
+    }
+
+    public void run() {
+        while (true) {
+            int usedBytes = Math.round((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1204);
+            footerJLabel.setText("Program running | " + usedBytes + " Mb | ");
+            try {
+                Thread.sleep(10000);
+            } catch (Exception e) {}
+        }
+    }
+
+    public void setNavTreeMenu(NavTreeItem navTreeMenu) {
+        this.navTreeMenu = navTreeMenu;
     }
 
     public class SelectionListener implements TreeSelectionListener {
@@ -123,9 +136,5 @@ public class MainFrame implements InitializingBean {
             workPanel.validate();
             workPanel.repaint();
         }
-    }
-
-    public void setNavTreeMenu(NavTreeItem navTreeMenu) {
-        this.navTreeMenu = navTreeMenu;
     }
 }
