@@ -58,7 +58,6 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase implements D
 
     private void init() {
         setConfig(requestConfig);
-        setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
     }
 
     public String getMethod() {
@@ -103,5 +102,9 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase implements D
 
     public void setProcessBeanId(String processBeanId) {
         this.processBeanId = processBeanId;
+    }
+
+    public void setUserAgent(String userAgent) {
+        setHeader("User-Agent", userAgent);
     }
 }

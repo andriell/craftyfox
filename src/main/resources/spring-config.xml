@@ -169,7 +169,9 @@
     <bean id="process-http-context" class="com.github.andriell.processor.http.ProcessHttpContext" />
 
     <!-- Класс данных процесса HTTP -->
-    <bean id="process-http-data" class="com.github.andriell.processor.http.ProcessHttpData" scope="prototype" />
+    <bean id="process-http-data" class="com.github.andriell.processor.http.ProcessHttpData" scope="prototype">
+        <property name="userAgent" value="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" />
+    </bean>
 
     <!-- Менеджер процессов DB -->
     <bean id="manager-db" class="com.github.andriell.processor.Manager">
