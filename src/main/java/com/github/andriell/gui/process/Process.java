@@ -21,6 +21,7 @@ public class Process extends JPanel {
     private static final Border border = BorderFactory.createLineBorder(Color.black);
     //private static final Border border2 = BorderFactory.createLineBorder(Color.YELLOW);
     private static final Border border2 = null;
+    private static final String timeZero = "00:00:00";
 
     static {
         TW = W13 * 2 + W24 * 2 + P * 3;
@@ -91,7 +92,7 @@ public class Process extends JPanel {
         label.setBorder(border2);
         add(label);
 
-        timeLeft = new JLabel("00:00:00");
+        timeLeft = new JLabel(timeZero);
         timeLeft.setSize(W24, H);
         timeLeft.setLocation(W13 * 2 + W24 + P * 4, TH + H + P * 3);
         timeLeft.setBorder(border2);
@@ -121,6 +122,7 @@ public class Process extends JPanel {
         } else {
             startTime = time;
             startCount = count;
+            timeLeft.setText(timeZero);
         }
     }
 }
