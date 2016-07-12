@@ -14,7 +14,6 @@ public class ProcessWorkArea2 implements WorkArea, InitializingBean {
 
     public ProcessWorkArea2() {
         rootPanel.add(new Process());
-        rootPanel.add(new Process2().getRootPanel());
         rootPanel.updateUI();
     }
 

@@ -8,12 +8,27 @@ import java.awt.*;
  * Created by Rybalko on 11.07.2016.
  */
 public class Process extends JPanel {
-    private static final Dimension size = new Dimension(410, 200);
+    private static final int P = 5; // отступ
+    private static final int TW; // Ширина заголовка
+    private static final int TH = 20; // Высота заголовка
+    private static final int W13 = 90; // Ширина столбца 1 и 3
+    private static final int W24 = 60; // Ширина столбца 2 и 4
+    private static final int H = 20; // Высота столбца
+    private static final Dimension size = new Dimension(TW + P * 2, TH + P * 2 + (H + P) * 2);
     private static final Font fontTitle = new Font("Arial", Font.PLAIN, 16);
     private static final Border border = BorderFactory.createLineBorder(Color.black);
+    //private static final Border border2 = BorderFactory.createLineBorder(Color.YELLOW);
+    private static final Border border2 = null;
+
+    static {
+        TW = W13 * 2 + W24 * 2 + P * 3;
+    }
 
     JLabel title;
-
+    JLabel inQueue;
+    JLabel timeLeft;
+    JLabel runProcess;
+    JSpinner limit;
 
     public Process() {
         setLayout(null);
@@ -21,14 +36,60 @@ public class Process extends JPanel {
         setBorder(border);
 
         title = new JLabel("Title", JLabel.CENTER);
-        title.setSize(200, 20);
-        title.setLocation(5, 5);
+        title.setSize(TW, TH);
+        title.setLocation(P, P);
         title.setFont(fontTitle);
+        title.setBorder(border2);
         add(title);
 
-        JLabel jLabel = new JLabel("Process in queue: ");
-        jLabel.setSize(100, 20);
-        jLabel.setLocation(5, 30);
-        add(jLabel);
+        JLabel label = new JLabel("In queue:");
+        label.setSize(W13, H);
+        label.setLocation(P, TH + P * 2);
+        label.setBorder(border2);
+        add(label);
+
+        inQueue = new JLabel("0");
+        inQueue.setSize(W24, H);
+        inQueue.setLocation(W13 + P * 2, TH + P * 2);
+        inQueue.setBorder(border2);
+        add(inQueue);
+
+
+        label = new JLabel("Run process:");
+        label.setSize(W13, H);
+        label.setLocation(W13 + W24 + P * 3, TH + P * 2);
+        label.setBorder(border2);
+        add(label);
+
+        runProcess = new JLabel("0");
+        runProcess.setSize(W24, H);
+        runProcess.setLocation(W13 * 2 + W24 + P * 4, TH + P * 2);
+        runProcess.setBorder(border2);
+        add(runProcess);
+
+        label = new JLabel("Limit process:");
+        label.setSize(W13, H);
+        label.setLocation(P, TH + H + P * 3);
+        label.setBorder(border2);
+        add(label);
+
+        limit = new JSpinner();
+        limit.setSize(40, H);
+        limit.setLocation(W13 + P * 2, TH + H + P * 3);
+        add(limit);
+
+        label = new JLabel("Time left:");
+        label.setSize(W13, H);
+        label.setLocation(W13 + W24 + P * 3, TH + H + P * 3);
+        label.setBorder(border2);
+        add(label);
+
+
+        timeLeft = new JLabel("00:00:00");
+        timeLeft.setSize(W24, H);
+        timeLeft.setLocation(W13 * 2 + W24 + P * 4, TH + H + P * 3);
+        timeLeft.setBorder(border2);
+        add(timeLeft);
+
     }
 }
