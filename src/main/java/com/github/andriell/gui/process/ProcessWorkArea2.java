@@ -1,26 +1,34 @@
 package com.github.andriell.gui.process;
 
 import com.github.andriell.gui.WorkArea;
+import com.github.andriell.processor.ManagerInterface;
+import com.github.andriell.processor.ProcessorInterface;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.swing.*;
+import java.util.Collection;
 
 /**
  * Created by Rybalko on 12.07.2016.
  */
-public class ProcessWorkArea2 implements WorkArea, InitializingBean {
+public class ProcessWorkArea2 implements WorkArea, InitializingBean, Runnable {
     private JPanel rootPanel;
     private String name = "Процессы 2";
-
-    public ProcessWorkArea2() {
-        rootPanel.add(new Process());
-        rootPanel.add(new Process());
-        rootPanel.add(new Process());
-        rootPanel.updateUI();
-    }
+    private ProcessorInterface processor;
+    private Collection<ManagerInterface> managers;
+    private Process[] process;
 
     public void afterPropertiesSet() throws Exception {
-
+        managers = processor.getManagers();
+        process = new Process[managers.size()];
+        int i = 0;
+        for (ManagerInterface manager: managers) {
+            process[i] = new Process(manager);
+            rootPanel.add(process[i]);
+            i++;
+        }
+        rootPanel.updateUI();
+        new Thread(this).start();
     }
 
     public String getName() {
@@ -29,5 +37,23 @@ public class ProcessWorkArea2 implements WorkArea, InitializingBean {
 
     public JPanel getRootPanel() {
         return rootPanel;
+    }
+
+    public ProcessorInterface getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(ProcessorInterface processor) {
+        this.processor = processor;
+    }
+
+    public void run() {
+        for (Process p: process) {
+            p.update();
+        }
+        rootPanel.updateUI();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {}
     }
 }

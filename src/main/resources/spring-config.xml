@@ -92,7 +92,9 @@
     <bean id="gui-process-work-area" class="com.github.andriell.gui.process.ProcessWorkArea">
         <property name="processWorkAreaTableModel" ref="gui-process-work-area-table-model" />
     </bean>
-    <bean id="gui-process-work-area2" class="com.github.andriell.gui.process.ProcessWorkArea2"/>
+    <bean id="gui-process-work-area2" class="com.github.andriell.gui.process.ProcessWorkArea2">
+        <property name="processor" ref="processor" />
+    </bean>
 
     <!-- Рабочая область Процессы -->
     <bean id="gui-process-work-area-table-model" class="com.github.andriell.gui.ProcessWorkAreaTableModel">

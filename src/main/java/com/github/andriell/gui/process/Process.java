@@ -1,5 +1,7 @@
 package com.github.andriell.gui.process;
 
+import com.github.andriell.processor.ManagerInterface;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -25,18 +27,22 @@ public class Process extends JPanel {
         size = new Dimension(TW + P * 2, TH + P * 2 + (H + P) * 2);
     }
 
-    JLabel title;
-    JLabel inQueue;
-    JLabel timeLeft;
-    JLabel runProcess;
-    JSpinner limit;
+    private JLabel inQueue;
+    private JLabel timeLeft;
+    private JLabel runProcess;
+    private JSpinner limit;
 
-    public Process() {
+    private ManagerInterface manager;
+    private int lastCount = 0;
+    private long lastTime = 0L;
+
+    public Process(ManagerInterface manager) {
+        this.manager = manager;
         setLayout(null);
         setPreferredSize(size);
         setBorder(border);
 
-        title = new JLabel("Title", JLabel.CENTER);
+        JLabel title = new JLabel(manager.getProcessBeanId(), JLabel.CENTER);
         title.setSize(TW, TH);
         title.setLocation(P, P);
         title.setFont(fontTitle);
@@ -90,6 +96,20 @@ public class Process extends JPanel {
         timeLeft.setLocation(W13 * 2 + W24 + P * 4, TH + H + P * 3);
         timeLeft.setBorder(border2);
         add(timeLeft);
-
     }
+
+    public void update() {
+        int count = manager.getProcessInQueue();
+        long time = System.currentTimeMillis();
+        inQueue.setText(Integer.toString(count));
+        runProcess.setText(Integer.toString(manager.getRunningProcesses()));
+        limit.setValue(manager.getLimitProcess());
+
+
+
+        lastTime = time;
+        lastCount = count;
+    }
+
+
 }
