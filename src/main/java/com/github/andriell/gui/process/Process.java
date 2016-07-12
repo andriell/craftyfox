@@ -33,8 +33,8 @@ public class Process extends JPanel {
     private JSpinner limit;
 
     private ManagerInterface manager;
-    private int lastCount = 0;
-    private long lastTime = 0L;
+    private int startCount = 0;
+    private long startTime = 0L;
 
     public Process(ManagerInterface manager) {
         this.manager = manager;
@@ -113,14 +113,14 @@ public class Process extends JPanel {
         runProcess.setText(Integer.toString(manager.getRunningProcesses()));
         limit.setValue(manager.getLimitProcess());
 
-        if (count > 0 && lastTime > 0) {
-            float inTime = (count - lastCount) / (time - lastTime);
+        if (count > 10 && startTime > 0) {
+            float inTime = (startCount - count) / ((time - startTime) / 1000);
             if (inTime > 0) {
-                timeLeft.setText(secToTime(Math.round(count / inTime)));
+                timeLeft.setText(secToTime(Math.round((count / inTime))));
             }
+        } else {
+            startTime = time;
+            startCount = count;
         }
-
-        lastTime = time;
-        lastCount = count;
     }
 }
