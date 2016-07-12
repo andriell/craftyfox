@@ -13,7 +13,7 @@ import java.util.Collection;
  */
 public class ProcessWorkArea implements WorkArea, InitializingBean, Runnable {
     private JPanel rootPanel;
-    private String name = "Процессы 2";
+    private String name = "Процессы";
     private ProcessorInterface processor;
     private Collection<ManagerInterface> managers;
     private Process[] process;
