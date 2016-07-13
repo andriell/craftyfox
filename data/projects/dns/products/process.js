@@ -7,8 +7,9 @@ $.addParser("dns.products", function (data) {
     while(iterator.hasNext()) {
         var e = iterator.next();
         var url = e.text();
-
-
+        if (!craftyFox.hashTimeDay(url, 2)) {
+            continue;
+        }
         var dataHttp = $.newHttpData("GET", url);
         var dataHtml = $.newJsDataHtml("dns.product");
         dataHttp.addDataListener(dataHtml);
