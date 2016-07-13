@@ -1,6 +1,6 @@
 package com.github.andriell.db;
 
-import com.github.andriell.general.Hash;
+import org.springframework.util.DigestUtils;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class HashDate {
     }
 
     public void setHash(String hash) {
-        this.hash = Hash.md5(hash);
+        this.hash = DigestUtils.md5DigestAsHex(hash.getBytes());
     }
 
     public Date getDate() {
