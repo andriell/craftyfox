@@ -50,16 +50,16 @@ var craftyFox = {
         return data;
     },
     hashTimeSec: function (str, int) {
-        craftyFox.hashTime.checkSec(str, int);
+        return craftyFox.hashTime.checkSec(str, int);
     },
     hashTimeMin: function (str, int) {
-        craftyFox.hashTime.checkMinute(str, int);
+        return craftyFox.hashTime.checkMinute(str, int);
     },
     hashTimeHour: function (str, int) {
-        craftyFox.hashTime.checkHour(str, int);
+        return craftyFox.hashTime.checkHour(str, int);
     },
     hashTimeDay: function (str, int) {
-        craftyFox.hashTime.checkDay(str, int);
+        return craftyFox.hashTime.checkDay(str, int);
     }
 };
 var $ = craftyFox;
