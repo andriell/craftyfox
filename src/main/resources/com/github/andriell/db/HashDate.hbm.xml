@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.github.andriell.db.HashDate" table="hash_date" catalog="store">
+        <property name="hash" column="c_hash" type="string" length="32" not-null="true" unique-key="hash_date_code" />
+        <property name="date" column="c_date" type="date" not-null="true" unique-key="hash_date_code" />
+    </class>
+</hibernate-mapping>
