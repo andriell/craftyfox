@@ -22,5 +22,6 @@ public class HashDateTest {
             Thread.sleep(3000);
         } catch (InterruptedException ignored) {}
         assertEquals(true, dateDao.checkSec("test", 2));
+        assertEquals(false, dateDao.checkSec("test", 2));
     }
 }
