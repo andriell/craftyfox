@@ -6,7 +6,7 @@ $.addParser("rutor.start", function(d) {
         var dataHttp = $.newHttpData("GET", "http://open-tor.org/browse/" + i + "/0/0/0");
         var dataHtml = $.newJsDataHtml("rutor.items");
         dataHttp.addDataListener(dataHtml);
-        processor.add("process-http", dataHttp);
+        craftyFox.processor.add("process-http", dataHttp);
         console.info("Add: " + i);
     }
 });

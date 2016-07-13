@@ -11,7 +11,7 @@ var lab = {
             var dataHttp = $.newHttpData("GET", "http://pornolab.net/forum/" + href);
             var dataHtml = $.newJsDataHtml("lab.page2");
             dataHttp.addDataListener(dataHtml);
-            processor.add("process-http", dataHttp);
+            craftyFox.processor.add("process-http", dataHttp);
         }
     }
 };

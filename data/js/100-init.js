@@ -1,9 +1,10 @@
 var console = app.getBean("js-console");
-var processor = app.getBean("processor");
-var httpContext = app.getBean("process-http-context");
 
 var craftyFox = {
     app: app,
+    hashTime: app.getBean("hashDateDaoImpl"),
+    processor: app.getBean("processor"),
+    httpContext: app.getBean("process-http-context"),
     pages: {},
     addParser: function(nane, process) {
         craftyFox.pages[nane] = process;
@@ -47,6 +48,18 @@ var craftyFox = {
             data.setData(param);
         }
         return data;
+    },
+    hashTimeSec: function (str, int) {
+        craftyFox.hashTime.checkSec(str, int);
+    },
+    hashTimeMin: function (str, int) {
+        craftyFox.hashTime.checkMinute(str, int);
+    },
+    hashTimeHour: function (str, int) {
+        craftyFox.hashTime.checkHour(str, int);
+    },
+    hashTimeDay: function (str, int) {
+        craftyFox.hashTime.checkDay(str, int);
     }
 };
 var $ = craftyFox;

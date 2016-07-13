@@ -6,10 +6,12 @@ $.addParser("dns.products", function (data) {
     var iterator = a.iterator();
     while(iterator.hasNext()) {
         var e = iterator.next();
+        var url = e.text();
 
-        var dataHttp = $.newHttpData("GET", e.text());
+
+        var dataHttp = $.newHttpData("GET", url);
         var dataHtml = $.newJsDataHtml("dns.product");
         dataHttp.addDataListener(dataHtml);
-        processor.add("process-http", dataHttp);
+        craftyFox.processor.add("process-http", dataHttp);
     }
 });

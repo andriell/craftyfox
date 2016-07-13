@@ -6,6 +6,6 @@ $.addParser("dns.start", function (data) {
         var dataHtml = $.newJsDataXml("dns.products");
         dataHttp.addDataListener(dataHtml);
         console.info("Add data: " + dataHttp);
-        processor.add("process-http", dataHttp);
+        craftyFox.processor.add("process-http", dataHttp);
     }
 });

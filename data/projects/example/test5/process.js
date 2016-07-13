@@ -4,7 +4,7 @@ $.addParser("example.test5", function(d) {
 	var dataHtml = $.newJsDataHtml("example.test5resp");
 	dataHttp.addDataListener(dataHtml);
 
-	processor.add("process-http", dataHttp);
+	craftyFox.processor.add("process-http", dataHttp);
 });
 
 $.addParser("example.test5resp", function(dataHtml) {

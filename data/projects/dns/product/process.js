@@ -11,5 +11,5 @@ $.addParser("dns.product", function(data) {
         var element = iterator.next();
         product.addProperty(ProductPropertyEnum("path", element.text()));
     }
-    processor.add("process-db", product);
+    craftyFox.processor.add("process-db", product);
 });
