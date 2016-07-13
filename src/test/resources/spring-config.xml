@@ -35,6 +35,7 @@
                 <value>com/github/andriell/db/Store.hbm.xml</value>
                 <value>com/github/andriell/db/Product.hbm.xml</value>
                 <value>com/github/andriell/db/ProductPropery.hbm.xml</value>
+                <value>com/github/andriell/db/HashDate.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -48,6 +49,10 @@
     </bean>
 
     <bean id="productDaoImpl" class="com.github.andriell.db.ProductDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="hashDateDaoImpl" class="com.github.andriell.db.HashDateDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 </beans>

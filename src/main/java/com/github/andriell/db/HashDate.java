@@ -15,8 +15,8 @@ public class HashDate {
         return hash;
     }
 
-    public void setHash(String hash) {
-        this.hash = DigestUtils.md5DigestAsHex(hash.getBytes());
+    public void setHash(String str) {
+        hash = DigestUtils.md5DigestAsHex(str.getBytes());
     }
 
     public Date getDate() {
