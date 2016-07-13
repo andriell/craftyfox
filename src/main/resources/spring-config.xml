@@ -206,6 +206,7 @@
                 <value>com/github/andriell/db/Store.hbm.xml</value>
                 <value>com/github/andriell/db/Product.hbm.xml</value>
                 <value>com/github/andriell/db/ProductPropery.hbm.xml</value>
+                <value>com/github/andriell/db/HashDate.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">

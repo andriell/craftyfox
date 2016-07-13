@@ -5,6 +5,6 @@
 <hibernate-mapping>
     <class name="com.github.andriell.db.HashDate" table="hash_date" catalog="store">
         <id name="hash" column="c_hash" type="string" length="32" />
-        <property name="date" column="c_date" type="date" not-null="true" />
+        <property name="date" column="c_date" type="long" not-null="true" />
     </class>
 </hibernate-mapping>
