@@ -22,7 +22,6 @@ public class ProcessHttpContext implements InitializingBean {
             cookieStore = new BasicCookieStore();
         }
         clientContext.setAttribute("http.cookie-store", cookieStore);
-        clientContext.setAttribute("http.protocol.allow-circular-redirects", true);
     }
 
     public HttpClientContext getClientContext() {

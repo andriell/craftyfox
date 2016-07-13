@@ -8,6 +8,7 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -17,6 +18,14 @@ import java.util.Collection;
  * Created by Rybalko on 12.04.2016.
  */
 public class ProcessHttp implements ProcessInterface {
+    private static PoolingHttpClientConnectionManager connectionManager;
+
+    static {
+        connectionManager = new PoolingHttpClientConnectionManager();
+        connectionManager.setMaxTotal(1000);
+        connectionManager.setDefaultMaxPerRoute(1000);
+    }
+
     private String name;
     private ProcessHttpData data;
     private ProcessHttpContext httpContext;
@@ -25,7 +34,10 @@ public class ProcessHttp implements ProcessInterface {
 
     // TODO data должна поступать вот сюда
     public void run() {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setConnectionManager(connectionManager)
+                .setConnectionManagerShared(true)
+                .build();
         HttpClientContext localContext = this.httpContext.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
