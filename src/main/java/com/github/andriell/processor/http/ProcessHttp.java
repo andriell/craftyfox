@@ -19,11 +19,16 @@ import java.util.Collection;
  */
 public class ProcessHttp implements ProcessInterface {
     private static PoolingHttpClientConnectionManager connectionManager;
+    private static CloseableHttpClient httpClient;
 
     static {
         connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setMaxTotal(1000);
         connectionManager.setDefaultMaxPerRoute(1000);
+        httpClient = HttpClients.custom()
+                .setConnectionManager(connectionManager)
+                .setConnectionManagerShared(true)
+                .build();
     }
 
     private String name;
@@ -34,10 +39,6 @@ public class ProcessHttp implements ProcessInterface {
 
     // TODO data должна поступать вот сюда
     public void run() {
-        CloseableHttpClient httpClient = HttpClients.custom()
-                .setConnectionManager(connectionManager)
-                .setConnectionManagerShared(true)
-                .build();
         HttpClientContext localContext = this.httpContext.getClientContext();
         try {
             CloseableHttpResponse response = httpClient.execute(data, localContext);
