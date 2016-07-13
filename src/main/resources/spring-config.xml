@@ -223,4 +223,8 @@
     <bean id="productDaoImpl" class="com.github.andriell.db.ProductDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+
+    <bean id="hashDateDaoImpl" class="com.github.andriell.db.HashDateDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>
