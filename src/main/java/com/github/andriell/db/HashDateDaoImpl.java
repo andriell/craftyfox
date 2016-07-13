@@ -29,28 +29,7 @@ public class HashDateDaoImpl implements HashDateDao {
 
     public boolean checkSec(String str, int sec) {
         HashDate hashDate = find(str);
-
-        if (hashDate == null) {
-            Session session = sessionFactory.openSession();
-            Transaction transaction = session.beginTransaction();
-            HashDate hashDate2 = new HashDate();
-            hashDate2.setString(str);
-            hashDate2.setDate(System.currentTimeMillis());
-            session.save(hashDate2);
-            transaction.commit();
-            session.close();
-            return true;
-        }
-        if (hashDate.getDate() + sec * 1000 > System.currentTimeMillis()) {
-            return false;
-        }
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        hashDate.setDate(System.currentTimeMillis());
-        session.update(hashDate);
-        transaction.commit();
-        session.close();
-        return true;
+        return hashDate == null || hashDate.getDate() + sec * 1000 <= System.currentTimeMillis();
     }
 
     public boolean checkMinute(String str, int i) {
@@ -63,6 +42,17 @@ public class HashDateDaoImpl implements HashDateDao {
 
     public boolean checkDay(String str, int i) {
         return checkSec(str, i * 86400);
+    }
+
+    public void update(String str) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        HashDate hashDate2 = new HashDate();
+        hashDate2.setString(str);
+        hashDate2.setDate(System.currentTimeMillis());
+        session.saveOrUpdate(hashDate2);
+        transaction.commit();
+        session.close();
     }
 
     public SessionFactory getSessionFactory() {

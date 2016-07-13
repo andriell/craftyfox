@@ -8,4 +8,5 @@ public interface HashDateDao {
     boolean checkMinute(String str, int i);
     boolean checkHour(String str, int i);
     boolean checkDay(String str, int i);
+    void update(String str);
 }

@@ -60,6 +60,9 @@ var craftyFox = {
     },
     hashTimeDay: function (str, int) {
         return craftyFox.hashTime.checkDay(str, int);
+    },
+    hashTimeUpdate: function (str) {
+        return craftyFox.hashTime.update(str);
     }
 };
 var $ = craftyFox;
