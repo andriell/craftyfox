@@ -3,6 +3,7 @@ package com.github.andriell.gui.product;
 import com.github.andriell.db.Product;
 import com.github.andriell.db.ProductDao;
 import com.github.andriell.db.ProductProperty;
+import com.github.andriell.gui.GuiHelper;
 import com.github.andriell.gui.WorkArea;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -264,9 +265,6 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             for (String f : fields) {
                 column.addItem(f);
             }
-            column.setLocation(2, 2);
-            column.setSize(96, 20);
-            add(column);
 
             condition = new JComboBox();
             condition.setFont(font);
@@ -283,17 +281,11 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             //condition.addItem("RANGE");
             condition.addItem("NULL");
             condition.addItem("NOT NULL");
-            condition.setLocation(100, 2);
-            condition.setSize(78, 20);
-            add(condition);
 
             value = new JTextField();
             value.setColumns(20);
             value.setFont(font);
             value.setMargin(insets);
-            value.setLocation(2, 24);
-            value.setSize(200, 20);
-            add(value);
 
             close = new JButton("X");
             close.setFont(font);
@@ -304,10 +296,19 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                     parent.conditionPanel.updateUI();
                 }
             });
-            close.setLocation(180, 2);
-            close.setSize(20, 20);
-            add(close);
 
+            GuiHelper.gridFormatter(
+                    this,
+                    new int[]{2, 2},
+                    new int[]{100, 2, 70, 2, 20},
+                    new int[]{20, 2, 20},
+                    new Component[][]{
+                            {column, null, condition, null, close},
+                            null,
+                            {value, null, null, null, null},
+                    }
+            );
+            value.setSize(196, 20);
         }
 
         public void render(Junction junction) {
