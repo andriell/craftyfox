@@ -80,9 +80,10 @@ public class Process extends JPanel {
         limit.setValue(manager.getLimitProcess());
 
         if (inQueueCount > 10 && startTime > 0 && complitedCount > startComplitedCount) {
-            float inTime = (complitedCount - startComplitedCount) / ((time - startTime) / 1000);
+            float inTime = (complitedCount - startComplitedCount);
+            inTime = inTime / ((time - startTime) / 1000);
             if (inTime > 0) {
-                pcSec.setText(Float.toString(inTime));
+                pcSec.setText(Float.toString(Math.round(inTime * 100) / 100));
                 timeLeft.setText(secToTime(Math.round((inQueueCount / inTime))));
             }
         } else {
