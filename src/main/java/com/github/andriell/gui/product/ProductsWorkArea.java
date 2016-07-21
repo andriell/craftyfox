@@ -250,15 +250,22 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             rootPanel = this;
             this.parent = p;
 
-            setLayout(new FlowLayout(FlowLayout.LEFT));
+            setLayout(null);
             //setBorder(border);
-            setMaximumSize(new Dimension(500, 35));
+            Dimension dimension = new Dimension(220, 46);
+            setPreferredSize(dimension);
+            setMaximumSize(dimension);
+            setMinimumSize(dimension);
+            setSize(dimension);
+
             column = new JComboBox();
             column.setFont(font);
             String[] fields = productDao.searchFields();
             for (String f : fields) {
                 column.addItem(f);
             }
+            column.setLocation(2, 2);
+            column.setSize(96, 20);
             add(column);
 
             condition = new JComboBox();
@@ -276,12 +283,16 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
             //condition.addItem("RANGE");
             condition.addItem("NULL");
             condition.addItem("NOT NULL");
+            condition.setLocation(100, 2);
+            condition.setSize(78, 20);
             add(condition);
 
             value = new JTextField();
             value.setColumns(20);
             value.setFont(font);
             value.setMargin(insets);
+            value.setLocation(2, 24);
+            value.setSize(200, 20);
             add(value);
 
             close = new JButton("X");
@@ -293,7 +304,10 @@ public class ProductsWorkArea implements WorkArea, InitializingBean {
                     parent.conditionPanel.updateUI();
                 }
             });
+            close.setLocation(180, 2);
+            close.setSize(20, 20);
             add(close);
+
         }
 
         public void render(Junction junction) {
