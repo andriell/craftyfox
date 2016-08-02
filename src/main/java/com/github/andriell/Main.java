@@ -677,7 +677,6 @@ public class Main {
         UIManager.put("ProgressBar.font", f);
         UIManager.put("ScrollPane.font", f);
         UIManager.put("Viewport.font", f);
-        UIManager.put("TabbedPane.font", f);
         UIManager.put("Table.font", f);
         UIManager.put("TableHeader.font", f);
         UIManager.put("TextField.font", f);
@@ -703,39 +702,24 @@ public class Main {
         UIManager.put("ComboBox.buttonBackground", white);
         UIManager.put("Panel.background", white);
 
+        //<editor-fold desc="ScrollBar">
         UIManager.put("ScrollBar.background", white);
         UIManager.put("ScrollBar.shadow", white); // Внутренний контур полосы прокрутки
         UIManager.put("ScrollBar.thumbHighlight", white); // Тень на бегунке
         UIManager.put("ScrollBar.thumbShadow", gray); // Внешний контур бегунка
         UIManager.put("ScrollBar.darkShadow", gray); // Внешний Контур полосы прокрутки
-
-        UIManager.put("ScrollPane.background", white); // Бекграунд скрол панели
-
         UIManager.put("ScrollBar.gradient", Arrays.asList(0.0, 0.0, white, white, white)); // Центральный градиент бегунка
         UIManager.put("ScrollBar.width", 14);
+        UIManager.put("ScrollPane.background", white); // Бекграунд скрол панели
+        //</editor-fold>
 
-
-        // 	scrollbar	javax.swing.plaf.ColorUIResource[r=238,g=238,b=238]
-        // 	ScrollBar.allowsAbsolutePositioning	true
-        // 	ScrollBar.ancestorInputMap	javax.swing.plaf.InputMapUIResource@123a439b
-        // 	ScrollBar.ancestorInputMap.RightToLeft	javax.swing.plaf.InputMapUIResource@470e2030
-        // 	ScrollBar.background	javax.swing.plaf.ColorUIResource[r=238,g=238,b=238]
-        // 	ScrollBar.darkShadow	javax.swing.plaf.ColorUIResource[r=122,g=138,b=153]
-        // 	ScrollBar.foreground	javax.swing.plaf.ColorUIResource[r=238,g=238,b=238]
-        // 	ScrollBar.gradient	[0.3, 0.0, javax.swing.plaf.ColorUIResource[r=221,g=232,b=243], javax.swing.plaf.ColorUIResource[r=255,g=255,b=255], javax.swing.plaf.ColorUIResource[r=184,g=207,b=229]]
-        // 	ScrollBar.highlight	javax.swing.plaf.ColorUIResource[r=255,g=255,b=255]
-        // 	ScrollBar.maximumThumbSize	javax.swing.plaf.DimensionUIResource[width=4096,height=4096]
-        // 	ScrollBar.minimumThumbSize	javax.swing.plaf.DimensionUIResource[width=8,height=8]
-        // 	ScrollBar.shadow	javax.swing.plaf.ColorUIResource[r=184,g=207,b=229]
-        // 	ScrollBar.thumb	javax.swing.plaf.ColorUIResource[r=163,g=184,b=204]
-        // 	ScrollBar.thumbDarkShadow	javax.swing.plaf.ColorUIResource[r=122,g=138,b=153]
-        // 	ScrollBar.thumbHighlight	javax.swing.plaf.ColorUIResource[r=184,g=207,b=229]
-        // 	ScrollBar.thumbShadow	javax.swing.plaf.ColorUIResource[r=99,g=130,b=191]
-        // 	ScrollBar.track	javax.swing.plaf.ColorUIResource[r=238,g=238,b=238]
-        // 	ScrollBar.trackHighlight	javax.swing.plaf.ColorUIResource[r=122,g=138,b=153]
-        // 	ScrollBar.width	17
-        // 	ScrollBarUI	javax.swing.plaf.metal.MetalScrollBarUI
-
+        //<editor-fold desc="TabbedPane">
+        UIManager.put("TabbedPane.font", f);
+        UIManager.put("TabbedPane.selected", white); // Бекграунд выделенного таба
+        UIManager.put("TabbedPane.contentAreaColor", white); // Средняя часть бордюра выделенного таба
+        UIManager.put("TabbedPane.borderHightlightColor", gray); // Внешний верхний контур таба
+        UIManager.put("TabbedPane.darkShadow", gray); // Внешний нижний контур таба
+        //</editor-fold>
     }
 
     public static void main(String[] args) throws Exception {
