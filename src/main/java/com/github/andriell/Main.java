@@ -657,7 +657,6 @@ public class Main {
         // 	windowText	sun.swing.PrintColorUIResource[r=51,g=51,b=51]
 
         Font f = new Font("Segoe UI", Font.PLAIN, 14);
-        //Font f = new Font("Courier New", Font.PLAIN, 10);
         UIManager.put("Button.font", f);
         UIManager.put("ToggleButton.font", f);
         UIManager.put("RadioButton.font", f);
@@ -694,14 +693,17 @@ public class Main {
         Color gray = Color.gray;
 
         UIManager.put("control", white); // Цвет кнопок на скроле
+        //<editor-fold desc="Button">
         UIManager.put("Button.background", white);
         UIManager.put("Button.focus", white); // Цвет рамки вокруг нажатой кнопки
         UIManager.put("Button.select", white); // Цвет кнопки вовремя нажатия
+        //</editor-fold>
         UIManager.put("CheckBox.background", white);
+        //<editor-fold desc="CheckBox">
         UIManager.put("ComboBox.background", white);
         UIManager.put("ComboBox.buttonBackground", white);
+        //</editor-fold>
         UIManager.put("Panel.background", white);
-
         //<editor-fold desc="ScrollBar">
         UIManager.put("ScrollBar.background", white);
         UIManager.put("ScrollBar.shadow", white); // Внутренний контур полосы прокрутки
@@ -712,7 +714,6 @@ public class Main {
         UIManager.put("ScrollBar.width", 14);
         UIManager.put("ScrollPane.background", white); // Бекграунд скрол панели
         //</editor-fold>
-
         //<editor-fold desc="TabbedPane">
         UIManager.put("TabbedPane.font", f);
         UIManager.put("TabbedPane.selected", white); // Бекграунд выделенного таба
