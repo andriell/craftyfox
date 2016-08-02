@@ -22,6 +22,7 @@ public class ProcessDb implements ProcessInterface {
 
     public void run() {
         data.save();
+        data.destroy();
         data = null;
     }
 }

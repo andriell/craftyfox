@@ -60,7 +60,9 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase implements D
     public void destroy() {
         processBeanId = null;
         method = null;
+        data.clear();
         data = null;
+        dataListeners.clear();
         dataListeners = null;
         jsData = null;
     }

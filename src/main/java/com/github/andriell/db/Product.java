@@ -21,6 +21,20 @@ public class Product implements ProcessDbDataInterface {
     private Set<ProductProperty> property = new HashSet<ProductProperty>(0);
     private ProductDao productDao;
     private float priceDelta;
+    private String processBeanId;
+
+    public void destroy() {
+        site = null;
+        code = null;
+        name = null;
+        url = null;
+        currency = null;
+        date = null;
+        property.clear();
+        property = null;
+        productDao = null;
+        processBeanId = null;
+    }
 
     public float getPriceDelta() {
         return (float) (Math.rint(100.0 * priceDelta) / 100.0);
@@ -137,5 +151,13 @@ public class Product implements ProcessDbDataInterface {
                 ", property=" + property +
                 ", productDao=" + productDao +
                 '}';
+    }
+
+    public String getProcessBeanId() {
+        return processBeanId;
+    }
+
+    public void setProcessBeanId(String processBeanId) {
+        this.processBeanId = processBeanId;
     }
 }
