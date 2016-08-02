@@ -3,7 +3,6 @@ package com.github.andriell;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.util.Arrays;
 
@@ -658,6 +657,7 @@ public class Main {
         // 	windowText	sun.swing.PrintColorUIResource[r=51,g=51,b=51]
 
         Font f = new Font("Segoe UI", Font.PLAIN, 14);
+        //Font f = new Font("Courier New", Font.PLAIN, 10);
         UIManager.put("Button.font", f);
         UIManager.put("ToggleButton.font", f);
         UIManager.put("RadioButton.font", f);
@@ -691,8 +691,8 @@ public class Main {
         UIManager.put("Tree.font", f);
 
         Color white = Color.white;
-        ColorUIResource colorUIResource = new ColorUIResource(white);
         Color black = Color.black;
+        Color gray = Color.gray;
 
         UIManager.put("Button.background", white);
         UIManager.put("CheckBox.background", white);
@@ -700,14 +700,14 @@ public class Main {
         UIManager.put("ComboBox.buttonBackground", white);
         UIManager.put("Panel.background", white);
         UIManager.put("ScrollBar.background", white);
-        UIManager.put("ScrollBar.shadow", white);
-        UIManager.put("ScrollBar.thumbHighlight", white);
-        UIManager.put("ScrollBar.thumbShadow", black);
-        UIManager.put("ScrollBar.darkShadow", black);
+        UIManager.put("ScrollBar.shadow", white); // Внутренний контур полосы прокрутки
+        UIManager.put("ScrollBar.thumbHighlight", gray); // Тень на бегунке
+        UIManager.put("ScrollBar.thumbShadow", gray); // Внешний контур бегунка
+        UIManager.put("ScrollBar.darkShadow", gray); // Внешний Контур полосы прокрутки
         UIManager.put("Separator.background", white);
 
-        UIManager.put( "ScrollBar.gradient", Arrays.asList(0.0, 0.0, colorUIResource, colorUIResource, colorUIResource));
-        UIManager.put("ScrollBar.width", 12);
+        UIManager.put("ScrollBar.gradient", Arrays.asList(0.0, 0.0, gray, gray, gray)); // Центральный градиент бегунка
+        UIManager.put("ScrollBar.width", 40);
 
 
         // 	scrollbar	javax.swing.plaf.ColorUIResource[r=238,g=238,b=238]
