@@ -694,20 +694,25 @@ public class Main {
         Color black = Color.black;
         Color gray = Color.gray;
 
+        UIManager.put("control", white); // Цвет кнопок на скроле
         UIManager.put("Button.background", white);
+        UIManager.put("Button.focus", white); // Цвет рамки вокруг нажатой кнопки
+        UIManager.put("Button.select", white); // Цвет кнопки вовремя нажатия
         UIManager.put("CheckBox.background", white);
         UIManager.put("ComboBox.background", white);
         UIManager.put("ComboBox.buttonBackground", white);
         UIManager.put("Panel.background", white);
+
         UIManager.put("ScrollBar.background", white);
         UIManager.put("ScrollBar.shadow", white); // Внутренний контур полосы прокрутки
-        UIManager.put("ScrollBar.thumbHighlight", gray); // Тень на бегунке
+        UIManager.put("ScrollBar.thumbHighlight", white); // Тень на бегунке
         UIManager.put("ScrollBar.thumbShadow", gray); // Внешний контур бегунка
         UIManager.put("ScrollBar.darkShadow", gray); // Внешний Контур полосы прокрутки
-        UIManager.put("Separator.background", white);
 
-        UIManager.put("ScrollBar.gradient", Arrays.asList(0.0, 0.0, gray, gray, gray)); // Центральный градиент бегунка
-        UIManager.put("ScrollBar.width", 40);
+        UIManager.put("ScrollPane.background", white); // Бекграунд скрол панели
+
+        UIManager.put("ScrollBar.gradient", Arrays.asList(0.0, 0.0, white, white, white)); // Центральный градиент бегунка
+        UIManager.put("ScrollBar.width", 14);
 
 
         // 	scrollbar	javax.swing.plaf.ColorUIResource[r=238,g=238,b=238]
