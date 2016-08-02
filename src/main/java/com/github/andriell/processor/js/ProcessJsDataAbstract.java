@@ -16,7 +16,7 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
     private ContentType contentType;
     private Object jsData; // Данные передаваемые из js, для js
 
-    public void clear() {
+    public void destroy() {
         converter = null;
         processBeanId = null;
         data = null;

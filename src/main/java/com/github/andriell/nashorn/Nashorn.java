@@ -115,7 +115,7 @@ public class Nashorn implements InitializingBean, ApplicationContextAware {
 
     public Object runProcess(ProcessJsDataInterface processData) throws ScriptException, NoSuchMethodException {
         Object r = runProcess(processData.getPageName(), processData);
-        processData.clear();
+        processData.destroy();
         return r;
     }
 
