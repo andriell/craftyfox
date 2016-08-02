@@ -29,6 +29,7 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase implements D
     private String method = METHOD_GET;
     private Collection<NameValuePair> data = new ArrayList<NameValuePair>();
     private Collection<ProcessHttpDataListenerInterface> dataListeners = new ArrayList<ProcessHttpDataListenerInterface>(2);
+    private Object jsData; // Данные передаваемые из js, для js
 
     public ProcessHttpData() {
         init();
@@ -106,5 +107,21 @@ public class ProcessHttpData extends HttpEntityEnclosingRequestBase implements D
 
     public void setUserAgent(String userAgent) {
         setHeader("User-Agent", userAgent);
+    }
+
+    /**
+     * Данные передаваемые из js, для js
+     * @return
+     */
+    public Object getJsData() {
+        return jsData;
+    }
+
+    /**
+     *  Данные передаваемые из js, для js
+     * @param jsData
+     */
+    public void setJsData(Object jsData) {
+        this.jsData = jsData;
     }
 }

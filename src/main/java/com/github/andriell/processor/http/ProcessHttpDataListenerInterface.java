@@ -9,4 +9,5 @@ import org.apache.http.entity.ContentType;
  */
 public interface ProcessHttpDataListenerInterface extends DataInterface {
     void setResponse(byte[] body, ContentType contentType, String request, HttpResponse response);
+    void setJsData(Object jsData);
 }

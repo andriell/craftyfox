@@ -14,6 +14,7 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
     private String url;
     private HttpResponse response;
     private ContentType contentType;
+    private Object jsData; // Данные передаваемые из js, для js
 
     protected void setHttpParam(String url, HttpResponse response, ContentType contentType) {
         this.url = url;
@@ -63,5 +64,21 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    /**
+     * Данные передаваемые из js, для js
+     * @return
+     */
+    public Object getJsData() {
+        return jsData;
+    }
+
+    /**
+     * Данные передаваемые из js, для js
+     * @param jsData
+     */
+    public void setJsData(Object jsData) {
+        this.jsData = jsData;
     }
 }

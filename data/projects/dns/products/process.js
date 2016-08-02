@@ -7,11 +7,12 @@ $.addParser("dns.products", function (data) {
     while(iterator.hasNext()) {
         var e = iterator.next();
         var url = e.text();
-        /*if (!craftyFox.hashTimeDay(url, 2)) {
+        if (!craftyFox.hashTimeDay(url, 2)) {
             console.info("Old url: " + url);
             continue;
-        }*/
+        }
         var dataHttp = $.newHttpData("GET", url);
+        dataHttp.setJsData({"url": url});
         var dataHtml = $.newJsDataHtml("dns.product");
         dataHttp.addDataListener(dataHtml);
         craftyFox.processor.add("process-http", dataHttp);
