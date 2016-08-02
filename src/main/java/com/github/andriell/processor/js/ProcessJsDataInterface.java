@@ -8,4 +8,5 @@ public interface ProcessJsDataInterface {
     void setPageName(String pageName);
     Object getData();
     void setData(Object pageName);
+    void clear();
 }

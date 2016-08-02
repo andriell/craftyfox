@@ -16,6 +16,17 @@ public abstract class ProcessJsDataAbstract implements ProcessJsDataInterface {
     private ContentType contentType;
     private Object jsData; // Данные передаваемые из js, для js
 
+    public void clear() {
+        converter = null;
+        processBeanId = null;
+        data = null;
+        pageName = null;
+        url = null;
+        response = null;
+        contentType = null;
+        jsData = null;
+    }
+
     protected void setHttpParam(String url, HttpResponse response, ContentType contentType) {
         this.url = url;
         this.response = response;
