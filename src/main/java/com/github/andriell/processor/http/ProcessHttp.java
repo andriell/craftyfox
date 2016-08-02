@@ -53,6 +53,7 @@ public class ProcessHttp implements ProcessInterface {
                     dataListener.setResponse(body, contentType, data.getURI().toURL().toString(), response);
                     dataListener.setJsData(data.getJsData());
                     processor.add(dataListener);
+                    data.destroy();
                 }
             }
             if (listeners != null) {

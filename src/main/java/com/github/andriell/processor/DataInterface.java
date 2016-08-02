@@ -5,4 +5,5 @@ package com.github.andriell.processor;
  */
 public interface DataInterface {
     String getProcessBeanId();
+    void destroy();
 }
