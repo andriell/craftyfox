@@ -1,7 +1,3 @@
-/**
- * Created by Rybalko on 20.06.2016.
- */
-
 function FileWriter(fileName) {
     var writer = app.getBean("file-writer");
     writer.init(fileName);
@@ -23,7 +19,6 @@ function FileWriter(fileName) {
     };
     return fileWriter;
 }
-
 
 function CsvWriter(fileName) {
     var writer = app.getBean("file-writer");
