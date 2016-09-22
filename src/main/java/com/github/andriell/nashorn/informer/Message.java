@@ -3,7 +3,7 @@ package com.github.andriell.nashorn.informer;
 /**
  * Created by Rybalko on 22.09.2016.
  */
-public class Message implements MessageInterface {
+public class Message {
     private String url;
     private String message;
 
