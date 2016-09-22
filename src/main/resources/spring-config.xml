@@ -163,7 +163,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="org.h2.Driver" />
-        <property name="url" value="jdbc:h2:~/CraftyFox/main" />
+        <property name="url" value="jdbc:h2:/data/h2/main" />
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>
@@ -195,5 +195,16 @@
 
     <bean id="hashDateDaoImpl" class="com.github.andriell.db.HashDateDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="java.lang.System"/>
+        <property name="targetMethod" value="setProperty"/>
+        <property name="arguments">
+            <list>
+                <value>h2.implicitRelativePath</value>
+                <value>true</value>
+            </list>
+        </property>
     </bean>
 </beans>
