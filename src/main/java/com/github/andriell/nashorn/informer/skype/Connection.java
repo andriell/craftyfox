@@ -23,6 +23,7 @@ public class Connection implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         skype = new SkypeBuilder(login, password).withAllResources().build();
         skype.login();
+        skype.subscribe();
     }
 
     public Skype getSkype() {

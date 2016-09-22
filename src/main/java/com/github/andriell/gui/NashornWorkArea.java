@@ -65,7 +65,7 @@ public class NashornWorkArea implements WorkArea, ConsoleListenerInterface, Init
                 String pageNameFull = projectName + "." + pageName;
                 stack.clear();
                 ProcessJsDataInterface processData = null;
-                  if (dataEditorActive != null) {
+                if (dataEditorActive != null) {
                     processData = dataEditorActive.getProcessData(pageNameFull);
                 }
                 try {

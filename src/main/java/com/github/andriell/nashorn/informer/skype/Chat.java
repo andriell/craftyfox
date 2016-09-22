@@ -34,6 +34,7 @@ public class Chat implements InitializingBean {
         for (String contact:contacts) {
             groupChat.add(skype.getOrLoadContact(contact));
         }
+        groupChat.setTopic(name);
     }
 
     public boolean sendMessage(String message) {

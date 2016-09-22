@@ -89,7 +89,7 @@
     </bean>
 
     <!-- skype-connection -->
-    <bean id="skype-connection" class="com.github.andriell.nashorn.informer.skype.Connection" scope="prototype">
+    <bean id="skype-connection" class="com.github.andriell.nashorn.informer.skype.Connection">
         <property name="username" value="${skype.username}" />
         <property name="password" value="${skype.password}" />
     </bean>

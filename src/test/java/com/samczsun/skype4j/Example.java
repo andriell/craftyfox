@@ -17,81 +17,23 @@ package com.samczsun.skype4j;
  */
 
 import com.samczsun.skype4j.chat.GroupChat;
-import com.samczsun.skype4j.events.EventHandler;
-import com.samczsun.skype4j.events.Listener;
-import com.samczsun.skype4j.events.chat.message.MessageEvent;
-import com.samczsun.skype4j.events.chat.sent.PictureReceivedEvent;
 import com.samczsun.skype4j.events.chat.user.action.OptionUpdateEvent;
-import com.samczsun.skype4j.events.chat.user.action.PictureUpdateEvent;
-import com.samczsun.skype4j.events.chat.user.action.RoleUpdateEvent;
-import com.samczsun.skype4j.events.chat.user.action.TopicUpdateEvent;
-import com.samczsun.skype4j.events.contact.ContactRequestEvent;
 import com.samczsun.skype4j.exceptions.ConnectionException;
 import com.samczsun.skype4j.formatting.Message;
 import com.samczsun.skype4j.formatting.Text;
 import com.samczsun.skype4j.internal.StreamUtils;
 import com.samczsun.skype4j.user.User;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.FileInputStream;
 
 public class Example {
     public static void main(String[] args) throws Exception {
         try {
-            String[] data = StreamUtils.readFully(new FileInputStream("credentials")).split(":");
+            String[] data = StreamUtils.readFully(new FileInputStream("C:\\credentials")).split(":");
             Skype skype = new SkypeBuilder(data[0], data[1]).withAllResources().build();
             skype.login();
             System.out.println("Logged in");
-            skype.getEventDispatcher().registerListener(new Listener() {
-                @EventHandler
-                public void onMessage(MessageEvent e) {
-                    try {
-                        System.out.println("Message: " + e.getMessage().getContent() + " sent by " + e.getMessage().getSender().getDisplayName());
-                    } catch (ConnectionException e1) {
-                        e1.printStackTrace();
-                    }
-                }
 
-                @EventHandler
-                public void onMessage(PictureReceivedEvent e) {
-                    try {
-                        System.out.println("Picture: " + e.getOriginalName() + " sent by " + e.getSender().getDisplayName());
-                        System.out.println("Saving to " + new File(e.getOriginalName()).getCanonicalPath());
-                        ImageIO.write(e.getSentImage(), "png", new File(e.getOriginalName()));
-                    } catch (Exception e1) {
-                    }
-                }
-
-                @EventHandler
-                public void onPicture(PictureUpdateEvent event) {
-                    System.out.println("Picture for " + event.getChat().getIdentity() + " was set to " + event.getPictureURL() + " at " + event.getEventTime() + " by " + event.getUser().getUsername());
-                }
-
-                @EventHandler
-                public void onTopic(TopicUpdateEvent event) {
-                    System.out.println("Topic for " + event.getChat().getIdentity() + " was set to " + event.getNewTopic() + " at " + event.getEventTime() + " by " + event.getUser().getUsername());
-                }
-
-                @EventHandler
-                public void onOption(OptionUpdateEvent event) {
-                    System.out.println(event.getOption() + " was set to " + event.isEnabled() + " at " + event.getEventTime());
-                }
-
-                @EventHandler
-                public void onRole(RoleUpdateEvent event) {
-                    System.out.println("Role for " + event.getTarget().getUsername() + " was set to " + event.getNewRole() + " at " + event.getEventTime() + " by " + event.getUser().getUsername());
-                }
-
-                @EventHandler
-                public void onContact(ContactRequestEvent event) {
-                    try {
-                        System.out.println("New contact request from " + event.getRequest().getSender().getUsername() + " at " + event.getRequest().getTime() + " with message " + event.getRequest().getMessage());
-                    } catch (ConnectionException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
             skype.subscribe();
             System.out.println("Subscribed");
             GroupChat groupChat = (GroupChat) skype.createGroupChat(skype.getOrLoadContact("echo123"));
