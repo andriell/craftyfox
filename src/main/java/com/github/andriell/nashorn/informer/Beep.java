@@ -10,5 +10,4 @@ public class Beep {
         Toolkit.getDefaultToolkit().beep();
         return true;
     }
-
 }
