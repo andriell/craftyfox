@@ -2,9 +2,6 @@ package com.github.andriell.nashorn.informer;
 
 import com.samczsun.skype4j.Skype;
 import com.samczsun.skype4j.SkypeBuilder;
-import com.samczsun.skype4j.exceptions.ConnectionException;
-import com.samczsun.skype4j.exceptions.InvalidCredentialsException;
-import com.samczsun.skype4j.exceptions.NotParticipatingException;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
@@ -42,11 +39,7 @@ public class InformerSkype implements InitializingBean {
         } catch (Exception e) {
             try {
                 skype.login();
-            } catch (InvalidCredentialsException e1) {
-                e1.printStackTrace();
-            } catch (ConnectionException e1) {
-                e1.printStackTrace();
-            } catch (NotParticipatingException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
             e.printStackTrace();
