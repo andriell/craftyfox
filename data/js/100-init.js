@@ -1,5 +1,15 @@
 var console = app.getBean("js-console");
 
+var informer = {
+    beep: function() {
+        var informer = app.getBean("js-informer-beep");
+        if (informer == null) {
+            return false;
+        }
+        return informer.sendMessage(null);
+    }
+};
+
 var craftyFox = {
     app: app,
     hashTime: app.getBean("hashDateDaoImpl"),

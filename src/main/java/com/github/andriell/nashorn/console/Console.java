@@ -1,8 +1,5 @@
 package com.github.andriell.nashorn.console;
 
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-
 /**
  * Created by Andrey on 03.04.2016
  */
@@ -36,5 +33,17 @@ public class Console {
 
     public void setConsoleListeners(ConsoleListenerInterface[] consoleListeners) {
         this.consoleListeners = consoleListeners;
+    }
+
+    public void sleep(int s) {
+        try {
+            Thread.sleep(s * 1000);
+        } catch (Exception ignored) {}
+    }
+
+    public void sleep(long s) {
+        try {
+            Thread.sleep(s * 1000);
+        } catch (Exception ignored) {}
     }
 }

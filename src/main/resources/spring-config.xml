@@ -72,6 +72,13 @@
             </array>
         </property>
     </bean>
+
+    <!-- JS объект InformerMessage -->
+    <bean id="js-informer-message" class="com.github.andriell.nashorn.informer.Message" scope="prototype" />
+
+    <!-- JS объект InformerBeep -->
+    <bean id="js-informer-beep" class="com.github.andriell.nashorn.informer.InformerBeep" />
+
     <!-- JS объект roduct -->
     <bean id="js-product" class="com.github.andriell.db.Product" scope="prototype">
         <property name="productDao" ref="productDaoImpl" />
