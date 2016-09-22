@@ -12,8 +12,8 @@ public class Connection implements InitializingBean {
     private String login;
     private String password;
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.login = username;
     }
 
     public void setPassword(String password) {

@@ -3,6 +3,10 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="user.properties"/>
+    </bean>
+
     <!-- НАСТРОЙКИ GUI -->
     <!-- Главное окно прогораммы -->
     <bean id="gui-main-frame" class="com.github.andriell.gui.MainFrame">
@@ -73,8 +77,22 @@
         </property>
     </bean>
 
-    <!-- JS объект InformerMessage -->
-    <bean id="js-informer-message" class="com.github.andriell.nashorn.informer.Message" scope="prototype" />
+    <!-- JS объект Beep -->
+    <bean id="js-informer-skype" class="com.github.andriell.nashorn.informer.skype.Chat">
+        <property name="connection" ref="skype-connection" />
+        <property name="contacts">
+            <list>
+                <value>andriell2</value>
+            </list>
+        </property>
+        <property name="name" value="CraftyFox" />
+    </bean>
+
+    <!-- skype-connection -->
+    <bean id="skype-connection" class="com.github.andriell.nashorn.informer.skype.Connection" scope="prototype">
+        <property name="username" value="${skype.username}" />
+        <property name="password" value="${skype.password}" />
+    </bean>
 
     <!-- JS объект Beep -->
     <bean id="js-informer-beep" class="com.github.andriell.nashorn.informer.Beep" />

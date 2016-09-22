@@ -6,7 +6,14 @@ var informer = {
         if (informer == null) {
             return false;
         }
-        return informer.sendMessage(null);
+        return informer.sendMessage();
+    },
+    skype: function(message) {
+        var informer = app.getBean("js-informer-skype");
+        if (informer == null) {
+            return false;
+        }
+        return informer.sendMessage(message);
     }
 };
 
