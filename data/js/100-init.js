@@ -8,12 +8,16 @@ var informer = {
         }
         return informer.sendMessage();
     },
-    skype: function(message) {
+    skype: function(usernames, message) {
         var informer = app.getBean("js-informer-skype");
         if (informer == null) {
             return false;
         }
-        return informer.sendMessage(message);
+        var r = true;
+        for (var i = 0, len = usernames.length; i < len; i++) {
+            r = r && informer.sendMessage(usernames[i], message);
+        }
+        return r;
     }
 };
 

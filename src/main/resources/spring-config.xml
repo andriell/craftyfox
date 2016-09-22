@@ -78,18 +78,12 @@
     </bean>
 
     <!-- JS объект Beep -->
-    <bean id="js-informer-skype" class="com.github.andriell.nashorn.informer.skype.Chat">
+    <bean id="js-informer-skype" class="com.github.andriell.nashorn.informer.skype.SkypeChat">
         <property name="connection" ref="skype-connection" />
-        <property name="contacts">
-            <list>
-                <value>andriell2</value>
-            </list>
-        </property>
-        <property name="name" value="CraftyFox" />
     </bean>
 
     <!-- skype-connection -->
-    <bean id="skype-connection" class="com.github.andriell.nashorn.informer.skype.Connection">
+    <bean id="skype-connection" class="com.github.andriell.nashorn.informer.skype.SkypeConnection">
         <property name="username" value="${skype.username}" />
         <property name="password" value="${skype.password}" />
     </bean>

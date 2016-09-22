@@ -7,7 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 /**
  * Created by Rybalko on 22.09.2016.
  */
-public class Connection implements InitializingBean {
+public class SkypeConnection implements InitializingBean {
     private Skype skype;
     private String login;
     private String password;
