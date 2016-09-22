@@ -10,14 +10,3 @@ $.addParser("rumi.start", function (data) {
         console.sleep(10);
     }
 });
-
-$.addParser("rumi.3s", function (data) {
-    var document = data.getData();
-    var links = document.select("a.link");
-    var iterator = links.iterator();
-    while(iterator.hasNext()) {
-        var element = iterator.next();
-        console.info(element.getClass().getName());
-        console.info(element.attr("href"));
-    }
-});
