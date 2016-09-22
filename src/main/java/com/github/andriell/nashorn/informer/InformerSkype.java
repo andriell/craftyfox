@@ -1,29 +1,47 @@
-package com.github.andriell.nashorn.informer.skype;
+package com.github.andriell.nashorn.informer;
 
+import com.samczsun.skype4j.Skype;
+import com.samczsun.skype4j.SkypeBuilder;
 import com.samczsun.skype4j.exceptions.ConnectionException;
 import com.samczsun.skype4j.exceptions.InvalidCredentialsException;
 import com.samczsun.skype4j.exceptions.NotParticipatingException;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Created by Rybalko on 22.09.2016.
  */
-public class SkypeChat {
-    private SkypeConnection connection;
+public class InformerSkype implements InitializingBean {
+    private Skype skype;
+    private String login;
+    private String password;
 
-    public void setConnection(SkypeConnection connection) {
-        this.connection = connection;
+    public void setUsername(String username) {
+        this.login = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        skype = new SkypeBuilder(login, password).withAllResources().build();
+        skype.login();
+        skype.subscribe();
+    }
+
+    public Skype getSkype() {
+        return skype;
     }
 
     public boolean sendMessage(String username, String message) {
         try {
-            connection.getSkype()
-                    .getOrLoadContact(username)
+            skype.getOrLoadContact(username)
                     .getPrivateConversation()
                     .sendMessage(message);
             return true;
         } catch (Exception e) {
             try {
-                connection.getSkype().login();
+                skype.login();
             } catch (InvalidCredentialsException e1) {
                 e1.printStackTrace();
             } catch (ConnectionException e1) {

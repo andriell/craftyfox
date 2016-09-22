@@ -77,19 +77,14 @@
         </property>
     </bean>
 
-    <!-- JS объект Beep -->
-    <bean id="js-informer-skype" class="com.github.andriell.nashorn.informer.skype.SkypeChat">
-        <property name="connection" ref="skype-connection" />
-    </bean>
-
-    <!-- skype-connection -->
-    <bean id="skype-connection" class="com.github.andriell.nashorn.informer.skype.SkypeConnection">
+    <!-- js-informer-skype -->
+    <bean id="js-informer-skype" class="com.github.andriell.nashorn.informer.InformerSkype">
         <property name="username" value="${skype.username}" />
         <property name="password" value="${skype.password}" />
     </bean>
 
-    <!-- JS объект Beep -->
-    <bean id="js-informer-beep" class="com.github.andriell.nashorn.informer.Beep" />
+    <!-- JS объект InformerBeep -->
+    <bean id="js-informer-beep" class="com.github.andriell.nashorn.informer.InformerBeep" />
 
     <!-- JS объект roduct -->
     <bean id="js-product" class="com.github.andriell.db.Product" scope="prototype">

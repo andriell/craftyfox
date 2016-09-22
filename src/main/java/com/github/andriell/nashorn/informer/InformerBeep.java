@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Created by Rybalko on 22.09.2016.
  */
-public class Beep {
+public class InformerBeep {
     public boolean sendMessage() {
         Toolkit.getDefaultToolkit().beep();
         return true;
