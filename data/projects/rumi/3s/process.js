@@ -4,7 +4,7 @@ $.addParser("rumi.3s", function (data) {
     if (buttonBay.size() != 0) {
         informer.beep();
     }
-    console.sleep(10);
+    console.sleep(60);
 
     var url = 'http://ru-mi.com/xiaomi-redmi-3s-3gb-32gb-chernyiy';
     var dataHttp = $.newHttpData("GET", url);
