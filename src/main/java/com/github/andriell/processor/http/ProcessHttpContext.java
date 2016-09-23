@@ -1,5 +1,6 @@
 package com.github.andriell.processor.http;
 
+import com.github.andriell.nashorn.http.FileCookieStoreInterface;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCookieStore;

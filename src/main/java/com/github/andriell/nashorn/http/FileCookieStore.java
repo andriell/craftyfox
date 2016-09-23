@@ -1,4 +1,4 @@
-package com.github.andriell.processor.http;
+package com.github.andriell.nashorn.http;
 
 import org.apache.http.client.CookieStore;
 import org.apache.http.cookie.Cookie;

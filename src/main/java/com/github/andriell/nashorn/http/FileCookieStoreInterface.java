@@ -1,6 +1,4 @@
-package com.github.andriell.processor.http;
-
-import java.io.IOException;
+package com.github.andriell.nashorn.http;
 
 /**
  * Created by Rybalko on 14.04.2016.

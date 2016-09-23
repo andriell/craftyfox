@@ -1,6 +1,5 @@
 package com.github.andriell.nashorn.http;
 
-
 import org.apache.http.client.methods.RequestBuilder;
 
 import java.net.URI;

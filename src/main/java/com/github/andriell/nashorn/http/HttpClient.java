@@ -1,6 +1,5 @@
 package com.github.andriell.nashorn.http;
 
-import com.github.andriell.processor.http.FileCookieStoreInterface;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
