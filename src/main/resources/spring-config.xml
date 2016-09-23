@@ -116,6 +116,9 @@
     <bean id="process-js" class="com.github.andriell.processor.js.ProcessJs" scope="prototype">
         <property name="nashorn" ref="nashorn"/>
     </bean>
+    <bean id="process-js-data" class="com.github.andriell.processor.js.ProcessJsData" scope="prototype">
+        <property name="processBeanId" value="process-js"/>
+    </bean>
 
     <!-- Менеджер процессов DB -->
     <bean id="manager-db" class="com.github.andriell.processor.Manager">

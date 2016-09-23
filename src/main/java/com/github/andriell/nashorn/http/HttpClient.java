@@ -1,5 +1,6 @@
 package com.github.andriell.nashorn.http;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -10,6 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.io.IOException;
@@ -29,7 +31,9 @@ public class HttpClient implements InitializingBean {
     public HttpResponse execute(HttpUriRequest request) throws IOException {
         CloseableHttpResponse response = httpClient.execute(request, clientContext);
         request.setHeaders(clientContext.getRequest().getAllHeaders());
-        HttpResponse r = new HttpResponse(request, response);
+        HttpEntity httpEntity = response.getEntity();
+
+        HttpResponse r = new HttpResponse(request, response, EntityUtils.toByteArray(httpEntity));
         response.close();
         httpClient.close();
         return r;

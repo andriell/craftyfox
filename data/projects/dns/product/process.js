@@ -1,7 +1,8 @@
 $.addParser("dns.product", function(data) {
-    var url = data.getJsData().url;
+    var url = data.getData();
     console.info("URL: " + url);
-    var document = data.getData();
+
+    var document = $.http.get(url).html();
     var product = Product("dns", document.select(".price-item-code span").text());
     product.addProperty(ProductPrice(document.select("meta[itemprop=price]").attr("content"), "RUB"));
     product.setName(document.select("h1").text());

@@ -20,10 +20,12 @@ import java.nio.charset.Charset;
 public class HttpResponse {
     private HttpUriRequest request;
     private org.apache.http.HttpResponse response;
+    private byte[] bytes;
 
-    public HttpResponse(HttpUriRequest request, org.apache.http.HttpResponse response) {
+    public HttpResponse(HttpUriRequest request, org.apache.http.HttpResponse response, byte[] bytes) {
         this.request = request;
         this.response = response;
+        this.bytes = bytes;
     }
 
     public Charset charset() {
@@ -114,11 +116,7 @@ public class HttpResponse {
     }
 
     public byte[] bytes() throws IOException {
-        HttpEntity httpEntity = httpEntity();
-        if (httpEntity == null) {
-            return null;
-        }
-        return EntityUtils.toByteArray(httpEntity);
+        return bytes;
     }
 
     public ContentType getContentType() {

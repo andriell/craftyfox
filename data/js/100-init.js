@@ -47,26 +47,57 @@ var craftyFox = {
         return craftyFox.hashTime.update(str);
     },
 
+    process: {
+        processor: app.getBean("processor"),
+
+        new: function (pageName, data) {
+            var processJsData = app.getBean("process-js-data");
+            processJsData.setPageName(pageName);
+            processJsData.setData(data);
+            return craftyFox.process.processor.add(processJsData);
+        }
+    },
+
     http: {
         request: app.getBean("js-http-request"),
         client: app.getBean("js-http-client"),
 
-        get: function (url) {
+
+        get: function(url) {
+            return craftyFox.http.execute(craftyFox.http.newGetRequest(url));
+        },
+        head: function(url) {
+            return craftyFox.http.execute(craftyFox.http.newHeadRequest(url));
+        },
+        options: function(url) {
+            return craftyFox.http.execute(craftyFox.http.newOptionsRequest(url));
+        },
+        patch: function(url) {
+            return craftyFox.http.execute(craftyFox.http.newPatchRequest(url));
+        },
+        post: function(url) {
+            return craftyFox.http.execute(craftyFox.http.newPostRequest(url));
+        },
+        put: function(url) {
+            return craftyFox.http.execute(craftyFox.http.newPutRequest(url));
+        },
+
+        newGetRequest: function (url) {
             return craftyFox.http.request.get(url);
         },
-        haed: function (url) {
-            return craftyFox.http.request.haed(url);
+        newHeadRequest: function (url) {
+            return craftyFox.http.request.head(url);
         },
-        options: function () {
+        newOptionsRequest: function () {
             return craftyFox.http.request.options(url);
         },
-        patch: function (url) {
+        newPatchRequest: function (url) {
             return craftyFox.http.request.patch(url);
         },
-        post: function (url) {
+        newPostRequest: function (url) {
             return craftyFox.http.request.post(url);
         },
-        put: function (url) {
+        newPutRequest: function (url) {
             return craftyFox.http.request.put(url);
         },
         execute: function (request) {
