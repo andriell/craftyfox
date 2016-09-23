@@ -92,35 +92,29 @@ public class HttpResponse {
         return request.getURI().toURL().toString();
     }
 
-    private static void header2string(Header[] headers, StringBuilder r) {
+    private static String header2string(Header[] headers, String firstLine) {
+        StringBuilder r = new StringBuilder();
+        r.append(firstLine);
+        r.append("\n");
         for (Header header : headers) {
             r.append(header.getName());
             r.append(": ");
             r.append(header.getValue());
             r.append("\n");
         }
+        return r.toString();
     }
 
     public String responseHeaders() {
-        Header[] headers = response.getAllHeaders();
-        StringBuilder r = new StringBuilder();
-        r.append(response.getStatusLine().toString());
-        r.append("\n");
-        header2string(headers, r);
-        return r.toString();
+        return header2string(response.getAllHeaders(), response.getStatusLine().toString());
     }
 
     public String requestHeaders() {
-        Header[] headers = request.getAllHeaders();
-        StringBuilder r = new StringBuilder();
-        r.append(request.getRequestLine().toString());
-        r.append("\n");
-        header2string(headers, r);
-        return r.toString();
+        return header2string(request.getAllHeaders(), request.getRequestLine().toString());
     }
 
     public byte[] bytes() throws IOException {
-        HttpEntity httpEntity = response.getEntity();
+        HttpEntity httpEntity = httpEntity();
         if (httpEntity == null) {
             return null;
         }
@@ -128,7 +122,7 @@ public class HttpResponse {
     }
 
     public ContentType getContentType() {
-        HttpEntity httpEntity = response.getEntity();
+        HttpEntity httpEntity = httpEntity();
         if (httpEntity == null) {
             return null;
         }
