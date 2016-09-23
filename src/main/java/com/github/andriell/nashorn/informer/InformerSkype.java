@@ -20,10 +20,14 @@ public class InformerSkype implements InitializingBean {
         this.password = password;
     }
 
-    public void afterPropertiesSet() throws Exception {
+    private void connect() throws Exception {
         skype = new SkypeBuilder(login, password).withAllResources().build();
         skype.login();
         skype.subscribe();
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        connect();
     }
 
     public Skype getSkype() {
@@ -38,7 +42,7 @@ public class InformerSkype implements InitializingBean {
             return true;
         } catch (Exception e) {
             try {
-                skype.login();
+                connect();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
