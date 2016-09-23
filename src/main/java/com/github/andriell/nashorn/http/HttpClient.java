@@ -25,29 +25,20 @@ public class HttpClient implements InitializingBean {
     private HttpClientContext clientContext;
     private CookieStore cookieStore;
 
-    public HttpResponse execute(RequestBuilder data) {
+    public HttpResponse execute(RequestBuilder data) throws IOException {
         return execute(data.build());
     }
 
-    public HttpResponse execute(HttpUriRequest data) {
+    public HttpResponse execute(HttpUriRequest data) throws IOException {
         HttpResponse r = null;
-        try {
-            CloseableHttpResponse response = httpClient.execute(data, clientContext);
-
-            HttpEntity httpEntity = response.getEntity();
-            byte[] body = EntityUtils.toByteArray(httpEntity);
-            ContentType contentType = ContentType.getOrDefault(httpEntity);
-            EntityUtils.consume(httpEntity);
-            r = new HttpResponse(body, contentType, data, response);
-            response.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            httpClient.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CloseableHttpResponse response = httpClient.execute(data, clientContext);
+        HttpEntity httpEntity = response.getEntity();
+        byte[] body = EntityUtils.toByteArray(httpEntity);
+        ContentType contentType = ContentType.getOrDefault(httpEntity);
+        EntityUtils.consume(httpEntity);
+        r = new HttpResponse(body, contentType, data, response);
+        response.close();
+        httpClient.close();
         return r;
     }
 
@@ -77,22 +68,20 @@ public class HttpClient implements InitializingBean {
         }
     }
 
-    public void addCookie(String name, String value) {
-        addCookie(name, value, null, null);
-    }
-
     public void addCookie(String name, String value, String domain) {
         addCookie(name, value, domain, null);
     }
 
     public void addCookie(String name, String value, String domain, String path) {
+        if (name == null || domain == null) {
+            return;
+        }
         BasicClientCookie cookie = new BasicClientCookie(name, value);
-        if (domain != null) {
-            cookie.setDomain(domain);
+        cookie.setDomain(domain);
+        if (path == null) {
+            path = "/";
         }
-        if (path != null) {
-            cookie.setPath(path);
-        }
+        cookie.setPath(path);
         cookieStore.addCookie(cookie);
     }
 

@@ -3,8 +3,8 @@ $.addParser("example.http", function(d) {
 	var request = $.http.get(url)
 		//.setHeader("Cookie", "departureCity=eyJ0b3duIjoxNDAsImNvdW50cnkiOm51bGx9")
 		.setHeader("X-Requested-With", "XMLHttpRequest");
-	$.http.client.addCookie("departureCity", "eyJ0b3duIjoxNDAsImNvdW50cnkiOm51bGx9");
+	$.http.client.addCookie("departureCity", "eyJ0b3duIjoxNDAsImNvdW50cnkiOm51bGx9", "pegast.ru", "/");
 	var response = $.http.execute(request);
-	console.info(response.text());
 	console.info(response.url());
+	console.info(response.text());
 });
