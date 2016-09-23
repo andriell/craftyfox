@@ -1,10 +1,13 @@
 package o.apache.http.impl.client;
 
-import com.github.andriell.processor.http.ProcessHttpData;
+import com.github.andriell.nashorn.http.*;
+import com.github.andriell.nashorn.http.HttpResponse;
 import org.apache.http.*;
+import org.apache.http.HttpRequest;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -26,32 +29,30 @@ public class CloseableHttpClientTest {
     public void test1() {
 
         try {
-            org.apache.http.impl.client.CloseableHttpClient httpclient = HttpClients.createDefault();
-            ProcessHttpData httpGet = new ProcessHttpData("http://ya.ru");
-            CloseableHttpResponse response1 = httpclient.execute(httpGet);
+            com.github.andriell.nashorn.http.HttpRequest httpRequest = new com.github.andriell.nashorn.http.HttpRequest();
+            RequestBuilder requestBuilder = httpRequest.get("http://ya.ru");
 
-            try {
-                Header[] headers = httpGet.getAllHeaders();
-                System.out.println("REQUEST HEADERS");
-                for (Header header:headers) {
-                    System.out.println(header);
-                }
+            HttpClient httpClient = new HttpClient();
+            HttpResponse httpResponse = httpClient.execute(requestBuilder);
 
-                System.out.println("StatusLine " + response1.getStatusLine());
 
-                headers = response1.getAllHeaders();
-                System.out.println("RESPONSE HEADERS");
-                for (Header header:headers) {
-                    System.out.println(header);
-                }
-
-                HttpEntity entity1 = response1.getEntity();
-                System.out.println("Body " + EntityUtils.toString(entity1));
-                EntityUtils.consume(entity1);
-            } finally {
-                response1.close();
+            Header[] headers = httpResponse.getResponse().getAllHeaders();
+            System.out.println("REQUEST HEADERS");
+            for (Header header:headers) {
+                System.out.println(header);
             }
 
+            System.out.println("StatusLine " + httpResponse.getResponse().getStatusLine());
+
+            headers = httpResponse.getResponse().getAllHeaders();
+            System.out.println("RESPONSE HEADERS");
+            for (Header header:headers) {
+                System.out.println(header);
+            }
+
+            HttpEntity entity1 = httpResponse.getResponse().getEntity();
+            System.out.println("Body " + EntityUtils.toString(entity1));
+            EntityUtils.consume(entity1);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,7 +83,7 @@ public class CloseableHttpClientTest {
 
                 // Pass local context as a parameter
                 response = httpclient.execute(httpGet, localContext);
-                HttpResponse httpResponse = localContext.getResponse();
+                org.apache.http.HttpResponse httpResponse = localContext.getResponse();
                 HttpRequest httpRequest = localContext.getRequest();
 
                 Header[] headers;

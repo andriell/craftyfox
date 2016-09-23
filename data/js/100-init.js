@@ -4,7 +4,6 @@ var craftyFox = {
     app: app,
     hashTime: app.getBean("hashDateDaoImpl"),
     processor: app.getBean("processor"),
-    httpContext: app.getBean("process-http-context"),
 
     pages: {},
     addParser: function (nane, process) {
@@ -18,24 +17,6 @@ var craftyFox = {
     },
     newJsDataXml: function (pageName) {
         var data = app.getBean("process-js-data-xml");
-        data.setProcessBeanId("process-js");
-        data.setPageName(pageName);
-        return data;
-    },
-    newJsDataJson: function (pageName) {
-        var data = app.getBean("process-js-data-json");
-        data.setProcessBeanId("process-js");
-        data.setPageName(pageName);
-        return data;
-    },
-    newJsDataString: function (pageName) {
-        var data = app.getBean("process-js-data-string");
-        data.setProcessBeanId("process-js");
-        data.setPageName(pageName);
-        return data;
-    },
-    newJsDataBin: function (pageName) {
-        var data = app.getBean("process-js-data-bin");
         data.setProcessBeanId("process-js");
         data.setPageName(pageName);
         return data;
