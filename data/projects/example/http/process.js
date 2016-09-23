@@ -5,6 +5,8 @@ $.addParser("example.http", function(d) {
 		.setHeader("X-Requested-With", "XMLHttpRequest");
 	$.http.client.addCookie("departureCity", "eyJ0b3duIjoxNDAsImNvdW50cnkiOm51bGx9", "pegast.ru", "/");
 	var response = $.http.execute(request);
+
+	console.info($.http.client.requestHeaders());
 	console.info(response.responseHeaders());
 	console.info(response.url());
 	console.info("");

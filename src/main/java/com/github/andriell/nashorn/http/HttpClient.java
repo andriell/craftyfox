@@ -1,5 +1,6 @@
 package com.github.andriell.nashorn.http;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -99,5 +100,19 @@ public class HttpClient implements InitializingBean {
 
     public void setCookieStore(CookieStore cookieStore) {
         this.cookieStore = cookieStore;
+    }
+
+    public String requestHeaders() {
+        Header[] headers = clientContext.getRequest().getAllHeaders();
+        StringBuilder r = new StringBuilder();
+        r.append(clientContext.getRequest().getRequestLine().toString());
+        r.append("\n");
+        for (Header header : headers) {
+            r.append(header.getName());
+            r.append(": ");
+            r.append(header.getValue());
+            r.append("\n");
+        }
+        return r.toString();
     }
 }
