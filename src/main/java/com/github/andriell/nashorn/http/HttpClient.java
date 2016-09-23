@@ -32,8 +32,11 @@ public class HttpClient implements InitializingBean {
         CloseableHttpResponse response = httpClient.execute(request, clientContext);
         request.setHeaders(clientContext.getRequest().getAllHeaders());
         HttpEntity httpEntity = response.getEntity();
-
-        HttpResponse r = new HttpResponse(request, response, EntityUtils.toByteArray(httpEntity));
+        byte[] bytes = null;
+        if (httpEntity != null) {
+            bytes = EntityUtils.toByteArray(httpEntity);
+        }
+        HttpResponse r = new HttpResponse(request, response, bytes);
         response.close();
         httpClient.close();
         return r;
