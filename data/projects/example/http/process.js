@@ -3,7 +3,7 @@ $.addParser("example.http", function(d) {
 	var request = $.http.get(url)
 		//.setHeader("Cookie", "departureCity=eyJ0b3duIjoxNDAsImNvdW50cnkiOm51bGx9")
 		.setHeader("X-Requested-With", "XMLHttpRequest");
-	$.http.client.addCookie("departureCity", "eyJ0b3duIjoxNDAsImNvdW50cnkiOm51bGx9", "pegast.ru", "/");
+	$.http.addCookie("departureCity", "eyJ0b3duIjoxNDAsImNvdW50cnkiOm51bGx9", "pegast.ru", "/");
 	var response = $.http.execute(request);
 
 	console.info(response.requestHeaders());

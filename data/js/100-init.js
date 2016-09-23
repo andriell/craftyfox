@@ -88,8 +88,11 @@ var craftyFox = {
         put: function (url) {
             return craftyFox.http.request.put(url);
         },
-        execute: function(request) {
+        execute: function (request) {
             return craftyFox.http.client.execute(request);
+        },
+        addCookie: function (name, value, domain, path) {
+            craftyFox.http.client.addCookie(name, value, domain, path);
         }
     },
 
