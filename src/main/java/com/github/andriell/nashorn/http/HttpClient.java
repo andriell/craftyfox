@@ -1,6 +1,5 @@
 package com.github.andriell.nashorn.http;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,14 +29,10 @@ public class HttpClient implements InitializingBean {
         return execute(data.build());
     }
 
-    public HttpResponse execute(HttpUriRequest data) throws IOException {
-        HttpResponse r = null;
-        CloseableHttpResponse response = httpClient.execute(data, clientContext);
-        HttpEntity httpEntity = response.getEntity();
-        byte[] body = EntityUtils.toByteArray(httpEntity);
-        ContentType contentType = ContentType.getOrDefault(httpEntity);
-        EntityUtils.consume(httpEntity);
-        r = new HttpResponse(body, contentType, data, response);
+    public HttpResponse execute(HttpUriRequest request) throws IOException {
+        CloseableHttpResponse response = httpClient.execute(request, clientContext);
+        request.setHeaders(clientContext.getRequest().getAllHeaders());
+        HttpResponse r = new HttpResponse(request, response);
         response.close();
         httpClient.close();
         return r;
@@ -100,19 +95,5 @@ public class HttpClient implements InitializingBean {
 
     public void setCookieStore(CookieStore cookieStore) {
         this.cookieStore = cookieStore;
-    }
-
-    public String requestHeaders() {
-        Header[] headers = clientContext.getRequest().getAllHeaders();
-        StringBuilder r = new StringBuilder();
-        r.append(clientContext.getRequest().getRequestLine().toString());
-        r.append("\n");
-        for (Header header : headers) {
-            r.append(header.getName());
-            r.append(": ");
-            r.append(header.getValue());
-            r.append("\n");
-        }
-        return r.toString();
     }
 }
