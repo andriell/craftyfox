@@ -1,33 +1,13 @@
 var console = app.getBean("js-console");
 
-var informer = {
-    beep: function() {
-        var informer = app.getBean("js-informer-beep");
-        if (informer == null) {
-            return false;
-        }
-        return informer.sendMessage();
-    },
-    skype: function(usernames, message) {
-        var informer = app.getBean("js-informer-skype");
-        if (informer == null) {
-            return false;
-        }
-        var r = true;
-        for (var i = 0, len = usernames.length; i < len; i++) {
-            r = r && informer.sendMessage(usernames[i], message);
-        }
-        return r;
-    }
-};
-
 var craftyFox = {
     app: app,
     hashTime: app.getBean("hashDateDaoImpl"),
     processor: app.getBean("processor"),
     httpContext: app.getBean("process-http-context"),
+
     pages: {},
-    addParser: function(nane, process) {
+    addParser: function (nane, process) {
         craftyFox.pages[nane] = process;
     },
     newJsDataHtml: function (pageName) {
@@ -60,7 +40,7 @@ var craftyFox = {
         data.setPageName(pageName);
         return data;
     },
-    newHttpData: function(method, url, param) {
+    newHttpData: function (method, url, param) {
         var data = app.getBean("process-http-data");
         data.setProcessBeanId("process-http");
         data.setMethod(method);
@@ -84,6 +64,50 @@ var craftyFox = {
     },
     hashTimeUpdate: function (str) {
         return craftyFox.hashTime.update(str);
+    },
+
+    http: {
+        httpRequestBuilder: app.getBean("js-http-request-builder"),
+
+        get: function (url) {
+            return craftyFox.http.httpRequestBuilder.get(url);
+        },
+        haed: function (url) {
+            return craftyFox.http.httpRequestBuilder.haed(url);
+        },
+        options: function () {
+            return craftyFox.http.httpRequestBuilder.options(url);
+        },
+        patch: function (url) {
+            return craftyFox.http.httpRequestBuilder.patch(url);
+        },
+        post: function (url) {
+            return craftyFox.http.httpRequestBuilder.post(url);
+        },
+        put: function (url) {
+            return craftyFox.http.httpRequestBuilder.put(url);
+        }
+    },
+
+    informer: {
+        beep: function () {
+            var informer = app.getBean("js-informer-beep");
+            if (informer == null) {
+                return false;
+            }
+            return informer.sendMessage();
+        },
+        skype: function (usernames, message) {
+            var informer = app.getBean("js-informer-skype");
+            if (informer == null) {
+                return false;
+            }
+            var r = true;
+            for (var i = 0, len = usernames.length; i < len; i++) {
+                r = r && informer.sendMessage(usernames[i], message);
+            }
+            return r;
+        }
     }
 };
 var $ = craftyFox;
