@@ -1,5 +1,6 @@
 package com.github.andriell.nashorn.http;
 
+import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
@@ -91,6 +92,20 @@ public class HttpResponse {
 
     public String url() throws MalformedURLException {
         return uri.getURI().toURL().toString();
+    }
+
+    public String responseHeaders() {
+        Header[] headers = response.getAllHeaders();
+        StringBuilder r = new StringBuilder();
+        r.append(response.getStatusLine().toString());
+        r.append("\n");
+        for (Header header : headers) {
+            r.append(header.getName());
+            r.append(": ");
+            r.append(header.getValue());
+            r.append("\n");
+        }
+        return r.toString();
     }
 
     public byte[] bytes() {
