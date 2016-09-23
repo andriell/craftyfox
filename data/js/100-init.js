@@ -67,25 +67,29 @@ var craftyFox = {
     },
 
     http: {
-        httpRequestBuilder: app.getBean("js-http-request-builder"),
+        request: app.getBean("js-http-request"),
+        client: app.getBean("js-http-client"),
 
         get: function (url) {
-            return craftyFox.http.httpRequestBuilder.get(url);
+            return craftyFox.http.request.get(url);
         },
         haed: function (url) {
-            return craftyFox.http.httpRequestBuilder.haed(url);
+            return craftyFox.http.request.haed(url);
         },
         options: function () {
-            return craftyFox.http.httpRequestBuilder.options(url);
+            return craftyFox.http.request.options(url);
         },
         patch: function (url) {
-            return craftyFox.http.httpRequestBuilder.patch(url);
+            return craftyFox.http.request.patch(url);
         },
         post: function (url) {
-            return craftyFox.http.httpRequestBuilder.post(url);
+            return craftyFox.http.request.post(url);
         },
         put: function (url) {
-            return craftyFox.http.httpRequestBuilder.put(url);
+            return craftyFox.http.request.put(url);
+        },
+        execute: function(request) {
+            return craftyFox.http.client.execute(request);
         }
     },
 

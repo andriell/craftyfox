@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 
 /**
@@ -86,6 +87,10 @@ public class HttpResponse {
             return new String(body);
         }
         return new String(body, charset);
+    }
+
+    public String url() throws MalformedURLException {
+        return uri.getURI().toURL().toString();
     }
 
     public byte[] bytes() {

@@ -92,8 +92,11 @@
     </bean>
     <bean id="js-product-property" class="com.github.andriell.db.ProductProperty" scope="prototype" />
 
-    <!-- RequestBuilder -->
-    <bean id="js-http-request-builder" class="com.github.andriell.nashorn.http.HttpRequest" />
+    <!-- JS объект HttpRequest -->
+    <bean id="js-http-request" class="com.github.andriell.nashorn.http.HttpRequest" />
+
+    <!-- JS объект HttpRequest -->
+    <bean id="js-http-client" class="com.github.andriell.nashorn.http.HttpClient" />
 
 
     <!-- Процессор -->
