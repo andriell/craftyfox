@@ -26,11 +26,12 @@ public class HttpClient implements InitializingBean {
     private HttpClientContext clientContext;
     private CookieStore cookieStore;
 
-    public void execute(RequestBuilder data) {
-        execute(data.build());
+    public HttpResponse execute(RequestBuilder data) {
+        return execute(data.build());
     }
 
-    public void execute(HttpUriRequest data) {
+    public HttpResponse execute(HttpUriRequest data) {
+        HttpResponse r = null;
         try {
             CloseableHttpResponse response = httpClient.execute(data, clientContext);
 
@@ -38,7 +39,7 @@ public class HttpClient implements InitializingBean {
             byte[] body = EntityUtils.toByteArray(httpEntity);
             ContentType contentType = ContentType.getOrDefault(httpEntity);
             EntityUtils.consume(httpEntity);
-
+            r = new HttpResponse(body, contentType, data, response);
             response.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,6 +49,7 @@ public class HttpClient implements InitializingBean {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return r;
     }
 
     public void afterPropertiesSet() throws Exception {
