@@ -3,7 +3,7 @@
  * @param  document - org.jsoup.nodes.Document
  */
 
-$.process.register("example.document_html", function(document) {
+$.process.listener("example.document_html", function(document) {
 	console.info(document.getClass().getName());
 	var links = document.select("a.link");
 	console.info(links.getClass().getName());

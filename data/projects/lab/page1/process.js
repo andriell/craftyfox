@@ -1,7 +1,7 @@
 /**
  * Created by Rybalko on 20.06.2016.
  */
-$.process.register("lab.page1", function(data) {
+$.process.listener("lab.page1", function(data) {
     console.info("page1: " + data.getUrl());
 
     var document = data.getData();

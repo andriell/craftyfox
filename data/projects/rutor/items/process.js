@@ -4,7 +4,7 @@
 
 var rutorCsvWriter = CsvWriter("rutor.csv");
 var rutorCount = 0;
-$.process.register("rutor.items", function(data) {
+$.process.listener("rutor.items", function(data) {
     console.info("Run: " + (rutorCount++) + " " + data.getUrl());
     var document = data.getData();
     var tr = document.select("#index tr.gai, #index tr.tum");

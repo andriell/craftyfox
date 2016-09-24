@@ -1,9 +1,9 @@
-$.process.register("example.test3", function(d) {
+$.process.listener("example.test3", function(d) {
 	console.info("test3");
-	$.process.newJs("example.test32", "http://ya.ru");
+	$.process.trigger("example.test32", "http://ya.ru");
 });
 
-$.process.register("example.test32", function(url) {
+$.process.listener("example.test32", function(url) {
 	var request = $.http.newGetRequest(url);
 	var response = $.http.execute(request);
 

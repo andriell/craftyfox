@@ -1,4 +1,4 @@
-$.process.register("example.test4", function(d) {
+$.process.listener("example.test4", function(d) {
 	var fileWriter1 = FileWriter("test4.txt");
 	fileWriter1.write(100500);
 

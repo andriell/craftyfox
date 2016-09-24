@@ -1,4 +1,4 @@
-$.process.register("dns.start", function (data) {
+$.process.listener("dns.start", function (data) {
     for (var i = 1; i <= 3; i++) {
         var url = "http://www.dns-shop.ru/products" + i + ".xml";
         console.info("Add: " + url);
@@ -16,7 +16,7 @@ $.process.register("dns.start", function (data) {
                 continue;
             }
             console.info(url);
-            $.process.newJs("dns.product", url);
+            $.process.trigger("dns.product", url);
         }
     }
 });

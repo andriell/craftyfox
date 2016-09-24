@@ -5,6 +5,7 @@ var craftyFox = {
 
     hashTime: {
         hashTime: app.getBean("hashDateDaoImpl"),
+
         sec: function (str, int) {
             return craftyFox.hashTime.hashTime.checkSec(str, int);
         },
@@ -24,20 +25,16 @@ var craftyFox = {
 
     process: {
         processor: app.getBean("processor"),
+        listeners: {},
 
-        entity: {},
-        register: function (nane, process) {
-            craftyFox.process.entity[nane] = process;
+        listener: function (nane, process) {
+            craftyFox.process.listeners[nane] = process;
         },
-
-        newJs: function (pageName, data) {
+        trigger: function (pageName, data) {
             var processJsData = app.getBean("process-js-data");
             processJsData.setPageName(pageName);
             processJsData.setData(data);
             return craftyFox.process.processor.add(processJsData);
-        },
-        newDb: function (data) {
-            return craftyFox.process.processor.add("process-db", data);
         }
     },
 
@@ -114,5 +111,5 @@ var craftyFox = {
 var $ = craftyFox;
 
 function nashornRunProcess(nane, property) {
-    craftyFox.process.entity[nane](property);
+    craftyFox.process.listeners[nane](property);
 }

@@ -1,4 +1,4 @@
-$.process.register("dns.product", function(url) {
+$.process.listener("dns.product", function(url) {
     console.info("URL: " + url);
     var document = $.http.get(url).html();
     var product = Product("dns", document.select(".price-item-code span").text());
