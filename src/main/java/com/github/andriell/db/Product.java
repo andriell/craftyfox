@@ -1,5 +1,6 @@
 package com.github.andriell.db;
 
+import com.github.andriell.processor.Processor;
 import com.github.andriell.processor.db.ProcessDbDataInterface;
 
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Product implements ProcessDbDataInterface {
     private ProductDao productDao;
     private float priceDelta;
     private String processBeanId;
+    private Processor processor;
 
     public void destroy() {
         site = null;
@@ -133,8 +135,20 @@ public class Product implements ProcessDbDataInterface {
         this.productDao = productDao;
     }
 
+    public Processor getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(Processor processor) {
+        this.processor = processor;
+    }
+
     public boolean save() {
         return productDao.save(this);
+    }
+
+    public boolean saveConcurrent() {
+        return processor.add(this);
     }
 
     @Override

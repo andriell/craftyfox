@@ -88,6 +88,8 @@
     <!-- JS объект roduct -->
     <bean id="js-product" class="com.github.andriell.db.Product" scope="prototype">
         <property name="productDao" ref="productDaoImpl" />
+        <property name="processor" ref="processor" />
+        <property name="processBeanId" value="process-db" />
     </bean>
     <bean id="js-product-property" class="com.github.andriell.db.ProductProperty" scope="prototype" />
 

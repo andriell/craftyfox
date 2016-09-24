@@ -3,8 +3,7 @@ $.process.register("example.test3", function(d) {
 	$.process.newJs("example.test32", "http://ya.ru");
 });
 
-$.process.register("example.test32", function(data) {
-	var url = data.getData();
+$.process.register("example.test32", function(url) {
 	var request = $.http.newGetRequest(url);
 	var response = $.http.execute(request);
 

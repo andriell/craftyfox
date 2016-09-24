@@ -1,5 +1,4 @@
-$.process.register("dns.product", function(data) {
-    var url = data.getData();
+$.process.register("dns.product", function(url) {
     console.info("URL: " + url);
     var document = $.http.get(url).html();
     var product = Product("dns", document.select(".price-item-code span").text());
@@ -12,6 +11,6 @@ $.process.register("dns.product", function(data) {
         var element = iterator.next();
         product.addProperty(ProductPropertyEnum("path", element.text()));
     }
-    $.process.newDb(product);
+    product.saveConcurrent();
     $.hashTime.update(url);
 });
