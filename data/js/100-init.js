@@ -6,19 +6,19 @@ var craftyFox = {
     hashTime: {
         hashTime: app.getBean("hashDateDaoImpl"),
         sec: function (str, int) {
-            return craftyFox.hashTime.checkSec(str, int);
+            return craftyFox.hashTime.hashTime.checkSec(str, int);
         },
         min: function (str, int) {
-            return craftyFox.hashTime.checkMinute(str, int);
+            return craftyFox.hashTime.hashTime.checkMinute(str, int);
         },
         hour: function (str, int) {
-            return craftyFox.hashTime.checkHour(str, int);
+            return craftyFox.hashTime.hashTime.checkHour(str, int);
         },
         day: function (str, int) {
-            return craftyFox.hashTime.checkDay(str, int);
+            return craftyFox.hashTime.hashTime.checkDay(str, int);
         },
         update: function (str) {
-            return craftyFox.hashTime.update(str);
+            return craftyFox.hashTime.hashTime.update(str);
         }
     },
 
