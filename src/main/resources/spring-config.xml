@@ -125,7 +125,7 @@
     <!-- Менеджер процессов DB -->
     <bean id="manager-db" class="com.github.andriell.processor.Manager">
         <property name="processBeanId" value="process-db" />
-        <property name="limitProcess" value="4" />
+        <property name="limitProcess" value="1" />
     </bean>
     <!-- Процесс DB -->
     <bean id="process-db" class="com.github.andriell.processor.db.ProcessDb" scope="prototype" />
