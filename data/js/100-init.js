@@ -30,11 +30,14 @@ var craftyFox = {
             craftyFox.process.entity[nane] = process;
         },
 
-        new: function (pageName, data) {
+        newJs: function (pageName, data) {
             var processJsData = app.getBean("process-js-data");
             processJsData.setPageName(pageName);
             processJsData.setData(data);
             return craftyFox.process.processor.add(processJsData);
+        },
+        newDb: function (data) {
+            return craftyFox.process.processor.add("process-db", data);
         }
     },
 

@@ -16,7 +16,7 @@ $.process.register("dns.start", function (data) {
                 continue;
             }
             console.info(url);
-            $.process.new("dns.product", url);
+            $.process.newJs("dns.product", url);
         }
     }
 });

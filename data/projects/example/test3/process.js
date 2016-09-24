@@ -1,6 +1,6 @@
 $.process.register("example.test3", function(d) {
 	console.info("test3");
-	$.process.new("example.test32", "http://ya.ru");
+	$.process.newJs("example.test32", "http://ya.ru");
 });
 
 $.process.register("example.test32", function(data) {
