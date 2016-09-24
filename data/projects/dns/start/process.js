@@ -11,7 +11,7 @@ $.process.register("dns.start", function (data) {
         while(iterator.hasNext()) {
             var e = iterator.next();
             url = e.text();
-            if (!craftyFox.hashTimeDay(url, 2)) {
+            if (!$.hashTime.day(url, 2)) {
                 console.info("Old url: " + url);
                 continue;
             }

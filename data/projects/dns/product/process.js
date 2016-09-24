@@ -12,6 +12,6 @@ $.process.register("dns.product", function(data) {
         var element = iterator.next();
         product.addProperty(ProductPropertyEnum("path", element.text()));
     }
-    craftyFox.processor.add("process-db", product);
-    craftyFox.hashTimeUpdate(url);
+    $.processor.add("process-db", product);
+    $.hashTime.update(url);
 });
