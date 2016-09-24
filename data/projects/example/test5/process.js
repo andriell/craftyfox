@@ -1,4 +1,4 @@
-$.addParser("example.test5", function(d) {
+$.process.register("example.test5", function(d) {
 	console.info("test5");
 	var dataHttp = $.newHttpData("GET", "http://ya.ru");
 	var dataHtml = $.newJsDataHtml("example.test5resp");
@@ -7,7 +7,7 @@ $.addParser("example.test5", function(d) {
 	craftyFox.processor.add("process-http", dataHttp);
 });
 
-$.addParser("example.test5resp", function(dataHtml) {
+$.process.register("example.test5resp", function(dataHtml) {
 	var product = Product("ya.ru", "test5");
 	product.setUrl("http://ya.ru/");
 	product.addProperty(ProductProperty("p1", 1));

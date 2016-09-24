@@ -1,13 +1,16 @@
-$.addParser("example.test3", function(d) {
+$.process.register("example.test3", function(d) {
 	console.info("test3");
-	var dataHttp = $.newHttpData("GET", "http://ya.ru");
-	var dataHtml = $.newJsDataHtml("example.test32");
-	dataHttp.addDataListener(dataHtml);
-
-	craftyFox.processor.add("process-http", dataHttp);
+	$.process.new("example.test32", "http://ya.ru");
 });
 
-$.addParser("example.test32", function(data) {
-	console.info(data.getUrl());
-	console.info(data.getDataHtml());
+$.process.register("example.test32", function(data) {
+	var url = data.getData();
+	var request = $.http.newGetRequest(url);
+	var response = $.http.execute(request);
+
+	console.info(response.requestHeaders());
+	console.info(response.responseHeaders());
+	console.info(response.url());
+	console.info("");
+	console.info(response.text());
 });

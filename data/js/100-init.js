@@ -2,53 +2,33 @@ var console = app.getBean("js-console");
 
 var craftyFox = {
     app: app,
-    hashTime: app.getBean("hashDateDaoImpl"),
-    processor: app.getBean("processor"),
 
-    pages: {},
-    addParser: function (nane, process) {
-        craftyFox.pages[nane] = process;
-    },
-    newJsDataHtml: function (pageName) {
-        var data = app.getBean("process-js-data-html");
-        data.setProcessBeanId("process-js");
-        data.setPageName(pageName);
-        return data;
-    },
-    newJsDataXml: function (pageName) {
-        var data = app.getBean("process-js-data-xml");
-        data.setProcessBeanId("process-js");
-        data.setPageName(pageName);
-        return data;
-    },
-    newHttpData: function (method, url, param) {
-        var data = app.getBean("process-http-data");
-        data.setProcessBeanId("process-http");
-        data.setMethod(method);
-        data.setUrl(url);
-        if (param) {
-            data.setData(param);
+    hashTime: {
+        hashTime: app.getBean("hashDateDaoImpl"),
+        sec: function (str, int) {
+            return craftyFox.hashTime.checkSec(str, int);
+        },
+        min: function (str, int) {
+            return craftyFox.hashTime.checkMinute(str, int);
+        },
+        hour: function (str, int) {
+            return craftyFox.hashTime.checkHour(str, int);
+        },
+        day: function (str, int) {
+            return craftyFox.hashTime.checkDay(str, int);
+        },
+        update: function (str) {
+            return craftyFox.hashTime.update(str);
         }
-        return data;
-    },
-    hashTimeSec: function (str, int) {
-        return craftyFox.hashTime.checkSec(str, int);
-    },
-    hashTimeMin: function (str, int) {
-        return craftyFox.hashTime.checkMinute(str, int);
-    },
-    hashTimeHour: function (str, int) {
-        return craftyFox.hashTime.checkHour(str, int);
-    },
-    hashTimeDay: function (str, int) {
-        return craftyFox.hashTime.checkDay(str, int);
-    },
-    hashTimeUpdate: function (str) {
-        return craftyFox.hashTime.update(str);
     },
 
     process: {
         processor: app.getBean("processor"),
+
+        entity: {},
+        register: function (nane, process) {
+            craftyFox.process.entity[nane] = process;
+        },
 
         new: function (pageName, data) {
             var processJsData = app.getBean("process-js-data");
@@ -61,7 +41,6 @@ var craftyFox = {
     http: {
         request: app.getBean("js-http-request"),
         client: app.getBean("js-http-client"),
-
 
         get: function(url) {
             return craftyFox.http.execute(craftyFox.http.newGetRequest(url));
@@ -132,5 +111,5 @@ var craftyFox = {
 var $ = craftyFox;
 
 function nashornRunProcess(nane, property) {
-    craftyFox.pages[nane](property);
+    craftyFox.process.entity[nane](property);
 }

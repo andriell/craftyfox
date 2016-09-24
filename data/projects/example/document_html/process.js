@@ -3,7 +3,7 @@
  * @param  document - org.jsoup.nodes.Document
  */
 
-$.addParser("example.test1", function(data) {
+$.process.register("example.document_html", function(data) {
 	console.info(data.getClass().getName());
 	var document = data.getData();
 	console.info(document.getClass().getName());

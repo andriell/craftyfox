@@ -1,4 +1,4 @@
-$.addParser("dns.product", function(data) {
+$.process.register("dns.product", function(data) {
     var url = data.getData();
     console.info("URL: " + url);
     var document = $.http.get(url).html();
