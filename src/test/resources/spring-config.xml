@@ -20,12 +20,25 @@
         <property name="processBeanId" value="test_process_2" />
     </bean>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    <bean id="dataSourceHsql" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
-        <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />
-        <property name="url" value="jdbc:hsqldb:file:data\db\test\db" />
+        <property name="driverClassName" value="com.p6spy.engine.spy.P6SpyDriver" />
+        <property name="url" value="jdbc:hsqldb:file:data\db\main\db" />
         <property name="username" value="SA" />
         <property name="password" value="" />
+    </bean>
+    <bean id="dataSourceMysql" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/crafty_fox_main"/>
+        <property name="username" value="root" />
+        <property name="password" value="password" />
+    </bean>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:~/CraftyFox/test" />
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -40,7 +53,7 @@
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>

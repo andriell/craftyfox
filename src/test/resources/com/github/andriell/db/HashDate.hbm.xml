@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.github.andriell.db.HashDate" table="hash_date" catalog="store">
+    <class name="com.github.andriell.db.HashDate" table="hash_date">
         <id name="hash" column="c_hash" type="string" length="32" />
         <property name="date" column="c_date" type="long" not-null="true" />
     </class>

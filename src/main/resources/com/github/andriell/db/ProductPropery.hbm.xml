@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.github.andriell.db.ProductProperty" table="product_property" catalog="store">
+    <class name="com.github.andriell.db.ProductProperty" table="product_property">
         <id name="id" type="java.lang.Integer">
             <column name="id"/>
             <generator class="identity"/>
