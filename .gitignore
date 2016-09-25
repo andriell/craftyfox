@@ -1,5 +1,7 @@
 .idea/
 target/
+data/projects/*
+!data/projects/example/*
 *.class
 *.jar
 *.war
