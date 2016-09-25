@@ -31,14 +31,14 @@ function CsvWriter(fileName) {
             var prefix = "";
             if (Array.isArray(list)) {
                 for (var i = 0; i < list.length; i++) {
-                    s += prefix + list[i].replace("\t", " ").trim();
+                    s += prefix + list[i].replace(/[\t\n]/gi, " ").replace(/\r/gi, "").trim();
                     prefix = "\t";
                 }
                 s += "\r\n";
                 fileWriter.writer.write(s);
             } else if (typeof(list) == "object") {
                 for (var i in list) {
-                    s += prefix + list[i].replace("\t", " ").trim();
+                    s += prefix + list[i].replace(/[\t\n]/gi, " ").replace(/\r/gi, "").trim();
                     prefix = "\t";
                 }
                 s += "\r\n";
@@ -47,7 +47,7 @@ function CsvWriter(fileName) {
         },
         "write": function (s) {
             s = "" + s;
-            s = s.replace("\t", " ").trim();
+            s = s.replace(/[\t\n]/gi, " ").replace(/\r/gi, "").trim();
             fileWriter.writer.write(fileWriter.prefix);
             fileWriter.writer.write(s);
             fileWriter.prefix = "\t";
